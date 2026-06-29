@@ -8,6 +8,8 @@ out/
 classes/
 run/
 
+libs/
+
 # eclipse 
 *.launch
 .settings
