@@ -58,13 +58,12 @@ repositories {
 	}
 }
 
-// I copied the general format from NTM's build.gradle but './gradlew build' can't find the src jars
 dependencies {
 	implementation("com.github.GTNewHorizons:CodeChickenCore:1.4.12:dev") { transitive = false }
-	//compileOnly("com.github.GTNewHorizons:CodeChickenCore:1.4.12:src") { transitive = false }
+	compileOnly("com.github.GTNewHorizons:CodeChickenCore:1.4.12:sources") { transitive = false }
 	
 	implementation("com.github.GTNewHorizons:NotEnoughItems:2.8.98-GTNH:dev") { transitive = false }
-	//compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.8.98-GTNH:src") { transitive = false }
+	compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.8.98-GTNH:sources") { transitive = false }
 }
 
 processResources {
