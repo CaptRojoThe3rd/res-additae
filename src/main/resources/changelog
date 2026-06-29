@@ -1,0 +1,22 @@
+
+▓▓▓ 1.0.0 ▓▓▓
+
+Additions:
+* Added silver and silver equipment. It is a bit better than iron.
+* Added platinum and platinum equipment. It is a bit worse than diamond.
+* Added halberds - can be used to attack things while riding a horse or pig, or thrown.
+* Added scythes - used to increase drops from crops.
+* Added violet, chestnut, nether palm, thermarbol, and enchanted ash trees
+* Added violet, chestnut, and enchanted ash forests
+* Added heart containers
+* Added several new flowers (Yes, I voted for the sniffer. I expected Mojang to add more than 2 new flowers...)
+* Added more dyes, and their corresponding blocks (wool, stained clay, etc.)
+* Added slabs and stairs for wool, stained clay, etc.
+* Added wooden houses that generate in forests
+* Added end airships that generate (by default) at least 5000 blocks away from the main end island
+
+Changes:
+* Gold equipment is now actually good (between silver and platinum).
+* Trapdoors can now float
+* Extreme hills are now a bit more extreme.
+* Ice mountains are actually mountains now. (Seriously; the vanilla code registers them with the 'lowHills' height.)

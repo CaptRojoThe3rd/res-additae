@@ -1,0 +1,55 @@
+
+{
+	"item.axe.strip": {
+		"category": "block",
+		"sounds": [
+			"item/axe/strip_1",
+			"item/axe/strip_2",
+			"item/axe/strip_3",
+			"item/axe/strip_4"
+		]
+	},
+	"block.vault.activate": {
+		"category": "block",
+		"sounds": [
+			"block/vault/activate"
+		]
+	},
+	"block.vault.eject": {
+		"category": "block",
+		"sounds": [
+			"block/vault/eject_1",
+			"block/vault/eject_2",
+			"block/vault/eject_3"
+		]
+	},
+	"block.vault.deactivate": {
+		"category": "block",
+		"sounds": [
+			"block/vault/deactivate"
+		]
+	},
+	"dig.metal_pile": {
+		"category": "block",
+		"sounds": [
+			"block/metal_pile_1",
+			"block/metal_pile_2"
+		]
+	},
+	"entity.thrown_halberd.impact": {
+		"category": "block",
+		"sounds": [
+			"entity/thrown_halberd/impact_1",
+			"entity/thrown_halberd/impact_2",
+			"entity/thrown_halberd/impact_3",
+			"entity/thrown_halberd/impact_4"
+		]
+	},
+	"step.metal_pile": {
+		"category": "block",
+		"sounds": [
+			"block/metal_pile_1",
+			"block/metal_pile_2"
+		]
+	}
+}
