@@ -32,6 +32,12 @@ public class BlockMultiDirectional extends BlockMulti
 	}
 	
 	@Override
+	public int getTextureIdx(int meta)
+	{
+		return meta & 0x3;
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{

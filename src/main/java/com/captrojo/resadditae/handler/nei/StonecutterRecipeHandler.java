@@ -3,12 +3,13 @@ package com.captrojo.resadditae.handler.nei;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.captrojo.resadditae.crafting.StonecutterRecipes;
+import com.captrojo.resadditae.crafting.StonecutterRecipe;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 
 public class StonecutterRecipeHandler extends TemplateRecipeHandler
@@ -34,19 +35,22 @@ public class StonecutterRecipeHandler extends TemplateRecipeHandler
 	@Override
 	public void loadCraftingRecipes(ItemStack result)
 	{
-		ItemStack ingredient = StonecutterRecipes.getInputFromOutput(result);
-		if (ingredient == null) {
-			return;
+		result = result.copy();
+		result.stackSize = (result.getItem() instanceof ItemSlab) ? 2 : 1;
+		ItemStack[] ingredients = StonecutterRecipe.getInputsFromOutput(result);
+		for (ItemStack ingredient : ingredients) {
+			this.arecipes.add(new CachedStonecutterRecipe(ingredient, result));
 		}
-		arecipes.add(new CachedStonecutterRecipe(ingredient, result));
 	}
 	
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient)
 	{
-		ItemStack[] results = StonecutterRecipes.getOutputsFromInput(ingredient);
+		ingredient = ingredient.copy();
+		ingredient.stackSize = 1;
+		ItemStack[] results = StonecutterRecipe.getOutputsFromInput(ingredient);
 		for (ItemStack result : results) {
-			arecipes.add(new CachedStonecutterRecipe(ingredient, result));
+			this.arecipes.add(new CachedStonecutterRecipe(ingredient, result));
 		}
 	}
 	

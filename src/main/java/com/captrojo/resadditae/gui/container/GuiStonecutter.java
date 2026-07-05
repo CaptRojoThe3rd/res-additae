@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import com.captrojo.resadditae.container.ContainerStonecutter;
-import com.captrojo.resadditae.crafting.StonecutterRecipes;
+import com.captrojo.resadditae.crafting.StonecutterRecipe;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
 import com.captrojo.resadditae.tileentity.TEStonecutter;
@@ -46,7 +46,7 @@ public class GuiStonecutter extends GuiContainer
 		super.mouseClicked(x, y, i);
 		
 		ItemStack input = (ItemStack) this.inventorySlots.inventoryItemStacks.get(ContainerStonecutter.INPUT_SLOT);
-		ItemStack[] outputs = StonecutterRecipes.getOutputsFromInput(input);
+		ItemStack[] outputs = StonecutterRecipe.getOutputsFromInput(input);
 		
 		if (this.te.selection >= outputs.length) {
 			this.te.selection = -1;
@@ -114,7 +114,7 @@ public class GuiStonecutter extends GuiContainer
 		this.fontRendererObj.drawString(I18n.format("container.inventory"), 34, 152, 0x373737);
 
 		ItemStack input = (ItemStack) this.inventorySlots.inventoryItemStacks.get(ContainerStonecutter.INPUT_SLOT);
-		ItemStack[] outputs = StonecutterRecipes.getOutputsFromInput(input);
+		ItemStack[] outputs = StonecutterRecipe.getOutputsFromInput(input);
 		if ((this.page * 60) >= outputs.length) {
 			this.page = 0;
 		}

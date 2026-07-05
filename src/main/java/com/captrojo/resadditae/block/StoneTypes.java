@@ -21,7 +21,13 @@ public enum StoneTypes
 	DIORITE("diorite", "diorite", true, 1.5f, 6.0f),
 	GRANITE("granite", "granite", true, 1.5f, 6.0f),
 	HELLSTONE("hellstone", "hellstone", false, 1.5f, 4.5f),
-	BLOODSTONE("bloodstone", "bloodstone", false, 1.5f, 4.5f);
+	BLOODSTONE("bloodstone", "bloodstone", false, 1.5f, 4.5f),
+	DEPTH_STONE("depth_stone", "depths/stone", false, 3.0f, 6.0f),
+	DEPTH_STONE_AMBER("depth_stone_amber", "depths/stone_amber", false, 3.0f, 6.0f),
+	DEPTH_STONE_JADE("depth_stone_jade", "depths/stone_jade", false, 3.0f, 6.0f),
+	DEPTH_STONE_RUBY("depth_stone_ruby", "depths/stone_ruby", false, 3.0f, 6.0f),
+	DEPTH_STONE_SAPPHIRE("depth_stone_sapphire", "depths/stone_sapphire", false, 3.0f, 6.0f),
+	DEPTH_STONE_TOPAZ("depth_stone_topaz", "depths/stone_topaz", false, 3.0f, 6.0f);
 	
 	public static final int M_REGULAR = 0x000;
 	public static final int M_BRICKS = 0x001;

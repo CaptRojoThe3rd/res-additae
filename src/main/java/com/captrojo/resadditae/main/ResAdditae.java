@@ -1,19 +1,16 @@
 package com.captrojo.resadditae.main;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.captrojo.resadditae.achievement.ModAchievements;
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.block.StoneTypes;
 import com.captrojo.resadditae.command.CommandFill;
 import com.captrojo.resadditae.command.CommandFlightSpeed;
+import com.captrojo.resadditae.command.CommandRADebug;
 import com.captrojo.resadditae.command.CommandRAStruct;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.compatibility.CommonItems;
@@ -23,7 +20,7 @@ import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.crafting.CraftingRecipes;
 import com.captrojo.resadditae.crafting.FurnaceRecipes;
-import com.captrojo.resadditae.crafting.StonecutterRecipes;
+import com.captrojo.resadditae.crafting.StonecutterRecipe;
 import com.captrojo.resadditae.entity.ModEntities;
 import com.captrojo.resadditae.gui.GuiHandler;
 import com.captrojo.resadditae.item.ModItems;
@@ -44,8 +41,6 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
-import cpw.mods.fml.common.event.FMLMissingMappingsEvent.MissingMapping;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -54,7 +49,6 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
@@ -86,9 +80,9 @@ public class ResAdditae
 //	public static final String VERSION = "1.0.0";
 //	public static final String VERSIONS_ACCEPTED = "1.0.*";
 //	public static final String VERSION_NAME = "1.0.0";
-	public static final String VERSION = "X0001";
-	public static final String VERSIONS_ACCEPTED = "X0001";
-	public static final String VERSION_NAME = "Build #0001";
+	public static final String VERSION = "X0002";
+	public static final String VERSIONS_ACCEPTED = "X0002";
+	public static final String VERSION_NAME = "Build #0002";
 	
 	public static final Logger LOG = LogManager.getLogger(MOD_ID);
 	
@@ -232,7 +226,7 @@ public class ResAdditae
 		
 		proxy.registerRenderers();
 		
-		DimensionManager.registerProviderType(CommonConfig.WorldGen.depths_dimension_id, WorldProviderDepths.class, false);
+		DimensionManager.registerProviderType(CommonConfig.WorldGen.depths_dimension_id, WorldProviderDepths.class, true);
 		DimensionManager.registerDimension(CommonConfig.WorldGen.depths_dimension_id, CommonConfig.WorldGen.depths_dimension_id);
 		GameRegistry.registerWorldGenerator(new ModWorldGen(), 1);
 		ModBiomes.initBiomes();
@@ -273,7 +267,7 @@ public class ResAdditae
 		
 		CraftingRecipes.register();
 		FurnaceRecipes.register();
-		StonecutterRecipes.registerRecipes();
+		StonecutterRecipe.registerRecipes();
 		
 		ModLoot.load();
 		ModStructures.load();
@@ -299,6 +293,7 @@ public class ResAdditae
 		}
 		event.registerServerCommand(new CommandFlightSpeed());
 		event.registerServerCommand(new CommandRAStruct());
+		event.registerServerCommand(new CommandRADebug());
 	}
 	
 //	@EventHandler

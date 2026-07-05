@@ -1,4 +1,19 @@
 
+▓▓▓ #0002 ▓▓▓
+
+Additions:
+* Added polished and other variants of depth stones
+* /radebug command - can be used to spawn chasms in an already-generated world
+
+Changes:
+* Stonecutter recipe changes
+* Fixed up chasm generation
+* Entities other than players can now travel to and from the depths. 
+
+Fixes:
+* Doors now drop the correct item
+
+
 ▓▓▓ #0001 ▓▓▓
 
 Additions:

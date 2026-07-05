@@ -1,7 +1,8 @@
 package com.captrojo.resadditae.main;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
 
 public class I18nHlpr
 {
@@ -15,14 +16,14 @@ public class I18nHlpr
 		return I18n.format(k, f);
 	}
 	
-	public static ChatComponentText chat(String k)
+	public static IChatComponent chat(String k)
 	{
 		return chatf(k);
 	}
 	
-	public static ChatComponentText chatf(String k, Object...f)
+	public static IChatComponent chatf(String k, Object...f)
 	{
-		return new ChatComponentText(I18n.format(k, f));
+		return new ChatComponentTranslation(k, f);
 	}
 	
 	public static String bool(boolean b)

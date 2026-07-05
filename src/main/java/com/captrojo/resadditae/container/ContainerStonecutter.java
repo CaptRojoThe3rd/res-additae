@@ -1,6 +1,6 @@
 package com.captrojo.resadditae.container;
 
-import com.captrojo.resadditae.crafting.StonecutterRecipes;
+import com.captrojo.resadditae.crafting.StonecutterRecipe;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.tileentity.TEStonecutter;
 
@@ -64,7 +64,7 @@ public class ContainerStonecutter extends Container
 			return;
 		}
 
-		ItemStack[] outputs = StonecutterRecipes.getOutputsFromInput(this.getSlot(INPUT_SLOT).getStack());
+		ItemStack[] outputs = StonecutterRecipe.getOutputsFromInput(this.getSlot(INPUT_SLOT).getStack());
 		if (this.te.selection >= outputs.length) {
 			this.craft_result.setInventorySlotContents(0, null);
 			this.detectAndSendChanges();

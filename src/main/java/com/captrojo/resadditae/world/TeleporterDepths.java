@@ -1,9 +1,9 @@
 package com.captrojo.resadditae.world;
 
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.main.ResAdditae;
 
 import codechicken.lib.math.MathHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.Teleporter;
@@ -20,12 +20,27 @@ public class TeleporterDepths extends Teleporter
 		this.server = server;
 	}
 	
+	private boolean isValidFloorBlock(IBlockAccess world, int x, int y, int z)
+	{
+		Block block = world.getBlock(x, y, z);
+		if (block.isAir(world, x, y, z)) {
+			return false;
+		}
+		if (!block.isOpaqueCube()) {
+			return false;
+		}
+		if (block == ModBlocks.depths_portal) {
+			return false;
+		}
+		return true;
+	}
+	
 	private boolean hasEnoughSpace(IBlockAccess world, int x, int y, int z)
 	{
 		if (y < 0 || y > 255) {
 			return false;
 		}
-		if (world.getBlock(x, y - 1, z).isAir(world, x, y - 1, z) || world.getBlock(x, y - 1, z) == ModBlocks.depths_portal) {
+		if (!this.isValidFloorBlock(world, x, y - 1, z)) {
 			return false;
 		}
 		if (!world.getBlock(x, y, z).isAir(world, x, y, z)) {
@@ -72,7 +87,7 @@ public class TeleporterDepths extends Teleporter
 		int y = MathHelper.floor_double(entity.posY);
 		int z = MathHelper.floor_double(entity.posZ);
 		
-		if (entity.dimension != 0) {
+		if (world.provider.dimensionId != 0) {
 			y = 240;
 		} else {
 			y = 4;

@@ -20,9 +20,12 @@ public class WorldGenChasm extends WorldGenerator
 	public static final SpacedThingCheck PLACEMENT_CHK = new SpacedThingCheck(
 		"WorldGenChasm".hashCode(),
 		null,
-		CommonConfig.WorldGen.chasm_excl_rad,
-		CommonConfig.WorldGen.chasm_min_dist,
-		CommonConfig.WorldGen.chasm_max_dist
+//		CommonConfig.WorldGen.chasm_excl_rad,
+//		CommonConfig.WorldGen.chasm_min_dist,
+//		CommonConfig.WorldGen.chasm_max_dist
+		0,
+		4,
+		8
 	);
 	
 	public static final BiomeGenBase[] INVALID_BIOMES = {
@@ -101,6 +104,30 @@ public class WorldGenChasm extends WorldGenerator
 	{
 	}
 	
+	private boolean canGenerateAt(World worldsurf, World worlddepths, int x0, int y0, int z0)
+	{
+		if (worldsurf.getBlock(x0, y0 - 1, z0) == Blocks.water) {
+			return false;
+		}
+		
+		int air_blocks = 0;
+		for (int y = 192; y > 40; y--) {
+			if (worlddepths.getBlock(x0, y, z0).isAir(worlddepths, x0, y, z0)) {
+				air_blocks++;
+				if (air_blocks == 10) {
+					break;
+				}
+				continue;
+			}
+			air_blocks = 0;
+		}
+		if (air_blocks < 10) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	private int[][] getMessyCircle(Random rand, int avg_rad)
 	{
 		int[][] arr = new int[avg_rad * 2 + 1][avg_rad * 2 + 1];
@@ -118,14 +145,11 @@ public class WorldGenChasm extends WorldGenerator
 		return arr;
 	}
 	
-	private void generate(World worldsurf, World worlddepths, Random rand, int x0, int y0, int z0, int radius,
-		BlockMeta air, BlockMeta depth_side, BlockMeta surf_side)
+	public void generateDepthsPortion(World worlddepths, Random rand, int x0, int y0, int z0, int radius,
+		BlockMeta air, BlockMeta depth_side)
 	{
 		int[][] circle = this.getMessyCircle(rand, radius);
 		int circle_bit = 0;
-		
-		
-		/* Depths Generation */
 		
 		int bottom_y;
 		int air_blocks = 0;
@@ -171,11 +195,15 @@ public class WorldGenChasm extends WorldGenerator
 				}
 			}
 		}
+	}
+	
+	public void generateSurfacePortion(World worldsurf, Random rand, int x0, int y0, int z0, int radius,
+		BlockMeta air, BlockMeta surf_side, int y_limit)
+	{
+		int[][] circle = this.getMessyCircle(rand, radius);
+		int circle_bit = 0;
 		
-		
-		/* Surface Generation */
-		
-		for (int y = 0; y < 256; y++) {
+		for (int y = 0; y < y_limit; y++) {
 			if ((y & 0x1) == circle_bit) {
 				circle = this.getMessyCircle(rand, radius);
 				circle_bit ^= rand.nextInt(2);
@@ -206,7 +234,7 @@ public class WorldGenChasm extends WorldGenerator
 		}
 		
 		if (air.block == ModBlocks.flashover_air) {
-			for (int y = 0; y < 256; y++) {
+			for (int y = 0; y < y_limit; y++) {
 				for (int xo = -20; xo <= 20; xo++) {
 					for (int zo = -20; zo <= 20; zo++) {
 						double d = Math.sqrt(xo * xo + zo * zo);
@@ -225,21 +253,54 @@ public class WorldGenChasm extends WorldGenerator
 		}
 	}
 	
-	@Override
-	public boolean generate(World world, Random rand, int x0, int y0, int z0)
+	public void generateEntireChasm(World worldsurf, World worlddepths, Random rand, int x0, int y0, int z0, int radius,
+		BlockMeta air, BlockMeta depth_side, BlockMeta surf_side, int surf_y_limit)
 	{
-		/* Checks */
-		
-		if (world.provider.dimensionId == 0 && world.getBlock(x0, y0 - 1, z0) == Blocks.water) {
-			return false;
-		}
-		
-		
-		/* Setup */
-		
+		this.generateDepthsPortion(worlddepths, rand, x0, y0, z0, radius, air, depth_side);
+		this.generateSurfacePortion(worldsurf, rand, x0, y0, z0, radius, air, surf_side, surf_y_limit);
+	}
+	
+	public boolean generateRespawned(Random rand, int chunk_x, int chunk_z)
+	{
 		World worldsurf = getOverworld();
 		World worlddepths = getDepthsWorld();
 		if (worldsurf == null || worlddepths == null) {
+			return false;
+		}
+		
+		int x0 = chunk_x << 4;
+		int z0 = chunk_z << 4;
+		int y0 = worldsurf.getHeightValue(x0, z0);
+		
+		if (!this.canGenerateAt(worldsurf, worlddepths, x0, y0, z0)) {
+			return false;
+		}
+		
+		BlockMeta air;
+		if (rand.nextInt(5) == 0) {
+			air = new BlockMeta(ModBlocks.flashover_air, 0);
+		} else {
+			air = new BlockMeta(Blocks.air, 0);
+		}
+		BlockMeta depth_side = new BlockMeta(ModBlocks.depth_stones_special, 1);
+		BlockMeta surf_side = new BlockMeta(Blocks.stone, 0);
+		
+		int radius = rand.nextInt(5) + 8;
+		
+		this.generateEntireChasm(worldsurf, worlddepths, rand, x0, y0, z0, radius, air, depth_side, surf_side, 5);
+		return true;
+	}
+	
+	@Override
+	public boolean generate(World world, Random rand, int x0, int y0, int z0)
+	{
+		World worldsurf = getOverworld();
+		World worlddepths = getDepthsWorld();
+		if (worldsurf == null || worlddepths == null) {
+			return false;
+		}
+		
+		if (!this.canGenerateAt(worldsurf, worlddepths, x0, y0, z0)) {
 			return false;
 		}
 
@@ -254,19 +315,7 @@ public class WorldGenChasm extends WorldGenerator
 		
 		int radius = rand.nextInt(5) + 8;
 		
-		
-		/* Generation */
-		
-		this.generate(worldsurf, worlddepths, rand, x0, y0, z0, radius, air, depth_side, surf_side);
-		
-		
-		/* Debug Generation */
-		
-//		for (int y = 0; y < 256; y++) {
-//			world.setBlock(x0, y, z0, Blocks.diamond_block);
-//		}
-//		world.setBlock(x0, y0, z0, Blocks.emerald_block);
-		
+		this.generateEntireChasm(worldsurf, worlddepths, rand, x0, y0, z0, radius, air, depth_side, surf_side, 256);
 		return true;
 	}
 }

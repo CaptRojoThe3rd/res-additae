@@ -39,11 +39,13 @@ public class BlockMulti extends Block implements IMultiBlock
 		return this.data;
 	}
 
+	@Override
 	public int fixMeta(int meta)
 	{
 		return meta;
 	}
 	
+	@Override
 	public int getTextureIdx(int meta)
 	{
 		return meta;
