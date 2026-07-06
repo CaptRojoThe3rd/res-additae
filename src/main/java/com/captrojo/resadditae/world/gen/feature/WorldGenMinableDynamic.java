@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world.gen;
+package com.captrojo.resadditae.world.gen.feature;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -37,7 +37,7 @@ public class WorldGenMinableDynamic extends WorldGenMinable
 	{
 		BlockMeta tgt = new BlockMeta(world, x, y, z);
 		BlockMeta ore = this.getOreForGen(tgt);
-		world.setBlock(x, y, z, ore.block, ore.meta, 2);
+		this.setBlockAndNotifyAdequately(world, x, y, z, ore.block, ore.meta);
 	}
 
 	@Override

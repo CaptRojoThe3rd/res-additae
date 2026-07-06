@@ -92,16 +92,16 @@ public class CraftingRecipes
 		addStair(new ItemStack(ModBlocks.depth_stone_stairs_a, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 1));
 		addShaped(StoneTypes.DEPTH_STONE_JADE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 2));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 2), new ItemStack(ModBlocks.depth_stones, 1, 2));
-		addStair(new ItemStack(ModBlocks.depth_stone_stairs_a, 8, 0), new ItemStack(ModBlocks.depth_stones, 1, 2));
+		addStair(new ItemStack(ModBlocks.depth_stone_stairs_b, 8, 0), new ItemStack(ModBlocks.depth_stones, 1, 2));
 		addShaped(StoneTypes.DEPTH_STONE_RUBY.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 3));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 3), new ItemStack(ModBlocks.depth_stones, 1, 3));
-		addStair(new ItemStack(ModBlocks.depth_stone_stairs_a, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 3));
+		addStair(new ItemStack(ModBlocks.depth_stone_stairs_b, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 3));
 		addShaped(StoneTypes.DEPTH_STONE_SAPPHIRE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 4));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 4), new ItemStack(ModBlocks.depth_stones, 1, 4));
-		addStair(new ItemStack(ModBlocks.depth_stone_stairs_a, 8, 0), new ItemStack(ModBlocks.depth_stones, 1, 4));
+		addStair(new ItemStack(ModBlocks.depth_stone_stairs_c, 8, 0), new ItemStack(ModBlocks.depth_stones, 1, 4));
 		addShaped(StoneTypes.DEPTH_STONE_TOPAZ.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 5));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 5), new ItemStack(ModBlocks.depth_stones, 1, 5));
-		addStair(new ItemStack(ModBlocks.depth_stone_stairs_a, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 5));
+		addStair(new ItemStack(ModBlocks.depth_stone_stairs_c, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 5));
 		
 		for (StoneTypes type : StoneTypes.values()) {
 			for (int m : StoneTypes.MLISTSHORT) {

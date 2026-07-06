@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world.structure;
+package com.captrojo.resadditae.world.gen.structure;
 
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.main.NBTHlpr;

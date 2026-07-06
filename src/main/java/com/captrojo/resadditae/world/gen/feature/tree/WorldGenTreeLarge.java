@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world.feature.tree;
+package com.captrojo.resadditae.world.gen.feature.tree;
 
 import java.util.Random;
 

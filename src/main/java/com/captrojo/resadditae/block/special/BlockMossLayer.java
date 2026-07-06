@@ -22,6 +22,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockMossLayer extends Block implements ITileEntityProvider, IShearable, IGrowable
 {
@@ -52,6 +53,21 @@ public class BlockMossLayer extends Block implements ITileEntityProvider, IShear
 		this.setHardness(0.0f);
 		this.setResistance(0.0f);
 		this.setStepSound(soundTypeGrass);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getItemIconName()
+	{
+		return ICON_NAME;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+	{
+		this.setBlockBoundsBasedOnState(world, x, y, z);
+		return AxisAlignedBB.getBoundingBox(x + this.minX, y + this.minY, z + this.minZ, x + this.maxX, y + this.maxY, z + this.maxZ);
 	}
 	
 	@Override
@@ -200,18 +216,15 @@ public class BlockMossLayer extends Block implements ITileEntityProvider, IShear
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+	public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face)
 	{
-		this.setBlockBoundsBasedOnState(world, x, y, z);
-		return AxisAlignedBB.getBoundingBox(x + this.minX, y + this.minY, z + this.minZ, x + this.maxX, y + this.maxY, z + this.maxZ);
+		return 60;
 	}
-
+	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public String getItemIconName()
+	public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face)
 	{
-		return ICON_NAME;
+		return 30;
 	}
 	
 	@Override

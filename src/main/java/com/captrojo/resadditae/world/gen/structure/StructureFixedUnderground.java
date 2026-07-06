@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world.structure;
+package com.captrojo.resadditae.world.gen.structure;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;

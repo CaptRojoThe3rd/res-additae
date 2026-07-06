@@ -3,7 +3,7 @@ package com.captrojo.resadditae.world.biome.depths;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.special.BlockMossLayer;
-import com.captrojo.resadditae.world.feature.tree.ModTrees;
+import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -65,10 +65,10 @@ public class BiomeJadeDepths extends BiomeDepthsBase
 						continue;
 					}
 					double d0 = plantNoise.func_151601_a(x * 0.05, z * 0.05);
-					if (d0 < 0.60) {
+					if (d0 < 0.55) {
 						continue;
 					}
-					int thickness = (d0 > 0.90) ? 3 : ((d0 > 0.75) ? 2 : 1);
+					int thickness = (d0 > 0.85) ? 3 : ((d0 > 0.70) ? 2 : 1);
 					BlockMossLayer.placeOnAllSupportingSides(world, x, y, z, thickness);
 				}
 			}

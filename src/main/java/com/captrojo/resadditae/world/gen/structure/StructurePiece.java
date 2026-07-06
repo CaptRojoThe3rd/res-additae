@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world.structure;
+package com.captrojo.resadditae.world.gen.structure;
 
 import java.util.ArrayList;
 import java.util.Random;

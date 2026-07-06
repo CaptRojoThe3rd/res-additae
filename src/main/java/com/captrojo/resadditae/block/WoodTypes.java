@@ -169,6 +169,8 @@ public enum WoodTypes
 			));
 			data.hardnesses_map.put(leaf_meta, leaf_hardness);
 			data.resistances_map.put(leaf_meta, leaf_resistance);
+			data.fire_spread_speed_map.put(leaf_meta, 30);
+			data.flammability_map.put(leaf_meta, 60);
 			leaf_colors[leaf_idx][leaf_meta] = type.leaf_color;
 			leaf_color_flags[leaf_idx][leaf_meta] = type.leaf_color_flag;
 			

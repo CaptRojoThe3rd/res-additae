@@ -67,9 +67,9 @@ public class WorldGenShallowPond extends WorldGenerator
 					}
 				}
 				if ((world.getBlock(x0, y + 1, z0) instanceof BlockBush) && rand.nextBoolean()) {
-					world.setBlock(x0, y + 1, z0, Blocks.waterlily);
+					this.setBlockAndNotifyAdequately(world, x0, y + 1, z0, Blocks.waterlily, 0);
 				}
-				world.setBlock(x0, y, z0, Blocks.water);
+				this.setBlockAndNotifyAdequately(world, x0, y, z0, Blocks.water, 0);
 			}
 		}
 		

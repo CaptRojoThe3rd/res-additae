@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world.gen;
+package com.captrojo.resadditae.world.gen.feature;
 
 import java.util.Random;
 
@@ -184,12 +184,12 @@ public class WorldGenChasm extends WorldGenerator
 						if (existing == ModBlocks.depth_stones_special) {
 							continue;
 						}
-						worlddepths.setBlock(x, y, z, depth_side.block, depth_side.meta, 2);
+						this.setBlockAndNotifyAdequately(worlddepths, x, y, z, depth_side.block, depth_side.meta);
 					} else {
 						if (y > 250) {
-							worlddepths.setBlock(x, y, z, ModBlocks.depths_portal);
+							this.setBlockAndNotifyAdequately(worlddepths, x, y, z, ModBlocks.depths_portal, 0);
 						} else {
-							worlddepths.setBlock(x, y, z, air.block, air.meta, 2);
+							this.setBlockAndNotifyAdequately(worlddepths, x, y, z, air.block, air.meta);
 						}
 					}
 				}
@@ -218,15 +218,15 @@ public class WorldGenChasm extends WorldGenerator
 						continue;
 					} else if (circle[xc][zc] == 1 && existing.isAir(worldsurf, x, y, z)) {
 						if (y < 56) {
-							worldsurf.setBlock(x, y, z, surf_side.block, surf_side.meta, 2);
+							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, surf_side.block, surf_side.meta);
 						} else {
-							worldsurf.setBlock(x, y, z, air.block, air.meta, 2);
+							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
 						}
 					} else if (circle[xc][zc] == 2) {
 						if (y < 4) {
-							worldsurf.setBlock(x, y, z, ModBlocks.depths_portal);
+							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, ModBlocks.depths_portal, 0);
 						} else {
-							worldsurf.setBlock(x, y, z, air.block, air.meta, 2);
+							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
 						}
 					}
 				}
@@ -245,7 +245,7 @@ public class WorldGenChasm extends WorldGenerator
 						int z = z0 + zo;
 						Block existing = worldsurf.getBlock(x, y, z);
 						if (existing.isAir(worldsurf, x, y, z)) {
-							worldsurf.setBlock(x, y, z, air.block, air.meta, 2);
+							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
 						}
 					}
 				}

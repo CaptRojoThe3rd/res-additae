@@ -2,15 +2,19 @@ package com.captrojo.resadditae.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.tileentity.TEMossLayer;
-import com.captrojo.resadditae.world.gen.WorldGenChasm;
+import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
+import com.captrojo.resadditae.world.gen.feature.WorldGenGiantStalactite;
 
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
@@ -41,6 +45,15 @@ public class CommandRADebug extends CommandBase
 	{
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.radebug.usage");
+		}
+		
+		if (args[0].equals("echo")) {
+			if (args.length < 2) {
+				sender.addChatMessage(new ChatComponentText("Echo!"));
+				return;
+			}
+			sender.addChatMessage(new ChatComponentText(args[1]));
+			return;
 		}
 		
 		if (args[0].equals("get-block-data")) {
@@ -103,6 +116,16 @@ public class CommandRADebug extends CommandBase
 			sender.addChatMessage(I18nHlpr.chat("commands.radebug.respawn-chasms.complete"));
 			return;
 		}
+		
+		if (args[0].equals("stalactite")) {
+			sender.addChatMessage(I18nHlpr.chat("start"));
+			World world = sender.getEntityWorld();
+			Random rand = world.rand;
+			ChunkCoordinates coords = sender.getPlayerCoordinates();
+			(new WorldGenGiantStalactite(new BlockMeta(Blocks.stone, 0))).generate(world, rand, coords.posX, coords.posY, coords.posZ, Integer.valueOf(args[1]));
+			sender.addChatMessage(I18nHlpr.chat("end"));
+			return;
+		}
 	}
 	
 	@Override
@@ -111,7 +134,7 @@ public class CommandRADebug extends CommandBase
 		List<String> list = null;
 		if (args.length == 1) {
 			list = new ArrayList<String>();
-			list.add("get-block-data|respawn-chasms");
+			list.add("echo|get-block-data|respawn-chasms");
 		}
 		return list;
 	}

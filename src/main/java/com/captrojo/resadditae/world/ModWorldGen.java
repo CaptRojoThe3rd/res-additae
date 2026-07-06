@@ -7,9 +7,9 @@ import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.config.CommonConfig;
-import com.captrojo.resadditae.world.gen.WorldGenChasm;
-import com.captrojo.resadditae.world.gen.WorldGenMinableDynamic;
-import com.captrojo.resadditae.world.structure.ModStructures;
+import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
+import com.captrojo.resadditae.world.gen.feature.WorldGenMinableDynamic;
+import com.captrojo.resadditae.world.gen.structure.ModStructures;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;

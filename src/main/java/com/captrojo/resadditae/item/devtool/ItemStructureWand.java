@@ -6,7 +6,7 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.tileentity.TEStructureBlock;
-import com.captrojo.resadditae.world.structure.StructurePiece;
+import com.captrojo.resadditae.world.gen.structure.StructurePiece;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

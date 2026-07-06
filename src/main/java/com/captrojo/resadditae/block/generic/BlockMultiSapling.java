@@ -6,7 +6,7 @@ import java.util.Random;
 import com.captrojo.resadditae.block.IMultiBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
 import com.captrojo.resadditae.block.WoodTypes;
-import com.captrojo.resadditae.world.feature.tree.ModTrees;
+import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
