@@ -19,13 +19,13 @@ import com.captrojo.resadditae.block.generic.BlockMultiTransparentWithDoubleSlab
 import com.captrojo.resadditae.block.generic.BlockMultiWithDoubleSlab;
 import com.captrojo.resadditae.block.generic.BlockStainedGlassPane;
 import com.captrojo.resadditae.block.generic.BlockStairs;
-import com.captrojo.resadditae.block.misc.BlockDepthSoil;
-import com.captrojo.resadditae.block.misc.BlockDepthsPortal;
-import com.captrojo.resadditae.block.misc.BlockFlashoverAir;
-import com.captrojo.resadditae.block.misc.BlockMossLayer;
 import com.captrojo.resadditae.block.ore.BlockOreBase;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict.FromOredictType;
+import com.captrojo.resadditae.block.special.BlockDepthSoil;
+import com.captrojo.resadditae.block.special.BlockDepthsPortal;
+import com.captrojo.resadditae.block.special.BlockFlashoverAir;
+import com.captrojo.resadditae.block.special.BlockMossLayer;
 import com.captrojo.resadditae.block.ore.BlockOreVanilla;
 import com.captrojo.resadditae.block.ore.BlockPlatinumOre;
 import com.captrojo.resadditae.block.ore.BlockSilverOre;

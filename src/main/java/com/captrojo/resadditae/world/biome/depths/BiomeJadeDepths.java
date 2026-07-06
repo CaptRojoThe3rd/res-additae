@@ -2,7 +2,7 @@ package com.captrojo.resadditae.world.biome.depths;
 
 import java.util.Random;
 
-import com.captrojo.resadditae.block.misc.BlockMossLayer;
+import com.captrojo.resadditae.block.special.BlockMossLayer;
 import com.captrojo.resadditae.world.feature.tree.ModTrees;
 
 import net.minecraft.block.material.Material;
