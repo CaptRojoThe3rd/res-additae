@@ -2,14 +2,15 @@ package com.captrojo.resadditae.render.block;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public enum RenderIDs
+public enum BlockRenderIDs
 {
 	MULTI_STAIR,
-	MULTI_FENCE;
+	MULTI_FENCE,
+	MOSS_LAYER;
 	
 	public final int id;
 	
-	private RenderIDs()
+	private BlockRenderIDs()
 	{
 		this.id = RenderingRegistry.getNextAvailableRenderId();
 	}

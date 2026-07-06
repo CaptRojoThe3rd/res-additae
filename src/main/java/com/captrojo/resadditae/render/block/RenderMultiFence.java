@@ -152,6 +152,6 @@ public class RenderMultiFence implements ISimpleBlockRenderingHandler
 	@Override
 	public int getRenderId()
 	{
-		return RenderIDs.MULTI_FENCE.id;
+		return BlockRenderIDs.MULTI_FENCE.id;
 	}
 }

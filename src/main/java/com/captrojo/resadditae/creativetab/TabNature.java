@@ -26,5 +26,6 @@ public class TabNature
 
 		ModBlocks.flowers_a.getSubBlocks(null, tab, tab.items);
 		ModBlocks.depths_plants.getSubBlocks(null, tab, tab.items);
+		tab.add(ModBlocks.moss_layer);
 	}
 }

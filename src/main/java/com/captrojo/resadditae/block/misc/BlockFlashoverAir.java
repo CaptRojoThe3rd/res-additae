@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.block.special;
+package com.captrojo.resadditae.block.misc;
 
 import java.util.Random;
 

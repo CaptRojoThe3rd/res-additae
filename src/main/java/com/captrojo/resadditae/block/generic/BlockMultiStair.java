@@ -5,7 +5,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.IMultiBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
-import com.captrojo.resadditae.render.block.RenderIDs;
+import com.captrojo.resadditae.render.block.BlockRenderIDs;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -141,7 +141,7 @@ public class BlockMultiStair extends BlockStairs implements IMultiBlock
 	@Override
 	public int getRenderType()
 	{
-		return RenderIDs.MULTI_STAIR.id;
+		return BlockRenderIDs.MULTI_STAIR.id;
 	}
 
 	@Override

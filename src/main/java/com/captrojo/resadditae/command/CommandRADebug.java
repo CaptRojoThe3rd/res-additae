@@ -3,14 +3,17 @@ package com.captrojo.resadditae.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.captrojo.resadditae.block.special.BlockDepthsPortal;
 import com.captrojo.resadditae.main.I18nHlpr;
+import com.captrojo.resadditae.tileentity.TEMossLayer;
 import com.captrojo.resadditae.world.gen.WorldGenChasm;
 
+import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class CommandRADebug extends CommandBase
@@ -38,6 +41,38 @@ public class CommandRADebug extends CommandBase
 	{
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.radebug.usage");
+		}
+		
+		if (args[0].equals("get-block-data")) {
+			if (args.length < 4) {
+				throw new WrongUsageException("commands.radebug.get-block-data");
+			}
+			
+			int px = sender.getPlayerCoordinates().posX;
+			int py = sender.getPlayerCoordinates().posY;
+			int pz = sender.getPlayerCoordinates().posZ;
+			/* func_110666_a gets a coordinate, handling a '~' */
+			int x = MathHelper.floor_double(func_110666_a(sender, (double) px, args[1]));
+			int y = MathHelper.floor_double(func_110666_a(sender, (double) py, args[2]));
+			int z = MathHelper.floor_double(func_110666_a(sender, (double) pz, args[3]));
+			
+			World world = sender.getEntityWorld();
+			Block block = world.getBlock(x, y, z);
+			int meta = world.getBlockMetadata(x, y, z);
+			sender.addChatMessage(new ChatComponentText(block.getUnlocalizedName() + " # " + meta));
+			if (world.getTileEntity(x, y, z) instanceof TEMossLayer) {
+				int[] layers = ((TEMossLayer) world.getTileEntity(x, y, z)).layer_counts;
+				sender.addChatMessage(new ChatComponentText(
+					layers[0] + ", " +
+					layers[1] + ", " +
+					layers[2] + ", " +
+					layers[3] + ", " +
+					layers[4] + ", " +
+					layers[5]
+				));
+			}
+			
+			return;
 		}
 		
 		if (args[0].equals("respawn-chasms")) {
@@ -76,7 +111,7 @@ public class CommandRADebug extends CommandBase
 		List<String> list = null;
 		if (args.length == 1) {
 			list = new ArrayList<String>();
-			list.add("respawn-chasms");
+			list.add("get-block-data|respawn-chasms");
 		}
 		return list;
 	}

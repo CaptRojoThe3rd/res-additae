@@ -13,7 +13,8 @@ import com.captrojo.resadditae.creativetab.TabUtility;
 import com.captrojo.resadditae.entity.EntityThrownHalberd;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.charm.ItemCharmBase;
-import com.captrojo.resadditae.render.block.RenderIDs;
+import com.captrojo.resadditae.render.block.BlockRenderIDs;
+import com.captrojo.resadditae.render.block.RenderMossLayer;
 import com.captrojo.resadditae.render.block.RenderMultiFence;
 import com.captrojo.resadditae.render.block.RenderMultiStair;
 import com.captrojo.resadditae.render.entity.RenderThrownHalberd;
@@ -78,8 +79,9 @@ public class ClientProxy extends CommonProxy
 			MinecraftForgeClient.registerItemRenderer(item, rendercharm);
 		}
 		
-		RenderingRegistry.registerBlockHandler(RenderIDs.MULTI_STAIR.id, new RenderMultiStair());
-		RenderingRegistry.registerBlockHandler(RenderIDs.MULTI_FENCE.id, new RenderMultiFence());
+		RenderingRegistry.registerBlockHandler(BlockRenderIDs.MULTI_STAIR.id, new RenderMultiStair());
+		RenderingRegistry.registerBlockHandler(BlockRenderIDs.MULTI_FENCE.id, new RenderMultiFence());
+		RenderingRegistry.registerBlockHandler(BlockRenderIDs.MOSS_LAYER.id, new RenderMossLayer());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TEStructureBlock.class, new RenderTEStructureBlock());
 		ClientRegistry.bindTileEntitySpecialRenderer(TEMultiSpawner.class, new RenderTEMultiSpawner());

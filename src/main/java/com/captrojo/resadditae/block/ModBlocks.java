@@ -19,6 +19,10 @@ import com.captrojo.resadditae.block.generic.BlockMultiTransparentWithDoubleSlab
 import com.captrojo.resadditae.block.generic.BlockMultiWithDoubleSlab;
 import com.captrojo.resadditae.block.generic.BlockStainedGlassPane;
 import com.captrojo.resadditae.block.generic.BlockStairs;
+import com.captrojo.resadditae.block.misc.BlockDepthSoil;
+import com.captrojo.resadditae.block.misc.BlockDepthsPortal;
+import com.captrojo.resadditae.block.misc.BlockFlashoverAir;
+import com.captrojo.resadditae.block.misc.BlockMossLayer;
 import com.captrojo.resadditae.block.ore.BlockOreBase;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict.FromOredictType;
@@ -26,9 +30,6 @@ import com.captrojo.resadditae.block.ore.BlockOreVanilla;
 import com.captrojo.resadditae.block.ore.BlockPlatinumOre;
 import com.captrojo.resadditae.block.ore.BlockSilverOre;
 import com.captrojo.resadditae.block.ore.OreStones;
-import com.captrojo.resadditae.block.special.BlockDepthSoil;
-import com.captrojo.resadditae.block.special.BlockDepthsPortal;
-import com.captrojo.resadditae.block.special.BlockFlashoverAir;
 import com.captrojo.resadditae.block.utility.BlockMultiSpawner;
 import com.captrojo.resadditae.block.utility.BlockSnowDungeonSpawner;
 import com.captrojo.resadditae.block.utility.BlockSnowDungeonVault;
@@ -40,6 +41,7 @@ import com.captrojo.resadditae.item.block.ItemBlockMaterialPile;
 import com.captrojo.resadditae.item.block.ItemBlockMulti;
 import com.captrojo.resadditae.item.block.ItemBlockMultiDumb;
 import com.captrojo.resadditae.item.block.ItemBlockMultiSlab;
+import com.captrojo.resadditae.item.block.ItemMossLayer;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -125,6 +127,7 @@ public class ModBlocks
 	
 	public static BlockMultiFlower flowers_a;
 	public static BlockMultiFlower depths_plants;
+	public static Block moss_layer;
 	
 	public static Block stonecutter;
 	
@@ -296,6 +299,7 @@ public class ModBlocks
 		
 		flowers_a = new BlockMultiFlower("flowers_a", MultiBlocks.FLOWERS_A, 0.3f);
 		depths_plants = new BlockMultiFlower("depths_plant", MultiBlocks.DEPTHS_PLANTS, 0.4f);
+		moss_layer = new BlockMossLayer();
 		
 		stonecutter = new BlockStonecutter();
 		
@@ -560,6 +564,7 @@ public class ModBlocks
 		
 		GameRegistry.registerBlock(flowers_a, ItemBlockMulti.class, flowers_a.getUnlocalizedName());
 		GameRegistry.registerBlock(depths_plants, ItemBlockMulti.class, depths_plants.getUnlocalizedName());
+		GameRegistry.registerBlock(moss_layer, ItemMossLayer.class, moss_layer.getUnlocalizedName());
 		
 		GameRegistry.registerBlock(stonecutter, stonecutter.getUnlocalizedName());
 		

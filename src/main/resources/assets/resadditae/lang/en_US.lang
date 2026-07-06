@@ -473,6 +473,8 @@ tile.flowers_a.yellow_daffodil.name=Yellow Daffodil
 
 tile.depths_plant.shrub.name=Depth Shrub
 
+tile.moss_layer.name=Moss
+
 tile.stonecutter.name=Stonecutter
 
 tile.multi_spawner.on.name=Multi Mob Spawner

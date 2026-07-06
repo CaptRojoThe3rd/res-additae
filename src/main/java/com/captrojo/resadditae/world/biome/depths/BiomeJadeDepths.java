@@ -2,11 +2,13 @@ package com.captrojo.resadditae.world.biome.depths;
 
 import java.util.Random;
 
+import com.captrojo.resadditae.block.misc.BlockMossLayer;
 import com.captrojo.resadditae.world.feature.tree.ModTrees;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 
 public class BiomeJadeDepths extends BiomeDepthsBase
 {
@@ -51,5 +53,25 @@ public class BiomeJadeDepths extends BiomeDepthsBase
 	{
 		this.waterfalls_generated = 0;
 		super.decorate(world, rand, chunk_x, chunk_z);
+		
+		int x0 = chunk_x << 4;
+		int z0 = chunk_z << 4;
+		for (int x1 = 0; x1 < 16; x1++) {
+			int x = x0 + x1;
+			for (int y = 36; y < 192; y++) {
+				for (int z1 = 0; z1 < 16; z1++) {
+					int z = z0 + z1;
+					if (!world.getBlock(x, y, z).isAir(world, x, y, z)) {
+						continue;
+					}
+					double d0 = plantNoise.func_151601_a(x * 0.05, z * 0.05);
+					if (d0 < 0.60) {
+						continue;
+					}
+					int thickness = (d0 > 0.90) ? 3 : ((d0 > 0.75) ? 2 : 1);
+					BlockMossLayer.placeOnAllSupportingSides(world, x, y, z, thickness);
+				}
+			}
+		}
 	}
 }

@@ -11,5 +11,6 @@ public class ModTileEntities
 		GameRegistry.registerTileEntity(TESnowDungeonSpawner.class, "resadditae.snow_dungeon_spawner");
 		GameRegistry.registerTileEntity(TEVault.class, "resadditae.vault");
 		GameRegistry.registerTileEntity(TEStructureBlock.class, "resadditae.structure_block");
+		GameRegistry.registerTileEntity(TEMossLayer.class, "resadditae.moss_layer");
 	}
 }

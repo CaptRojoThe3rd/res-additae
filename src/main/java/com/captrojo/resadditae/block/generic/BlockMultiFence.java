@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.captrojo.resadditae.block.IMultiBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
-import com.captrojo.resadditae.render.block.RenderIDs;
+import com.captrojo.resadditae.render.block.BlockRenderIDs;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -90,7 +90,7 @@ public class BlockMultiFence extends BlockFence implements IMultiBlock
 	@Override
 	public int getRenderType()
 	{
-		return RenderIDs.MULTI_FENCE.id;
+		return BlockRenderIDs.MULTI_FENCE.id;
 	}
 	
 	@Override

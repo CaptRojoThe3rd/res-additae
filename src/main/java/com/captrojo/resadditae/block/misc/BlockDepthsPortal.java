@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.block.special;
+package com.captrojo.resadditae.block.misc;
 
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.main.ResAdditae;

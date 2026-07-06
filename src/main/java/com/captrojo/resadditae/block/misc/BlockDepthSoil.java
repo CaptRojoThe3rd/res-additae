@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.block.special;
+package com.captrojo.resadditae.block.misc;
 
 import com.captrojo.resadditae.block.BasicBlockData;
 import com.captrojo.resadditae.block.ModBlocks;

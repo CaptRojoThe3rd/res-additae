@@ -86,6 +86,6 @@ public class RenderMultiStair implements ISimpleBlockRenderingHandler
 	@Override
 	public int getRenderId()
 	{
-		return RenderIDs.MULTI_STAIR.id;
+		return BlockRenderIDs.MULTI_STAIR.id;
 	}
 }

@@ -3,6 +3,7 @@
 
 Additions:
 * Added polished and other variants of depth stones
+* Added moss. It can be placed in layers on any side of a block
 * /radebug command - can be used to spawn chasms in an already-generated world
 
 Changes:
