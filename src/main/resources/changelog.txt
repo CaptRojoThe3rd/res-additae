@@ -2,13 +2,14 @@
 ▓▓▓ #0002 ▓▓▓
 
 Additions:
+* Depths generation overhaul - lots of new decorations added
 * Added polished and other variants of depth stones
 * Added moss. It can be placed in layers on any side of a block
 * /radebug command - can be used to spawn chasms in an already-generated world
 
 Changes:
-* Stonecutter recipe changes
 * Fixed up chasm generation
+* Stonecutter recipe changes
 * Entities other than players can now travel to and from the depths. 
 
 Fixes:

@@ -2,8 +2,11 @@ package com.captrojo.resadditae.world.gen.feature;
 
 import java.util.Random;
 
+import com.captrojo.resadditae.block.BlockMeta;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -22,10 +25,19 @@ public class WorldGenShallowPond extends WorldGenerator
 		{1, 1}
 	};
 	
+	private final BlockMeta liquid;
+	private final BlockMeta lily;
 	private final int radius;
 	
 	public WorldGenShallowPond(int radius)
 	{
+		this(new BlockMeta(Blocks.water, 0), new BlockMeta(Blocks.waterlily, 0), radius);
+	}
+	
+	public WorldGenShallowPond(BlockMeta liquid, BlockMeta lily, int radius)
+	{
+		this.liquid = liquid;
+		this.lily = lily;
 		this.radius = radius;
 	}
 	
@@ -33,7 +45,7 @@ public class WorldGenShallowPond extends WorldGenerator
 	public boolean generate(World world, Random rand, int x, int y, int z)
 	{
 		Block t = world.getBlock(x, y, z);
-		while (t != Blocks.grass && y > 50) {
+		while (t.getMaterial() != Material.grass && t.getMaterial() != Material.ground && t.getMaterial() != Material.rock) {
 			y--;
 			t = world.getBlock(x, y, z);
 		}
@@ -66,10 +78,10 @@ public class WorldGenShallowPond extends WorldGenerator
 						continue zloop;
 					}
 				}
-				if ((world.getBlock(x0, y + 1, z0) instanceof BlockBush) && rand.nextBoolean()) {
-					this.setBlockAndNotifyAdequately(world, x0, y + 1, z0, Blocks.waterlily, 0);
+				if (this.lily != null && (world.getBlock(x0, y + 1, z0) instanceof BlockBush) && rand.nextBoolean()) {
+					this.setBlockAndNotifyAdequately(world, x0, y + 1, z0, this.lily.block, this.lily.meta);
 				}
-				this.setBlockAndNotifyAdequately(world, x0, y, z0, Blocks.water, 0);
+				this.setBlockAndNotifyAdequately(world, x0, y, z0, this.liquid.block, this.liquid.meta);
 			}
 		}
 		

@@ -2,23 +2,21 @@ package com.captrojo.resadditae.command;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import com.captrojo.resadditae.block.BlockMeta;
+import com.captrojo.resadditae.apocalypse.Apocalypse;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.tileentity.TEMossLayer;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
-import com.captrojo.resadditae.world.gen.feature.WorldGenGiantStalactite;
 
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 
 public class CommandRADebug extends CommandBase
 {
@@ -117,12 +115,23 @@ public class CommandRADebug extends CommandBase
 			return;
 		}
 		
-		if (args[0].equals("stalactite")) {
+		if (args[0].equals("test0")) {
 			sender.addChatMessage(I18nHlpr.chat("start"));
+			
 			World world = sender.getEntityWorld();
-			Random rand = world.rand;
 			ChunkCoordinates coords = sender.getPlayerCoordinates();
-			(new WorldGenGiantStalactite(new BlockMeta(Blocks.stone, 0))).generate(world, rand, coords.posX, coords.posY, coords.posZ, Integer.valueOf(args[1]));
+			int cx0 = coords.posX >> 4;
+			int cz0 = coords.posZ >> 4;
+			
+			for (int cx1 = 0; cx1 < 4; cx1++) {
+				int cx = cx0 + cx1;
+				for (int cz1 = 0; cz1 < 4; cz1++) {
+					int cz = cz0 + cz1;
+					Chunk chunk = world.getChunkFromChunkCoords(cx, cz);
+					Apocalypse.flashoverChunk(world, chunk, 64, 128);
+				}
+			}
+			
 			sender.addChatMessage(I18nHlpr.chat("end"));
 			return;
 		}

@@ -52,6 +52,11 @@ public class BlockFlashoverAir extends BlockAir
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand)
 	{
+		int meta = world.getBlockMetadata(x, y, z);
+		if (meta == 0) {
+			return;
+		}
+		
 		int fo = 5;
 		
 		for (int[] offs : NEARBY_OFFS) {

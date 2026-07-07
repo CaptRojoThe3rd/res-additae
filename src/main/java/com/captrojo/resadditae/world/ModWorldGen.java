@@ -137,7 +137,7 @@ public class ModWorldGen implements IWorldGenerator
 		for (int m = 0; m < 6; m++) {
 			this.depths_gas_fracture_map.put(new BlockMeta(ModBlocks.depth_stones, m), new BlockMeta(ModBlocks.depth_stones_special, 1));
 		}
-		this.depths_gas_fracture_map.put(new BlockMeta(Blocks.air, 0), new BlockMeta(ModBlocks.flashover_air, 0));
+		this.depths_gas_fracture_map.put(new BlockMeta(Blocks.air, 0), new BlockMeta(ModBlocks.flashover_air, 1));
 	}
 	
 	@Override

@@ -280,7 +280,7 @@ public class WorldGenChasm extends WorldGenerator
 		
 		BlockMeta air;
 		if (rand.nextInt(5) == 0) {
-			air = new BlockMeta(ModBlocks.flashover_air, 0);
+			air = new BlockMeta(ModBlocks.flashover_air, 1);
 		} else {
 			air = new BlockMeta(Blocks.air, 0);
 		}
@@ -308,7 +308,7 @@ public class WorldGenChasm extends WorldGenerator
 
 		BlockMeta air;
 		if (rand.nextInt(5) == 0) {
-			air = new BlockMeta(ModBlocks.flashover_air, 0);
+			air = new BlockMeta(ModBlocks.flashover_air, 1);
 		} else {
 			air = new BlockMeta(Blocks.air, 0);
 		}
