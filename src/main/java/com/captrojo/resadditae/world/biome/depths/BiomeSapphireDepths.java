@@ -4,9 +4,12 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 import com.captrojo.resadditae.world.gen.feature.WorldGenGiantStalactite;
+import com.captrojo.resadditae.world.gen.feature.WorldGenGiantStalagmite;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
 public class BiomeSapphireDepths extends BiomeDepthsBase
@@ -29,14 +32,24 @@ public class BiomeSapphireDepths extends BiomeDepthsBase
 		int z0 = chunk_z << 4;
 		
 		for (int i = 0; i < 6; i++) {
+			int xr = x0 + rand.nextInt(12) + 4;
+			int zr = z0 + rand.nextInt(12) + 4;
 			for (y0 = 192; y0 > 140; y0--) {
-				if (world.getBlock(x0, y0, z0).isAir(world, x0, y0, z0)) {
+				if (world.getBlock(xr, y0, zr).isAir(world, xr, y0, zr)) {
 					break;
 				}
 			}
 			if (y0 != 140) {
 				BlockMeta bm = new BlockMeta(ModBlocks.depth_stones, rand.nextBoolean() ? 4 : 0);
-				(new WorldGenGiantStalactite(bm)).generate(world, rand, x0 + rand.nextInt(12) + 4, y0, z0 + rand.nextInt(12) + 4);
+				(new WorldGenGiantStalactite(bm)).generate(world, rand, xr, y0, zr);
+			}
+			
+			xr = x0 + rand.nextInt(12) + 4;
+			zr = z0 + rand.nextInt(12) + 4;
+			Block existing = world.getBlock(xr, 38, zr);
+			if (existing.getMaterial() == Material.water || existing instanceof BlockLiquid) {
+				BlockMeta bm = new BlockMeta(ModBlocks.depth_stones, rand.nextBoolean() ? 4 : 0);
+				(new WorldGenGiantStalagmite(bm, 6, 9)).generate(world, rand, xr, 38, zr);
 			}
 		}
 	}

@@ -203,6 +203,8 @@ public class WorldGenChasm extends WorldGenerator
 		int[][] circle = this.getMessyCircle(rand, radius);
 		int circle_bit = 0;
 		
+		ResAdditae.LOG.info(String.format("Generated chasm at (%d, %d, %d)", x0, y0, z0));
+		
 		for (int y = 0; y < y_limit; y++) {
 			if ((y & 0x1) == circle_bit) {
 				circle = this.getMessyCircle(rand, radius);

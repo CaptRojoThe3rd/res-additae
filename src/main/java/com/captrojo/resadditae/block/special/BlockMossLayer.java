@@ -14,6 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -46,7 +47,7 @@ public class BlockMossLayer extends Block implements ITileEntityProvider, IShear
 	
 	public BlockMossLayer()
 	{
-		super(BlockMaterials.SOFT_PLANT);
+		super(Material.plants);
 		
 		this.setBlockName("moss_layer");
 		this.setBlockTextureName(ICON_NAME);

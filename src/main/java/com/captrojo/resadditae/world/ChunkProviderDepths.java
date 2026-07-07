@@ -1,48 +1,27 @@
 package com.captrojo.resadditae.world;
 
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_BRIDGE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_CAVE;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.QUARTZ;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.FIRE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.GLOWSTONE;
-import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.NETHER_LAVA;
-
 import java.util.List;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.biome.ModBiomes;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCavesHell;
-import net.minecraft.world.gen.NoiseGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.feature.WorldGenFire;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenGlowStone1;
-import net.minecraft.world.gen.feature.WorldGenGlowStone2;
-import net.minecraft.world.gen.feature.WorldGenHellLava;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.structure.MapGenNetherBridge;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
 
 /* Because netherrack and other crap is hardcoded into ChunkProviderHell. */
 public class ChunkProviderDepths implements IChunkProvider
@@ -56,6 +35,7 @@ public class ChunkProviderDepths implements IChunkProvider
 	private NoiseGeneratorOctaves noise_gen_5;
 	
 	private NoiseGeneratorOctaves noise_gen_s;
+	private NoiseGeneratorOctaves noise_gen_l;
 
 	private World world;
 
@@ -68,6 +48,7 @@ public class ChunkProviderDepths implements IChunkProvider
 	private double[] noise_data_5;
 	
 	private double[] noise_data_s;
+//	private double[] noise_data_l;
 
 	public ChunkProviderDepths(World world, long seed)
 	{
@@ -81,6 +62,7 @@ public class ChunkProviderDepths implements IChunkProvider
 		this.noise_gen_5 = new NoiseGeneratorOctaves(this.rand, 16);
 		
 		this.noise_gen_s = new NoiseGeneratorOctaves(this.rand, 4);
+//		this.noise_gen_l = new NoiseGeneratorOctaves(this.rand, 2);
 	}
 
 	public void doBlockPlacementStuff(int chunk_x, int chunk_z, Block[] blocks, byte[] metas)
@@ -161,6 +143,7 @@ public class ChunkProviderDepths implements IChunkProvider
 		if (event.getResult() == Result.DENY) return;
 
 		this.noise_data_s = this.noise_gen_s.generateNoiseOctaves(this.noise_data_s, chunk_x << 4, 0, chunk_z << 4, 16, 256, 16, 0.125, 0.0625, 0.125);
+//		this.noise_data_l = this.noise_gen_l.generateNoiseOctaves(this.noise_data_l, chunk_x << 4, 0, chunk_z << 4, 16, 1, 16, 0.0078125, 1, 0.0078125);
 		
 		for (int cx = 0; cx < 16; cx++) {
 			for (int cz = 0; cz < 16; cz++) {
@@ -180,6 +163,36 @@ public class ChunkProviderDepths implements IChunkProvider
 				} else if (biome == ModBiomes.depths_topaz) {
 					alt_stone_meta = 5;
 				}
+				
+//				double d1 = this.noise_data_l[cz + (cx << 4)];
+//				double d1a = Math.pow(d1 * 2, 2);
+//				double d1b = Math.abs(d1a) * -1 + 1;
+//				double d1c = (d1b < 0) ? 0 : d1b;
+//				{
+//					int cy = MathHelper.floor_double(d1c * 48);
+//					if (biome == ModBiomes.depths_ruby) {
+//						cy = (int) (d1b * 20);
+//					} else {
+//						cy = (int) (d1b * 10);
+//					}
+//					
+//					if (cy < 0) {
+//						cy = 0;
+//					}
+//					
+//					for (int y = 0; y < cy; y++) {
+//						blocks[blk_idx_start + y] = ModBlocks.depth_stones;
+//					}
+//					if (d1 < 0) {
+//						for (int y = cy; y < 40; y++) {
+//							Block existing = blocks[blk_idx_start + y];
+//							if (existing == null || existing.isOpaqueCube()) {
+//								continue;
+//							}
+//							blocks[blk_idx_start + y] = Blocks.lava;
+//						}
+//					}
+//				}
 
 				for (int cy = 191; cy >= 0; cy--) {
 					int blk_idx = blk_idx_start + cy;
@@ -230,10 +243,10 @@ public class ChunkProviderDepths implements IChunkProvider
 		this.doBlockPlacementStuff(p_73154_1_, p_73154_2_, ablock, ameta);
 		this.replaceBiomeBlocks(p_73154_1_, p_73154_2_, ablock, ameta, abiomegenbase);
 		Chunk chunk = new Chunk(this.world, ablock, ameta, p_73154_1_, p_73154_2_);
-		byte[] abyte = chunk.getBiomeArray();
+		byte[] abiome = chunk.getBiomeArray();
 
-		for (int k = 0; k < abyte.length; ++k) {
-			abyte[k] = (byte) abiomegenbase[k].biomeID;
+		for (int k = 0; k < abiome.length; ++k) {
+			abiome[k] = (byte) abiomegenbase[k].biomeID;
 		}
 
 		chunk.resetRelightChecks();
@@ -250,8 +263,8 @@ public class ChunkProviderDepths implements IChunkProvider
 			field = new double[size_x * size_y * size_z];
 		}
 
-		//		double horz_scale = 684.412D;
-		//		double vert_scale = 2053.236D;
+//		double horz_scale = 684.412D;
+//		double vert_scale = 2053.236D;
 		double horz_scale = 161;
 		double vert_scale = 161;
 

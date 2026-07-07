@@ -22,14 +22,14 @@ public class GenLayerDepthsBiomes extends GenLayer
 	}
 
 	@Override
-	public int[] getInts(int x, int z, int width, int depth)
+	public int[] getInts(int x0, int z0, int width, int depth)
 	{
 		int[] dest = IntCache.getIntCache(width * depth);
 
-		for (int k = 0; k < depth; ++k) {
-			for (int i = 0; i < width; ++i) {
-				initChunkSeed(x + i, z + k);
-				dest[i + k * width] = BIOMES[nextInt(BIOMES.length)].biomeID;
+		for (int x1 = 0; x1 < depth; x1++) {
+			for (int z1 = 0; z1 < width; z1++) {
+				this.initChunkSeed(x0 + z1, z0 + x1);
+				dest[z1 + x1 * width] = BIOMES[this.nextInt(BIOMES.length)].biomeID;
 			}
 		}
 
