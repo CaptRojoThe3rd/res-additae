@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.captrojo.resadditae.apocalypse.Apocalypse;
+import com.captrojo.resadditae.main.CommonEventHandler;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.tileentity.TEMossLayer;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
@@ -115,6 +116,11 @@ public class CommandRADebug extends CommandBase
 			return;
 		}
 		
+		if (args[0].equals("reset-mspt-worst")) {
+			CommonEventHandler.mspt_worst = 0;
+			return;
+		}
+		
 		if (args[0].equals("test0")) {
 			sender.addChatMessage(I18nHlpr.chat("start"));
 			
@@ -123,9 +129,9 @@ public class CommandRADebug extends CommandBase
 			int cx0 = coords.posX >> 4;
 			int cz0 = coords.posZ >> 4;
 			
-			for (int cx1 = 0; cx1 < 4; cx1++) {
+			for (int cx1 = -4; cx1 < 4; cx1++) {
 				int cx = cx0 + cx1;
-				for (int cz1 = 0; cz1 < 4; cz1++) {
+				for (int cz1 = -4; cz1 < 4; cz1++) {
 					int cz = cz0 + cz1;
 					Chunk chunk = world.getChunkFromChunkCoords(cx, cz);
 					Apocalypse.flashoverChunk(world, chunk, 64, 128);
@@ -143,7 +149,10 @@ public class CommandRADebug extends CommandBase
 		List<String> list = null;
 		if (args.length == 1) {
 			list = new ArrayList<String>();
-			list.add("echo|get-block-data|respawn-chasms");
+			list.add("echo");
+			list.add("get-block-data");
+			list.add("respawn-chasms");
+			list.add("reset-mspt-worst");
 		}
 		return list;
 	}

@@ -14,6 +14,7 @@ import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.tileentity.TESnowDungeonSpawner;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -23,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.event.brewing.PotionBrewEvent;
@@ -34,6 +36,14 @@ import net.minecraftforge.event.world.BlockEvent;
 
 public class CommonEventHandler
 {
+	public static long tick_time_start;
+	public static long tick_time_end;
+	public static volatile long mspt_last;
+	public static volatile long mspt_worst;
+	public static volatile long mspt_avg;
+	public static long[] mspt_avg_arr = new long[20];
+	public static int mspt_avg_arr_idx;
+	
 	@SubscribeEvent
 	public void onBlockDropping(BlockEvent.HarvestDropsEvent event)
 	{
@@ -197,6 +207,31 @@ public class CommonEventHandler
 			return new ItemStack(ModItems.mana_potion, 1, 5);
 		default:
 			return null;
+		}
+	}
+	
+	@SubscribeEvent
+	public void onServerTickEvent(TickEvent.ServerTickEvent event)
+	{
+		long time_ms = MinecraftServer.getSystemTimeMillis();
+		
+		if (event.phase == TickEvent.Phase.START) {
+			tick_time_start = time_ms;
+		} else if (event.phase == TickEvent.Phase.END) {
+			tick_time_end = time_ms;
+			
+			mspt_last = tick_time_end - tick_time_start;
+			if (mspt_last > mspt_worst) {
+				mspt_worst = mspt_last;
+			}
+			
+			mspt_avg_arr[mspt_avg_arr_idx] = mspt_last;
+			mspt_avg_arr_idx = (mspt_avg_arr_idx + 1) % 20;
+			mspt_avg = 0;
+			for (long l : mspt_avg_arr) {
+				mspt_avg += l;
+			}
+			mspt_avg /= 20;
 		}
 	}
 }

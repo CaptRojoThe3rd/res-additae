@@ -127,4 +127,25 @@ public class ClientEventHandler extends CommonEventHandler
 			return;
 		}
 	}
+	
+	@SubscribeEvent
+	public void renderHUDTextEvent(RenderGameOverlayEvent.Text event)
+	{
+		Minecraft mc = Minecraft.getMinecraft();
+		if (mc.gameSettings.showDebugInfo) {
+			String mspt_str = String.format(
+				"mspt: [worst: %d, avg: %d, last: %d]",
+				CommonEventHandler.mspt_worst,
+				CommonEventHandler.mspt_avg,
+				CommonEventHandler.mspt_last
+			);
+			String tps_str = String.format(
+				"tps: %.2f",
+				(CommonEventHandler.mspt_avg < 50) ? 20d : (1000d / (double) CommonEventHandler.mspt_avg)
+			);
+			event.left.add(null);
+			event.left.add(mspt_str);
+			event.left.add(tps_str);
+		}
+	}
 }

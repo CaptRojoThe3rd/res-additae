@@ -1,9 +1,11 @@
 package com.captrojo.resadditae.apocalypse;
 
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.captrojo.resadditae.block.ModBlocks;
+import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
@@ -26,13 +28,17 @@ public class Apocalypse
 			return;
 		}
 		
-		Set update_hashset = (Set) ReflectionHelper.getPrivateValue(WorldServer.class, (WorldServer) world, "pendingTickListEntriesHashSet");
-		TreeSet update_treeset = (TreeSet) ReflectionHelper.getPrivateValue(WorldServer.class, (WorldServer) world, "pendingTickListEntriesTreeSet");
-		long time = world.getTotalWorldTime();
+		RandLongArrayThread rat = new RandLongArrayThread(new Random(), world.getWorldTime() + 30l, 10, 65536);
+		rat.start();
+		
+		NextTickListEntry[] ntle_arr = new NextTickListEntry[65536];
+		Set update_hashset = (Set) ReflectionHelper.getPrivateValue(WorldServer.class, (WorldServer) world, "pendingTickListEntriesHashSet", "field_73064_N");
+		TreeSet update_treeset = (TreeSet) ReflectionHelper.getPrivateValue(WorldServer.class, (WorldServer) world, "pendingTickListEntriesTreeSet", "field_73065_O");
 		
 		int x0 = chunk.xPosition << 4;
 		int z0 = chunk.zPosition << 4;
 		
+		/* Make sure all the arrays are initialized */
 		for (int y = 0; y < 256; y += 16) {
 			if (chunk.getBlock(0, y, 0) == Blocks.air) {
 				chunk.func_150807_a(0, y, 0, ModBlocks.flashover_air, 0);
@@ -56,6 +62,7 @@ public class Apocalypse
 			if (y0 < min_y || y0 >= max_y) {
 				continue;
 			}
+			int b_idx = y0 << 8;
 			
 			byte[] lsb_arr = ebs.getBlockLSBArray();
 			NibbleArray msb_arr = ebs.getBlockMSBArray();
@@ -74,22 +81,38 @@ public class Apocalypse
 						int set = (x ^ y ^ z) & 0x1;
 						lsb_arr[idx] = set_arr_lsb[set];
 						msb_arr.set(x, y, z, set_arr_msb[set]);
-						if (set != 0) {
-							NextTickListEntry entry = new NextTickListEntry(x + x0, y + y0, z + z0, Blocks.fire);
-							entry.setPriority(0);
-							entry.setScheduledTime(time + (long) (30 + (x ^ z)));
-							if (!update_hashset.contains(entry)) {
-								update_hashset.add(entry);
-								update_treeset.add(entry);
-							}
+						if (set == 0) {
+							continue;
 						}
-//						world.scheduleBlockUpdate(x + x0, y + y0, z + z0, set_arr_blk[set], 30 + (y & 0x7));
+						NextTickListEntry entry = new NextTickListEntry(x + x0, y + y0, z + z0, Blocks.fire);
+						entry.setPriority(0);
+						ntle_arr[idx + b_idx] = entry;
 					}
 				}
 			}
 			
 			ebs.setBlockLSBArray(lsb_arr);
 			ebs.setBlockMSBArray(msb_arr);
+		}
+		
+		try {
+			rat.join();
+		} catch (InterruptedException e) {
+			ResAdditae.LOG.error("Failed to join RandLongArrayThread");
+			return;
+		}
+		long[] time_arr = rat.getArr();
+		
+		for (int i = 0; i < ntle_arr.length; i++) {
+			NextTickListEntry entry = ntle_arr[i];
+			if (entry == null) {
+				continue;
+			}
+			entry.setScheduledTime(time_arr[i]);
+			if (!update_hashset.contains(entry)) {
+				update_hashset.add(entry);
+				update_treeset.add(entry);
+			}
 		}
 		
 		chunk.setChunkModified();
