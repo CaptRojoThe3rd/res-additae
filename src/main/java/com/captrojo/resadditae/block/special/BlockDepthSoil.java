@@ -2,7 +2,7 @@ package com.captrojo.resadditae.block.special;
 
 import com.captrojo.resadditae.block.BasicBlockData;
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.block.generic.BlockBasic;
+import com.captrojo.resadditae.block.generic.BlockBasicWDblSlab;
 import com.captrojo.resadditae.world.biome.depths.BiomeDepthsBase;
 
 import cpw.mods.fml.relauncher.Side;
@@ -16,7 +16,7 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockDepthSoil extends BlockBasic
+public class BlockDepthSoil extends BlockBasicWDblSlab
 {
 	public BlockDepthSoil()
 	{

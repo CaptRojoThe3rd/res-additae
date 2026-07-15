@@ -6,9 +6,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockMultiTransparentWithDoubleSlab extends BlockMultiWithDoubleSlab
+public class BlockMultiTransparentWDblSlab extends BlockMultiWDblSlab
 {
-	public BlockMultiTransparentWithDoubleSlab(String name, IMultiBlockData block_data)
+	public BlockMultiTransparentWDblSlab(String name, IMultiBlockData block_data)
 	{
 		super(name, block_data);
 	}

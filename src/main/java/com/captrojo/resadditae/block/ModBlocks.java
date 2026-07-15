@@ -1,35 +1,37 @@
 package com.captrojo.resadditae.block;
 
 import com.captrojo.resadditae.block.devtool.BlockStructureThingy;
-import com.captrojo.resadditae.block.generic.BlockBasic;
 import com.captrojo.resadditae.block.generic.BlockBasicSlab;
 import com.captrojo.resadditae.block.generic.BlockBasicSlabTransparent;
 import com.captrojo.resadditae.block.generic.BlockBasicTransparent;
+import com.captrojo.resadditae.block.generic.BlockBasicWDblSlab;
 import com.captrojo.resadditae.block.generic.BlockConcretePowder;
 import com.captrojo.resadditae.block.generic.BlockFallingMulti;
 import com.captrojo.resadditae.block.generic.BlockMaterialPile;
 import com.captrojo.resadditae.block.generic.BlockMulti;
+import com.captrojo.resadditae.block.generic.BlockMultiDirectionalSlab;
+import com.captrojo.resadditae.block.generic.BlockMultiDirectionalWDblSlab;
 import com.captrojo.resadditae.block.generic.BlockMultiFlower;
 import com.captrojo.resadditae.block.generic.BlockMultiPillar;
 import com.captrojo.resadditae.block.generic.BlockMultiSlab;
 import com.captrojo.resadditae.block.generic.BlockMultiSlabTransparent;
 import com.captrojo.resadditae.block.generic.BlockMultiStair;
 import com.captrojo.resadditae.block.generic.BlockMultiStairTransparent;
-import com.captrojo.resadditae.block.generic.BlockMultiTransparentWithDoubleSlab;
-import com.captrojo.resadditae.block.generic.BlockMultiWithDoubleSlab;
+import com.captrojo.resadditae.block.generic.BlockMultiTransparentWDblSlab;
+import com.captrojo.resadditae.block.generic.BlockMultiWDblSlab;
 import com.captrojo.resadditae.block.generic.BlockStainedGlassPane;
 import com.captrojo.resadditae.block.generic.BlockStairs;
 import com.captrojo.resadditae.block.ore.BlockOreBase;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict.FromOredictType;
-import com.captrojo.resadditae.block.special.BlockDepthSoil;
-import com.captrojo.resadditae.block.special.BlockDepthsPortal;
-import com.captrojo.resadditae.block.special.BlockFlashoverAir;
-import com.captrojo.resadditae.block.special.BlockMossLayer;
 import com.captrojo.resadditae.block.ore.BlockOreVanilla;
 import com.captrojo.resadditae.block.ore.BlockPlatinumOre;
 import com.captrojo.resadditae.block.ore.BlockSilverOre;
 import com.captrojo.resadditae.block.ore.OreStones;
+import com.captrojo.resadditae.block.special.BlockDepthSoil;
+import com.captrojo.resadditae.block.special.BlockDepthsPortal;
+import com.captrojo.resadditae.block.special.BlockFlashoverAir;
+import com.captrojo.resadditae.block.special.BlockMossLayer;
 import com.captrojo.resadditae.block.utility.BlockMultiSpawner;
 import com.captrojo.resadditae.block.utility.BlockSnowDungeonSpawner;
 import com.captrojo.resadditae.block.utility.BlockSnowDungeonVault;
@@ -53,18 +55,18 @@ import net.minecraft.item.ItemStack;
 public class ModBlocks
 {
 	/* Andesite, Diorite, Granite */
-	public static BlockMulti bountiful_stones;
+	public static BlockMultiWDblSlab bountiful_stones;
 	public static BlockMultiSlab bountiful_stone_slabs;
 	public static BlockMultiStair bountiful_stone_stairs_a;
 	public static BlockMultiStair bountiful_stone_stairs_b;
 	
 	/* Hellstone, Bloodstone */
-	public static BlockMulti nether_stones;
+	public static BlockMultiWDblSlab nether_stones;
 	public static BlockMultiSlab nether_stone_slabs;
 	public static BlockMultiStair nether_stone_stairs;
 	
 	/* Depth stone variants */
-	public static BlockMulti depth_stones;
+	public static BlockMultiWDblSlab depth_stones;
 	public static BlockMultiSlab depth_stone_slabs;
 	public static BlockMultiStair depth_stone_stairs_a;
 	public static BlockMultiStair depth_stone_stairs_b;
@@ -73,9 +75,46 @@ public class ModBlocks
 	public static BlockMulti depth_stones_special;
 	public static Block depth_soil;
 	
+	public static BlockMultiDirectionalWDblSlab shiny_rock_a;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_b;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_c;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_d;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_e;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_f;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_g;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_h;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_i;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_j;
+	public static BlockMultiDirectionalWDblSlab shiny_rock_k;
+	public static BlockMultiSlab shiny_rock_slab_a;
+	public static BlockMultiSlab shiny_rock_slab_b;
+	public static BlockMultiSlab shiny_rock_slab_c;
+	public static BlockMultiSlab shiny_rock_slab_e;
+	public static BlockMultiSlab shiny_rock_slab_d;
+	public static BlockMultiSlab shiny_rock_slab_f;
+	public static BlockMultiSlab shiny_rock_slab_g;
+	public static BlockMultiSlab shiny_rock_slab_h;
+	public static BlockMultiSlab shiny_rock_slab_i;
+	public static BlockMultiSlab shiny_rock_slab_j;
+	public static BlockMultiSlab shiny_rock_slab_k;
+	public static BlockMultiStair shiny_rock_stair_a;
+	public static BlockMultiStair shiny_rock_stair_b;
+	public static BlockMultiStair shiny_rock_stair_c;
+	public static BlockMultiStair shiny_rock_stair_d;
+	public static BlockMultiStair shiny_rock_stair_e;
+	public static BlockMultiStair shiny_rock_stair_f;
+	public static BlockMultiStair shiny_rock_stair_g;
+	public static BlockMultiStair shiny_rock_stair_h;
+	public static BlockMultiStair shiny_rock_stair_i;
+	public static BlockMultiStair shiny_rock_stair_j;
+	public static BlockMultiStair shiny_rock_stair_k;
+	public static BlockMulti[] shiny_rocks;
+	public static Block[] shiny_rock_slabs;
+	public static Block[] shiny_rock_stairs;
+	
 	public static Block dark_cobblestone;
 	
-	public static BlockMulti compacted_snow;
+	public static BlockMultiWDblSlab compacted_snow;
 	public static BlockMultiSlab compacted_snow_slab;
 	public static BlockMultiStair compacted_snow_stair_a;
 	public static BlockMultiStair compacted_snow_stair_b;
@@ -142,8 +181,8 @@ public class ModBlocks
 	
 	public static Block flashover_air;
 	
-	public static BlockMulti prismarine_0;
-	public static BlockMulti prismarine_1;
+	public static BlockMultiWDblSlab prismarine_0;
+	public static BlockMultiWDblSlab prismarine_1;
 	public static BlockMultiPillar prismarine_pillar;
 	public static BlockMultiSlab prismarine_slab_0;
 	public static BlockMultiSlab prismarine_slab_1;
@@ -159,62 +198,62 @@ public class ModBlocks
 	public static BlockMulti prismarine_rune_2;
 	public static BlockMulti prismarine_rune_3;
 
-	public static BlockMulti[] vanilla_wool_double_slabs;
+	public static BlockMultiWDblSlab[] vanilla_wool_double_slabs;
 	public static BlockMultiSlab[] vanilla_wool_slabs;
 	public static BlockMultiStair[] vanilla_wool_stairs;
-	public static BlockMulti[] wools;
+	public static BlockMultiWDblSlab[] wools;
 	public static BlockMultiSlab[] wool_slabs;
 	public static BlockMultiStair[] wool_stairs;
 	
-	public static Block glass_double_slab;
-	public static Block glass_slab;
-	public static Block glass_stair;
-	public static BlockMulti[] vanilla_stained_glass_double_slabs;
+	public static BlockBasicWDblSlab glass_double_slab;
+	public static BlockBasicSlab glass_slab;
+	public static BlockStairs glass_stair;
+	public static BlockMultiWDblSlab[] vanilla_stained_glass_double_slabs;
 	public static BlockMultiSlab[] vanilla_stained_glass_slabs;
 	public static BlockMultiStair[] vanilla_stained_glass_stairs;
-	public static BlockMulti[] stained_glass;
+	public static BlockMultiWDblSlab[] stained_glass;
 	public static BlockMultiSlab[] stained_glass_slabs;
 	public static BlockMultiStair[] stained_glass_stairs;
 	public static BlockStainedGlassPane[] stained_glass_panes;
 	
-	public static Block hardened_clay_double_slab;
-	public static Block hardened_clay_slab;
-	public static Block hardened_clay_stair;
-	public static BlockMulti[] vanilla_stained_clay_double_slabs;
+	public static BlockBasicWDblSlab hardened_clay_double_slab;
+	public static BlockBasicSlab hardened_clay_slab;
+	public static BlockStairs hardened_clay_stair;
+	public static BlockMultiWDblSlab[] vanilla_stained_clay_double_slabs;
 	public static BlockMultiSlab[] vanilla_stained_clay_slabs;
 	public static BlockMultiStair[] vanilla_stained_clay_stairs;
-	public static BlockMulti[] stained_clays;
+	public static BlockMultiWDblSlab[] stained_clays;
 	public static BlockMultiSlab[] stained_clay_slabs;
 	public static BlockMultiStair[] stained_clay_stairs;
 	
-	public static BlockMulti[] vanilla_concrete_double_slabs;
+	public static BlockMultiWDblSlab[] vanilla_concrete_double_slabs;
 	public static BlockMultiSlab[] vanilla_concrete_slabs;
 	public static BlockMultiStair[] vanilla_concrete_stairs;
-	public static BlockMulti[] concretes;
+	public static BlockMultiWDblSlab[] concretes;
 	public static BlockMultiSlab[] concrete_slabs;
 	public static BlockMultiStair[] concrete_stairs;
 	public static BlockFallingMulti[] concrete_powders;
 	
-	public static BlockMulti[] hbm_base_concrete_double_slabs;
+	public static BlockMultiWDblSlab[] hbm_base_concrete_double_slabs;
 	public static BlockMultiSlab[] hbm_base_concrete_slabs;
 	public static BlockMultiStair[] hbm_base_concrete_stairs;
-	public static BlockMulti[] hbm_concretes;
+	public static BlockMultiWDblSlab[] hbm_concretes;
 	public static BlockMultiSlab[] hbm_concrete_slabs;
 	public static BlockMultiStair[] hbm_concrete_stairs;
 	
 	public static void initBlocks()
 	{
-		bountiful_stones = new BlockMultiWithDoubleSlab("bountiful_stones", MultiBlocks.BOUNTIFUL_STONES);
-		bountiful_stone_slabs = new BlockMultiSlab("bountiful_stone_slabs", MultiBlocks.BOUNTIFUL_STONES);
+		bountiful_stones = new BlockMultiWDblSlab("bountiful_stones", MultiBlocks.BOUNTIFUL_STONES);
+		bountiful_stone_slabs = new BlockMultiSlab("bountiful_stone_slabs", MultiBlocks.BOUNTIFUL_STONES, bountiful_stones);
 		bountiful_stone_stairs_a = new BlockMultiStair("bountiful_stone_stairs_a", bountiful_stones, 0, 1, false);
 		bountiful_stone_stairs_b = new BlockMultiStair("bountiful_stone_stairs_b", bountiful_stones, 2, -1, false);
 		
-		nether_stones = new BlockMultiWithDoubleSlab("nether_stones", MultiBlocks.NETHER_STONES);
-		nether_stone_slabs = new BlockMultiSlab("nether_stone_slabs", MultiBlocks.NETHER_STONES);
+		nether_stones = new BlockMultiWDblSlab("nether_stones", MultiBlocks.NETHER_STONES);
+		nether_stone_slabs = new BlockMultiSlab("nether_stone_slabs", MultiBlocks.NETHER_STONES, nether_stones);
 		nether_stone_stairs = new BlockMultiStair("nether_stone_stairs", nether_stones, 0, 1, false);
 		
-		depth_stones = new BlockMultiWithDoubleSlab("depth_stones", MultiBlocks.DEPTH_STONES);
-		depth_stone_slabs = new BlockMultiSlab("depth_stone_slabs", MultiBlocks.DEPTH_STONES);
+		depth_stones = new BlockMultiWDblSlab("depth_stones", MultiBlocks.DEPTH_STONES);
+		depth_stone_slabs = new BlockMultiSlab("depth_stone_slabs", MultiBlocks.DEPTH_STONES, depth_stones);
 		depth_stone_stairs_a = new BlockMultiStair("depth_stone_stairs_a", depth_stones, 0, 1, false);
 		depth_stone_stairs_b = new BlockMultiStair("depth_stone_stairs_b", depth_stones, 2, 3, false);
 		depth_stone_stairs_c = new BlockMultiStair("depth_stone_stairs_c", depth_stones, 4, 5, false);
@@ -222,10 +261,83 @@ public class ModBlocks
 		depth_stones_special = new BlockMulti("depth_stones_special", MultiBlocks.DEPTH_STONES_SPECIAL);
 		depth_soil = new BlockDepthSoil();
 		
-		dark_cobblestone = new BlockBasic("dark_cobblestone", "dark_cobblestone", BasicBlockData.cobblestone);
+		dark_cobblestone = new BlockBasicWDblSlab("dark_cobblestone", "dark_cobblestone", BasicBlockData.cobblestone);
 		
-		compacted_snow = new BlockMultiWithDoubleSlab("compacted_snow", MultiBlocks.COMPACTED_SNOW);
-		compacted_snow_slab = new BlockMultiSlab("compacted_snow_slab", MultiBlocks.COMPACTED_SNOW);
+		shiny_rock_a = new BlockMultiDirectionalWDblSlab("shiny_rock_a", MultiBlocks.SHINY_ROCKS_A, true);
+		shiny_rock_b = new BlockMultiDirectionalWDblSlab("shiny_rock_b", MultiBlocks.SHINY_ROCKS_B, true);
+		shiny_rock_c = new BlockMultiDirectionalWDblSlab("shiny_rock_c", MultiBlocks.SHINY_ROCKS_C, true);
+		shiny_rock_d = new BlockMultiDirectionalWDblSlab("shiny_rock_d", MultiBlocks.SHINY_ROCKS_D, true);
+		shiny_rock_e = new BlockMultiDirectionalWDblSlab("shiny_rock_e", MultiBlocks.SHINY_ROCKS_E, true);
+		shiny_rock_f = new BlockMultiDirectionalWDblSlab("shiny_rock_f", MultiBlocks.SHINY_ROCKS_F, true);
+		shiny_rock_g = new BlockMultiDirectionalWDblSlab("shiny_rock_g", MultiBlocks.SHINY_ROCKS_G, true);
+		shiny_rock_h = new BlockMultiDirectionalWDblSlab("shiny_rock_h", MultiBlocks.SHINY_ROCKS_H, true);
+		shiny_rock_i = new BlockMultiDirectionalWDblSlab("shiny_rock_i", MultiBlocks.SHINY_ROCKS_I, true);
+		shiny_rock_j = new BlockMultiDirectionalWDblSlab("shiny_rock_j", MultiBlocks.SHINY_ROCKS_J, true);
+		shiny_rock_k = new BlockMultiDirectionalWDblSlab("shiny_rock_k", MultiBlocks.SHINY_ROCKS_K, true);
+		shiny_rock_slab_a = new BlockMultiDirectionalSlab("shiny_rock_slab_a", MultiBlocks.SHINY_ROCKS_A, true, shiny_rock_a);
+		shiny_rock_slab_b = new BlockMultiDirectionalSlab("shiny_rock_slab_b", MultiBlocks.SHINY_ROCKS_B, true, shiny_rock_b);
+		shiny_rock_slab_c = new BlockMultiDirectionalSlab("shiny_rock_slab_c", MultiBlocks.SHINY_ROCKS_C, true, shiny_rock_c);
+		shiny_rock_slab_d = new BlockMultiDirectionalSlab("shiny_rock_slab_d", MultiBlocks.SHINY_ROCKS_D, true, shiny_rock_d);
+		shiny_rock_slab_e = new BlockMultiDirectionalSlab("shiny_rock_slab_e", MultiBlocks.SHINY_ROCKS_E, true, shiny_rock_e);
+		shiny_rock_slab_f = new BlockMultiDirectionalSlab("shiny_rock_slab_f", MultiBlocks.SHINY_ROCKS_F, true, shiny_rock_f);
+		shiny_rock_slab_g = new BlockMultiDirectionalSlab("shiny_rock_slab_g", MultiBlocks.SHINY_ROCKS_G, true, shiny_rock_g);
+		shiny_rock_slab_h = new BlockMultiDirectionalSlab("shiny_rock_slab_h", MultiBlocks.SHINY_ROCKS_H, true, shiny_rock_h);
+		shiny_rock_slab_i = new BlockMultiDirectionalSlab("shiny_rock_slab_i", MultiBlocks.SHINY_ROCKS_I, true, shiny_rock_i);
+		shiny_rock_slab_j = new BlockMultiDirectionalSlab("shiny_rock_slab_j", MultiBlocks.SHINY_ROCKS_J, true, shiny_rock_j);
+		shiny_rock_slab_k = new BlockMultiDirectionalSlab("shiny_rock_slab_k", MultiBlocks.SHINY_ROCKS_K, true, shiny_rock_k);
+		shiny_rock_stair_a = new BlockMultiStair("shiny_rock_stair_a", shiny_rock_a, 0, 1, false);
+		shiny_rock_stair_b = new BlockMultiStair("shiny_rock_stair_b", shiny_rock_b, 0, 1, false);
+		shiny_rock_stair_c = new BlockMultiStair("shiny_rock_stair_c", shiny_rock_c, 0, 1, false);
+		shiny_rock_stair_d = new BlockMultiStair("shiny_rock_stair_d", shiny_rock_d, 0, 1, false);
+		shiny_rock_stair_e = new BlockMultiStair("shiny_rock_stair_e", shiny_rock_e, 0, 1, false);
+		shiny_rock_stair_f = new BlockMultiStair("shiny_rock_stair_f", shiny_rock_f, 0, 1, false);
+		shiny_rock_stair_g = new BlockMultiStair("shiny_rock_stair_g", shiny_rock_g, 0, 1, false);
+		shiny_rock_stair_h = new BlockMultiStair("shiny_rock_stair_h", shiny_rock_h, 0, 1, false);
+		shiny_rock_stair_i = new BlockMultiStair("shiny_rock_stair_i", shiny_rock_i, 0, 1, false);
+		shiny_rock_stair_j = new BlockMultiStair("shiny_rock_stair_j", shiny_rock_j, 0, 1, false);
+		shiny_rock_stair_k = new BlockMultiStair("shiny_rock_stair_k", shiny_rock_k, 0, -1, false);
+		shiny_rocks = new BlockMulti[] {
+			shiny_rock_a,
+			shiny_rock_b,
+			shiny_rock_c,
+			shiny_rock_d,
+			shiny_rock_e,
+			shiny_rock_f,
+			shiny_rock_g,
+			shiny_rock_h,
+			shiny_rock_i,
+			shiny_rock_j,
+			shiny_rock_k
+		};
+		shiny_rock_slabs = new Block[] {
+			shiny_rock_slab_a,
+			shiny_rock_slab_b,
+			shiny_rock_slab_c,
+			shiny_rock_slab_d,
+			shiny_rock_slab_e,
+			shiny_rock_slab_f,
+			shiny_rock_slab_g,
+			shiny_rock_slab_h,
+			shiny_rock_slab_i,
+			shiny_rock_slab_j,
+			shiny_rock_slab_k
+		};
+		shiny_rock_stairs = new Block[] {
+			shiny_rock_stair_a,
+			shiny_rock_stair_b,
+			shiny_rock_stair_c,
+			shiny_rock_stair_d,
+			shiny_rock_stair_e,
+			shiny_rock_stair_f,
+			shiny_rock_stair_g,
+			shiny_rock_stair_h,
+			shiny_rock_stair_i,
+			shiny_rock_stair_j,
+			shiny_rock_stair_k
+		};
+		
+		compacted_snow = new BlockMultiWDblSlab("compacted_snow", MultiBlocks.COMPACTED_SNOW);
+		compacted_snow_slab = new BlockMultiSlab("compacted_snow_slab", MultiBlocks.COMPACTED_SNOW, compacted_snow);
 		compacted_snow_stair_a = new BlockMultiStair("compacted_snow_stair_a", compacted_snow, 0, 1, false);
 		compacted_snow_stair_b = new BlockMultiStair("compacted_snow_stair_b", compacted_snow, 2, 3, false);
 		
@@ -317,11 +429,11 @@ public class ModBlocks
 		WoodTypes.initBlocks();
 		StoneTypes.values();
 		
-		prismarine_0 = new BlockMultiWithDoubleSlab("prismarine_0", MultiBlocks.PRISMARINE_0);
-		prismarine_1 = new BlockMultiWithDoubleSlab("prismarine_1", MultiBlocks.PRISMARINE_1);
+		prismarine_0 = new BlockMultiWDblSlab("prismarine_0", MultiBlocks.PRISMARINE_0);
+		prismarine_1 = new BlockMultiWDblSlab("prismarine_1", MultiBlocks.PRISMARINE_1);
 		prismarine_pillar = new BlockMultiPillar("prismarine_pillar", MultiBlocks.PRISMARINE_PILLAR);
-		prismarine_slab_0 = new BlockMultiSlab("prismarine_slab_0", MultiBlocks.PRISMARINE_0);
-		prismarine_slab_1 = new BlockMultiSlab("prismarine_slab_1", MultiBlocks.PRISMARINE_1);
+		prismarine_slab_0 = new BlockMultiSlab("prismarine_slab_0", MultiBlocks.PRISMARINE_0, prismarine_0);
+		prismarine_slab_1 = new BlockMultiSlab("prismarine_slab_1", MultiBlocks.PRISMARINE_1, prismarine_1);
 		prismarine_stair_0 = new BlockMultiStair("prismarine_stair_0", prismarine_0, 0, 1, false);
 		prismarine_stair_1 = new BlockMultiStair("prismarine_stair_1", prismarine_0, 2, 3, false);
 		prismarine_stair_2 = new BlockMultiStair("prismarine_stair_2", prismarine_0, 4, 5, false);
@@ -334,12 +446,12 @@ public class ModBlocks
 		prismarine_rune_2 = new BlockMulti("prismarine_rune_2", PrismarineRuneMultiBlockData.RUNES_2);
 		prismarine_rune_3 = new BlockMulti("prismarine_rune_3", PrismarineRuneMultiBlockData.RUNES_3);
 	
-		vanilla_wool_double_slabs = new BlockMulti[2];
-		vanilla_wool_double_slabs[0] = new BlockMultiWithDoubleSlab("vanilla_wool_double_slab_0", MultiBlocks.VANILLA_WOOL_0);
-		vanilla_wool_double_slabs[1] = new BlockMultiWithDoubleSlab("vanilla_wool_double_slab_1", MultiBlocks.VANILLA_WOOL_1);
+		vanilla_wool_double_slabs = new BlockMultiWDblSlab[2];
+		vanilla_wool_double_slabs[0] = new BlockMultiWDblSlab("vanilla_wool_double_slab_0", MultiBlocks.VANILLA_WOOL_0);
+		vanilla_wool_double_slabs[1] = new BlockMultiWDblSlab("vanilla_wool_double_slab_1", MultiBlocks.VANILLA_WOOL_1);
 		vanilla_wool_slabs = new BlockMultiSlab[2];
-		vanilla_wool_slabs[0] = new BlockMultiSlab("vanilla_wool_slab_0", MultiBlocks.VANILLA_WOOL_0);
-		vanilla_wool_slabs[1] = new BlockMultiSlab("vanilla_wool_slab_1", MultiBlocks.VANILLA_WOOL_1);
+		vanilla_wool_slabs[0] = new BlockMultiSlab("vanilla_wool_slab_0", MultiBlocks.VANILLA_WOOL_0, vanilla_wool_double_slabs[0]);
+		vanilla_wool_slabs[1] = new BlockMultiSlab("vanilla_wool_slab_1", MultiBlocks.VANILLA_WOOL_1, vanilla_wool_double_slabs[1]);
 		vanilla_wool_stairs = new BlockMultiStair[8];
 		vanilla_wool_stairs[0] = new BlockMultiStair("vanilla_wool_stair_0", Blocks.wool, MultiBlocks.VANILLA_WOOL_0, 0, 1, false);
 		vanilla_wool_stairs[1] = new BlockMultiStair("vanilla_wool_stair_1", Blocks.wool, MultiBlocks.VANILLA_WOOL_0, 2, 3, false);
@@ -350,13 +462,13 @@ public class ModBlocks
 		vanilla_wool_stairs[6] = new BlockMultiStair("vanilla_wool_stair_6", Blocks.wool, MultiBlocks.VANILLA_WOOL_1, 12, 13, false);
 		vanilla_wool_stairs[7] = new BlockMultiStair("vanilla_wool_stair_7", Blocks.wool, MultiBlocks.VANILLA_WOOL_1, 14, 15, false);
 		
-		wools = new BlockMulti[9];
+		wools = new BlockMultiWDblSlab[9];
 		wool_slabs = new BlockMultiSlab[9];
 		wool_stairs = new BlockMultiStair[36];
 		for (int i = 0; i < 9; i++) {
 			ColoredBlocks data = ColoredBlocks.values()[ColoredBlocks.WOOL_0.ordinal() + i];
-			wools[i] = new BlockMultiWithDoubleSlab("wool_" + i, data);
-			wool_slabs[i] = new BlockMultiSlab("wool_slab_" + i, data);
+			wools[i] = new BlockMultiWDblSlab("wool_" + i, data);
+			wool_slabs[i] = new BlockMultiSlab("wool_slab_" + i, data, wools[i]);
 			wool_stairs[i * 4] = new BlockMultiStair("wool_stair_" + (i * 4), wools[i], 0, 1, false);
 			wool_stairs[i * 4 + 1] = new BlockMultiStair("wool_stair_" + (i * 4 + 1), wools[i], 2, 3, false);
 			wool_stairs[i * 4 + 2] = new BlockMultiStair("wool_stair_" + (i * 4 + 2), wools[i], 4, 5, false);
@@ -365,15 +477,15 @@ public class ModBlocks
 		
 		BasicBlockData glass_data = new BasicBlockData(Material.glass, Block.soundTypeGlass, 0.3f, 0.3f, null, 0);
 		glass_double_slab = new BlockBasicTransparent("glass_double_slab", "minecraft:glass", glass_data);
-		glass_slab = new BlockBasicSlabTransparent("glass_slab", "minecraft:glass", glass_data);
+		glass_slab = new BlockBasicSlabTransparent("glass_slab", "minecraft:glass", glass_data, glass_double_slab);
 		glass_stair = new BlockStairs("glass_stair", Blocks.glass, 0);
 		
-		vanilla_stained_glass_double_slabs = new BlockMulti[2];
-		vanilla_stained_glass_double_slabs[0] = new BlockMultiTransparentWithDoubleSlab("vanilla_stained_glass_double_slab_0", MultiBlocks.VANILLA_STAINED_GLASS_0);
-		vanilla_stained_glass_double_slabs[1] = new BlockMultiTransparentWithDoubleSlab("vanilla_stained_glass_double_slab_1", MultiBlocks.VANILLA_STAINED_GLASS_1);
+		vanilla_stained_glass_double_slabs = new BlockMultiWDblSlab[2];
+		vanilla_stained_glass_double_slabs[0] = new BlockMultiTransparentWDblSlab("vanilla_stained_glass_double_slab_0", MultiBlocks.VANILLA_STAINED_GLASS_0);
+		vanilla_stained_glass_double_slabs[1] = new BlockMultiTransparentWDblSlab("vanilla_stained_glass_double_slab_1", MultiBlocks.VANILLA_STAINED_GLASS_1);
 		vanilla_stained_glass_slabs = new BlockMultiSlab[2];
-		vanilla_stained_glass_slabs[0] = new BlockMultiSlabTransparent("vanilla_stained_glass_slab_0", MultiBlocks.VANILLA_STAINED_GLASS_0);
-		vanilla_stained_glass_slabs[1] = new BlockMultiSlabTransparent("vanilla_stained_glass_slab_1", MultiBlocks.VANILLA_STAINED_GLASS_1);
+		vanilla_stained_glass_slabs[0] = new BlockMultiSlabTransparent("vanilla_stained_glass_slab_0", MultiBlocks.VANILLA_STAINED_GLASS_0, vanilla_stained_glass_double_slabs[0]);
+		vanilla_stained_glass_slabs[1] = new BlockMultiSlabTransparent("vanilla_stained_glass_slab_1", MultiBlocks.VANILLA_STAINED_GLASS_1, vanilla_stained_glass_double_slabs[1]);
 		vanilla_stained_glass_stairs = new BlockMultiStair[8];
 		vanilla_stained_glass_stairs[0] = new BlockMultiStairTransparent("vanilla_stained_glass_stair_0", Blocks.stained_glass, MultiBlocks.VANILLA_STAINED_GLASS_0, 0, 1, false);
 		vanilla_stained_glass_stairs[1] = new BlockMultiStairTransparent("vanilla_stained_glass_stair_1", Blocks.stained_glass, MultiBlocks.VANILLA_STAINED_GLASS_0, 2, 3, false);
@@ -384,13 +496,13 @@ public class ModBlocks
 		vanilla_stained_glass_stairs[6] = new BlockMultiStairTransparent("vanilla_stained_glass_stair_6", Blocks.stained_glass, MultiBlocks.VANILLA_STAINED_GLASS_1, 12, 13, false);
 		vanilla_stained_glass_stairs[7] = new BlockMultiStairTransparent("vanilla_stained_glass_stair_7", Blocks.stained_glass, MultiBlocks.VANILLA_STAINED_GLASS_1, 14, 15, false);
 		
-		stained_glass = new BlockMulti[9];
+		stained_glass = new BlockMultiWDblSlab[9];
 		stained_glass_slabs = new BlockMultiSlab[9];
 		stained_glass_stairs = new BlockMultiStair[36];
 		for (int i = 0; i < 9; i++) {
 			ColoredBlocks data = ColoredBlocks.values()[ColoredBlocks.STAINED_GLASS_0.ordinal() + i];
-			stained_glass[i] = new BlockMultiTransparentWithDoubleSlab("stained_glass_" + i, data);
-			stained_glass_slabs[i] = new BlockMultiSlabTransparent("stained_glass_slab_" + i, data);
+			stained_glass[i] = new BlockMultiTransparentWDblSlab("stained_glass_" + i, data);
+			stained_glass_slabs[i] = new BlockMultiSlabTransparent("stained_glass_slab_" + i, data, stained_glass[i]);
 			stained_glass_stairs[i * 4] = new BlockMultiStairTransparent("stained_glass_stair_" + (i * 4), stained_glass[i], 0, 1, false);
 			stained_glass_stairs[i * 4 + 1] = new BlockMultiStairTransparent("stained_glass_stair_" + (i * 4 + 1), stained_glass[i], 2, 3, false);
 			stained_glass_stairs[i * 4 + 2] = new BlockMultiStairTransparent("stained_glass_stair_" + (i * 4 + 2), stained_glass[i], 4, 5, false);
@@ -404,16 +516,16 @@ public class ModBlocks
 		stained_glass_panes[4] = new BlockStainedGlassPane("stained_glass_pane_4", stained_glass[8], null);
 		
 		BasicBlockData hardened_clay_data = new BasicBlockData(Material.rock, Block.soundTypeStone, 1.25f, 4.2f, "pickaxe", 0);
-		hardened_clay_double_slab = new BlockBasic("hardened_clay_double_slab", "minecraft:hardened_clay", hardened_clay_data);
-		hardened_clay_slab = new BlockBasicSlab("hardened_clay_slab", "minecraft:hardened_clay", hardened_clay_data);
+		hardened_clay_double_slab = new BlockBasicWDblSlab("hardened_clay_double_slab", "minecraft:hardened_clay", hardened_clay_data);
+		hardened_clay_slab = new BlockBasicSlab("hardened_clay_slab", "minecraft:hardened_clay", hardened_clay_data, hardened_clay_double_slab);
 		hardened_clay_stair = new BlockStairs("hardened_clay_stair", Blocks.hardened_clay, 0);
 		
-		vanilla_stained_clay_double_slabs = new BlockMulti[2];
-		vanilla_stained_clay_double_slabs[0] = new BlockMultiWithDoubleSlab("vanilla_stained_clay_double_slab_0", MultiBlocks.VANILLA_STAINED_CLAY_0);
-		vanilla_stained_clay_double_slabs[1] = new BlockMultiWithDoubleSlab("vanilla_stained_clay_double_slab_1", MultiBlocks.VANILLA_STAINED_CLAY_1);
+		vanilla_stained_clay_double_slabs = new BlockMultiWDblSlab[2];
+		vanilla_stained_clay_double_slabs[0] = new BlockMultiWDblSlab("vanilla_stained_clay_double_slab_0", MultiBlocks.VANILLA_STAINED_CLAY_0);
+		vanilla_stained_clay_double_slabs[1] = new BlockMultiWDblSlab("vanilla_stained_clay_double_slab_1", MultiBlocks.VANILLA_STAINED_CLAY_1);
 		vanilla_stained_clay_slabs = new BlockMultiSlab[2];
-		vanilla_stained_clay_slabs[0] = new BlockMultiSlab("vanilla_stained_clay_slab_0", MultiBlocks.VANILLA_STAINED_CLAY_0);
-		vanilla_stained_clay_slabs[1] = new BlockMultiSlab("vanilla_stained_clay_slab_1", MultiBlocks.VANILLA_STAINED_CLAY_1);
+		vanilla_stained_clay_slabs[0] = new BlockMultiSlab("vanilla_stained_clay_slab_0", MultiBlocks.VANILLA_STAINED_CLAY_0, vanilla_stained_clay_double_slabs[0]);
+		vanilla_stained_clay_slabs[1] = new BlockMultiSlab("vanilla_stained_clay_slab_1", MultiBlocks.VANILLA_STAINED_CLAY_1, vanilla_stained_clay_double_slabs[1]);
 		vanilla_stained_clay_stairs = new BlockMultiStair[8];
 		vanilla_stained_clay_stairs[0] = new BlockMultiStair("vanilla_stained_clay_stair_0", Blocks.stained_hardened_clay, MultiBlocks.VANILLA_STAINED_CLAY_0, 0, 1, false);
 		vanilla_stained_clay_stairs[1] = new BlockMultiStair("vanilla_stained_clay_stair_1", Blocks.stained_hardened_clay, MultiBlocks.VANILLA_STAINED_CLAY_0, 2, 3, false);
@@ -424,13 +536,13 @@ public class ModBlocks
 		vanilla_stained_clay_stairs[6] = new BlockMultiStair("vanilla_stained_clay_stair_6", Blocks.stained_hardened_clay, MultiBlocks.VANILLA_STAINED_CLAY_1, 12, 13, false);
 		vanilla_stained_clay_stairs[7] = new BlockMultiStair("vanilla_stained_clay_stair_7", Blocks.stained_hardened_clay, MultiBlocks.VANILLA_STAINED_CLAY_1, 14, 15, false);
 		
-		stained_clays = new BlockMulti[9];
+		stained_clays = new BlockMultiWDblSlab[9];
 		stained_clay_slabs = new BlockMultiSlab[9];
 		stained_clay_stairs = new BlockMultiStair[36];
 		for (int i = 0; i < 9; i++) {
 			ColoredBlocks data = ColoredBlocks.values()[ColoredBlocks.STAINED_CLAY_0.ordinal() + i];
-			stained_clays[i] = new BlockMultiWithDoubleSlab("stained_clay_" + i, data);
-			stained_clay_slabs[i] = new BlockMultiSlab("stained_clay_slab_" + i, data);
+			stained_clays[i] = new BlockMultiWDblSlab("stained_clay_" + i, data);
+			stained_clay_slabs[i] = new BlockMultiSlab("stained_clay_slab_" + i, data, stained_clays[i]);
 			stained_clay_stairs[i * 4] = new BlockMultiStair("stained_clay_stair_" + (i * 4), stained_clays[i], 0, 1, false);
 			stained_clay_stairs[i * 4 + 1] = new BlockMultiStair("stained_clay_stair_" + (i * 4 + 1), stained_clays[i], 2, 3, false);
 			stained_clay_stairs[i * 4 + 2] = new BlockMultiStair("stained_clay_stair_" + (i * 4 + 2), stained_clays[i], 4, 5, false);
@@ -438,12 +550,12 @@ public class ModBlocks
 		}
 		
 		if (CommonConfig.General.vanilla_concrete_ext) {
-			vanilla_concrete_double_slabs = new BlockMulti[2];
-			vanilla_concrete_double_slabs[0] = new BlockMultiWithDoubleSlab("vanilla_concrete_double_slab_0", MultiBlocks.VANILLA_CONCRETE_0);
-			vanilla_concrete_double_slabs[1] = new BlockMultiWithDoubleSlab("vanilla_concrete_double_slab_1", MultiBlocks.VANILLA_CONCRETE_1);
+			vanilla_concrete_double_slabs = new BlockMultiWDblSlab[2];
+			vanilla_concrete_double_slabs[0] = new BlockMultiWDblSlab("vanilla_concrete_double_slab_0", MultiBlocks.VANILLA_CONCRETE_0);
+			vanilla_concrete_double_slabs[1] = new BlockMultiWDblSlab("vanilla_concrete_double_slab_1", MultiBlocks.VANILLA_CONCRETE_1);
 			vanilla_concrete_slabs = new BlockMultiSlab[2];
-			vanilla_concrete_slabs[0] = new BlockMultiSlab("vanilla_concrete_slab_0", MultiBlocks.VANILLA_CONCRETE_0);
-			vanilla_concrete_slabs[1] = new BlockMultiSlab("vanilla_concrete_slab_1", MultiBlocks.VANILLA_CONCRETE_1);
+			vanilla_concrete_slabs[0] = new BlockMultiSlab("vanilla_concrete_slab_0", MultiBlocks.VANILLA_CONCRETE_0, vanilla_concrete_double_slabs[0]);
+			vanilla_concrete_slabs[1] = new BlockMultiSlab("vanilla_concrete_slab_1", MultiBlocks.VANILLA_CONCRETE_1, vanilla_concrete_double_slabs[1]);
 			vanilla_concrete_stairs = new BlockMultiStair[8];
 			vanilla_concrete_stairs[0] = new BlockMultiStair("vanilla_concrete_stair_0", vanilla_concrete_double_slabs[0], 0, 1, false);
 			vanilla_concrete_stairs[1] = new BlockMultiStair("vanilla_concrete_stair_1", vanilla_concrete_double_slabs[0], 2, 3, false);
@@ -454,13 +566,13 @@ public class ModBlocks
 			vanilla_concrete_stairs[6] = new BlockMultiStair("vanilla_concrete_stair_6", vanilla_concrete_double_slabs[1], 4, 5, false);
 			vanilla_concrete_stairs[7] = new BlockMultiStair("vanilla_concrete_stair_7", vanilla_concrete_double_slabs[1], 6, 7, false);
 			
-			concretes = new BlockMulti[9];
+			concretes = new BlockMultiWDblSlab[9];
 			concrete_slabs = new BlockMultiSlab[9];
 			concrete_stairs = new BlockMultiStair[36];
 			for (int i = 0; i < 9; i++) {
 				ColoredBlocks data = ColoredBlocks.values()[ColoredBlocks.CONCRETE_0.ordinal() + i];
-				concretes[i] = new BlockMultiWithDoubleSlab("concrete_" + i, data);
-				concrete_slabs[i] = new BlockMultiSlab("concrete_slab_" + i, data);
+				concretes[i] = new BlockMultiWDblSlab("concrete_" + i, data);
+				concrete_slabs[i] = new BlockMultiSlab("concrete_slab_" + i, data, concretes[i]);
 				concrete_stairs[i * 4] = new BlockMultiStair("concrete_stair_" + (i * 4), concretes[i], 0, 1, false);
 				concrete_stairs[i * 4 + 1] = new BlockMultiStair("concrete_stair_" + (i * 4 + 1), concretes[i], 2, 3, false);
 				concrete_stairs[i * 4 + 2] = new BlockMultiStair("concrete_stair_" + (i * 4 + 2), concretes[i], 4, 5, false);
@@ -474,14 +586,14 @@ public class ModBlocks
 		}
 		
 		if (CommonConfig.General.hbm_concrete_ext) {
-			hbm_base_concrete_double_slabs = new BlockMulti[3];
-			hbm_base_concrete_double_slabs[0] = new BlockMultiWithDoubleSlab("hbm_base_concrete_double_slab_0", MultiBlocks.HBM_BASE_CONCRETE_0);
-			hbm_base_concrete_double_slabs[1] = new BlockMultiWithDoubleSlab("hbm_base_concrete_double_slab_1", MultiBlocks.HBM_BASE_CONCRETE_1);
-			hbm_base_concrete_double_slabs[2] = new BlockMultiWithDoubleSlab("hbm_base_concrete_double_slab_2", MultiBlocks.HBM_BASE_CONCRETE_2);
+			hbm_base_concrete_double_slabs = new BlockMultiWDblSlab[3];
+			hbm_base_concrete_double_slabs[0] = new BlockMultiWDblSlab("hbm_base_concrete_double_slab_0", MultiBlocks.HBM_BASE_CONCRETE_0);
+			hbm_base_concrete_double_slabs[1] = new BlockMultiWDblSlab("hbm_base_concrete_double_slab_1", MultiBlocks.HBM_BASE_CONCRETE_1);
+			hbm_base_concrete_double_slabs[2] = new BlockMultiWDblSlab("hbm_base_concrete_double_slab_2", MultiBlocks.HBM_BASE_CONCRETE_2);
 			hbm_base_concrete_slabs = new BlockMultiSlab[3];
-			hbm_base_concrete_slabs[0] = new BlockMultiSlab("hbm_base_concrete_slab_0", MultiBlocks.HBM_BASE_CONCRETE_0);
-			hbm_base_concrete_slabs[1] = new BlockMultiSlab("hbm_base_concrete_slab_1", MultiBlocks.HBM_BASE_CONCRETE_1);
-			hbm_base_concrete_slabs[2] = new BlockMultiSlab("hbm_base_concrete_slab_2", MultiBlocks.HBM_BASE_CONCRETE_2);
+			hbm_base_concrete_slabs[0] = new BlockMultiSlab("hbm_base_concrete_slab_0", MultiBlocks.HBM_BASE_CONCRETE_0, hbm_base_concrete_double_slabs[0]);
+			hbm_base_concrete_slabs[1] = new BlockMultiSlab("hbm_base_concrete_slab_1", MultiBlocks.HBM_BASE_CONCRETE_1, hbm_base_concrete_double_slabs[1]);
+			hbm_base_concrete_slabs[2] = new BlockMultiSlab("hbm_base_concrete_slab_2", MultiBlocks.HBM_BASE_CONCRETE_2, hbm_base_concrete_double_slabs[2]);
 			hbm_base_concrete_stairs = new BlockMultiStair[12];
 			hbm_base_concrete_stairs[0] = new BlockMultiStair("hbm_base_concrete_stair_0", hbm_base_concrete_double_slabs[0], 0, 1, false);
 			hbm_base_concrete_stairs[1] = new BlockMultiStair("hbm_base_concrete_stair_1", hbm_base_concrete_double_slabs[0], 2, 3, false);
@@ -496,13 +608,13 @@ public class ModBlocks
 			hbm_base_concrete_stairs[10] = new BlockMultiStair("hbm_base_concrete_stair_10", hbm_base_concrete_double_slabs[2], 4, 5, false);
 			hbm_base_concrete_stairs[11] = new BlockMultiStair("hbm_base_concrete_stair_11", hbm_base_concrete_double_slabs[2], 6, 7, false);
 			
-			hbm_concretes = new BlockMulti[9];
+			hbm_concretes = new BlockMultiWDblSlab[9];
 			hbm_concrete_slabs = new BlockMultiSlab[9];
 			hbm_concrete_stairs = new BlockMultiStair[36];
 			for (int i = 0; i < 9; i++) {
 				ColoredBlocks data = ColoredBlocks.values()[ColoredBlocks.CONCRETE_0.ordinal() + i];
-				hbm_concretes[i] = new BlockMultiWithDoubleSlab("hbm_concrete_" + i, data);
-				hbm_concrete_slabs[i] = new BlockMultiSlab("hbm_concrete_slab_" + i, data);
+				hbm_concretes[i] = new BlockMultiWDblSlab("hbm_concrete_" + i, data);
+				hbm_concrete_slabs[i] = new BlockMultiSlab("hbm_concrete_slab_" + i, data, hbm_concretes[i]);
 				hbm_concrete_stairs[i * 4] = new BlockMultiStair("hbm_concrete_stair_" + (i * 4), hbm_concretes[i], 0, 1, false);
 				hbm_concrete_stairs[i * 4 + 1] = new BlockMultiStair("hbm_concrete_stair_" + (i * 4 + 1), hbm_concretes[i], 2, 3, false);
 				hbm_concrete_stairs[i * 4 + 2] = new BlockMultiStair("hbm_concrete_stair_" + (i * 4 + 2), hbm_concretes[i], 4, 5, false);
@@ -532,6 +644,40 @@ public class ModBlocks
 		GameRegistry.registerBlock(depth_soil, depth_soil.getUnlocalizedName());
 		
 		GameRegistry.registerBlock(dark_cobblestone, dark_cobblestone.getUnlocalizedName());
+		
+		GameRegistry.registerBlock(shiny_rock_a, ItemBlockMulti.class, shiny_rock_a.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_b, ItemBlockMulti.class, shiny_rock_b.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_c, ItemBlockMulti.class, shiny_rock_c.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_d, ItemBlockMulti.class, shiny_rock_d.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_e, ItemBlockMulti.class, shiny_rock_e.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_f, ItemBlockMulti.class, shiny_rock_f.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_g, ItemBlockMulti.class, shiny_rock_g.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_h, ItemBlockMulti.class, shiny_rock_h.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_i, ItemBlockMulti.class, shiny_rock_i.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_j, ItemBlockMulti.class, shiny_rock_j.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_k, ItemBlockMulti.class, shiny_rock_k.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_a, ItemBlockMultiSlab.class, shiny_rock_slab_a.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_b, ItemBlockMultiSlab.class, shiny_rock_slab_b.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_c, ItemBlockMultiSlab.class, shiny_rock_slab_c.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_d, ItemBlockMultiSlab.class, shiny_rock_slab_d.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_e, ItemBlockMultiSlab.class, shiny_rock_slab_e.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_f, ItemBlockMultiSlab.class, shiny_rock_slab_f.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_g, ItemBlockMultiSlab.class, shiny_rock_slab_g.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_h, ItemBlockMultiSlab.class, shiny_rock_slab_h.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_i, ItemBlockMultiSlab.class, shiny_rock_slab_i.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_j, ItemBlockMultiSlab.class, shiny_rock_slab_j.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_slab_k, ItemBlockMultiSlab.class, shiny_rock_slab_k.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_a, ItemBlockMulti.class, shiny_rock_stair_a.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_b, ItemBlockMulti.class, shiny_rock_stair_b.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_c, ItemBlockMulti.class, shiny_rock_stair_c.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_d, ItemBlockMulti.class, shiny_rock_stair_d.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_e, ItemBlockMulti.class, shiny_rock_stair_e.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_f, ItemBlockMulti.class, shiny_rock_stair_f.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_g, ItemBlockMulti.class, shiny_rock_stair_g.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_h, ItemBlockMulti.class, shiny_rock_stair_h.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_i, ItemBlockMulti.class, shiny_rock_stair_i.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_j, ItemBlockMulti.class, shiny_rock_stair_j.getUnlocalizedName());
+		GameRegistry.registerBlock(shiny_rock_stair_k, ItemBlockMulti.class, shiny_rock_stair_k.getUnlocalizedName());
 		
 		GameRegistry.registerBlock(compacted_snow, ItemBlockMulti.class, compacted_snow.getUnlocalizedName());
 		GameRegistry.registerBlock(compacted_snow_slab, ItemBlockMultiSlab.class, compacted_snow_slab.getUnlocalizedName());

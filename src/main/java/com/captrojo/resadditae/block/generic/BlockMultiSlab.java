@@ -3,11 +3,14 @@ package com.captrojo.resadditae.block.generic;
 import java.util.List;
 import java.util.Random;
 
+import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.block.IMultiBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
+import com.captrojo.resadditae.block.ISingleSlab;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,11 +22,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockMultiSlab extends BlockSlab implements IMultiBlock
+public class BlockMultiSlab extends BlockSlab implements IMultiBlock, ISingleSlab
 {
 	public final IMultiBlockData data;
+	public final Block double_slab;
 	
-	public BlockMultiSlab(String name, IMultiBlockData block_data)
+	public BlockMultiSlab(String name, IMultiBlockData block_data, IDoubleSlab double_slab)
 	{
 		super(false, block_data.getMaterial());
 		this.data = block_data;
@@ -31,28 +35,15 @@ public class BlockMultiSlab extends BlockSlab implements IMultiBlock
 		this.setBlockName(name);
 		this.setCreativeTab(null);
 		this.data.setBlockData(this);
+
+		double_slab.setSlab(this);
+		this.double_slab = double_slab.getDoubleSlab();
 	}
 
 	@Override
 	public String func_150002_b(int p_150002_1_)
 	{
 		return this.getUnlocalizedName();
-	}
-	
-	@Override
-	public IMultiBlockData getData(int meta)
-	{
-		return this.data;
-	}
-	
-	public int fixMeta(int meta)
-	{
-		return meta & 0x7;
-	}
-	
-	public int getTextureIdx(int meta)
-	{
-		return meta & 0x7;
 	}
 	
 	@Override
@@ -129,5 +120,27 @@ public class BlockMultiSlab extends BlockSlab implements IMultiBlock
 	public Item getItem(World world, int x, int y, int z)
 	{
 		return Item.getItemFromBlock(this);
+	}
+	
+	@Override
+	public IMultiBlockData getData(int meta)
+	{
+		return this.data;
+	}
+	
+	public int fixMeta(int meta)
+	{
+		return meta & 0x7;
+	}
+	
+	public int getTextureIdx(int meta)
+	{
+		return meta & 0x7;
+	}
+
+	@Override
+	public Block getDoubleSlab()
+	{
+		return this.double_slab;
 	}
 }

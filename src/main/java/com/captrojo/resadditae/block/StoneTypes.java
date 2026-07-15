@@ -7,7 +7,7 @@ import com.captrojo.resadditae.block.generic.BlockMultiDirectional;
 import com.captrojo.resadditae.block.generic.BlockMultiPillar;
 import com.captrojo.resadditae.block.generic.BlockMultiSlab;
 import com.captrojo.resadditae.block.generic.BlockMultiStair;
-import com.captrojo.resadditae.block.generic.BlockMultiWithDoubleSlab;
+import com.captrojo.resadditae.block.generic.BlockMultiWDblSlab;
 import com.captrojo.resadditae.item.block.ItemBlockMulti;
 import com.captrojo.resadditae.item.block.ItemBlockMultiSlab;
 
@@ -129,7 +129,7 @@ public enum StoneTypes
 	public final float hardness;
 	public final float resistance;
 	
-	public BlockMulti[] blocks;
+	public BlockMultiWDblSlab[] blocks;
 	public BlockMultiSlab[] slabs;
 	public BlockMultiStair[] stairs;
 	public BlockMultiPillar pillar_block;
@@ -143,7 +143,7 @@ public enum StoneTypes
 		this.hardness = hardness;
 		this.resistance = resistance;
 		
-		this.blocks = new BlockMulti[2];
+		this.blocks = new BlockMultiWDblSlab[2];
 		this.slabs = new BlockMultiSlab[2];
 		this.stairs = new BlockMultiStair[7];
 	
@@ -152,10 +152,10 @@ public enum StoneTypes
 		IMultiBlockData datap = StoneData.createBlockPData(this);
 		IMultiBlockData datad = StoneData.createBlockDData(this);
 		
-		this.blocks[0] = new BlockMultiWithDoubleSlab(name + "_0", data0);
-		this.blocks[1] = new BlockMultiWithDoubleSlab(name + "_1", data1);
-		this.slabs[0] = new BlockMultiSlab(name + "_slab_0", data0);
-		this.slabs[1] = new BlockMultiSlab(name + "_slab_1", data1);
+		this.blocks[0] = new BlockMultiWDblSlab(name + "_0", data0);
+		this.blocks[1] = new BlockMultiWDblSlab(name + "_1", data1);
+		this.slabs[0] = new BlockMultiSlab(name + "_slab_0", data0, this.blocks[0]);
+		this.slabs[1] = new BlockMultiSlab(name + "_slab_1", data1, this.blocks[1]);
 		this.stairs[0] = new BlockMultiStair(name + "_stairs_0", this.blocks[0], 0, 1, false);
 		this.stairs[1] = new BlockMultiStair(name + "_stairs_1", this.blocks[0], 2, 3, false);
 		this.stairs[2] = new BlockMultiStair(name + "_stairs_2", this.blocks[0], 4, 5, false);
@@ -164,7 +164,7 @@ public enum StoneTypes
 		this.stairs[5] = new BlockMultiStair(name + "_stairs_5", this.blocks[1], 2, 3, false);
 		this.stairs[6] = new BlockMultiStair(name + "_stairs_6", this.blocks[1], 4, 5, false);
 		this.pillar_block = new BlockMultiPillar(name + "_pillar", datap);
-		this.directional_block = new BlockMultiDirectional(name + "_directional", datad);
+		this.directional_block = new BlockMultiDirectional(name + "_directional", datad, false);
 	}
 	
 	private void register()

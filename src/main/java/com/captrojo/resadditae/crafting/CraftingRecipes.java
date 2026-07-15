@@ -28,6 +28,14 @@ public class CraftingRecipes
 	public static void register()
 	{
 		/* Misc. Block Recipes */
+		for (int i = 0, m0 = 0; i < ModBlocks.shiny_rocks.length; i++, m0 += 2) {
+			for (int m : ModBlocks.shiny_rocks[i].data.getValidMetas()) {
+				addShaped(new ItemStack(ModBlocks.shiny_rocks[i], 1, m), "aaa", "aaa", "aaa", 'a', new ItemStack(ModItems.shiny_rocks, 1, m0 + m));
+				addSlab(new ItemStack(ModBlocks.shiny_rock_slabs[i], 6, m), new ItemStack(ModBlocks.shiny_rocks[i], 1, m));
+				addStair(new ItemStack(ModBlocks.shiny_rock_stairs[i], 8, m << 3), new ItemStack(ModBlocks.shiny_rocks[i], 1, m));
+			}
+		}
+		
 		addShaped(new ItemStack(ModBlocks.compacted_snow, 2, 0), "aa", "aa", 'a', Blocks.snow);
 		addShaped(new ItemStack(ModBlocks.compacted_snow, 4, 1), "aa", "aa", 'a', new ItemStack(ModBlocks.compacted_snow, 1, 0));
 		addShaped(new ItemStack(ModBlocks.compacted_snow, 4, 2), "aa", "aa", 'a', new ItemStack(ModBlocks.compacted_snow, 1, 1));

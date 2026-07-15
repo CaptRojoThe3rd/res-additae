@@ -3,7 +3,7 @@ package com.captrojo.resadditae.item.block;
 import java.util.List;
 
 import com.captrojo.resadditae.block.IBlockData;
-import com.captrojo.resadditae.block.SlabAssociations;
+import com.captrojo.resadditae.block.ISingleSlab;
 import com.captrojo.resadditae.block.generic.BlockBasicSlab;
 import com.captrojo.resadditae.main.ResAdditae;
 
@@ -27,7 +27,7 @@ public class ItemBlockBasicSlab extends ItemSlab
 		super(block, (BlockSlab) block, null, false);
 		this.data = ((BlockBasicSlab) block).data;
 		this.single_slab = (BlockSlab) block;
-		this.double_slab = SlabAssociations.getBlockFromSlab(block);
+		this.double_slab = ((ISingleSlab) block).getDoubleSlab();
 	}
 	
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hx, float hy, float hz)

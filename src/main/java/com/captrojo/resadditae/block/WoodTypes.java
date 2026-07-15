@@ -11,7 +11,7 @@ import com.captrojo.resadditae.block.generic.BlockMultiPressurePlate;
 import com.captrojo.resadditae.block.generic.BlockMultiSapling;
 import com.captrojo.resadditae.block.generic.BlockMultiSlab;
 import com.captrojo.resadditae.block.generic.BlockMultiStair;
-import com.captrojo.resadditae.block.generic.BlockMultiWithDoubleSlab;
+import com.captrojo.resadditae.block.generic.BlockMultiWDblSlab;
 import com.captrojo.resadditae.block.generic.BlockTrapdoor;
 import com.captrojo.resadditae.item.block.ItemBlockDoor;
 import com.captrojo.resadditae.item.block.ItemBlockMulti;
@@ -43,7 +43,7 @@ public enum WoodTypes
 	DEEPWOOD(5, "deepwood", 0, false);
 	
 	private static BlockMultiLog[] log_blocks;
-	private static BlockMultiWithDoubleSlab[] plank_blocks;
+	private static BlockMultiWDblSlab[] plank_blocks;
 	private static BlockMultiSlab[] slab_blocks;
 	private static BlockMultiStair[] stair_blocks;
 	private static BlockMultiFence[] fence_blocks;
@@ -60,7 +60,7 @@ public enum WoodTypes
 		int max_id = WoodTypes.values()[WoodTypes.values().length - 1].id;
 		
 		log_blocks = new BlockMultiLog[max_id / 2 + 1];
-		plank_blocks = new BlockMultiWithDoubleSlab[max_id / 8 + 1];
+		plank_blocks = new BlockMultiWDblSlab[max_id / 8 + 1];
 		slab_blocks = new BlockMultiSlab[max_id / 8 + 1];
 		stair_blocks = new BlockMultiStair[max_id / 2 + 1];
 		fence_blocks = new BlockMultiFence[max_id / 16 + 1];
@@ -200,10 +200,10 @@ public enum WoodTypes
 			log_blocks[i] = new BlockMultiLog("wood_logs_" + i, log_data[i]);
 		}
 		for (int i = 0; i < plank_blocks.length; i++) {
-			plank_blocks[i] = new BlockMultiWithDoubleSlab("wood_planks_" + i, plank_data[i]);
+			plank_blocks[i] = new BlockMultiWDblSlab("wood_planks_" + i, plank_data[i]);
 		}
 		for (int i = 0; i < slab_blocks.length; i++) {
-			slab_blocks[i] = new BlockMultiSlab("wood_slabs_" + i, plank_data[i]);
+			slab_blocks[i] = new BlockMultiSlab("wood_slabs_" + i, plank_data[i], plank_blocks[i]);
 		}
 		for (int i = 0; i < plank_blocks.length; i++) {
 			BlockMulti plank = plank_blocks[i];

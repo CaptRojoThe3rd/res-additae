@@ -12,6 +12,11 @@ public class MiscHlpr
 		return list.get(rand.nextInt(list.size()));
 	}
 	
+	public static int getRandomElement(int[] arr, Random rand)
+	{
+		return arr[rand.nextInt(arr.length)];
+	}
+	
 	public static Integer[] getUniqueRandomInts(Random rand, int size, int max)
 	{
 		Set<Integer> set = new HashSet<Integer>();

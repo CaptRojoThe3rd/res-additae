@@ -28,6 +28,7 @@ public class BlockMultiStair extends BlockStairs implements IMultiBlock
 	public final IMultiBlockData data;
 	public final int meta_0;
 	public final int meta_1;
+	public final int[] metas;
 	
 	public BlockMultiStair(String name, Block block, IMultiBlockData data, int meta_0, int meta_1, boolean use_meta_1)
 	{
@@ -35,6 +36,13 @@ public class BlockMultiStair extends BlockStairs implements IMultiBlock
 		this.data = data;
 		this.meta_0 = meta_0 & 0x7;
 		this.meta_1 = (meta_1 < 0) ? -1 : meta_1 & 0x7;
+		if (use_meta_1) {
+			this.metas = new int[] {8};
+		} else if (this.meta_1 == -1) {
+			this.metas = new int[] {0};
+		} else {
+			this.metas = new int[] {0, 8};
+		}
 		
 		this.setBlockName(name);
 		this.setCreativeTab(null);
@@ -73,22 +81,6 @@ public class BlockMultiStair extends BlockStairs implements IMultiBlock
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hx, float hy, float hz, int meta)
 	{
 		return super.onBlockPlaced(world, x, y, z, side, hx, hy, hz, meta) | (meta & 0x8);
-	}
-	
-	@Override
-	public IMultiBlockData getData(int meta)
-	{
-		return this.data;
-	}
-
-	public int fixMeta(int meta)
-	{
-		return (meta >> 3) + this.meta_0;
-	}
-	
-	public int getTextureIdx(int meta)
-	{
-		return (meta >> 3) + this.meta_0;
 	}
 
 	@Override
@@ -168,5 +160,23 @@ public class BlockMultiStair extends BlockStairs implements IMultiBlock
 		if (this.meta_1 != -1) {
 			list.add(new ItemStack(item, 1, 8));
 		}
+	}
+
+	@Override
+	public int fixMeta(int meta)
+	{
+		return (meta >> 3) + this.meta_0;
+	}
+	
+	@Override
+	public int getTextureIdx(int meta)
+	{
+		return (meta >> 3) + this.meta_0;
+	}
+	
+	@Override
+	public IMultiBlockData getData(int meta)
+	{
+		return this.data;
 	}
 }

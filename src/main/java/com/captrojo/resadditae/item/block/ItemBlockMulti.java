@@ -2,15 +2,14 @@ package com.captrojo.resadditae.item.block;
 
 import java.util.List;
 
+import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.block.IMultiBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
 import com.captrojo.resadditae.block.PrismarineRuneMultiBlockData;
-import com.captrojo.resadditae.block.SlabAssociations;
-import com.captrojo.resadditae.block.generic.BlockMultiButton;
 import com.captrojo.resadditae.block.generic.BlockFenceGate;
+import com.captrojo.resadditae.block.generic.BlockMultiButton;
 import com.captrojo.resadditae.block.generic.BlockMultiLog;
 import com.captrojo.resadditae.block.generic.BlockMultiPressurePlate;
-import com.captrojo.resadditae.block.generic.BlockMultiWithDoubleSlab;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
@@ -43,8 +42,8 @@ public class ItemBlockMulti extends ItemBlockWithMetadata
 		int meta = stack.getItemDamage();
 		String append = "";
 		
-		if (block instanceof BlockMultiWithDoubleSlab && (meta & 0x8) != 0) {
-			return Item.getItemFromBlock(SlabAssociations.getSlabFromBlock(block)).getUnlocalizedName(stack);
+		if (block instanceof IDoubleSlab && (meta & 0x8) != 0) {
+			return Item.getItemFromBlock(((IDoubleSlab) block).getSingleSlab()).getUnlocalizedName(stack);
 		}
 		
 		IMultiBlockData data = this.block.getData(meta);

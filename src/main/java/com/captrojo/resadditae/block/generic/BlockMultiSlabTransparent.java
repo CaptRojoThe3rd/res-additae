@@ -1,16 +1,16 @@
 package com.captrojo.resadditae.block.generic;
 
+import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.block.IMultiBlockData;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.world.IBlockAccess;
 
 public class BlockMultiSlabTransparent extends BlockMultiSlab
 {
-	public BlockMultiSlabTransparent(String name, IMultiBlockData data)
+	public BlockMultiSlabTransparent(String name, IMultiBlockData data, IDoubleSlab slab)
 	{
-		super(name, data);
+		super(name, data, slab);
 	}
 	
 	@Override

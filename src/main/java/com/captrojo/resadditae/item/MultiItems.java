@@ -113,6 +113,32 @@ public enum MultiItems implements IMultiItemData
 		0x87, "light_orchid", "dye/8/light_orchid"
 	),
 	
+	SHINY_ROCKS(
+		0, "ilmenite", "shiny_rocks/ilmenite",
+		1, "carnelian", "shiny_rocks/carnelian",
+		2, "peridot", "shiny_rocks/peridot",
+		3, "charoite", "shiny_rocks/charoite",
+		4, "unakite", "shiny_rocks/unakite",
+		5, "kunzite", "shiny_rocks/kunzite",
+		6, "zoisite", "shiny_rocks/zoisite",
+		7, "apatite", "shiny_rocks/apatite",
+		
+		8, "amazonite", "shiny_rocks/amazonite",
+		9, "rhodochrosite", "shiny_rocks/rhodochrosite",
+		10, "corundum", "shiny_rocks/corundum",
+		11, "dumortierite", "shiny_rocks/dumortierite",
+		12, "howlite", "shiny_rocks/howlite",
+		13, "purpurite", "shiny_rocks/purpurite",
+		14, "lolite", "shiny_rocks/lolite",
+		15, "variolite", "shiny_rocks/variolite",
+		
+		16, "stromatolite", "shiny_rocks/stromatolite",
+		17, "porphyrite", "shiny_rocks/porphyrite",
+		18, "labradorite", "shiny_rocks/labradorite",
+		19, "skarn", "shiny_rocks/skarn",
+		20, "nephrite", "shiny_rocks/nephrite"
+	),
+	
 	KEYS(
 		0x00, "everything", "keys/everything",
 		

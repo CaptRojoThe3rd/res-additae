@@ -2,34 +2,31 @@ package com.captrojo.resadditae.block.generic;
 
 import java.util.Random;
 
+import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.block.IMultiBlockData;
-import com.captrojo.resadditae.block.SlabAssociations;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class BlockMultiWithDoubleSlab extends BlockMulti
+public class BlockMultiWDblSlab extends BlockMulti implements IDoubleSlab
 {
-	public BlockMultiWithDoubleSlab(String name, IMultiBlockData block_data)
+	private Block slab;
+	
+	public BlockMultiWDblSlab(String name, IMultiBlockData block_data)
 	{
 		super(name, block_data);
 	}
 	
 	@Override
-	public int fixMeta(int meta)
-	{
-		return meta & 0x7;
-	}
-	
-	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune)
 	{
-		if ((meta & 0x8) == 0) {
+		if ((meta & 0x8) == 0 || this.slab == null) {
 			return Item.getItemFromBlock(this);
 		}
-		return Item.getItemFromBlock(SlabAssociations.getSlabFromBlock(this));
+		return Item.getItemFromBlock(this.slab);
 	}
 	
 	@Override
@@ -51,6 +48,30 @@ public class BlockMultiWithDoubleSlab extends BlockMulti
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z)
 	{
-		return this.getItemDropped(world.getBlockMetadata(x, y, z), world.rand, 0);
+		return this.getItemDropped(world.getBlockMetadata(x, y, z) & 0x7, world.rand, 0);
+	}
+	
+	@Override
+	public int fixMeta(int meta)
+	{
+		return meta & 0x7;
+	}
+	
+	@Override
+	public void setSlab(Block slab)
+	{
+		this.slab = slab;
+	}
+
+	@Override
+	public Block getSingleSlab()
+	{
+		return this.slab;
+	}
+	
+	@Override
+	public Block getDoubleSlab()
+	{
+		return this;
 	}
 }

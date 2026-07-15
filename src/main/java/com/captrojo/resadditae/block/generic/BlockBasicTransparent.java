@@ -5,7 +5,7 @@ import com.captrojo.resadditae.block.IBlockData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockBasicTransparent extends BlockBasic
+public class BlockBasicTransparent extends BlockBasicWDblSlab
 {
 	public BlockBasicTransparent(String name, String texture_name, IBlockData data)
 	{

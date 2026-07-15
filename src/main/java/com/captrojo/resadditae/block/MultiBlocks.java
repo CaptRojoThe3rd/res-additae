@@ -49,6 +49,61 @@ public enum MultiBlocks implements IMultiBlockData
 		2, "stained_fractured", new BlockTexture(Type.STANDARD, "depths/stained_fractured_stone"), 2.0f, 2.0f, "pickaxe", 0
 	),
 	
+	SHINY_ROCKS_A(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "ilmenite", new BlockTexture(Type.STANDARD, "shiny_rocks/ilmenite"),
+		1, "carnelian", new BlockTexture(Type.STANDARD, "shiny_rocks/carnelian")
+	),
+	SHINY_ROCKS_B(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "peridot", new BlockTexture(Type.STANDARD, "shiny_rocks/peridot"),
+		1, "charoite", new BlockTexture(Type.STANDARD, "shiny_rocks/charoite")
+	),
+	SHINY_ROCKS_C(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "unakite", new BlockTexture(Type.STANDARD, "shiny_rocks/unakite"),
+		1, "kunzite", new BlockTexture(Type.STANDARD, "shiny_rocks/kunzite")
+	),
+	SHINY_ROCKS_D(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "zoisite", new BlockTexture(Type.STANDARD, "shiny_rocks/zoisite"),
+		1, "apatite", new BlockTexture(Type.STANDARD, "shiny_rocks/apatite")
+	),
+	SHINY_ROCKS_E(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "amazonite", new BlockTexture(Type.STANDARD, "shiny_rocks/amazonite"),
+		1, "rhodochrosite", new BlockTexture(Type.STANDARD, "shiny_rocks/rhodochrosite")
+	),
+	SHINY_ROCKS_F(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "corundum", new BlockTexture(Type.STANDARD, "shiny_rocks/corundum"),
+		1, "dumortierite", new BlockTexture(Type.STANDARD, "shiny_rocks/dumortierite")
+	),
+	SHINY_ROCKS_G(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "howlite", new BlockTexture(Type.STANDARD, "shiny_rocks/howlite"),
+		1, "purpurite", new BlockTexture(Type.STANDARD, "shiny_rocks/purpurite")
+	),
+	SHINY_ROCKS_H(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "lolite", new BlockTexture(Type.STANDARD, "shiny_rocks/lolite"),
+		1, "variolite", new BlockTexture(Type.STANDARD, "shiny_rocks/variolite")
+	),
+	SHINY_ROCKS_I(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "stromatolite", new BlockTexture(Type.STANDARD, "shiny_rocks/stromatolite"),
+		1, "porphyrite", new BlockTexture(Type.STANDARD, "shiny_rocks/porphyrite")
+	),
+	SHINY_ROCKS_J(
+		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "labradorite", new BlockTexture(Type.STANDARD, "shiny_rocks/labradorite"),
+		1, "skarn", new BlockTexture(Type.STANDARD, "shiny_rocks/skarn")
+	),
+	SHINY_ROCKS_K(
+		1, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "nephrite", new BlockTexture(Type.STANDARD, "shiny_rocks/nephrite")
+	),
+	
 	COMPACTED_SNOW(
 		4, Material.craftedSnow, Block.soundTypeSnow, false, false, true, 0, 0,
 		0, "plain", new BlockTexture(Type.STANDARD, "compacted_snow"), 0.35f, 0.35f, "shovel", 0,

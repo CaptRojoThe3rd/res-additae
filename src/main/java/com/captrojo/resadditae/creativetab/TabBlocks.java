@@ -49,6 +49,40 @@ public class TabBlocks
 		
 		tab.add(ModBlocks.dark_cobblestone);
 		
+		tab.add(ModBlocks.shiny_rock_a, ModBlocks.shiny_rock_a.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_b, ModBlocks.shiny_rock_b.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_c, ModBlocks.shiny_rock_c.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_d, ModBlocks.shiny_rock_d.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_e, ModBlocks.shiny_rock_e.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_f, ModBlocks.shiny_rock_f.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_g, ModBlocks.shiny_rock_g.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_h, ModBlocks.shiny_rock_h.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_i, ModBlocks.shiny_rock_i.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_j, ModBlocks.shiny_rock_j.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_k, ModBlocks.shiny_rock_k.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_a, ModBlocks.shiny_rock_slab_a.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_b, ModBlocks.shiny_rock_slab_b.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_c, ModBlocks.shiny_rock_slab_c.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_d, ModBlocks.shiny_rock_slab_d.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_e, ModBlocks.shiny_rock_slab_e.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_f, ModBlocks.shiny_rock_slab_f.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_g, ModBlocks.shiny_rock_slab_g.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_h, ModBlocks.shiny_rock_slab_h.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_i, ModBlocks.shiny_rock_slab_i.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_j, ModBlocks.shiny_rock_slab_j.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_slab_k, ModBlocks.shiny_rock_slab_k.data.getValidMetas());
+		tab.add(ModBlocks.shiny_rock_stair_a, ModBlocks.shiny_rock_stair_a.metas);
+		tab.add(ModBlocks.shiny_rock_stair_b, ModBlocks.shiny_rock_stair_b.metas);
+		tab.add(ModBlocks.shiny_rock_stair_c, ModBlocks.shiny_rock_stair_c.metas);
+		tab.add(ModBlocks.shiny_rock_stair_d, ModBlocks.shiny_rock_stair_d.metas);
+		tab.add(ModBlocks.shiny_rock_stair_e, ModBlocks.shiny_rock_stair_e.metas);
+		tab.add(ModBlocks.shiny_rock_stair_f, ModBlocks.shiny_rock_stair_f.metas);
+		tab.add(ModBlocks.shiny_rock_stair_g, ModBlocks.shiny_rock_stair_g.metas);
+		tab.add(ModBlocks.shiny_rock_stair_h, ModBlocks.shiny_rock_stair_h.metas);
+		tab.add(ModBlocks.shiny_rock_stair_i, ModBlocks.shiny_rock_stair_i.metas);
+		tab.add(ModBlocks.shiny_rock_stair_j, ModBlocks.shiny_rock_stair_j.metas);
+		tab.add(ModBlocks.shiny_rock_stair_k, ModBlocks.shiny_rock_stair_k.metas);
+		
 		tab.add(ModBlocks.compacted_snow, 0, 1, 2, 3);
 		tab.add(ModBlocks.compacted_snow_slab, 0, 1, 2, 3);
 		tab.add(ModBlocks.compacted_snow_stair_a, 0, 8);

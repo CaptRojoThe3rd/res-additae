@@ -3,22 +3,21 @@ package com.captrojo.resadditae.block.generic;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.IBlockData;
-import com.captrojo.resadditae.block.SlabAssociations;
+import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockBasic extends Block
+public class BlockBasicWDblSlab extends Block implements IDoubleSlab
 {
 	public final IBlockData data;
+	private Block slab;
 	
-	public BlockBasic(String name, String texture_name, IBlockData data)
+	public BlockBasicWDblSlab(String name, String texture_name, IBlockData data)
 	{
 		super(data.getMaterial());
 		this.data = data;
@@ -32,10 +31,10 @@ public class BlockBasic extends Block
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune)
 	{
-		if ((meta & 0x8) == 0) {
+		if ((meta & 0x8) == 0 || this.slab == null) {
 			return Item.getItemFromBlock(this);
 		}
-		return Item.getItemFromBlock(SlabAssociations.getSlabFromBlock(this));
+		return Item.getItemFromBlock(this.slab);
 	}
 	
 	@Override
@@ -57,6 +56,24 @@ public class BlockBasic extends Block
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z)
 	{
-		return this.getItemDropped(world.getBlockMetadata(x, y, z), world.rand, 0);
+		return this.getItemDropped(world.getBlockMetadata(x, y, z) & 0x7, world.rand, 0);
+	}
+
+	@Override
+	public void setSlab(Block slab)
+	{
+		this.slab = slab;
+	}
+
+	@Override
+	public Block getSingleSlab()
+	{
+		return this.slab;
+	}
+
+	@Override
+	public Block getDoubleSlab()
+	{
+		return this;
 	}
 }

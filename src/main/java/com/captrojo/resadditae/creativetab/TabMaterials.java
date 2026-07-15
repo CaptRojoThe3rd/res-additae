@@ -54,11 +54,7 @@ public class TabMaterials
 		}
 		
 		tab.add(ModItems.potion_ingredients, MultiItems.POTION_INGREDS.getValidMetas());
-		
-		for (int m0 = 0x00; m0 <= 0x80; m0 += 0x10) {
-			for (int m1 = 0; m1 < 8; m1++) {
-				tab.add(ModItems.dye, m0 | m1);
-			}
-		}
+		tab.add(ModItems.dye, MultiItems.DYE.getValidMetas());
+		tab.add(ModItems.shiny_rocks, MultiItems.SHINY_ROCKS.getValidMetas());
 	}
 }

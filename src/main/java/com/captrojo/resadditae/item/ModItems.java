@@ -47,8 +47,8 @@ public class ModItems
 	public static Item gems;
 	
 	public static Item potion_ingredients;
-	
 	public static Item dye;
+	public static Item shiny_rocks;
 	
 	public static Item wood_scythe;
 	public static Item wood_halberd;
@@ -151,8 +151,8 @@ public class ModItems
 		gems = new ItemMulti("gems", MultiItems.GEMS);
 		
 		potion_ingredients = new ItemMultiPotionIngredient("potion_ingredients", MultiItems.POTION_INGREDS);
-		
 		dye = new ItemMulti("dye", new DyeItemData());
+		shiny_rocks = new ItemMulti("shiny_rocks", MultiItems.SHINY_ROCKS);
 		
 		wood_scythe = new ItemScythe("wood_scythe", "wood_scythe", ToolMaterial.WOOD, ExtendedToolMaterial.WOOD);
 		wood_halberd = new ItemHalberd("wood_halberd", "wood_halberd", "textures/tools/wood_halberd.png", ToolMaterial.WOOD, ExtendedToolMaterial.WOOD);
@@ -260,8 +260,8 @@ public class ModItems
 		GameRegistry.registerItem(gems, gems.getUnlocalizedName());
 		
 		GameRegistry.registerItem(potion_ingredients, potion_ingredients.getUnlocalizedName());
-		
 		GameRegistry.registerItem(dye, dye.getUnlocalizedName());
+		GameRegistry.registerItem(shiny_rocks, shiny_rocks.getUnlocalizedName());
 		
 		GameRegistry.registerItem(wood_scythe, wood_scythe.getUnlocalizedName());
 		GameRegistry.registerItem(wood_halberd, wood_halberd.getUnlocalizedName());
