@@ -1,9 +1,9 @@
 package com.captrojo.resadditae.main;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.IDoubleSlab;
+import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.entity.properties.MobDropDataBase;
 import com.captrojo.resadditae.entity.properties.PlayerAttributes;
@@ -14,15 +14,16 @@ import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
 import com.captrojo.resadditae.tileentity.TESnowDungeonSpawner;
 
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -35,6 +36,7 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 public class CommonEventHandler
@@ -235,6 +237,23 @@ public class CommonEventHandler
 			PerformanceInfo.onTickStart(time_ms);
 		} else if (event.phase == TickEvent.Phase.END) {
 			PerformanceInfo.onTickEnd(time_ms);
+		}
+	}
+	
+	@SubscribeEvent
+	public void useHoeEvent(UseHoeEvent event)
+	{
+		Block block = event.world.getBlock(event.x, event.y, event.z);
+		Block block1 = ModBlocks.depth_farmland;
+		if (block == ModBlocks.depth_soil) {
+			if (!event.world.isRemote) {
+				event.world.setBlock(event.x, event.y, event.z, ModBlocks.depth_farmland);
+			}
+			double dx = ((double) event.x) + 0.5;
+			double dy = ((double) event.y) + 0.5;
+			double dz = ((double) event.z) + 0.5; 
+			event.world.playSoundEffect(dx, dy, dz, block1.stepSound.getStepResourcePath(), (block1.stepSound.getVolume() + 1.0f) / 2.0f, block1.stepSound.getPitch() * 0.8f);
+			event.setResult(Result.ALLOW);
 		}
 	}
 }

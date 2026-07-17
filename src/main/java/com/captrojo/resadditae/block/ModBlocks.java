@@ -28,6 +28,7 @@ import com.captrojo.resadditae.block.ore.BlockOreVanilla;
 import com.captrojo.resadditae.block.ore.BlockPlatinumOre;
 import com.captrojo.resadditae.block.ore.BlockSilverOre;
 import com.captrojo.resadditae.block.ore.OreStones;
+import com.captrojo.resadditae.block.special.BlockDepthFarmland;
 import com.captrojo.resadditae.block.special.BlockDepthSoil;
 import com.captrojo.resadditae.block.special.BlockDepthsPortal;
 import com.captrojo.resadditae.block.special.BlockFlashoverAir;
@@ -75,6 +76,7 @@ public class ModBlocks
 	
 	public static BlockMulti depth_stones_special;
 	public static Block depth_soil;
+	public static Block depth_farmland;
 	
 	public static BlockMultiDirectionalWDblSlab shiny_rock_a;
 	public static BlockMultiDirectionalWDblSlab shiny_rock_b;
@@ -265,6 +267,7 @@ public class ModBlocks
 		
 		depth_stones_special = new BlockMulti("depth_stones_special", MultiBlocks.DEPTH_STONES_SPECIAL);
 		depth_soil = new BlockDepthSoil();
+		depth_farmland = new BlockDepthFarmland();
 		
 		dark_cobblestone = new BlockBasicWDblSlab("dark_cobblestone", "dark_cobblestone", BasicBlockData.cobblestone);
 		
@@ -654,6 +657,7 @@ public class ModBlocks
 		
 		GameRegistry.registerBlock(depth_stones_special, ItemBlockMulti.class, depth_stones_special.getUnlocalizedName());
 		GameRegistry.registerBlock(depth_soil, depth_soil.getUnlocalizedName());
+		GameRegistry.registerBlock(depth_farmland, depth_farmland.getUnlocalizedName());
 		
 		GameRegistry.registerBlock(dark_cobblestone, dark_cobblestone.getUnlocalizedName());
 		

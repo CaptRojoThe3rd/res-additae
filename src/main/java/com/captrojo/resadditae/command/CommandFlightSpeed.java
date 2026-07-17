@@ -44,7 +44,7 @@ public class CommandFlightSpeed extends CommandBase
 		EntityPlayer player = (EntityPlayer) sender;
 		float speed = 0.05f;
 		try {
-			speed = Float.parseFloat(args[1]);
+			speed = Float.parseFloat(args[0]);
 		} catch (NumberFormatException e) {}
 		ResAdditae.network.sendTo(new PacketSetFlightSpeed(speed), (EntityPlayerMP) sender);
 		sender.addChatMessage(I18nHlpr.chatf("commands.flightspeed.set", speed));

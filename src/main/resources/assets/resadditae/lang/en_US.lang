@@ -432,6 +432,7 @@ tile.depth_stones_special.fractured.name=Fractured Depth Stone
 tile.depth_stones_special.stained_fractured.name=Stained Fractured Depth Stone
 
 tile.depth_soil.name=Depth Soil
+tile.depth_farmland.name=Depth Farmland
 
 tile.dark_cobblestone.name=Dark Cobblestone
 
