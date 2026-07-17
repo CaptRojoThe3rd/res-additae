@@ -9,6 +9,7 @@ Additions:
 * Added geodes made of shiny rocks that generate in The Depths
 * Added moss. It can be placed in layers on any side of a block
 * /radebug command - can be used to spawn chasms in an already-generated world
+* Added MSPT and TPS info to the F3 menu
 
 Changes:
 * Fixed up chasm generation
