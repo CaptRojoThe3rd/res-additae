@@ -58,7 +58,7 @@ public class CommandRADebug extends CommandBase
 		
 		if (args[0].equals("get-block-data")) {
 			if (args.length < 4) {
-				throw new WrongUsageException("commands.radebug.get-block-data");
+				throw new WrongUsageException("commands.radebug.get-block-data.usage");
 			}
 			
 			int px = sender.getPlayerCoordinates().posX;

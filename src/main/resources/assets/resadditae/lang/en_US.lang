@@ -16,9 +16,15 @@ alert.no_entities_nearby=No entities nearby!
 
 commands.fill.usage=Usage: /fill <x1> <y1> <z1> <x2> <y2> <z2> <block> [<meta>] [replace <block> [<meta>]] [update]
 
-commands.flightspeed.usage=Usage: /flightspeed get|set [<speed>]
-commands.flightspeed.current=Current flight speed is %f
+commands.flightspeed.usage=Usage: /flightspeed <speed>
 commands.flightspeed.set=Set flight speed to %f
+
+commands.radebug.usage=Usage: /rastruct echo|get-block-data|respawn-chasms|enable-performance-info|disable-performance-info|reset-performance-info
+
+commands.radebug.get-block-data.usage=Usage: /rastruct get-block-data <x> <y> <z>
+
+commands.radebug.respawn-chasms.usage=Usage: /rastruct respawn-chasms <chunk_radius>
+commands.radebug.respawn-chasms.complete=Chasms regenerated
 
 commands.rastruct.usage=Usage: /rastruct load-from-disk|save-to-disk|loot|load-loot-from-disk|save-loot-to-disk|load-loot-from-memory|save-loot-to-memory
 
