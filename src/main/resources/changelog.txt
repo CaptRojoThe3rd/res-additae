@@ -3,6 +3,7 @@
 
 Additions:
 * Depths generation overhaul - lots of new decorations added
+* Added depth soil farmland
 * Added polished and other variants of depth stones
 * Added shiny rocks
 * Added geodes made of shiny rocks that generate in The Depths

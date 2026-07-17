@@ -20,12 +20,12 @@ public class WorldGenChasm extends WorldGenerator
 	public static final SpacedThingCheck PLACEMENT_CHK = new SpacedThingCheck(
 		"WorldGenChasm".hashCode(),
 		null,
-//		CommonConfig.WorldGen.chasm_excl_rad,
-//		CommonConfig.WorldGen.chasm_min_dist,
-//		CommonConfig.WorldGen.chasm_max_dist
-		0,
-		4,
-		8
+		CommonConfig.WorldGen.chasm_excl_rad,
+		CommonConfig.WorldGen.chasm_min_dist,
+		CommonConfig.WorldGen.chasm_max_dist
+//		0,
+//		4,
+//		8
 	);
 	
 	public static final BiomeGenBase[] INVALID_BIOMES = {

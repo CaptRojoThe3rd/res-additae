@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
+import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.main.BlockHlpr;
 import com.captrojo.resadditae.world.SimpleCoords;
 import com.captrojo.resadditae.world.SimpleNode;
@@ -21,9 +22,9 @@ public abstract class WorldGenLargeGeodeBase extends WorldGenerator
 	public static final SpacedThingCheck PLACEMENT_CHK = new SpacedThingCheck(
 		"WorldGenLargeGeodeBase".hashCode(),
 		null,
-		0,
-		8,
-		16
+		CommonConfig.WorldGen.geode_excl_rad,
+		CommonConfig.WorldGen.geode_min_dist,
+		CommonConfig.WorldGen.geode_max_dist
 	);
 	
 	private static HashMap<BlockMeta, BlockMeta> minable_map;

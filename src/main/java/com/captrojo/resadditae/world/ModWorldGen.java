@@ -215,7 +215,8 @@ public class ModWorldGen implements IWorldGenerator
 			(new WorldGenChasm()).generate(world, rand, block_x, world.getHeightValue(block_x, block_z), block_z);
 		}
 		
-		if (WorldGenLargeGeodeBase.PLACEMENT_CHK.canPlaceAt(world, chunk_x, chunk_z)) {
+		/* Geodes */
+		if (CommonConfig.WorldGen.geode_enabled && WorldGenLargeGeodeBase.PLACEMENT_CHK.canPlaceAt(world, chunk_x, chunk_z)) {
 			(new WorldGenLargeGeodeD2(
 				new BlockMeta(ModBlocks.shiny_rock_h, 0),
 				new BlockMeta(ModBlocks.geode_shell_a, 14)

@@ -195,9 +195,15 @@ public class CommonConfig
 	public static class WorldGen
 	{
 		public static int depths_dimension_id;
+		
 		public static int chasm_excl_rad;
 		public static int chasm_min_dist;
 		public static int chasm_max_dist;
+		
+		public static boolean geode_enabled;
+		public static int geode_excl_rad;
+		public static int geode_min_dist;
+		public static int geode_max_dist;
 		
 		public static boolean dark_dungeon_enabled;
 		public static int dark_dungeon_excl_rad;
@@ -232,6 +238,11 @@ public class CommonConfig
 			chasm_excl_rad = ModConfig.getInt("chasm_exclusion_radius", null, 4);
 			chasm_min_dist = ModConfig.getInt("chasm_min_distance", null, 24);
 			chasm_max_dist = ModConfig.getInt("chasm_max_distance", null, 48);
+			
+			geode_enabled = ModConfig.getBool("geode_enabled", null, true);
+			geode_excl_rad = ModConfig.getInt("geode_exclusion_radius", null, 0);
+			geode_min_dist = ModConfig.getInt("geode_min_distance", null, 8);
+			geode_max_dist = ModConfig.getInt("geode_max_distance", null, 16);
 			
 			
 			ModConfig._category = "structures.overworld";
