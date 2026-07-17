@@ -48,7 +48,9 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerEventHandlers()
 	{
-		this.registerEventHandlers(new ClientEventHandler());
+		ClientEventHandler.instance = new ClientEventHandler();
+		this.registerEventHandlers(ClientEventHandler.instance);
+		
 		FMLCommonHandler.instance().bus().register(new KeyInputHandler());
 	}
 

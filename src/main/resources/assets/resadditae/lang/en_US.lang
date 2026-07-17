@@ -425,6 +425,8 @@ tile.depth_stones_special.dark.name=Dark Depth Stone
 tile.depth_stones_special.fractured.name=Fractured Depth Stone
 tile.depth_stones_special.stained_fractured.name=Stained Fractured Depth Stone
 
+tile.depth_soil.name=Depth Soil
+
 tile.dark_cobblestone.name=Dark Cobblestone
 
 tile.shiny_rock_a.ilmenite.name=Block of Ilmenite

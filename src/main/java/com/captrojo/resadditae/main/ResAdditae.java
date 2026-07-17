@@ -26,6 +26,7 @@ import com.captrojo.resadditae.gui.GuiHandler;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.block.ItemBlockMulti;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
+import com.captrojo.resadditae.packet.toclient.PacketPerformanceInfo;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
 import com.captrojo.resadditae.packet.toclient.PacketSetFlightSpeed;
 import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
@@ -241,6 +242,7 @@ public class ResAdditae
 		network.registerMessage(PacketSetFlightSpeed.HandlerClient.class, PacketSetFlightSpeed.class, 0x00, Side.CLIENT);
 		network.registerMessage(PacketPlayerExtProps.HandlerClient.class, PacketPlayerExtProps.class, 0x01, Side.CLIENT);
 		network.registerMessage(PacketDisplayAlert.HandlerClient.class, PacketDisplayAlert.class, 0x02, Side.CLIENT);
+		network.registerMessage(PacketPerformanceInfo.HandlerClient.class, PacketPerformanceInfo.class, 0x03, Side.CLIENT);
 
 		network.registerMessage(PacketNBTControl.HandlerServer.class, PacketNBTControl.class, 0x80, Side.SERVER);
 		network.registerMessage(PacketPlayerSettings.HandlerServer.class, PacketPlayerSettings.class, 0x81, Side.SERVER);

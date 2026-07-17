@@ -21,6 +21,14 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 public class ClientEventHandler extends CommonEventHandler
 {
+	public static ClientEventHandler instance;
+	
+	public static long mspt_avg;
+	public static long mspt_last;
+	public static long mspt_worst;
+	public static boolean mspt_valid = false;
+	public static long last_tick_time = 0;
+	
 	@SubscribeEvent
 	public void getFogColorEvent(EntityViewRenderEvent.FogColors event)
 	{
@@ -132,20 +140,30 @@ public class ClientEventHandler extends CommonEventHandler
 	public void renderHUDTextEvent(RenderGameOverlayEvent.Text event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.gameSettings.showDebugInfo) {
+		long since_last_tick = Minecraft.getSystemTime() - last_tick_time;
+		
+		if (mc.gameSettings.showDebugInfo && mspt_valid) {
 			String mspt_str = String.format(
-				"mspt: [worst: %d, avg: %d, last: %d]",
-				CommonEventHandler.mspt_worst,
-				CommonEventHandler.mspt_avg,
-				CommonEventHandler.mspt_last
+				"mspt: [avg: %d, last: %d, worst: %d]",
+				mspt_avg,
+				mspt_last,
+				mspt_worst
 			);
 			String tps_str = String.format(
-				"tps: %.2f",
-				(CommonEventHandler.mspt_avg < 50) ? 20d : (1000d / (double) CommonEventHandler.mspt_avg)
+				"tps: %.2f, slt: %.1f",
+				((mspt_avg < 50) ? 20d : (1000d / (double) mspt_avg)),
+				((float) since_last_tick) / 1000f
 			);
-			event.left.add(null);
-			event.left.add(mspt_str);
-			event.left.add(tps_str);
+			int i;
+			for (i = 0; i < event.left.size(); i++) {
+				if (event.left.get(i).contains("MultiplayerChunkCache")) {
+					break;
+				}
+			}
+			i++;
+			event.left.add(i, tps_str);
+			event.left.add(i, mspt_str);
+			event.left.add(i, null);
 		}
 	}
 }

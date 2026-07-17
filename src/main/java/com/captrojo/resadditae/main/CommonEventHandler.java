@@ -1,5 +1,6 @@
 package com.captrojo.resadditae.main;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.IDoubleSlab;
@@ -21,6 +22,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -37,14 +39,6 @@ import net.minecraftforge.event.world.BlockEvent;
 
 public class CommonEventHandler
 {
-	public static long tick_time_start;
-	public static long tick_time_end;
-	public static volatile long mspt_last;
-	public static volatile long mspt_worst;
-	public static volatile long mspt_avg;
-	public static long[] mspt_avg_arr = new long[20];
-	public static int mspt_avg_arr_idx;
-	
 	@SubscribeEvent
 	public void onBlockDropping(BlockEvent.HarvestDropsEvent event)
 	{
@@ -237,24 +231,10 @@ public class CommonEventHandler
 	public void onServerTickEvent(TickEvent.ServerTickEvent event)
 	{
 		long time_ms = MinecraftServer.getSystemTimeMillis();
-		
 		if (event.phase == TickEvent.Phase.START) {
-			tick_time_start = time_ms;
+			PerformanceInfo.onTickStart(time_ms);
 		} else if (event.phase == TickEvent.Phase.END) {
-			tick_time_end = time_ms;
-			
-			mspt_last = tick_time_end - tick_time_start;
-			if (mspt_last > mspt_worst) {
-				mspt_worst = mspt_last;
-			}
-			
-			mspt_avg_arr[mspt_avg_arr_idx] = mspt_last;
-			mspt_avg_arr_idx = (mspt_avg_arr_idx + 1) % 20;
-			mspt_avg = 0;
-			for (long l : mspt_avg_arr) {
-				mspt_avg += l;
-			}
-			mspt_avg /= 20;
+			PerformanceInfo.onTickEnd(time_ms);
 		}
 	}
 }

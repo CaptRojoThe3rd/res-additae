@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.captrojo.resadditae.apocalypse.Apocalypse;
-import com.captrojo.resadditae.main.CommonEventHandler;
 import com.captrojo.resadditae.main.I18nHlpr;
+import com.captrojo.resadditae.main.PerformanceInfo;
 import com.captrojo.resadditae.tileentity.TEMossLayer;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 
@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
@@ -116,8 +117,20 @@ public class CommandRADebug extends CommandBase
 			return;
 		}
 		
-		if (args[0].equals("reset-mspt-worst")) {
-			CommonEventHandler.mspt_worst = 0;
+		if (args[0].equals("enable-performance-info")) {
+			EntityPlayerMP player = args.length > 1 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
+			PerformanceInfo.addListener(player);
+			return;
+		}
+		
+		if (args[0].equals("disable-performance-info")) {
+			EntityPlayerMP player = args.length > 1 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
+			PerformanceInfo.removeListener(player);
+			return;
+		}
+		
+		if (args[0].equals("reset-performance-info")) {
+			PerformanceInfo.resetInfo();
 			return;
 		}
 		
@@ -152,7 +165,9 @@ public class CommandRADebug extends CommandBase
 			list.add("echo");
 			list.add("get-block-data");
 			list.add("respawn-chasms");
-			list.add("reset-mspt-worst");
+			list.add("enable-performance-info");
+			list.add("disable-performance-info");
+			list.add("reset-performance-info");
 		}
 		return list;
 	}
