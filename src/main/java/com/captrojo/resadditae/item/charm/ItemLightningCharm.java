@@ -23,15 +23,15 @@ public class ItemLightningCharm extends ItemCharmBase
 	{
 		super("charm_lightning", 100, EnumRarity.rare, 140, 280, 20);
 	}
+
+	@Override
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		
 		if (player.isSneaking()) {
 			for (int i = 0; i < AOE_LIGHTNING_XS.length; i++) {
 				double x = player.posX + AOE_LIGHTNING_XS[i];
@@ -66,11 +66,10 @@ public class ItemLightningCharm extends ItemCharmBase
 				world.spawnEntityInWorld(lb);
 			}
 			if (entity_count == 0) {
-				this.noEntitiesNearby(player);
-				return stack;
+				this.noEntitiesNearby(world, player);
+				return false;
 			}
 		}
-
-		return this.onItemRightClickPost(stack, world, player);
+		return true;
 	}
 }

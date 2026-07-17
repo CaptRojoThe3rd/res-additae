@@ -1,5 +1,7 @@
 package com.captrojo.resadditae.item.charm;
 
+import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,12 +17,13 @@ public class ItemFireballCharm extends ItemCharmBase
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		
+	}
+
+	@Override
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
 		if (player.isSneaking()) {
 			world.createExplosion(player, player.posX, player.posY, player.posZ, 50, true);
 		}
@@ -56,7 +59,6 @@ public class ItemFireballCharm extends ItemCharmBase
 				}
 			}
 		}
-		
-		return this.onItemRightClickPost(stack, world, player);
+		return true;
 	}
 }

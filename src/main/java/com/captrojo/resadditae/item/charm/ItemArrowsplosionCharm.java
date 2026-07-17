@@ -14,14 +14,15 @@ public class ItemArrowsplosionCharm extends ItemCharmBase
 	{
 		super("charm_arrowsplosion", 20, EnumRarity.epic, 3000, 3000, 60);
 	}
+
+	@Override
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		
 		for (double yaw = -180; yaw < 180; yaw += 10) {
 			for (double pitch = -45; pitch < 75; pitch += 10) {
 				EntityArrow arrow = new EntityArrow(world, player.posX, player.posY + 3, player.posZ);
@@ -33,7 +34,6 @@ public class ItemArrowsplosionCharm extends ItemCharmBase
 				world.spawnEntityInWorld(arrow);
 			}
 		}
-
-		return this.onItemRightClickPost(stack, world, player);
+		return true;
 	}
 }

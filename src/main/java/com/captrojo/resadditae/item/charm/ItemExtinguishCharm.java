@@ -21,15 +21,15 @@ public class ItemExtinguishCharm extends ItemCharmBase
 	{
 		super("charm_extinguish", 100, EnumRarity.uncommon, 40, 80, 20);
 	}
+
+	@Override
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		
 		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(
 			player.posX - 10, player.posY - 10, player.posZ - 10, 
 			player.posX + 10, player.posY + 10, player.posZ + 10
@@ -56,10 +56,9 @@ public class ItemExtinguishCharm extends ItemCharmBase
 			entity_count++;
 		}
 		if (entity_count == 0) {
-			this.noEntitiesNearby(player);
-			return stack;
+			this.noEntitiesNearby(world, player);
+			return false;
 		}
-		
-		return this.onItemRightClickPost(stack, world, player);
+		return true;
 	}
 }

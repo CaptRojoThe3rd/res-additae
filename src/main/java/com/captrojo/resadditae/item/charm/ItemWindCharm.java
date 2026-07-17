@@ -20,15 +20,15 @@ public class ItemWindCharm extends ItemCharmBase
 	{
 		super("charm_wind", 100, EnumRarity.uncommon, 60, 120, 20);
 	}
+
+	@Override
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
-	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{	
 		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(
 			player.posX - 10, player.posY - 10, player.posZ - 10, 
 			player.posX + 10, player.posY + 10, player.posZ + 10
@@ -75,11 +75,11 @@ public class ItemWindCharm extends ItemCharmBase
 			entity.velocityChanged = true;
 			entity_count++;
 		}
-		if (entity_count == 0) {
-			this.noEntitiesNearby(player);
-			return stack;
-		}
 		
-		return this.onItemRightClickPost(stack, world, player);
+		if (entity_count == 0) {
+			this.noEntitiesNearby(world, player);
+			return false;
+		}
+		return true;
 	}
 }

@@ -23,15 +23,15 @@ public class ItemFireCharm extends ItemCharmBase
 	{
 		super("charm_fire", 100, EnumRarity.rare, 100, 200, 20);
 	}
+
+	@Override
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		
 		if (player.isSneaking()) {
 			for (int x0 = -10; x0 <= 10; x0++) {
 				for (int y0 = -10; y0 <= 10; y0++) {
@@ -73,13 +73,12 @@ public class ItemFireCharm extends ItemCharmBase
 				entity.setFire(5);
 			}
 			if (entity_count == 0) {
-				this.noEntitiesNearby(player);
-				return stack;
+				this.noEntitiesNearby(world, player);
+				return false;
 			}
 			
 			player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 600));
 		}
-		
-		return this.onItemRightClickPost(stack, world, player);
+		return true;
 	}
 }

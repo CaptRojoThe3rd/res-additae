@@ -15,15 +15,15 @@ public class ItemHopCharm extends ItemCharmBase
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		
+	}
+
+	@Override
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
 		player.addVelocity(0, 1, 0);
 		player.velocityChanged = true;
-		
-		return this.onItemRightClickPost(stack, world, player);
+		return true;
 	}
 }

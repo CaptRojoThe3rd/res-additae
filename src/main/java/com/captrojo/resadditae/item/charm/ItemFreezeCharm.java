@@ -27,13 +27,13 @@ public class ItemFreezeCharm extends ItemCharmBase
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
-		if (!this.onItemRightClickPre(stack, world, player)) {
-			return stack;
-		}
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		
+	}
+
+	@Override
+	public boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
 		if (player.isSneaking()) {
 			int x0 = (int) player.posX;
 			int y0 = (int) player.posY;
@@ -84,11 +84,10 @@ public class ItemFreezeCharm extends ItemCharmBase
 				entity_count++;
 			}
 			if (entity_count == 0) {
-				this.noEntitiesNearby(player);
-				return stack;
+				this.noEntitiesNearby(world, player);
+				return false;
 			}
 		}
-		
-		return this.onItemRightClickPost(stack, world, player);
+		return true;
 	}
 }

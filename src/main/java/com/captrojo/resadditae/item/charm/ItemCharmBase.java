@@ -72,14 +72,26 @@ public abstract class ItemCharmBase extends Item implements IItemWithSettings
 		}
 	}
 	
-	public void notEnoughMana(EntityPlayer player)
+	public abstract void onUseClient(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp);
+	
+	public abstract boolean onUseServer(ItemStack stack, World world, EntityPlayer player, RAPlayerProperties rpp);
+	
+	public void notEnoughMana(World world, EntityPlayer player)
 	{
-		ResAdditae.network.sendTo(new PacketDisplayAlert(PacketDisplayAlert.Type.HOTBAR_LOW, "alert.not_enough_mana"), (EntityPlayerMP) player);
+		if (world.isRemote) {
+			return;
+		}
+		player.addChatMessage(I18nHlpr.chat("alert.not_enough_mana"));
+//		ResAdditae.network.sendTo(new PacketDisplayAlert(PacketDisplayAlert.Type.HOTBAR_LOW, "alert.not_enough_mana"), (EntityPlayerMP) player);
 	}
 	
-	public void noEntitiesNearby(EntityPlayer player)
+	public void noEntitiesNearby(World world, EntityPlayer player)
 	{
-		ResAdditae.network.sendTo(new PacketDisplayAlert(PacketDisplayAlert.Type.HOTBAR_LOW, "alert.no_entities_nearby"), (EntityPlayerMP) player);
+		if (world.isRemote) {
+			return;
+		}
+		player.addChatMessage(I18nHlpr.chat("alert.no_entities_nearby"));
+//		ResAdditae.network.sendTo(new PacketDisplayAlert(PacketDisplayAlert.Type.HOTBAR_LOW, "alert.no_entities_nearby"), (EntityPlayerMP) player);
 	}
 	
 	public boolean isOnCooldown(ItemStack stack)
@@ -95,38 +107,37 @@ public abstract class ItemCharmBase extends Item implements IItemWithSettings
 		return tag.getShort("cooldown");
 	}
 	
-	public void triggerCooldown(ItemStack stack)
+	public void triggerCooldown(ItemStack stack, EntityPlayer player)
 	{
 		NBTTagCompound tag = NBTHlpr.getItemStackTag(stack);
 		tag.setShort("cooldown", (short) this.cooldown_time);
 	}
 	
-	public boolean onItemRightClickPre(ItemStack stack, World world, EntityPlayer player)
+	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		if (world.isRemote) {
-			return false;
-		}
 		if (this.isOnCooldown(stack)) {
-			return false;
+			return stack;
 		}
 		RAPlayerProperties rpp = RAPlayerProperties.get(player);
 		if (!rpp.hasEnoughMana(player.isSneaking() ? this.sec_mana_req : this.prim_mana_req)) {
-			this.notEnoughMana(player);
-			return false;
+			this.notEnoughMana(world, player);
+			return stack;
 		}
-		return true;
-	}
-	
-	public ItemStack onItemRightClickPost(ItemStack stack, World world, EntityPlayer player)
-	{
+		
+		if (world.isRemote) {
+			this.onUseClient(stack, world, player, rpp);
+			return stack;
+		}
+		
+		if (!this.onUseServer(stack, world, player, rpp)) {
+			return stack;
+		}
 		RAPlayerProperties.get(player).useMana(player.isSneaking() ? this.sec_mana_req : this.prim_mana_req);
-		this.triggerCooldown(stack);
+		this.triggerCooldown(stack, player);
 		stack.attemptDamageItem(1, itemRand);
 		return stack;
 	}
-	
-	@Override
-	public abstract ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player);
 	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_)
