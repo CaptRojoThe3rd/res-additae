@@ -4,6 +4,7 @@ import com.captrojo.resadditae.block.IDirectionalBlock;
 import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.block.IMultiBlockData;
 import com.captrojo.resadditae.render.block.BlockRenderIDs;
+import com.captrojo.resadditae.render.block.RenderDirectionalBlock;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -35,7 +36,7 @@ public class BlockMultiDirectionalSlab extends BlockMultiSlab implements IDirect
 	@Override
 	public int getRenderType()
 	{
-		if (this.special_renderer && !BlockMultiDirectional.render_id_0) {
+		if (this.special_renderer && !RenderDirectionalBlock.hack) {
 			return BlockRenderIDs.DIRECTIONAL.id;
 		}
 		return super.getRenderType();

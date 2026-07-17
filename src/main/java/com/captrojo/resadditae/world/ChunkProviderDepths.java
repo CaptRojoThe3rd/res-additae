@@ -77,17 +77,17 @@ public class ChunkProviderDepths implements IChunkProvider
 
 		for (int i1 = 0; i1 < b0; ++i1) {
 			for (int j1 = 0; j1 < b0; ++j1) {
-				for (int chunk_y = 0; chunk_y < 24; ++chunk_y) {
+				for (int y2 = 0; y2 < 24; ++y2) {
 					double d0 = 0.125D;
-					double d1 = this.noise_field[((i1 + 0) * size_z + j1 + 0) * size_y + chunk_y + 0];
-					double d2 = this.noise_field[((i1 + 0) * size_z + j1 + 1) * size_y + chunk_y + 0];
-					double d3 = this.noise_field[((i1 + 1) * size_z + j1 + 0) * size_y + chunk_y + 0];
-					double d4 = this.noise_field[((i1 + 1) * size_z + j1 + 1) * size_y + chunk_y + 0];
-					double d5 = (this.noise_field[((i1 + 0) * size_z + j1 + 0) * size_y + chunk_y + 1] - d1) * d0;
-					double d6 = (this.noise_field[((i1 + 0) * size_z + j1 + 1) * size_y + chunk_y + 1] - d2) * d0;
-					double d7 = (this.noise_field[((i1 + 1) * size_z + j1 + 0) * size_y + chunk_y + 1] - d3) * d0;
-					double d8 = (this.noise_field[((i1 + 1) * size_z + j1 + 1) * size_y + chunk_y + 1] - d4) * d0;
-
+					double d1 = this.noise_field[((i1 + 0) * size_z + j1 + 0) * size_y + y2 + 0];
+					double d2 = this.noise_field[((i1 + 0) * size_z + j1 + 1) * size_y + y2 + 0];
+					double d3 = this.noise_field[((i1 + 1) * size_z + j1 + 0) * size_y + y2 + 0];
+					double d4 = this.noise_field[((i1 + 1) * size_z + j1 + 1) * size_y + y2 + 0];
+					double d5 = (this.noise_field[((i1 + 0) * size_z + j1 + 0) * size_y + y2 + 1] - d1) * d0;
+					double d6 = (this.noise_field[((i1 + 0) * size_z + j1 + 1) * size_y + y2 + 1] - d2) * d0;
+					double d7 = (this.noise_field[((i1 + 1) * size_z + j1 + 0) * size_y + y2 + 1] - d3) * d0;
+					double d8 = (this.noise_field[((i1 + 1) * size_z + j1 + 1) * size_y + y2 + 1] - d4) * d0;
+					
 					for (int l1 = 0; l1 < 8; ++l1) {
 						double d9 = 0.25D;
 						double d10 = d1;
@@ -96,7 +96,7 @@ public class ChunkProviderDepths implements IChunkProvider
 						double d13 = (d4 - d2) * d9;
 
 						for (int i2 = 0; i2 < 4; ++i2) {
-							int blk_idx = (i2 + i1 * 4 << 12) | (0 + j1 * 4 << 8) | (chunk_y * 8 + l1);
+							int blk_idx = (i2 + i1 * 4 << 12) | (0 + j1 * 4 << 8) | (y2 * 8 + l1);
 							short column_size = 256;
 							double d14 = 0.25D;
 							double d15 = d10;
@@ -106,22 +106,37 @@ public class ChunkProviderDepths implements IChunkProvider
 								Block block = null;
 								byte meta = 0;
 
-								if (chunk_y * 8 + l1 < sea_level) {
+								if (y2 * 8 + l1 < sea_level) {
 									block = Blocks.water;
 									meta = 0;
 								}
-
-								if (d15 > 0.0D) {
+								
+								double gmin = 36;
+								double gmax = 48;
+								
+								if (d15 > gmin && d15 < gmax) {
+									block = ModBlocks.depth_stones_special;
+									meta = 2;
+//									block = Blocks.air;
+//									meta = 0;
+								} else if (d15 > 0) {
 									block = ModBlocks.depth_stones;
 									meta = 0;
+//									block = Blocks.wool;
+//									meta = (byte) Math.min(Math.max((int) d15 / 2, 0), 15);
 								}
+								
+//								if (y2 > 16) {
+//									block = Blocks.air;
+//									meta = 0;
+//								}
 
 								blocks[blk_idx] = block;
 								metas[blk_idx] = meta;
 								blk_idx += column_size;
 								d15 += d16;
 							}
-
+							
 							d10 += d12;
 							d11 += d13;
 						}

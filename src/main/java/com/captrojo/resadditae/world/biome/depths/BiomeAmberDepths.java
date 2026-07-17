@@ -1,16 +1,25 @@
 package com.captrojo.resadditae.world.biome.depths;
 
-import java.util.List;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.world.ModWorldGen;
+import com.captrojo.resadditae.world.gen.feature.Geodes;
+import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 public class BiomeAmberDepths extends BiomeDepthsBase
 {
+	public final Geodes[] geodes = {
+		Geodes.ILMENITE,
+		Geodes.UNAKITE,
+		Geodes.PORPHYRITE,
+		Geodes.STROMATOLITE,
+		Geodes.VARIOLITE,
+		Geodes.CORUNDUM
+	};
 	public final Block[] flower_blocks = {ModBlocks.depths_plants};
 	public final int[] flower_metas = {0};
 	
@@ -20,6 +29,12 @@ public class BiomeAmberDepths extends BiomeDepthsBase
 		
 		this.setBiomeName("The Depths (Amber)");
 		this.setTemperatureRainfall(0.9f, 0.9f);
+	}
+	
+	@Override
+	protected WorldGenLargeGeodeBase getRandomGeode(Random rand)
+	{
+		return Geodes.getRandGeode(rand, Geodes.getBlocks(this.geodes[rand.nextInt(this.geodes.length)]));
 	}
 	
 	@Override

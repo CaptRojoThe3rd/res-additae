@@ -4,8 +4,10 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
+import com.captrojo.resadditae.world.gen.feature.Geodes;
 import com.captrojo.resadditae.world.gen.feature.WorldGenGiantStalactite;
 import com.captrojo.resadditae.world.gen.feature.WorldGenGiantStalagmite;
+import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -14,12 +16,32 @@ import net.minecraft.world.World;
 
 public class BiomeSapphireDepths extends BiomeDepthsBase
 {
+	public final Geodes[] geodes = {
+		Geodes.ILMENITE,
+		Geodes.CHAROITE,
+		Geodes.ZOISITE,
+		Geodes.APATITE,
+		Geodes.AMAZONITE,
+		Geodes.DUMORTIERITE,
+		Geodes.HOWLITE,
+		Geodes.LOLITE,
+		Geodes.VARIOLITE,
+		Geodes.STROMATOLITE,
+		Geodes.LABRADORITE
+	};
+	
 	public BiomeSapphireDepths(int id)
 	{
 		super(id, new int[] {0x6883f2, 0x3653c4, 0x4859a0, 0x5968b0});
 		
 		this.setBiomeName("The Depths (Sapphire)");
 		this.setTemperatureRainfall(0.9f, 1.0f);
+	}
+	
+	@Override
+	protected WorldGenLargeGeodeBase getRandomGeode(Random rand)
+	{
+		return Geodes.getRandGeode(rand, Geodes.getBlocks(this.geodes[rand.nextInt(this.geodes.length)]));
 	}
 
 	@Override

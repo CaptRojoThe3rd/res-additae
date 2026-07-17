@@ -31,6 +31,7 @@ import com.captrojo.resadditae.block.ore.OreStones;
 import com.captrojo.resadditae.block.special.BlockDepthSoil;
 import com.captrojo.resadditae.block.special.BlockDepthsPortal;
 import com.captrojo.resadditae.block.special.BlockFlashoverAir;
+import com.captrojo.resadditae.block.special.BlockGeodeShell;
 import com.captrojo.resadditae.block.special.BlockMossLayer;
 import com.captrojo.resadditae.block.utility.BlockMultiSpawner;
 import com.captrojo.resadditae.block.utility.BlockSnowDungeonSpawner;
@@ -111,6 +112,10 @@ public class ModBlocks
 	public static BlockMulti[] shiny_rocks;
 	public static Block[] shiny_rock_slabs;
 	public static Block[] shiny_rock_stairs;
+	
+	public static BlockMulti geode_shell_a;
+	public static BlockMulti geode_shell_b;
+	public static Block[] geode_shells;
 	
 	public static Block dark_cobblestone;
 	
@@ -334,6 +339,13 @@ public class ModBlocks
 			shiny_rock_stair_i,
 			shiny_rock_stair_j,
 			shiny_rock_stair_k
+		};
+		
+		geode_shell_a = new BlockGeodeShell("geode_shell_a", MultiBlocks.GEODE_SHELL_A);
+		geode_shell_b = new BlockGeodeShell("geode_shell_b", MultiBlocks.GEODE_SHELL_B);
+		geode_shells = new Block[] {
+			geode_shell_a,
+			geode_shell_b
 		};
 		
 		compacted_snow = new BlockMultiWDblSlab("compacted_snow", MultiBlocks.COMPACTED_SNOW);
@@ -678,6 +690,9 @@ public class ModBlocks
 		GameRegistry.registerBlock(shiny_rock_stair_i, ItemBlockMulti.class, shiny_rock_stair_i.getUnlocalizedName());
 		GameRegistry.registerBlock(shiny_rock_stair_j, ItemBlockMulti.class, shiny_rock_stair_j.getUnlocalizedName());
 		GameRegistry.registerBlock(shiny_rock_stair_k, ItemBlockMulti.class, shiny_rock_stair_k.getUnlocalizedName());
+		
+		GameRegistry.registerBlock(geode_shell_a, ItemBlockMulti.class, geode_shell_a.getUnlocalizedName());
+		GameRegistry.registerBlock(geode_shell_b, ItemBlockMulti.class, geode_shell_b.getUnlocalizedName());
 		
 		GameRegistry.registerBlock(compacted_snow, ItemBlockMulti.class, compacted_snow.getUnlocalizedName());
 		GameRegistry.registerBlock(compacted_snow_slab, ItemBlockMultiSlab.class, compacted_snow_slab.getUnlocalizedName());

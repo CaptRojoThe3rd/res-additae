@@ -62,6 +62,15 @@ public class StonecutterRecipe
 			}
 		}
 		
+		for (int i = 0; i < ModBlocks.shiny_rocks.length; i++) {
+			for (int m : ModBlocks.shiny_rocks[i].data.getValidMetas()) {
+				addRecipes(new ItemStack(ModBlocks.shiny_rocks[i], 1, m), new ItemStack[] {
+					new ItemStack(ModBlocks.shiny_rock_slabs[i], 2, m),
+					new ItemStack(ModBlocks.shiny_rock_stairs[i], 1, m)
+				});
+			}
+		}
+		
 		addRecipes(CommonBlocks.PRISMARINE.stack(1), new ItemStack[] {
 			new ItemStack(ModBlocks.prismarine_0, 1, 1),
 			new ItemStack(ModBlocks.prismarine_0, 1, 2),

@@ -3,6 +3,7 @@ package com.captrojo.resadditae.block.generic;
 import com.captrojo.resadditae.block.IDirectionalBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
 import com.captrojo.resadditae.render.block.BlockRenderIDs;
+import com.captrojo.resadditae.render.block.RenderDirectionalBlock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,8 +16,6 @@ import net.minecraft.world.World;
 
 public class BlockMultiDirectional extends BlockMulti implements IDirectionalBlock
 {
-	public static boolean render_id_0 = false;
-	
 	public final boolean special_renderer;
 	
 	protected int[] dir_map = new int[] {0x0, 0x4, 0x8, 0xc};
@@ -39,7 +38,7 @@ public class BlockMultiDirectional extends BlockMulti implements IDirectionalBlo
 	@Override
 	public int getRenderType()
 	{
-		if (this.special_renderer && !render_id_0) {
+		if (this.special_renderer && !RenderDirectionalBlock.hack) {
 			return BlockRenderIDs.DIRECTIONAL.id;
 		}
 		return super.getRenderType();

@@ -3,6 +3,8 @@ package com.captrojo.resadditae.world.biome.depths;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.special.BlockMossLayer;
+import com.captrojo.resadditae.world.gen.feature.Geodes;
+import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
 
 import net.minecraft.block.material.Material;
@@ -12,6 +14,18 @@ import net.minecraft.world.chunk.Chunk;
 
 public class BiomeJadeDepths extends BiomeDepthsBase
 {
+	public final Geodes[] geodes = {
+		Geodes.ILMENITE,
+		Geodes.PERIDOT,
+		Geodes.ZOISITE,
+		Geodes.AMAZONITE,
+		Geodes.HOWLITE,
+		Geodes.VARIOLITE,
+		Geodes.LABRADORITE,
+		Geodes.SKARN,
+		Geodes.NEPHRITE
+	};
+	
 	private int waterfalls_generated;
 	
 	public BiomeJadeDepths(int id)
@@ -20,6 +34,12 @@ public class BiomeJadeDepths extends BiomeDepthsBase
 
 		this.setBiomeName("The Depths (Jade)");
 		this.setTemperatureRainfall(0.9f, 1.0f);
+	}
+	
+	@Override
+	protected WorldGenLargeGeodeBase getRandomGeode(Random rand)
+	{
+		return Geodes.getRandGeode(rand, Geodes.getBlocks(this.geodes[rand.nextInt(this.geodes.length)]));
 	}
 	
 	@Override

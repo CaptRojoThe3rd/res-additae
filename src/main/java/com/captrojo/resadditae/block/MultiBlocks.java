@@ -49,6 +49,35 @@ public enum MultiBlocks implements IMultiBlockData
 		2, "stained_fractured", new BlockTexture(Type.STANDARD, "depths/stained_fractured_stone"), 2.0f, 2.0f, "pickaxe", 0
 	),
 	
+	GEODE_SHELL_A(
+		16, Material.rock, Block.soundTypeStone, true, 3.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "ilmenite", new BlockTexture(Type.STANDARD, "geode_shells/ilmenite"),
+		1, "carnelian", new BlockTexture(Type.STANDARD, "geode_shells/carnelian"),
+		2, "peridot", new BlockTexture(Type.STANDARD, "geode_shells/peridot"),
+		3, "charoite", new BlockTexture(Type.STANDARD, "geode_shells/charoite"),
+		4, "unakite", new BlockTexture(Type.STANDARD, "geode_shells/unakite"),
+		5, "kunzite", new BlockTexture(Type.STANDARD, "geode_shells/kunzite"),
+		6, "zoisite", new BlockTexture(Type.STANDARD, "geode_shells/zoisite"),
+		7, "apatite", new BlockTexture(Type.STANDARD, "geode_shells/apatite"),
+		8, "amazonite", new BlockTexture(Type.STANDARD, "geode_shells/amazonite"),
+		9, "rhodochrosite", new BlockTexture(Type.STANDARD, "geode_shells/rhodochrosite"),
+		10, "corundum", new BlockTexture(Type.STANDARD, "geode_shells/corundum"),
+		11, "dumortierite", new BlockTexture(Type.STANDARD, "geode_shells/dumortierite"),
+		12, "howlite", new BlockTexture(Type.STANDARD, "geode_shells/howlite"),
+		13, "purpurite", new BlockTexture(Type.STANDARD, "geode_shells/purpurite"),
+		14, "lolite", new BlockTexture(Type.STANDARD, "geode_shells/lolite"),
+		15, "variolite", new BlockTexture(Type.STANDARD, "geode_shells/variolite")
+	),
+	
+	GEODE_SHELL_B(
+		5, Material.rock, Block.soundTypeStone, true, 3.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
+		0, "stromatolite", new BlockTexture(Type.STANDARD, "geode_shells/stromatolite"),
+		1, "porphyrite", new BlockTexture(Type.STANDARD, "geode_shells/porphyrite"),
+		2, "labradorite", new BlockTexture(Type.STANDARD, "geode_shells/labradorite"),
+		3, "skarn", new BlockTexture(Type.STANDARD, "geode_shells/skarn"),
+		4, "nephrite", new BlockTexture(Type.STANDARD, "geode_shells/nephrite")
+	),
+	
 	SHINY_ROCKS_A(
 		2, Material.rock, Block.soundTypeStone, true, 2.0f, 6.0f, true, "pickaxe", 0, true, 0, 0,
 		0, "ilmenite", new BlockTexture(Type.STANDARD, "shiny_rocks/ilmenite"),

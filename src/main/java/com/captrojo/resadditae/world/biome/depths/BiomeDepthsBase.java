@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -32,6 +32,8 @@ public abstract class BiomeDepthsBase extends BiomeGenBase
 		this.spawnableMonsterList.clear();
 		this.spawnableCreatureList.clear();
 	}
+	
+	protected abstract WorldGenLargeGeodeBase getRandomGeode(Random rand);
 	
 	public int getBiomeSoilColor(int x, int y, int z)
 	{
@@ -93,7 +95,14 @@ public abstract class BiomeDepthsBase extends BiomeGenBase
 	
 	@Override
 	public void decorate(World world, Random rand, int chunk_x, int chunk_z)
-	{
+	{	
+		if (WorldGenLargeGeodeBase.PLACEMENT_CHK.canPlaceAt(world, chunk_x, chunk_z)) {
+			WorldGenLargeGeodeBase geode = this.getRandomGeode(rand);
+			if (geode != null) {
+				geode.generate(world, rand, chunk_x << 4, 75 + rand.nextInt(75), chunk_z << 4);
+			}
+		}
+		
 		this.decorateFloors(world, rand, chunk_x, chunk_z);
 	}
 }

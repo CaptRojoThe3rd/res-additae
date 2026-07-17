@@ -4,6 +4,8 @@
 Additions:
 * Depths generation overhaul - lots of new decorations added
 * Added polished and other variants of depth stones
+* Added shiny rocks
+* Added geodes made of shiny rocks that generate in The Depths
 * Added moss. It can be placed in layers on any side of a block
 * /radebug command - can be used to spawn chasms in an already-generated world
 

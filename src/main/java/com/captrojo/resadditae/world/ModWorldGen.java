@@ -8,16 +8,16 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
+import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
+import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeD2;
 import com.captrojo.resadditae.world.gen.feature.WorldGenMinableDynamic;
-import com.captrojo.resadditae.world.gen.structure.ModStructures;
+import com.captrojo.resadditae.world.structure.ModStructures;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -213,6 +213,13 @@ public class ModWorldGen implements IWorldGenerator
 		/* Chasms */
 		if (WorldGenChasm.canPlaceAt(world, chunk_x, chunk_z)) {
 			(new WorldGenChasm()).generate(world, rand, block_x, world.getHeightValue(block_x, block_z), block_z);
+		}
+		
+		if (WorldGenLargeGeodeBase.PLACEMENT_CHK.canPlaceAt(world, chunk_x, chunk_z)) {
+			(new WorldGenLargeGeodeD2(
+				new BlockMeta(ModBlocks.shiny_rock_h, 0),
+				new BlockMeta(ModBlocks.geode_shell_a, 14)
+			)).generate(world, rand, block_x, 100, block_z);
 		}
 		
 		/* Random pockets of flashover air */

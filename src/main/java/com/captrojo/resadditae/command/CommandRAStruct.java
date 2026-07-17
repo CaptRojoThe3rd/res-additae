@@ -11,10 +11,10 @@ import java.util.List;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
-import com.captrojo.resadditae.world.gen.structure.StructurePiece;
 import com.captrojo.resadditae.world.loot.LootGroup;
 import com.captrojo.resadditae.world.loot.LootItem;
 import com.captrojo.resadditae.world.loot.LootPool;
+import com.captrojo.resadditae.world.structure.StructurePiece;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;

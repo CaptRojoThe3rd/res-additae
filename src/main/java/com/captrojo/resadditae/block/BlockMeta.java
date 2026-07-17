@@ -1,11 +1,14 @@
 package com.captrojo.resadditae.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockMeta
 {
+	public static final BlockMeta AIR = new BlockMeta(Blocks.air, 0);
+	
 	public Block block;
 	public int meta;
 	

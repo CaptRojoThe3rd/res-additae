@@ -34,8 +34,8 @@ import com.captrojo.resadditae.tileentity.ModTileEntities;
 import com.captrojo.resadditae.world.ModWorldGen;
 import com.captrojo.resadditae.world.WorldProviderDepths;
 import com.captrojo.resadditae.world.biome.ModBiomes;
-import com.captrojo.resadditae.world.gen.structure.ModStructures;
 import com.captrojo.resadditae.world.loot.ModLoot;
+import com.captrojo.resadditae.world.structure.ModStructures;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;

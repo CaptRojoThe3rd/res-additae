@@ -3,6 +3,8 @@ package com.captrojo.resadditae.world.biome.depths;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
+import com.captrojo.resadditae.world.gen.feature.Geodes;
+import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
 import com.captrojo.resadditae.world.gen.feature.WorldGenShallowPond;
 
 import net.minecraft.init.Blocks;
@@ -10,12 +12,30 @@ import net.minecraft.world.World;
 
 public class BiomeRubyDepths extends BiomeDepthsBase
 {
+	public final Geodes[] geodes = {
+		Geodes.ILMENITE,
+		Geodes.CARNELIAN,
+		Geodes.CHAROITE,
+		Geodes.UNAKITE,
+		Geodes.KUNZITE,
+		Geodes.RHODOCHROSITE,
+		Geodes.CORUNDUM,
+		Geodes.PURPURITE,
+		Geodes.LOLITE
+	};
+	
 	public BiomeRubyDepths(int id)
 	{
 		super(id, new int[] {0xc9283d, 0xdb5365, 0xc16a76});
 
 		this.setBiomeName("The Depths (Ruby)");
 		this.setTemperatureRainfall(0.9f, 0.8f);
+	}
+	
+	@Override
+	protected WorldGenLargeGeodeBase getRandomGeode(Random rand)
+	{
+		return Geodes.getRandGeode(rand, Geodes.getBlocks(this.geodes[rand.nextInt(this.geodes.length)]));
 	}
 	
 	@Override

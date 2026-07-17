@@ -10,12 +10,14 @@ import net.minecraft.world.IBlockAccess;
 
 public class RenderDirectionalBlock implements ISimpleBlockRenderingHandler
 {
+	public static boolean hack = false;
+	
 	@Override
 	public void renderInventoryBlock(Block block, int meta, int model_id, RenderBlocks rb)
 	{
-		BlockMultiDirectional.render_id_0 = true;
+		hack = true;
 		rb.renderBlockAsItem(block, meta, 1f);
-		BlockMultiDirectional.render_id_0 = false;
+		hack = false;
 	}
 
 	@Override

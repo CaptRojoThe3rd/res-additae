@@ -83,6 +83,9 @@ public class TabBlocks
 		tab.add(ModBlocks.shiny_rock_stair_j, ModBlocks.shiny_rock_stair_j.metas);
 		tab.add(ModBlocks.shiny_rock_stair_k, ModBlocks.shiny_rock_stair_k.metas);
 		
+		tab.add(ModBlocks.geode_shell_a, ModBlocks.geode_shell_a.data.getValidMetas());
+		tab.add(ModBlocks.geode_shell_b, ModBlocks.geode_shell_b.data.getValidMetas());
+		
 		tab.add(ModBlocks.compacted_snow, 0, 1, 2, 3);
 		tab.add(ModBlocks.compacted_snow_slab, 0, 1, 2, 3);
 		tab.add(ModBlocks.compacted_snow_stair_a, 0, 8);
