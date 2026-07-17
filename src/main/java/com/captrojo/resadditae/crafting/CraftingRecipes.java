@@ -17,6 +17,7 @@ import com.captrojo.resadditae.item.generic.ItemVessel;
 import com.captrojo.resadditae.item.generic.VesselTypes;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -120,35 +121,83 @@ public class CraftingRecipes
 		}
 		
 		/* Colored Blocks */
-		addSlab(new ItemStack(ModBlocks.glass_slab, 6), Blocks.glass);
-		addSlab(new ItemStack(ModBlocks.hardened_clay_slab, 6), Blocks.hardened_clay);
-		for (int i = 0, m0 = 0; i < 2; i++, m0 += 8) {
-			for (int m = 0; m < 8; m++) {
-				addSlab(new ItemStack(ModBlocks.vanilla_wool_slabs[i], 6, m), new ItemStack(Blocks.wool, 1, m + m0));
-				addSlab(new ItemStack(ModBlocks.vanilla_stained_glass_slabs[i], 6, m), new ItemStack(Blocks.stained_glass, 1, m + m0));
-				addSlab(new ItemStack(ModBlocks.vanilla_stained_clay_slabs[i], 6, m), new ItemStack(Blocks.stained_hardened_clay, 1, m + m0));
-				if (CommonConfig.General.vanilla_concrete_ext) {
-					addSlab(new ItemStack(ModBlocks.vanilla_concrete_slabs[i], 6, m), new ItemStack(OtherBlocks.CONCRETE.getBlock(), 1, m + m0));
+		/* Wool */
+		if (CommonConfig.General.wool_slabs_stairs) {
+			addVanillaColoredSlabsStairs(ModBlocks.vanilla_wool_slabs, ModBlocks.vanilla_wool_stairs, Blocks.wool);
+		}
+		if (CommonConfig.General.wool_more_colors) {
+			for (int i = 0, j0 = 0, dm0 = 0; i < 9; i++, j0 += 4, dm0 += 0x10) {
+				for (int m = 0, ms = 0, j = 0; m < 8; m++, ms = ((m & 0x1) << 3), j = (m >> 1)) {
+					addShapeless(new ItemStack(ModBlocks.wools[i], 1, m), new ItemStack(Blocks.wool, 1, 0), new ItemStack(ModItems.dye, 1, m + dm0));
+					if (CommonConfig.General.wool_slabs_stairs) {
+						addSlab(new ItemStack(ModBlocks.wool_slabs[i], 6, m), new ItemStack(ModBlocks.wools[i], 1, m));
+						addStair(new ItemStack(ModBlocks.wool_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.wools[i], 1, m));
+					}
 				}
-				if (CommonConfig.General.hbm_concrete_ext) {
+			}
+		}
+		/* Hardened Clay */
+		if (CommonConfig.General.clay_slabs_stairs) {
+			addSlab(new ItemStack(ModBlocks.hardened_clay_slab, 6), Blocks.hardened_clay);
+			addStair(new ItemStack(ModBlocks.hardened_clay_slab, 8), Blocks.hardened_clay);
+			addVanillaColoredSlabsStairs(ModBlocks.vanilla_stained_clay_slabs, ModBlocks.vanilla_stained_clay_stairs, Blocks.stained_hardened_clay);
+		}
+		if (CommonConfig.General.clay_more_colors) {
+			for (int i = 0, j0 = 0, dm0 = 0; i < 9; i++, j0 += 4, dm0 += 0x10) {
+				for (int m = 0, ms = 0, j = 0; m < 8; m++, ms = ((m & 0x1) << 3), j = (m >> 1)) {
+					addShaped(new ItemStack(ModBlocks.stained_clays[i], 8, m), "aaa", "aba", "aaa", 'a', Blocks.hardened_clay, 'b', new ItemStack(ModItems.dye, 1, m + dm0));
+					if (CommonConfig.General.clay_slabs_stairs) {
+						addSlab(new ItemStack(ModBlocks.stained_clay_slabs[i], 6, m), new ItemStack(ModBlocks.stained_clays[i], 1, m));
+						addStair(new ItemStack(ModBlocks.stained_clay_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.stained_clays[i], 1, m));
+					}
+				}
+			}
+		}
+		/* Glass */
+		if (CommonConfig.General.glass_slabs_stairs) {
+			addSlab(new ItemStack(ModBlocks.glass_slab, 6), Blocks.glass);
+			addStair(new ItemStack(ModBlocks.glass_stair, 8), Blocks.glass);
+			addVanillaColoredSlabsStairs(ModBlocks.vanilla_stained_glass_slabs, ModBlocks.vanilla_stained_glass_stairs, Blocks.stained_glass);
+		}
+		if (CommonConfig.General.glass_more_colors) {
+			for (int i = 0, j0 = 0, dm0 = 0; i < 9; i++, j0 += 4, dm0 += 0x10) {
+				for (int m = 0, ms = 0, j = 0; m < 8; m++, ms = ((m & 0x1) << 3), j = (m >> 1)) {
+					addShaped(new ItemStack(ModBlocks.stained_glass[i], 8, m), "aaa", "aba", "aaa", 'a', Blocks.glass, 'b', new ItemStack(ModItems.dye, 1, m + dm0));
+					if (CommonConfig.General.glass_slabs_stairs) {
+						addSlab(new ItemStack(ModBlocks.stained_glass_slabs[i], 6, m), new ItemStack(ModBlocks.stained_glass[i], 1, m));
+						addStair(new ItemStack(ModBlocks.stained_glass_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.stained_glass[i], 1, m));
+					}
+					addShaped(new ItemStack(ModBlocks.stained_glass_panes[i >> 1], 16, m + ((i & 0x1) << 3)), "aaa", "aaa", 'a', new ItemStack(ModBlocks.stained_glass[i], 1, m));
+				}
+			}
+		}
+		/* Vanilla (Et Futurum) Concrete */
+		if (CommonConfig.General.v_concrete_slabs_stairs) {
+			addVanillaColoredSlabsStairs(ModBlocks.vanilla_concrete_slabs, ModBlocks.vanilla_concrete_stairs, OtherBlocks.CONCRETE.getBlock());
+		}
+		if (CommonConfig.General.v_concrete_more_colors) {
+			for (int i = 0, j0 = 0, dm0 = 0; i < 9; i++, j0 += 4, dm0 += 0x10) {
+				for (int m = 0, ms = 0, j = 0; m < 8; m++, ms = ((m & 0x1) << 3), j = (m >> 1)) {
+					addShapeless(new ItemStack(ModBlocks.concrete_powders[i >> 1], 8, m + ((i & 0x1) << 3)), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, new ItemStack(ModItems.dye, 1, m + dm0));
+					if (CommonConfig.General.v_concrete_slabs_stairs) {
+						addSlab(new ItemStack(ModBlocks.concrete_slabs[i], 6, m), new ItemStack(ModBlocks.concretes[i], 1, m));
+						addStair(new ItemStack(ModBlocks.concrete_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.concretes[i], 1, m));
+					}
+				}
+			}
+		}
+		/* HBM's Nuclear Tech Concrete */
+		if (CommonConfig.General.hbm_concrete_slabs_stairs) {
+			for (int i = 0, m0 = 0; i < 2; i++, m0 += 8) {
+				for (int m = 0; m < 8; m++) {
 					addSlab(new ItemStack(ModBlocks.hbm_base_concrete_slabs[i], 6, m), new ItemStack(OtherBlocks.HBM_CONCRETE_COLORED.getBlock(), 1, m + m0));
 					if (i < 1) {
 						addSlab(new ItemStack(ModBlocks.hbm_base_concrete_slabs[2], 6, m), new ItemStack(OtherBlocks.HBM_CONCRETE_COLORED_EXT.getBlock(), 1, m + m0));
 					}
 				}
 			}
-		}
-		addStair(new ItemStack(ModBlocks.glass_stair, 8), Blocks.glass);
-		addStair(new ItemStack(ModBlocks.hardened_clay_slab, 8), Blocks.hardened_clay);
-		for (int i = 0, m0 = 0; i < 8; i++, m0 += 2) {
-			for (int m = 0; m < 2; m++) {
-				addStair(new ItemStack(ModBlocks.vanilla_wool_stairs[i], 8, m), new ItemStack(Blocks.wool, 1, m + m0));
-				addStair(new ItemStack(ModBlocks.vanilla_stained_glass_stairs[i], 8, m), new ItemStack(Blocks.stained_glass, 1, m + m0));
-				addStair(new ItemStack(ModBlocks.vanilla_stained_clay_stairs[i], 8, m), new ItemStack(Blocks.stained_hardened_clay, 1, m + m0));
-				if (CommonConfig.General.vanilla_concrete_ext) {
-					addStair(new ItemStack(ModBlocks.vanilla_concrete_stairs[i], 8, m), new ItemStack(OtherBlocks.CONCRETE.getBlock(), 1, m + m0));
-				}
-				if (CommonConfig.General.hbm_concrete_ext) {
+			for (int i = 0, m0 = 0; i < 8; i++, m0 += 2) {
+				for (int m = 0; m < 2; m++) {
 					addStair(new ItemStack(ModBlocks.hbm_base_concrete_stairs[i], 8, m), new ItemStack(OtherBlocks.HBM_CONCRETE_COLORED.getBlock(), 1, m + m0));
 					if (i < 4) {
 						addStair(new ItemStack(ModBlocks.hbm_base_concrete_stairs[i + 8], 8, m), new ItemStack(OtherBlocks.HBM_CONCRETE_COLORED_EXT.getBlock(), 1, m + m0));
@@ -156,27 +205,14 @@ public class CraftingRecipes
 				}
 			}
 		}
-		for (int i = 0, j0 = 0, dm0 = 0; i < 9; i++, j0 += 4, dm0 += 0x10) {
-			for (int m = 0, ms = 0, j = 0; m < 8; m++, ms = ((m & 0x1) << 3), j = (m >> 1)) {
-				addShapeless(new ItemStack(ModBlocks.wools[i], 1, m), new ItemStack(Blocks.wool, 1, 0), new ItemStack(ModItems.dye, 1, m + dm0));
-				addSlab(new ItemStack(ModBlocks.wool_slabs[i], 6, m), new ItemStack(ModBlocks.wools[i], 1, m));
-				addStair(new ItemStack(ModBlocks.wool_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.wools[i], 1, m));
-				addShaped(new ItemStack(ModBlocks.stained_glass[i], 8, m), "aaa", "aba", "aaa", 'a', Blocks.glass, 'b', new ItemStack(ModItems.dye, 1, m + dm0));
-				addSlab(new ItemStack(ModBlocks.stained_glass_slabs[i], 6, m), new ItemStack(ModBlocks.stained_glass[i], 1, m));
-				addStair(new ItemStack(ModBlocks.stained_glass_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.stained_glass[i], 1, m));
-				addShaped(new ItemStack(ModBlocks.stained_glass_panes[i >> 1], 16, m + ((i & 0x1) << 3)), "aaa", "aaa", 'a', new ItemStack(ModBlocks.stained_glass[i], 1, m));
-				addShaped(new ItemStack(ModBlocks.stained_clays[i], 8, m), "aaa", "aba", "aaa", 'a', Blocks.hardened_clay, 'b', new ItemStack(ModItems.dye, 1, m + dm0));
-				addSlab(new ItemStack(ModBlocks.stained_clay_slabs[i], 6, m), new ItemStack(ModBlocks.stained_clays[i], 1, m));
-				addStair(new ItemStack(ModBlocks.stained_clay_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.stained_clays[i], 1, m));
-				if (CommonConfig.General.vanilla_concrete_ext) {
-					addShapeless(new ItemStack(ModBlocks.concrete_powders[i >> 1], 8, m + ((i & 0x1) << 3)), Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, new ItemStack(ModItems.dye, 1, m + dm0));
-					addSlab(new ItemStack(ModBlocks.concrete_slabs[i], 6, m), new ItemStack(ModBlocks.concretes[i], 1, m));
-					addStair(new ItemStack(ModBlocks.concrete_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.concretes[i], 1, m));
-				}
-				if (CommonConfig.General.hbm_concrete_ext) {
+		if (CommonConfig.General.hbm_concrete_more_colors) {
+			for (int i = 0, j0 = 0, dm0 = 0; i < 9; i++, j0 += 4, dm0 += 0x10) {
+				for (int m = 0, ms = 0, j = 0; m < 8; m++, ms = ((m & 0x1) << 3), j = (m >> 1)) {
 					addShaped(new ItemStack(ModBlocks.hbm_concretes[i], 8, m), "aaa", "aba", "aaa", 'a', OtherBlocks.HBM_CONCRETE.stack(1), 'b', new ItemStack(ModItems.dye, 1, m + dm0));
-					addSlab(new ItemStack(ModBlocks.hbm_concrete_slabs[i], 6, m), new ItemStack(ModBlocks.hbm_concretes[i], 1, m));
-					addStair(new ItemStack(ModBlocks.hbm_concrete_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.hbm_concretes[i], 1, m));
+					if (CommonConfig.General.hbm_concrete_slabs_stairs) {
+						addSlab(new ItemStack(ModBlocks.hbm_concrete_slabs[i], 6, m), new ItemStack(ModBlocks.hbm_concretes[i], 1, m));
+						addStair(new ItemStack(ModBlocks.hbm_concrete_stairs[j0 + j], 8, ms), new ItemStack(ModBlocks.hbm_concretes[i], 1, m));
+					}
 				}
 			}
 		}
@@ -414,6 +450,20 @@ public class CraftingRecipes
 		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x15));
 		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x16));
 		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x17));
+	}
+	
+	private static void addVanillaColoredSlabsStairs(Block[] slabs, Block[] stairs, Block block)
+	{
+		for (int i = 0, m0 = 0; i < 2; i++, m0 += 8) {
+			for (int m = 0; m < 8; m++) {
+				addSlab(new ItemStack(slabs[i], 6, m), new ItemStack(block, 1, m + m0));
+			}
+		}
+		for (int i = 0, m0 = 0; i < 8; i++, m0 += 2) {
+			for (int m = 0; m < 2; m++) {
+				addStair(new ItemStack(stairs[i], 8, m), new ItemStack(block, 1, m + m0));
+			}
+		}
 	}
 	
 	private static void addSlab(ItemStack result, Object ingredient)

@@ -25,11 +25,14 @@ public class TabBlocks
 	{
 		ModCreativeTab tab = new ModCreativeTab("resadditae.blocks", WoodTypes.ENCHANTED_ASH.getLog().stack(1).getItem());
 
-		tab.add(ModBlocks.glass_slab, 0);
-		tab.add(ModBlocks.glass_stair, 0);
-		
-		tab.add(ModBlocks.hardened_clay_slab, 0);
-		tab.add(ModBlocks.hardened_clay_stair, 0);
+		if (CommonConfig.General.glass_slabs_stairs) {
+			tab.add(ModBlocks.glass_slab, 0);
+			tab.add(ModBlocks.glass_stair, 0);
+		}
+		if (CommonConfig.General.clay_slabs_stairs) {
+			tab.add(ModBlocks.hardened_clay_slab, 0);
+			tab.add(ModBlocks.hardened_clay_stair, 0);
+		}
 		
 		tab.add(ModBlocks.bountiful_stones, 0, 1, 2);
 		tab.add(ModBlocks.bountiful_stone_slabs, 0, 1, 2);

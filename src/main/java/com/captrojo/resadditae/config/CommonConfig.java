@@ -29,9 +29,21 @@ public class CommonConfig
 		
 		public static boolean strip_logs = true;
 		
-		public static boolean vanilla_concrete_ext = true;
-		public static boolean hbm_concrete_ext = false;
-
+		public static boolean wool_more_colors = true;
+		public static boolean wool_slabs_stairs = true;
+		
+		public static boolean clay_more_colors = true;
+		public static boolean clay_slabs_stairs = true;
+		
+		public static boolean glass_more_colors = true;
+		public static boolean glass_slabs_stairs = true;
+		
+		public static boolean v_concrete_more_colors = ModList.isVanillaConcreteProvided();
+		public static boolean v_concrete_slabs_stairs = ModList.isVanillaConcreteProvided();
+		
+		public static boolean hbm_concrete_more_colors = ModList.HBM_NTM.isLoaded();
+		public static boolean hbm_concrete_slabs_stairs = ModList.HBM_NTM.isLoaded();
+		
 		public static boolean netherite_tools = ModList.ET_FUTURUM.isLoaded();
 		public static boolean hbm_tools = ModList.HBM_NTM.isLoaded();
 		
@@ -49,9 +61,18 @@ public class CommonConfig
 			
 			strip_logs = ModConfig.getBool("0300.stripable_logs", "Enable stripping wood logs with an axe", true);
 			
-			vanilla_concrete_ext = ModConfig.getBool("0400.vanilla_concrete_ext", "Create more vanilla concrete (added by Et Futurum) blocks", ModList.ET_FUTURUM.isLoaded() && !ModList.HBM_NTM.isLoaded());
-			hbm_concrete_ext = ModConfig.getBool("0401.hbm_concrete_ext", "Create more Nuclear Tech Mod concrete blocks", ModList.HBM_NTM.isLoaded());
-			if (vanilla_concrete_ext && hbm_concrete_ext) {
+			wool_more_colors = ModConfig.getBool("0400.wool_more_colors", "Add more wool colors", wool_more_colors);
+			wool_slabs_stairs = ModConfig.getBool("0401.wool_slabs_stairs", "Add wool slabs and stairs", wool_slabs_stairs);
+			clay_more_colors = ModConfig.getBool("0402.clay_more_colors", "Add more clay colors", clay_more_colors);
+			clay_slabs_stairs = ModConfig.getBool("0403.clay_slabs_stairs", "Add clay slabs and stairs", clay_slabs_stairs);
+			glass_more_colors = ModConfig.getBool("0404.glass_more_colors", "Add more glass colors", glass_more_colors);
+			glass_slabs_stairs = ModConfig.getBool("0405.glass_slabs_stairs", "Add glass slabs and stairs", glass_slabs_stairs);
+			v_concrete_more_colors = ModConfig.getBool("0406.vanilla_concrete_more_colors", "Add more vanilla concrete colors", v_concrete_more_colors);
+			v_concrete_slabs_stairs = ModConfig.getBool("0407.vanilla_concrete_slabs_stairs", "Add vanilla concrete slabs and stairs", v_concrete_slabs_stairs);
+			hbm_concrete_more_colors = ModConfig.getBool("0408.hbm_concrete_more_colors", "Add more Nuclear Tech Mod concrete colors", hbm_concrete_more_colors);
+			hbm_concrete_slabs_stairs = ModConfig.getBool("0409.hbm_concrete_slabs_stairs", "Add Nuclear Tech Mod concrete slabs and stairs", hbm_concrete_slabs_stairs);
+			
+			if ((v_concrete_more_colors && hbm_concrete_more_colors) || (v_concrete_slabs_stairs && hbm_concrete_slabs_stairs)) {
 				ResAdditae.LOG.warn("Vanilla (Et Futurum) concrete and Nuclear Tech Mod concrete enabled simultaneously. This is probably a misconfiguration.");
 			}
 			

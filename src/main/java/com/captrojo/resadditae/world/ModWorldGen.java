@@ -215,14 +215,6 @@ public class ModWorldGen implements IWorldGenerator
 			(new WorldGenChasm()).generate(world, rand, block_x, world.getHeightValue(block_x, block_z), block_z);
 		}
 		
-		/* Geodes */
-		if (CommonConfig.WorldGen.geode_enabled && WorldGenLargeGeodeBase.PLACEMENT_CHK.canPlaceAt(world, chunk_x, chunk_z)) {
-			(new WorldGenLargeGeodeD2(
-				new BlockMeta(ModBlocks.shiny_rock_h, 0),
-				new BlockMeta(ModBlocks.geode_shell_a, 14)
-			)).generate(world, rand, block_x, 100, block_z);
-		}
-		
 		/* Random pockets of flashover air */
 		if (this.depths_gas_fracture_chk.canPlaceAt(world, chunk_x, chunk_z)) {
 			int block_y = this.getCeiling(world, block_x, block_z, 192);

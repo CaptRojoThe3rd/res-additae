@@ -27,11 +27,13 @@ public class ModOreDict
 			OreDictionary.registerOre("stairWood", type.getStair().stack(1));
 		}
 		
-		for (int i = 0; i < 9; i++) {
-			OreDictionary.registerOre("blockGlass", new ItemStack(ModBlocks.stained_glass[i], 1, OreDictionary.WILDCARD_VALUE));
-		}
-		for (int i = 0; i < 5; i++) {
-			OreDictionary.registerOre("blockGlassPane", new ItemStack(ModBlocks.stained_glass_panes[i], 1, OreDictionary.WILDCARD_VALUE));
+		if (CommonConfig.General.glass_more_colors) {
+			for (int i = 0; i < 9; i++) {
+				OreDictionary.registerOre("blockGlass", new ItemStack(ModBlocks.stained_glass[i], 1, OreDictionary.WILDCARD_VALUE));
+			}
+			for (int i = 0; i < 5; i++) {
+				OreDictionary.registerOre("paneGlass", new ItemStack(ModBlocks.stained_glass_panes[i], 1, OreDictionary.WILDCARD_VALUE));
+			}
 		}
 		
 		if (CommonConfig.CommonItems.iron_nuggets) {

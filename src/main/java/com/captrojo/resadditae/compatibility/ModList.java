@@ -9,6 +9,11 @@ public enum ModList
 	NEI("NotEnoughItems"),
 	VILLAGE_NAMES("VillageNames");
 	
+	public static boolean isVanillaConcreteProvided()
+	{
+		return ET_FUTURUM.isLoaded() && !HBM_NTM.isLoaded();
+	}
+	
 	public final String id;
 	
 	private ModList(String id)

@@ -37,11 +37,11 @@ public class NEIStuff
 		API.hideItem(new ItemStack(ModBlocks.hardened_clay_double_slab, 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(ModBlocks.vanilla_stained_clay_double_slabs[0], 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(ModBlocks.vanilla_stained_clay_double_slabs[1], 1, OreDictionary.WILDCARD_VALUE));
-		if (CommonConfig.General.vanilla_concrete_ext) {
+		if (CommonConfig.General.v_concrete_more_colors) {
 			API.hideItem(new ItemStack(ModBlocks.vanilla_concrete_double_slabs[0], 1, OreDictionary.WILDCARD_VALUE));
 			API.hideItem(new ItemStack(ModBlocks.vanilla_concrete_double_slabs[1], 1, OreDictionary.WILDCARD_VALUE));
 		}
-		if (CommonConfig.General.hbm_concrete_ext) {
+		if (CommonConfig.General.hbm_concrete_more_colors) {
 			API.hideItem(new ItemStack(ModBlocks.hbm_base_concrete_double_slabs[0], 1, OreDictionary.WILDCARD_VALUE));
 			API.hideItem(new ItemStack(ModBlocks.hbm_base_concrete_double_slabs[1], 1, OreDictionary.WILDCARD_VALUE));
 			API.hideItem(new ItemStack(ModBlocks.hbm_base_concrete_double_slabs[2], 1, OreDictionary.WILDCARD_VALUE));
