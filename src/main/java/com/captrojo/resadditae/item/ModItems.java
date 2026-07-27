@@ -122,21 +122,6 @@ public class ModItems
 	public static Item keys;
 	public static Item vessels;
 	
-	public static Item charm_hop;
-	
-	public static Item charm_extinguish;
-	public static Item charm_wind;
-	
-	public static Item charm_fire;
-	public static Item charm_flood;
-	public static Item charm_lightning;
-	
-	public static Item charm_arrowsplosion;
-	public static Item charm_fireball;
-	public static Item charm_freeze;
-	
-	public static Item mana_potion;
-	
 	public static Item structure_wand;
 
 	public static void initItems()
@@ -229,21 +214,6 @@ public class ModItems
 		
 		keys = new ItemKey();
 		vessels = new ItemVessel();
-		
-		charm_hop = new ItemHopCharm();
-		
-		charm_extinguish = new ItemExtinguishCharm();
-		charm_wind = new ItemWindCharm();
-		
-		charm_fire = new ItemFireCharm();
-		charm_flood = new ItemFloodCharm();
-		charm_lightning = new ItemLightningCharm();
-		
-		charm_arrowsplosion = new ItemArrowsplosionCharm();
-		charm_fireball = new ItemFireballCharm();
-		charm_freeze = new ItemFreezeCharm();
-		
-		mana_potion = new ItemManaPotion();
 		
 		structure_wand = new ItemStructureWand();
 	}
@@ -338,21 +308,6 @@ public class ModItems
 		
 		GameRegistry.registerItem(keys, keys.getUnlocalizedName());
 		GameRegistry.registerItem(vessels, vessels.getUnlocalizedName());
-		
-		GameRegistry.registerItem(charm_hop, charm_hop.getUnlocalizedName());
-		
-		GameRegistry.registerItem(charm_extinguish, charm_extinguish.getUnlocalizedName());
-		GameRegistry.registerItem(charm_wind, charm_wind.getUnlocalizedName());
-		
-		GameRegistry.registerItem(charm_fire, charm_fire.getUnlocalizedName());
-		GameRegistry.registerItem(charm_flood, charm_flood.getUnlocalizedName());
-		GameRegistry.registerItem(charm_lightning, charm_lightning.getUnlocalizedName());
-		
-		GameRegistry.registerItem(charm_arrowsplosion, charm_arrowsplosion.getUnlocalizedName());
-		GameRegistry.registerItem(charm_fireball, charm_fireball.getUnlocalizedName());
-		GameRegistry.registerItem(charm_freeze, charm_freeze.getUnlocalizedName());
-		
-		GameRegistry.registerItem(mana_potion, mana_potion.getUnlocalizedName());
 		
 		GameRegistry.registerItem(structure_wand, structure_wand.getUnlocalizedName());
 	}

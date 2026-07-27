@@ -169,67 +169,6 @@ public class CommonEventHandler
 	}
 	
 	@SubscribeEvent
-	public void onPotionBrewAttempt(PotionBrewEvent.Pre event)
-	{
-		/* Stacks 0, 1, and 2 are the potions; stack 3 is the ingredient */
-		ItemStack ingred = event.getItem(3);
-		
-		if (ingred.getItem() == ModItems.potion_ingredients) {
-			for (int i = 0; i < 3; i++) {
-				ItemStack result = event.getItem(i);
-				if (result == null) {
-					continue;
-				}
-				if (result.getItemDamage() == 0x10) {
-					event.setItem(i, this.getPotionBrewResult(ingred.getItemDamage()));
-				} else {
-					event.setItem(i, new ItemStack(Items.potionitem, 1, 0x40));
-				}
-			}
-			ingred.stackSize--;
-			if (ingred.stackSize <= 0) {
-				event.setItem(3, null);
-			}
-			event.setCanceled(true);
-			return;
-		}
-		
-		if (ingred.getItem() == Items.glowstone_dust) {
-			boolean f = false;
-			for (int i = 0; i < 3; i++) {
-				ItemStack result = event.getItem(i);
-				if (result == null) {
-					continue;
-				}
-				if (result.getItem() == ModItems.mana_potion) {
-					if (result.getItemDamage() <= 5) {
-						result.setItemDamage(10);
-					}
-					f = true;
-				}
-			}
-			if (f) {
-				ingred.stackSize--;
-				if (ingred.stackSize <= 0) {
-					event.setItem(3, null);
-				}
-				event.setCanceled(true);
-				return;
-			}
-		}
-	}
-	
-	private ItemStack getPotionBrewResult(int meta)
-	{
-		switch (meta) {
-		case 0:
-			return new ItemStack(ModItems.mana_potion, 1, 5);
-		default:
-			return null;
-		}
-	}
-	
-	@SubscribeEvent
 	public void onServerTickEvent(TickEvent.ServerTickEvent event)
 	{
 		long time_ms = MinecraftServer.getSystemTimeMillis();

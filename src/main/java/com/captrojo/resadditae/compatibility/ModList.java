@@ -5,6 +5,7 @@ import cpw.mods.fml.common.Loader;
 public enum ModList
 {
 	ET_FUTURUM("etfuturum"),
+	COMPLEX_HUD("complexhud"),
 	HBM_NTM("hbm"),
 	NEI("NotEnoughItems"),
 	VILLAGE_NAMES("VillageNames");

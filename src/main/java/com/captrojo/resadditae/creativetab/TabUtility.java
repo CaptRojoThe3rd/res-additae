@@ -35,12 +35,6 @@ public class TabUtility
 			tab.add(stack);
 		}
 		
-		for (ItemCharmBase item : ItemCharmBase.all_charms) {
-			tab.add(item);
-		}
-		
-		ModItems.mana_potion.getSubItems(ModItems.mana_potion, tab, tab.items);
-		
 		tab.add(ModItems.structure_wand, 0, 1, 2);
 		tab.add(ModBlocks.structure_block, 0, 1, 2, 3);
 	}

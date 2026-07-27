@@ -437,7 +437,6 @@ public class CraftingRecipes
 		
 		/* Vessels */
 		addShaped(new ItemStack(ModItems.vessels, 1, VesselTypes.HEART_CONTAINER.meta), "aa", "aa", 'a', new ItemStack(ModItems.vessels, 1, VesselTypes.HEART_CONTAINER.meta | ItemVessel.VF_PIECE));
-		addShaped(new ItemStack(ModItems.vessels, 1, VesselTypes.MANA_VESSEL.meta), "aaa", "aaa", "aaa", 'a', new ItemStack(ModItems.vessels, 1, VesselTypes.MANA_VESSEL.meta | ItemVessel.VF_PIECE));
 		
 		/* Utility */
 		addShaped(new ItemStack(ModBlocks.stonecutter), "aa", "aa", 'a', "cobblestone");

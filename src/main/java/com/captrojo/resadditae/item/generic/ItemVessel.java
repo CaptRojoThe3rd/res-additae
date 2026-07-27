@@ -60,41 +60,6 @@ public class ItemVessel extends Item
 		return stack;
 	}
 	
-	private static ItemStack executeManaVesselOp(ItemStack stack, EntityPlayer player, boolean anti)
-	{
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		
-		if (anti) {
-			if (rpp.mana_vessels == 0) {
-				return stack;
-			}
-			rpp.mana_vessels--;
-			rpp.load();
-		} else {
-			if (rpp.mana_vessels == CommonConfig.Player.mana_vessel_maximum) {
-				return stack;
-			}
-			rpp.mana_vessels++;
-			rpp.load();
-		}
-		
-		stack.stackSize--;
-		return stack;
-	}
-	
-	private static ItemStack executeManaUpgradeOp(ItemStack stack, EntityPlayer player, ManaUpgrades upgrade)
-	{
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		
-		if (rpp.hasManaUpgrade(upgrade)) {
-			return stack;
-		}
-		rpp.applyManaUpgrade(upgrade);
-		
-		stack.stackSize--;
-		return stack;
-	}
-	
 	private IIcon[] base_icons;
 	private IIcon[] piece_icons;
 	
@@ -134,12 +99,6 @@ public class ItemVessel extends Item
 		switch (type) {
 		case HEART_CONTAINER:
 			return executeHeartContainerOp(stack, player, false);
-		case MANA_VESSEL:
-			return executeManaVesselOp(stack, player, false);
-		case MANA_RECHARGE_UPGRADE_1:
-			return executeManaUpgradeOp(stack, player, ManaUpgrades.RECHARGE_1);
-		case MANA_RECHARGE_UPGRADE_2:
-			return executeManaUpgradeOp(stack, player, ManaUpgrades.RECHARGE_2);
 		}
 		
 		return stack;

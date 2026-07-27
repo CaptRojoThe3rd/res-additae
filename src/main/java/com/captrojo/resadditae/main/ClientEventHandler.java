@@ -1,23 +1,18 @@
 package com.captrojo.resadditae.main;
 
-import org.lwjgl.opengl.GL11;
-
-import com.captrojo.resadditae.config.ClientConfig;
 import com.captrojo.resadditae.config.CommonConfig;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
-import com.captrojo.resadditae.render.RenderHlpr;
+import com.captrojo.resadditae.gui.hud.HUDElements;
+import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.world.WorldProviderDepths;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.TextureStitchEvent;
 
 public class ClientEventHandler extends CommonEventHandler
 {
@@ -40,99 +35,11 @@ public class ClientEventHandler extends CommonEventHandler
 		}
 	}
 	
-	private void renderXPBar(Minecraft mc, ScaledResolution sr, EntityPlayer player)
-	{
-		if (!mc.playerController.gameIsSurvivalOrAdventure()) {
-			return;
-		}
-		
-		RenderHlpr.bindIcons(mc.getTextureManager());
-		RenderHlpr.z_level = -90d;
-		FontRenderer fr = mc.fontRenderer;
-		
-		GL11.glColor4f(1f, 1f, 1f, 1f);
-
-		mc.mcProfiler.startSection("expBar");
-		
-		int cap = mc.thePlayer.xpBarCap();
-		int left = sr.getScaledWidth() / 2 - 92;
-		if (cap > 0) {
-			short barWidth = 91;
-			int filled = (int) (mc.thePlayer.experience * (float) (barWidth + 1));
-			int top = sr.getScaledHeight() - 32 + 3;
-			RenderHlpr.drawTexturedModalRect(left, top, 0, 0, barWidth, 5);
-
-			if (filled > 0) {
-				RenderHlpr.drawTexturedModalRect(left, top, 0, 5, filled, 5);
-			}
-		}
-
-		mc.mcProfiler.endSection();
-
-		if (mc.thePlayer.experienceLevel == 0) {
-			return;
-		}
-		
-		mc.mcProfiler.startSection("expLevel");
-
-		boolean white = false;
-		int color = white ? 0xffffff : 0x80ff20;
-		String text = "" + mc.thePlayer.experienceLevel;
-
-		int x = (sr.getScaledWidth() - fr.getStringWidth(text)) / 2;
-		int y = sr.getScaledHeight() - 38;
-		fr.drawString(text, x + 1, y, 0);
-		fr.drawString(text, x - 1, y, 0);
-		fr.drawString(text, x, y + 1, 0);
-		fr.drawString(text, x, y - 1, 0);
-		fr.drawString(text, x, y, color);
-
-		mc.mcProfiler.endSection();
-	}
-	
-	private void renderManaBar(Minecraft mc, ScaledResolution sr, EntityPlayer player, RAPlayerProperties rpp, float partial_ticks)
-	{
-		if (!mc.playerController.gameIsSurvivalOrAdventure()) {
-			return;
-		}
-		
-		mc.mcProfiler.startSection("manaBar");
-		
-		RenderHlpr.bindIcons(mc.getTextureManager());
-		RenderHlpr.z_level = -90d;
-		GL11.glColor4f(1f, 1f, 1f, 1f);
-		
-		int left = sr.getScaledWidth() / 2 + 1;
-		int top = sr.getScaledHeight() - 29;
-		int fill_width = (int) (((float) rpp.mana) / ((float) rpp.mana_max) * 91f);
-		
-		int x = ClientConfig.HUD.mana_bar_fill_direction == 0 ? left : left + (91 - fill_width);
-		int u = ClientConfig.HUD.mana_bar_fill_direction == 0 ? 92 : 92 + (91 - fill_width);
-		
-		RenderHlpr.drawTexturedModalRect(left, top, 92, 0, 91, 5);
-		RenderHlpr.drawTexturedModalRect(x, top, u, 5, fill_width, 5);
-		
-		mc.mcProfiler.endSection();
-	}
-
 	@SubscribeEvent
-	public void onHUDRenderPre(RenderGameOverlayEvent.Pre event)
+	public void renderGameOverlayEvent(RenderGameOverlayEvent event)
 	{
-		Minecraft mc = Minecraft.getMinecraft();
-		ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-		EntityPlayer player = mc.thePlayer;
-
-		if (player == null) {
-			return;
-		}
-		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-
-		if (event.type == ElementType.EXPERIENCE) {
-			this.renderXPBar(mc, sr, player);
-			this.renderManaBar(mc, sr, player, rpp, event.partialTicks);
-
-			event.setCanceled(true);
-			return;
+		if (event.type == ElementType.CROSSHAIRS) {
+			HUDElements.render(event.resolution);
 		}
 	}
 	
@@ -164,6 +71,14 @@ public class ClientEventHandler extends CommonEventHandler
 			event.left.add(i, tps_str);
 			event.left.add(i, mspt_str);
 			event.left.add(i, null);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onTextureStitching(TextureStitchEvent.Pre event)
+	{
+		if (event.map.getTextureType() == ResAdditae.SPELL_TEXTUREMAP_ID) {
+			Spells.registerIcons(event.map);
 		}
 	}
 }

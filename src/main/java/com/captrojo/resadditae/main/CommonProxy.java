@@ -31,6 +31,10 @@ public class CommonProxy
 	{
 	}
 	
+	public void initRenderingStuff()
+	{
+	}
+	
 	public void registerKeybinds()
 	{
 	}

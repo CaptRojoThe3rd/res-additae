@@ -2,10 +2,7 @@ package com.captrojo.resadditae.item.generic;
 
 public enum VesselTypes
 {
-	HEART_CONTAINER(0, ItemVessel.VF_PIECE),
-	MANA_VESSEL(1, ItemVessel.VF_PIECE),
-	MANA_RECHARGE_UPGRADE_1(2, 0),
-	MANA_RECHARGE_UPGRADE_2(3, 0);
+	HEART_CONTAINER(0, ItemVessel.VF_PIECE);
 	
 	public final int meta;
 	public final String name;

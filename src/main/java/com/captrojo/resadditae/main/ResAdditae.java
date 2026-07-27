@@ -25,6 +25,7 @@ import com.captrojo.resadditae.entity.ModEntities;
 import com.captrojo.resadditae.gui.GuiHandler;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.block.ItemBlockMulti;
+import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
 import com.captrojo.resadditae.packet.toclient.PacketPerformanceInfo;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
@@ -51,6 +52,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -94,6 +96,9 @@ public class ResAdditae
 	public static CommonProxy proxy;
 	
 	public static SimpleNetworkWrapper network;
+	
+	public static final int SPELL_TEXTUREMAP_ID = 37;
+	public static TextureMap texturemap_spells;
 	
 	public static String dir_minecraft;
 	public static String dir_structures;
@@ -214,6 +219,8 @@ public class ResAdditae
 		/* Make ice mountains taller */
 		BiomeGenBase.iceMountains.rootHeight += 1.0f;
 		
+		Spells.init();
+		
 		ModItems.initItems();
 		ModItems.registerItems();
 		
@@ -224,8 +231,6 @@ public class ResAdditae
 		ModOreDict.registerOres();
 		
 		ModEntities.register();
-		
-		proxy.registerRenderers();
 		
 		DimensionManager.registerProviderType(CommonConfig.WorldGen.depths_dimension_id, WorldProviderDepths.class, true);
 		DimensionManager.registerDimension(CommonConfig.WorldGen.depths_dimension_id, CommonConfig.WorldGen.depths_dimension_id);
@@ -266,6 +271,9 @@ public class ResAdditae
 
 		proxy.registerKeybinds();
 		proxy.createCreativeTabs();
+		
+		proxy.registerRenderers();
+		proxy.initRenderingStuff();
 		
 		CraftingRecipes.register();
 		FurnaceRecipes.register();

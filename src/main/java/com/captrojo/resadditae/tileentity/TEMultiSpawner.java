@@ -6,12 +6,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists.Tiers;
-import com.captrojo.resadditae.entity.properties.MobDropDataCharms;
-import com.captrojo.resadditae.entity.properties.MobDropDataSimple;
 import com.captrojo.resadditae.entity.properties.RAMobProperties;
-import com.captrojo.resadditae.item.ModItems;
-import com.captrojo.resadditae.item.generic.ItemVessel;
-import com.captrojo.resadditae.item.generic.VesselTypes;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -20,12 +15,10 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -162,12 +155,6 @@ public class TEMultiSpawner extends TileEntity
 		}
 		
 		RAMobProperties rmp = RAMobProperties.get(entity);
-		rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.common, 0.01f, true, 1, 1, 1f, false));
-		rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.uncommon, 0.005f, true, 1, 1, 1f, false));
-		rmp.addSpecialDrop(new MobDropDataSimple(
-			new ItemStack(ModItems.vessels, 1, VesselTypes.MANA_VESSEL.meta | ItemVessel.VF_PIECE),
-			0.01f, true, 1, 1, 1f, false
-		));
 		
 		Item weapon = null;
 		if (entity instanceof EntitySkeleton) {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists.Tiers;
-import com.captrojo.resadditae.entity.properties.MobDropDataCharms;
 import com.captrojo.resadditae.entity.properties.RAMobProperties;
 import com.captrojo.resadditae.entity.properties.SpawnSource;
 import com.captrojo.resadditae.item.ModItems;
@@ -21,7 +20,6 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -151,40 +149,6 @@ public class TESnowDungeonSpawner extends TEMultiSpawner
 		ItemStack weapon_stack = new ItemStack(weapon);
 		EnchantmentHelper.addRandomEnchantment(this.worldObj.rand, weapon_stack, ench_lvl);
 		entity.setCurrentItemOrArmor(0, weapon_stack);
-
-		switch (lvl) {
-		case 0:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.common, 0.01f, true, 1, 1, 1f, false));
-			break;
-		case 1:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.common, 0.02f, true, 1, 1, 1f, false));
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.uncommon, 0.01f, true, 1, 1, 1f, false));
-			break;
-		case 2:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.common, 0.04f, true, 1, 1, 1f, false));
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.uncommon, 0.02f, true, 1, 1, 1f, false));
-			break;
-		case 3:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.uncommon, 0.02f, true, 1, 1, 1f, false));
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.rare, 0.01f, true, 1, 1, 1f, false));
-			break;
-		case 4:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.uncommon, 0.04f, true, 1, 1, 1f, false));
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.rare, 0.02f, true, 1, 1, 1f, false));
-			break;
-		case 5:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.uncommon, 0.04f, true, 1, 1, 1f, false));
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.rare, 0.04f, true, 1, 1, 1f, false));
-			break;
-		case 6:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.rare, 0.04f, true, 1, 1, 1f, false));
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.epic, 0.01f, true, 1, 1, 1f, false));
-			break;
-		case 7:
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.rare, 0.04f, true, 1, 1, 1f, false));
-			rmp.addSpecialDrop(new MobDropDataCharms(EnumRarity.epic, 0.02f, true, 1, 1, 1f, false));
-			break;
-		}
 	}
 
 	protected void spawnEntityGroup()

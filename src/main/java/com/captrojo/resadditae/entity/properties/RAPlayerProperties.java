@@ -1,6 +1,10 @@
 package com.captrojo.resadditae.entity.properties;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import java.util.ArrayList;
+
+import com.captrojo.resadditae.magic.LearnedSpell;
+import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
 
@@ -11,8 +15,10 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public class RAPlayerProperties implements IExtendedEntityProperties
 {
@@ -30,7 +36,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	}
 	
 	public EntityPlayer player;
-	private int periodic_update_counter;
+	int periodic_update_counter;
 	
 	public boolean allow_charm_helping_players;
 	public boolean allow_charm_helping_entities;
@@ -38,18 +44,23 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public boolean allow_charm_harming_entities;
 	public byte charm_tamed_mob_behavior;
 	
+	public int mana_level;
 	public int mana;
-	public int mana_vessels;
-	public long mana_upgrades;
-	
 	public int mana_max;
-	private int mana_recharge_rate;
-	private int mana_recharge_counter;
+	int mana_recharge_counter;
+	
+	public int magic_skill_level;
+	
+	public ArrayList<LearnedSpell> learned_spells;
+	public Spell spell_in_use;
+	public int spell_use_time;
 	
 	public RAPlayerProperties(EntityPlayer player)
 	{
 		this.player = player;
 		this.periodic_update_counter = 0;
+		
+		this.learned_spells = new ArrayList<LearnedSpell>();
 	}
 	
 	public void reset()
@@ -60,34 +71,21 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.allow_charm_harming_entities = true;
 		this.charm_tamed_mob_behavior = 0;
 		
-		this.mana = 100;
-		this.mana_vessels = 0;
-		this.mana_upgrades = 0l;
+		this.mana_level = 1; /* TODO: this is for debug purposes, remove this later */
+		this.mana = 0;
 		
 		this.load();
 	}
 	
 	public void load()
 	{
-		this.mana_max = 100 + (this.mana_vessels * CommonConfig.Player.mana_vessel_value);
-		if (this.mana > this.mana_max) {
-			this.mana = this.mana_max;
-		}
-		
-		if (this.hasManaUpgrade(ManaUpgrades.RECHARGE_2)) {
-			this.mana_recharge_rate = 3;
-		} else if (this.hasManaUpgrade(ManaUpgrades.RECHARGE_1)) {
-			this.mana_recharge_rate = 2;
-		} else {
-			this.mana_recharge_rate = 1;
-		}
-		
-		this.mana_recharge_counter = 5;
+		this.mana_max = this.mana_level * 100;
 	}
 	
 	public void tick(EntityPlayer player)
 	{
 		boolean updated = false;
+		
 		this.periodic_update_counter--;
 		if (this.periodic_update_counter <= 0) {
 			this.periodic_update_counter = 20;
@@ -98,9 +96,17 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			if (this.mana_recharge_counter > 0) {
 				this.mana_recharge_counter--;
 			} else {
-				this.mana += this.mana_recharge_rate;
+				this.replenishMana(2);
 				this.mana_recharge_counter = 3;
 			}
+			updated = true;
+		}
+		
+		if (this.spell_in_use == null && this.spell_use_time > 0) {
+			this.spell_use_time = 0;
+			updated = true;
+		} else if (this.spell_in_use != null) {
+			this.spell_use_time++;
 			updated = true;
 		}
 		
@@ -117,9 +123,18 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		buf.writeBoolean(this.allow_charm_harming_entities);
 		buf.writeByte(this.charm_tamed_mob_behavior);
 		
+		buf.writeInt(this.mana_level);
 		buf.writeInt(this.mana);
-		buf.writeInt(this.mana_vessels);
-		buf.writeLong(this.mana_upgrades);
+		
+		buf.writeShort((short) this.magic_skill_level);
+		
+		buf.writeInt(this.spell_in_use.getID());
+		buf.writeInt(this.spell_use_time);
+		
+		buf.writeInt(this.learned_spells.size());
+		for (LearnedSpell ls : this.learned_spells) {
+			ls.serialize(buf);
+		}
 	}
 	
 	public void deserialize(ByteBuf buf)
@@ -129,46 +144,83 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.allow_charm_harming_players = buf.readBoolean();
 		this.allow_charm_harming_entities = buf.readBoolean();
 		this.charm_tamed_mob_behavior = buf.readByte();
-		
+
+		this.mana_level = buf.readInt();
 		this.mana = buf.readInt();
-		this.mana_vessels = buf.readInt();
-		this.mana_upgrades = buf.readLong();
+		
+		this.magic_skill_level = buf.readShort();
+		
+		this.spell_in_use = Spells.getByID(buf.readInt());
+		this.spell_use_time = buf.readInt();
+		
+		this.learned_spells.clear();
+		int ls_size = buf.readInt();
+		for (int i = 0; i < ls_size; i++) {
+			LearnedSpell ls = new LearnedSpell();
+			ls.deserialize(buf);
+			this.learned_spells.add(ls);
+		}
 		
 		this.load();
 	}
 	
 	@Override
-	public void saveNBTData(NBTTagCompound nbt)
+	public void saveNBTData(NBTTagCompound nbt0)
 	{
-		NBTTagCompound tag = new NBTTagCompound();
+		NBTTagCompound nbt = new NBTTagCompound();
 		
-		tag.setBoolean("allow_charm_helping_players", this.allow_charm_helping_players);
-		tag.setBoolean("allow_charm_helping_entities", this.allow_charm_helping_entities);
-		tag.setBoolean("allow_charm_harming_players", this.allow_charm_harming_players);
-		tag.setBoolean("allow_charm_harming_entities", this.allow_charm_harming_entities);
-		tag.setByte("charm_tamed_mob_behavior", this.charm_tamed_mob_behavior);
+		nbt.setBoolean("allow_charm_helping_players", this.allow_charm_helping_players);
+		nbt.setBoolean("allow_charm_helping_entities", this.allow_charm_helping_entities);
+		nbt.setBoolean("allow_charm_harming_players", this.allow_charm_harming_players);
+		nbt.setBoolean("allow_charm_harming_entities", this.allow_charm_harming_entities);
+		nbt.setByte("charm_tamed_mob_behavior", this.charm_tamed_mob_behavior);
 		
-		tag.setInteger("mana", this.mana);
-		tag.setInteger("mana_vessels", this.mana_vessels);
-		tag.setLong("mana_upgrades", this.mana_upgrades);
+		nbt.setInteger("mana_level", this.mana_level);
+		nbt.setInteger("mana", this.mana);
 		
-		nbt.setTag(KEY, tag);
+		nbt.setShort("magic_skill_level", (short) this.magic_skill_level);
+		
+		nbt.setInteger("spell_in_use", this.spell_in_use.getID());
+		nbt.setInteger("spell_use_time", this.spell_use_time);
+		
+		NBTTagList list = new NBTTagList();
+		for (LearnedSpell ls : this.learned_spells) {
+			NBTTagCompound tag = new NBTTagCompound();
+			ls.saveToNBT(tag);
+			list.appendTag(tag);
+		}
+		nbt.setTag("learned_spells", list);
+		
+		nbt0.setTag(KEY, nbt);
 	}
 
 	@Override
-	public void loadNBTData(NBTTagCompound nbt)
+	public void loadNBTData(NBTTagCompound nbt0)
 	{
-		NBTTagCompound tag = nbt.getCompoundTag(KEY);
+		NBTTagCompound nbt = nbt0.getCompoundTag(KEY);
 		
-		this.allow_charm_helping_players = tag.getBoolean("allow_charm_helping_players");
-		this.allow_charm_helping_entities = tag.getBoolean("allow_charm_helping_entities");
-		this.allow_charm_harming_players = tag.getBoolean("allow_charm_harming_players");
-		this.allow_charm_harming_entities = tag.getBoolean("allow_charm_harming_entities");
-		this.charm_tamed_mob_behavior = tag.getByte("charm_tamed_mob_behavior");
+		this.allow_charm_helping_players = nbt.getBoolean("allow_charm_helping_players");
+		this.allow_charm_helping_entities = nbt.getBoolean("allow_charm_helping_entities");
+		this.allow_charm_harming_players = nbt.getBoolean("allow_charm_harming_players");
+		this.allow_charm_harming_entities = nbt.getBoolean("allow_charm_harming_entities");
+		this.charm_tamed_mob_behavior = nbt.getByte("charm_tamed_mob_behavior");
 		
-		this.mana = tag.getInteger("mana");
-		this.mana_vessels = tag.getInteger("mana_vessels");
-		this.mana_upgrades = tag.getLong("mana_upgrades");
+		this.mana_level = nbt.getInteger("mana_level");
+		this.mana = nbt.getInteger("mana");
+		
+		this.magic_skill_level = nbt.getShort("magic_skill_level");
+		
+		this.spell_in_use = Spells.getByID(nbt.getInteger("spell_in_use"));
+		this.spell_use_time = nbt.getInteger("spell_use_time");
+		
+		NBTTagList list = nbt.getTagList("learned_spells", NBT.TAG_COMPOUND);
+		this.learned_spells.clear();
+		for (int i = 0; i < list.tagCount(); i++) {
+			NBTTagCompound tag = list.getCompoundTagAt(i);
+			LearnedSpell ls = new LearnedSpell();
+			ls.loadFromNBT(tag);
+			this.learned_spells.add(ls);
+		}
 		
 		this.load();
 	}
@@ -198,19 +250,6 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			return true;
 		}
 		return amount <= this.mana;
-	}
-	
-	public boolean hasManaUpgrade(ManaUpgrades upgrade)
-	{
-		if (upgrade == ManaUpgrades.RECHARGE_1 && this.hasManaUpgrade(ManaUpgrades.RECHARGE_2)) {
-			return true;
-		}
-		return (this.mana_upgrades & upgrade.bit) != 0;
-	}
-	
-	public void applyManaUpgrade(ManaUpgrades upgrade)
-	{
-		this.mana_upgrades |= upgrade.bit;
 	}
 	
 	public boolean canCharmHarmEntity(EntityLivingBase entity, EntityPlayer player)

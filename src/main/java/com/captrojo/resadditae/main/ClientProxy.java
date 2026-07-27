@@ -11,6 +11,7 @@ import com.captrojo.resadditae.creativetab.TabMaterials;
 import com.captrojo.resadditae.creativetab.TabNature;
 import com.captrojo.resadditae.creativetab.TabUtility;
 import com.captrojo.resadditae.entity.EntityThrownHalberd;
+import com.captrojo.resadditae.gui.hud.HUDElements;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.charm.ItemCharmBase;
 import com.captrojo.resadditae.render.block.BlockRenderIDs;
@@ -21,6 +22,7 @@ import com.captrojo.resadditae.render.block.RenderMultiStair;
 import com.captrojo.resadditae.render.entity.RenderThrownHalberd;
 import com.captrojo.resadditae.render.item.RenderItemCharm;
 import com.captrojo.resadditae.render.item.RenderItemHalberd;
+import com.captrojo.resadditae.render.spell.TextureMapSpells;
 import com.captrojo.resadditae.render.tileentity.RenderTEMultiSpawner;
 import com.captrojo.resadditae.render.tileentity.RenderTESnowDungeonSpawner;
 import com.captrojo.resadditae.render.tileentity.RenderTEStructureBlock;
@@ -34,6 +36,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ClientProxy extends CommonProxy
@@ -93,6 +96,16 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(TEVault.class, new RenderTEVault());
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownHalberd.class, new RenderThrownHalberd());
+	}
+	
+	@Override
+	public void initRenderingStuff()
+	{
+		HUDElements.init();
+		
+		ResAdditae.texturemap_spells = new TextureMapSpells();
+		ResourceLocation loc = new ResourceLocation("textures/atlas/spells.png");
+		Minecraft.getMinecraft().renderEngine.loadTextureMap(loc, ResAdditae.texturemap_spells);
 	}
 	
 	@Override
