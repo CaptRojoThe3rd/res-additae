@@ -4,6 +4,7 @@ import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.block.StoneTypes;
 import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.JsonConfig;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -15,16 +16,19 @@ public enum CommonBlocks
 	ANDESITE(
 		new ItemStack(ModBlocks.bountiful_stones, 1, 0), CommonConfig.CommonStuff.andesite, "Andesite",
 		ModList.BOTANIA, "stone", 0,
+		ModList.CHISEL, "andesite", 0,
 		ModList.ET_FUTURUM, "stone", 5
 	),
 	POLISHED_ANDESITE(
-		StoneTypes.ANDESITE.getBlock(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.andesite_polished, "Polished Andesite",
-		ModList.BOTANIA, "stone", 4 ,
+		StoneTypes.ANDESITE.getBlock(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.andesite_polished, "Polished Andesite",
+		ModList.BOTANIA, "stone", 4,
+		ModList.CHISEL, "andesite", 1,
 		ModList.ET_FUTURUM, "stone", 6
 	),
 	ANDESITE_BRICKS(
 		StoneTypes.ANDESITE.getBlock(1, StoneTypes.M_BRICKS), CommonConfig.CommonStuff.andesite_bricks, "Andesite Bricks",
-		ModList.BOTANIA, "stone", 8
+		ModList.BOTANIA, "stone", 8,
+		ModList.CHISEL, "andesite", 3
 	),
 	ANDESITE_SLAB(
 		new ItemStack(ModBlocks.bountiful_stone_slabs, 1, 0), CommonConfig.CommonStuff.andesite_slab, "Andesite Slab",
@@ -32,7 +36,7 @@ public enum CommonBlocks
 		ModList.ET_FUTURUM, "stone_slab_2", 4
 	),
 	POLISHED_ANDESITE_SLAB(
-		StoneTypes.ANDESITE.getSlab(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.andesite_polished_slab, "Polished Andesite Slab",
+		StoneTypes.ANDESITE.getSlab(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.andesite_polished_slab, "Polished Andesite Slab",
 		ModList.ET_FUTURUM, "stone_slab_2", 5
 	),
 	ANDESITE_BRICK_SLAB(
@@ -45,7 +49,7 @@ public enum CommonBlocks
 		ModList.ET_FUTURUM, "andesite_stairs", 0
 	),
 	POLISHED_ANDESITE_STAIR(
-		StoneTypes.ANDESITE.getStair(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.andesite_polished_stair, "Polished Andesite Stair",
+		StoneTypes.ANDESITE.getStair(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.andesite_polished_stair, "Polished Andesite Stair",
 		ModList.ET_FUTURUM, "polished_andesite_stairs", 0
 	),
 	ANDESITE_BRICK_STAIR(
@@ -56,16 +60,19 @@ public enum CommonBlocks
 	DIORITE(
 		new ItemStack(ModBlocks.bountiful_stones, 1, 1), CommonConfig.CommonStuff.diorite, "Diorite",
 		ModList.BOTANIA, "stone", 2,
+		ModList.CHISEL, "diorite", 0,
 		ModList.ET_FUTURUM, "stone", 3
 	),
 	POLISHED_DIORITE(
-		StoneTypes.DIORITE.getBlock(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.diorite_polished, "Polished Diorite",
+		StoneTypes.DIORITE.getBlock(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.diorite_polished, "Polished Diorite",
 		ModList.BOTANIA, "stone", 6,
+		ModList.CHISEL, "diorite", 1,
 		ModList.ET_FUTURUM, "stone", 4
 	),
 	DIORITE_BRICKS(
 		StoneTypes.DIORITE.getBlock(1, StoneTypes.M_BRICKS), CommonConfig.CommonStuff.diorite_bricks, "Diorite Bricks",
-		ModList.BOTANIA, "stone", 10
+		ModList.BOTANIA, "stone", 10,
+		ModList.CHISEL, "diorite", 3
 	),
 	DIORITE_SLAB(
 		new ItemStack(ModBlocks.bountiful_stone_slabs, 1, 1), CommonConfig.CommonStuff.diorite_slab, "Diorite Slab",
@@ -73,7 +80,7 @@ public enum CommonBlocks
 		ModList.ET_FUTURUM, "stone_slab_2", 2
 	),
 	POLISHED_DIORITE_SLAB(
-		StoneTypes.DIORITE.getSlab(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.diorite_polished_slab, "Polished Diorite Slab",
+		StoneTypes.DIORITE.getSlab(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.diorite_polished_slab, "Polished Diorite Slab",
 		ModList.ET_FUTURUM, "stone_slab_2", 3
 	),
 	DIORITE_BRICK_SLAB(
@@ -86,27 +93,30 @@ public enum CommonBlocks
 		ModList.ET_FUTURUM, "diorite_stairs", 0
 	),
 	POLISHED_DIORITE_STAIR(
-		StoneTypes.DIORITE.getStair(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.diorite_polished_stair, "Polished Diorite Stair",
+		StoneTypes.DIORITE.getStair(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.diorite_polished_stair, "Polished Diorite Stair",
 		ModList.ET_FUTURUM, "polished_diorite_stairs", 0
 	),
 	DIORITE_BRICK_STAIR(
-		StoneTypes.DIORITE.getStair(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.diorite_brick_stair, "Diorite Brick Stair",
+		StoneTypes.DIORITE.getStair(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.diorite_brick_stair, "Diorite Brick Stair",
 		ModList.BOTANIA, "stone10Stairs", 0
 	),
 	
 	GRANITE(
 		new ItemStack(ModBlocks.bountiful_stones, 1, 2), CommonConfig.CommonStuff.granite, "Granite",
 		ModList.BOTANIA, "stone", 3,
+		ModList.CHISEL, "granite", 0,
 		ModList.ET_FUTURUM, "stone", 1
 	),
 	POLISHED_GRANITE(
-		StoneTypes.GRANITE.getBlock(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.granite_polished, "Polished Granite",
+		StoneTypes.GRANITE.getBlock(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.granite_polished, "Polished Granite",
 		ModList.BOTANIA, "stone", 7,
+		ModList.CHISEL, "granite", 1,
 		ModList.ET_FUTURUM, "stone", 2
 	),
 	GRANITE_BRICKS(
 		StoneTypes.GRANITE.getBlock(1, StoneTypes.M_BRICKS), CommonConfig.CommonStuff.granite_bricks, "Granite Bricks",
-		ModList.BOTANIA, "stone", 11
+		ModList.BOTANIA, "stone", 11,
+		ModList.CHISEL, "granite", 3
 	),
 	GRANITE_SLAB(
 		new ItemStack(ModBlocks.bountiful_stone_slabs, 1, 2), CommonConfig.CommonStuff.granite_slab, "Granite Slab",
@@ -114,7 +124,7 @@ public enum CommonBlocks
 		ModList.ET_FUTURUM, "stone_slab_2", 0
 	),
 	POLISHED_GRANITE_SLAB(
-		StoneTypes.GRANITE.getSlab(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.granite_polished_slab, "Polished Granite Slab",
+		StoneTypes.GRANITE.getSlab(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.granite_polished_slab, "Polished Granite Slab",
 		ModList.ET_FUTURUM, "stone_slab_2", 1
 	),
 	GRANITE_BRICK_SLAB(
@@ -127,7 +137,7 @@ public enum CommonBlocks
 		ModList.ET_FUTURUM, "granite_stairs", 0
 	),
 	POLISHED_GRANITE_STAIR(
-		StoneTypes.GRANITE.getStair(1, StoneTypes.M_REGULAR), CommonConfig.CommonStuff.granite_polished_stair, "Polished Granite Stair",
+		StoneTypes.GRANITE.getStair(1, StoneTypes.M_POLISHED), CommonConfig.CommonStuff.granite_polished_stair, "Polished Granite Stair",
 		ModList.ET_FUTURUM, "polished_granite_stairs", 0
 	),
 	GRANITE_BRICK_STAIR(
@@ -201,26 +211,42 @@ public enum CommonBlocks
 	
 	private CommonBlocks(Block ra_block, int meta, boolean enabled, String name, Object...objs)
 	{
+		CommonStuffStatus.beginNew(name);
+		
 		if (ra_block != null && enabled) {
 			this.stack = new ItemStack(ra_block, 1, meta);
 			return;
 		}
 		
 		for (int i = 0; i < objs.length; i += 3) {
-			ModList mod = (ModList) objs[i];
-			if (!mod.isLoaded()) {
-				continue;
+			String o_mod = ((ModList) objs[i]).id;
+			String o_name = (String) objs[i + 1];
+			int o_meta = (int) objs[i + 2];
+			
+			if (this.findBlock(o_mod, o_name, o_meta)) {
+				return;
 			}
-			Block block = GameRegistry.findBlock(mod.id, (String) objs[i + 1]);
-			if (block == null) {
-				continue;
-			}
-			this.stack = new ItemStack(block, 1, (int) objs[i + 2]);
-			return;
 		}
 		
-		ResAdditae.LOG.error(String.format("Failed to find any instance of '%s'.", name));
-		ResAdditae.common_items_error = true;
+		ModNameMeta m = ModNameMeta.create(JsonConfig.getString(JsonConfig.obj_common_stuff, name));
+		if (m != null) {
+			if (this.findBlock(m.mod, m.name, m.meta)) {
+				return;
+			}
+		}
+		
+		CommonStuffStatus.reportError();
+	}
+	
+	private boolean findBlock(String mod, String name, int meta)
+	{
+		Block block = GameRegistry.findBlock(mod, name);
+		if (block == null) {
+			CommonStuffStatus.addAttempted(mod, name, meta);
+			return false;
+		}
+		this.stack = new ItemStack(block, 1, meta);
+		return true;
 	}
 	
 	public BlockMeta blkm()

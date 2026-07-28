@@ -62,7 +62,7 @@ public class StonecutterRecipe
 			addRecipe(pol_block, brk_block);
 			
 			for (int m : StoneTypes.MLIST) {
-				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+				if (m == StoneTypes.M_POLISHED || m == StoneTypes.M_BRICKS) {
 					 continue;
 				}
 				addRecipe(pol_block, type.getBlock(1, m));
@@ -72,7 +72,7 @@ public class StonecutterRecipe
 			addRecipe(brk_block, brk_stair);
 			
 			for (int m : StoneTypes.MLISTSHORT) {
-				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+				if (m == StoneTypes.M_POLISHED || m == StoneTypes.M_BRICKS) {
 					 continue;
 				}
 				addRecipe(type.getBlock(1, m), type.getSlab(2, m));
@@ -83,7 +83,7 @@ public class StonecutterRecipe
 			addRecipe(pol_block, brk_slab);
 			
 			for (int m : StoneTypes.MLISTSHORT) {
-				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+				if (m == StoneTypes.M_POLISHED || m == StoneTypes.M_BRICKS) {
 					 continue;
 				}
 				addRecipe(pol_block, type.getSlab(2, m));
@@ -93,7 +93,7 @@ public class StonecutterRecipe
 			addRecipe(pol_block, brk_stair);
 			
 			for (int m : StoneTypes.MLISTSHORT) {
-				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+				if (m == StoneTypes.M_POLISHED || m == StoneTypes.M_BRICKS) {
 					 continue;
 				}
 				addRecipe(pol_block, type.getStair(1, m));
@@ -111,9 +111,9 @@ public class StonecutterRecipe
 				break;
 			}
 			
-			ItemStack block = type.getBlock(1, StoneTypes.M_REGULAR);
-			ItemStack slab = type.getSlab(1, StoneTypes.M_REGULAR);
-			ItemStack stair = type.getStair(1, StoneTypes.M_REGULAR);
+			ItemStack block = type.getBlock(1, StoneTypes.M_POLISHED);
+			ItemStack slab = type.getSlab(1, StoneTypes.M_POLISHED);
+			ItemStack stair = type.getStair(1, StoneTypes.M_POLISHED);
 			
 			for (int m : StoneTypes.MLIST) {
 				if (m == 0) continue;

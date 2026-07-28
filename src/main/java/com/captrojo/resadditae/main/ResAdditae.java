@@ -14,6 +14,7 @@ import com.captrojo.resadditae.command.CommandRADebug;
 import com.captrojo.resadditae.command.CommandRAStruct;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.compatibility.CommonItems;
+import com.captrojo.resadditae.compatibility.CommonStuffStatus;
 import com.captrojo.resadditae.compatibility.ModList;
 import com.captrojo.resadditae.compatibility.ModOreDict;
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
@@ -101,6 +102,8 @@ public class ResAdditae
 	public static TextureMap texturemap_spells;
 	
 	public static String dir_minecraft;
+	public static String dir_config;
+	public static String dir_crash_reports;
 	public static String dir_structures;
 	public static String dir_structure_loots;
 	
@@ -171,16 +174,21 @@ public class ResAdditae
 		
 		/* This shouldn't break (hopefully) */
 		dir_minecraft = event.getModConfigurationDirectory().getParent();
+		dir_config = event.getModConfigurationDirectory().toString() + File.separator + "resadditae";
+		dir_crash_reports = dir_minecraft + File.separator + "crash-reports";
 		dir_structures = dir_minecraft + File.separator + "structures";
 		dir_structure_loots = dir_structures + File.separator + "loot";
-		File f = new File(dir_structure_loots);
-		if (!f.exists()) {
-			f.mkdirs();
+		
+		final String[] af = {dir_config, dir_crash_reports, dir_structure_loots};
+		for (String s : af) {
+			File f = new File(s);
+			if (!f.exists()) {
+				f.mkdirs();
+			}
 		}
 		
-		String config_dir = event.getModConfigurationDirectory().toString();
-		config_common = new File(config_dir + File.separator + "resadditae_common.cfg");
-		config_client = new File(config_dir + File.separator + "resadditae_client.cfg");
+		config_common = new File(dir_config + File.separator + "common.cfg");
+		config_client = new File(dir_config + File.separator + "client.cfg");
 		proxy.loadConfig();
 		
 		/* Make gold equipment good (between silver and platinum) */
@@ -263,7 +271,13 @@ public class ResAdditae
 		CommonBlocks.values();
 		CommonItems.values();
 		if (common_items_error) {
-			throw new IllegalStateException("Couldn't find common item(s). Ensure that you have configured Res Additae and/or your other mods correctly. See the log for a list of specific items that couldn't be found.");
+			String msg = "Couldn't find common item(s). Ensure that you have configured Res Additae and/or your other mods correctly. ";
+			if (CommonStuffStatus.saveReports()) {
+				msg += "A report has been saved to your crash reports folder ('" + CommonStuffStatus.report_file_path + "')";
+			} else {
+				msg += "A report could not be saved, so you will have to search the logs for more info.";
+			}
+			throw new IllegalStateException(msg);
 		}
 		OrderedEquipmentLists.init();
 		

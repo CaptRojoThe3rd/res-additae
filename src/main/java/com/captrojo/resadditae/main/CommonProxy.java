@@ -1,6 +1,7 @@
 package com.captrojo.resadditae.main;
 
 import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.JsonConfig;
 import com.captrojo.resadditae.world.WorldGenEventHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -11,6 +12,7 @@ public class CommonProxy
 	protected void loadConfig()
 	{
 		CommonConfig.loadAll();
+		JsonConfig.init();
 	}
 	
 	protected void registerEventHandlers(CommonEventHandler common)

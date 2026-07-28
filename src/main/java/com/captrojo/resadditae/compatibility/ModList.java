@@ -5,6 +5,7 @@ import cpw.mods.fml.common.Loader;
 public enum ModList
 {
 	BOTANIA("Botania"),
+	CHISEL("chisel"),
 	COMPLEX_HUD("complexhud"),
 	ET_FUTURUM("etfuturum"),
 	GARDEN_STUFF("GardenStuff"),

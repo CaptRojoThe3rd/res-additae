@@ -72,7 +72,7 @@ public class CraftingRecipes
 		/* Stone Recipes */
 		if (CommonConfig.CommonStuff.andesite) {
 			if (CommonConfig.CommonStuff.andesite_polished) {
-				addShaped(StoneTypes.ANDESITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 0));				
+				addShaped(StoneTypes.ANDESITE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 0));				
 			}
 			if (CommonConfig.CommonStuff.andesite_slab) {
 				addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 0), new ItemStack(ModBlocks.bountiful_stones, 1, 0));
@@ -83,7 +83,7 @@ public class CraftingRecipes
 		}
 		if (CommonConfig.CommonStuff.diorite) {
 			if (CommonConfig.CommonStuff.diorite_polished) {
-				addShaped(StoneTypes.DIORITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 1));				
+				addShaped(StoneTypes.DIORITE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 1));				
 			}
 			if (CommonConfig.CommonStuff.diorite_slab) {
 				addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 1), new ItemStack(ModBlocks.bountiful_stones, 1, 1));
@@ -94,7 +94,7 @@ public class CraftingRecipes
 		}
 		if (CommonConfig.CommonStuff.granite) {
 			if (CommonConfig.CommonStuff.granite_polished) {
-				addShaped(StoneTypes.GRANITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 2));				
+				addShaped(StoneTypes.GRANITE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 2));				
 			}
 			if (CommonConfig.CommonStuff.granite_slab) {
 				addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 2), new ItemStack(ModBlocks.bountiful_stones, 1, 2));
@@ -104,29 +104,29 @@ public class CraftingRecipes
 			}
 		}
 		
-		addShaped(StoneTypes.HELLSTONE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.nether_stones, 1, 0));
+		addShaped(StoneTypes.HELLSTONE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.nether_stones, 1, 0));
 		addSlab(new ItemStack(ModBlocks.nether_stone_slabs, 6, 0), new ItemStack(ModBlocks.nether_stones, 1, 0));
 		addStair(new ItemStack(ModBlocks.nether_stone_stairs, 8, 0), new ItemStack(ModBlocks.nether_stones, 1, 0));
-		addShaped(StoneTypes.BLOODSTONE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.nether_stones, 1, 1));
+		addShaped(StoneTypes.BLOODSTONE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.nether_stones, 1, 1));
 		addSlab(new ItemStack(ModBlocks.nether_stone_slabs, 6, 1), new ItemStack(ModBlocks.nether_stones, 1, 1));
 		addStair(new ItemStack(ModBlocks.nether_stone_stairs, 8, 8), new ItemStack(ModBlocks.nether_stones, 1, 1));
 		
-		addShaped(StoneTypes.DEPTH_STONE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 0));
+		addShaped(StoneTypes.DEPTH_STONE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 0));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 0), new ItemStack(ModBlocks.depth_stones, 1, 0));
 		addStair(new ItemStack(ModBlocks.depth_stone_stairs_a, 8, 0), new ItemStack(ModBlocks.depth_stones, 1, 0));
-		addShaped(StoneTypes.DEPTH_STONE_AMBER.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 1));
+		addShaped(StoneTypes.DEPTH_STONE_AMBER.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 1));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 1), new ItemStack(ModBlocks.depth_stones, 1, 1));
 		addStair(new ItemStack(ModBlocks.depth_stone_stairs_a, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 1));
-		addShaped(StoneTypes.DEPTH_STONE_JADE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 2));
+		addShaped(StoneTypes.DEPTH_STONE_JADE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 2));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 2), new ItemStack(ModBlocks.depth_stones, 1, 2));
 		addStair(new ItemStack(ModBlocks.depth_stone_stairs_b, 8, 0), new ItemStack(ModBlocks.depth_stones, 1, 2));
-		addShaped(StoneTypes.DEPTH_STONE_RUBY.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 3));
+		addShaped(StoneTypes.DEPTH_STONE_RUBY.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 3));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 3), new ItemStack(ModBlocks.depth_stones, 1, 3));
 		addStair(new ItemStack(ModBlocks.depth_stone_stairs_b, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 3));
-		addShaped(StoneTypes.DEPTH_STONE_SAPPHIRE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 4));
+		addShaped(StoneTypes.DEPTH_STONE_SAPPHIRE.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 4));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 4), new ItemStack(ModBlocks.depth_stones, 1, 4));
 		addStair(new ItemStack(ModBlocks.depth_stone_stairs_c, 8, 0), new ItemStack(ModBlocks.depth_stones, 1, 4));
-		addShaped(StoneTypes.DEPTH_STONE_TOPAZ.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 5));
+		addShaped(StoneTypes.DEPTH_STONE_TOPAZ.getBlock(4, StoneTypes.M_POLISHED), "aa", "aa", 'a', new ItemStack(ModBlocks.depth_stones, 1, 5));
 		addSlab(new ItemStack(ModBlocks.depth_stone_slabs, 6, 5), new ItemStack(ModBlocks.depth_stones, 1, 5));
 		addStair(new ItemStack(ModBlocks.depth_stone_stairs_c, 8, 8), new ItemStack(ModBlocks.depth_stones, 1, 5));
 		

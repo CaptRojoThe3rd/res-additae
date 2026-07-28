@@ -29,7 +29,7 @@ public enum StoneTypes
 	DEPTH_STONE_SAPPHIRE("depth_stone_sapphire", "depths/stone_sapphire", false, 3.0f, 6.0f),
 	DEPTH_STONE_TOPAZ("depth_stone_topaz", "depths/stone_topaz", false, 3.0f, 6.0f);
 	
-	public static final int M_REGULAR = 0x000;
+	public static final int M_POLISHED = 0x000;
 	public static final int M_BRICKS = 0x001;
 	public static final int M_BUBBLES = 0x002;
 	public static final int M_CHISELED = 0x003;
@@ -52,7 +52,7 @@ public enum StoneTypes
 	public static final int M_HEXAGON = 0x201;
 	
 	public static final int MLIST[] = {
-		M_REGULAR,
+		M_POLISHED,
 		M_BRICKS,
 		M_BUBBLES,
 		M_CHISELED,
@@ -76,7 +76,7 @@ public enum StoneTypes
 	};
 	
 	public static final int MLISTSHORT[] = {
-		M_REGULAR,
+		M_POLISHED,
 		M_BRICKS,
 		M_BUBBLES,
 		M_CHISELED,
