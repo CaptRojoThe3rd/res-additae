@@ -12,7 +12,7 @@ import com.captrojo.resadditae.block.generic.BlockMultiSlab;
 import com.captrojo.resadditae.block.generic.BlockMultiStair;
 import com.captrojo.resadditae.block.generic.BlockStainedGlassPane;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
-import com.captrojo.resadditae.config.CommonConfig.CommonItems;
+import com.captrojo.resadditae.config.CommonConfig.CommonStuff;
 import com.captrojo.resadditae.config.CommonConfig;
 
 import net.minecraft.item.ItemStack;
@@ -34,10 +34,33 @@ public class TabBlocks
 			tab.add(ModBlocks.hardened_clay_stair, 0);
 		}
 		
-		tab.add(ModBlocks.bountiful_stones, 0, 1, 2);
-		tab.add(ModBlocks.bountiful_stone_slabs, 0, 1, 2);
-		tab.add(ModBlocks.bountiful_stone_stairs_a, 0, 8);
-		tab.add(ModBlocks.bountiful_stone_stairs_b, 0);
+		if (CommonConfig.CommonStuff.andesite) {
+			tab.add(ModBlocks.bountiful_stones, 0);
+		}
+		if (CommonConfig.CommonStuff.diorite) {
+			tab.add(ModBlocks.bountiful_stones, 1);
+		}
+		if (CommonConfig.CommonStuff.granite) {
+			tab.add(ModBlocks.bountiful_stones, 2);
+		}
+		if (CommonConfig.CommonStuff.andesite_slab) {
+			tab.add(ModBlocks.bountiful_stone_slabs, 0);
+		}
+		if (CommonConfig.CommonStuff.diorite_slab) {
+			tab.add(ModBlocks.bountiful_stone_slabs, 1);
+		}
+		if (CommonConfig.CommonStuff.granite_slab) { 
+			tab.add(ModBlocks.bountiful_stone_slabs, 2);
+		}
+		if (CommonConfig.CommonStuff.andesite_stair) {
+			tab.add(ModBlocks.bountiful_stone_stairs_a, 0);
+		}
+		if (CommonConfig.CommonStuff.diorite_stair) {
+			tab.add(ModBlocks.bountiful_stone_stairs_a, 8);
+		}
+		if (CommonConfig.CommonStuff.granite_stair) {
+			tab.add(ModBlocks.bountiful_stone_stairs_b, 0);
+		}
 		
 		tab.add(ModBlocks.nether_stones, 0, 1);
 		tab.add(ModBlocks.nether_stone_slabs, 0, 1);
@@ -106,46 +129,46 @@ public class TabBlocks
 			}
 		}
 		
-		if (CommonConfig.CommonItems.prismarine || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.prismarine || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.PRISMARINE.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_0, 1, 2, 3, 4);
 		tab.add(ModBlocks.prismarine_pillar, 0);
-		if (CommonConfig.CommonItems.prismarine || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.prismarine || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.PRISMARINE_SLAB.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_slab_0, 1, 2, 3, 4);
-		if (CommonConfig.CommonItems.prismarine || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.prismarine || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.PRISMARINE_STAIR.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_stair_0, 8);
 		tab.add(ModBlocks.prismarine_stair_1, 0, 8);
 		tab.add(ModBlocks.prismarine_stair_2, 0);
 		
-		if (CommonConfig.CommonItems.prismarine_bricks || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.prismarine_bricks || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.PRISMARINE_BRICKS.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_0, 6, 7);
 		tab.add(ModBlocks.prismarine_pillar, 1);
-		if (CommonConfig.CommonItems.prismarine_bricks || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.prismarine_bricks || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.PRISMARINE_BRICK_SLAB.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_slab_0, 6, 7);
-		if (CommonConfig.CommonItems.prismarine_bricks || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.prismarine_bricks || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.PRISMARINE_BRICK_STAIR.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_stair_3, 0, 8);
 		
-		if (CommonConfig.CommonItems.dark_prismarine || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.dark_prismarine || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.DARK_PRISMARINE.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_1, 1, 2, 3, 4);
 		tab.add(ModBlocks.prismarine_pillar, 2, 3);
-		if (CommonConfig.CommonItems.dark_prismarine || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.dark_prismarine || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.DARK_PRISMARINE_SLAB.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_slab_1, 1, 2, 3, 4);
-		if (CommonConfig.CommonItems.dark_prismarine || CommonConfig.General.show_other_mod_items) {
+		if (CommonConfig.CommonStuff.dark_prismarine || CommonConfig.General.show_other_mod_items) {
 			tab.add(CommonBlocks.DARK_PRISMARINE_STAIR.stack(1));
 		}
 		tab.add(ModBlocks.prismarine_stair_4, 8);

@@ -1,4 +1,18 @@
 
+▓▓▓ #0003 ▓▓▓
+
+Additions:
+* Began work on new magic system to replace the charms added in #0001
+* Better support for using other mods' items
+
+Changes:
+* Default config now has all common blocks/items enabled by default. If you want to use another
+  mod for certain items, you have to change the config manually
+
+Removals:
+* Charms
+* Mana upgrades
+
 ▓▓▓ #0002 ▓▓▓
 
 Additions:

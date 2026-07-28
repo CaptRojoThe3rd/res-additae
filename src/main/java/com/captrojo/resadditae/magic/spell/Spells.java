@@ -74,6 +74,9 @@ public class Spells
 	
 	public static Spell getByID(int id)
 	{
+		if (id < 0) {
+			return null;
+		}
 		int hi_word = id >> 16;
 		int lo_word = id & 0xffff;
 		Spell[] arr = SPELL_REGISTRY.get(hi_word);

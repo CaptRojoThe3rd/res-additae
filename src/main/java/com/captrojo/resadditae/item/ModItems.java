@@ -126,7 +126,7 @@ public class ModItems
 
 	public static void initItems()
 	{
-		if (CommonConfig.CommonItems.iron_nuggets) {
+		if (CommonConfig.CommonStuff.iron_nuggets) {
 			iron_nugget = new Item().setUnlocalizedName("iron_nugget").setTextureName("iron_nugget");
 		}
 		
@@ -220,7 +220,7 @@ public class ModItems
 
 	public static void registerItems()
 	{
-		if (CommonConfig.CommonItems.iron_nuggets) {
+		if (CommonConfig.CommonStuff.iron_nuggets) {
 			GameRegistry.registerItem(iron_nugget, iron_nugget.getUnlocalizedName());
 		}
 		

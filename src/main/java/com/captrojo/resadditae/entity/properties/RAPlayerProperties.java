@@ -128,7 +128,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		
 		buf.writeShort((short) this.magic_skill_level);
 		
-		buf.writeInt(this.spell_in_use.getID());
+		buf.writeInt(this.spell_in_use == null ? -1 : this.spell_in_use.getID());
 		buf.writeInt(this.spell_use_time);
 		
 		buf.writeInt(this.learned_spells.size());
@@ -180,7 +180,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		
 		nbt.setShort("magic_skill_level", (short) this.magic_skill_level);
 		
-		nbt.setInteger("spell_in_use", this.spell_in_use.getID());
+		nbt.setInteger("spell_in_use", this.spell_in_use == null ? -1 : this.spell_in_use.getID());
 		nbt.setInteger("spell_use_time", this.spell_use_time);
 		
 		NBTTagList list = new NBTTagList();

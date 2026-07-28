@@ -11,16 +11,22 @@ import net.minecraft.item.ItemStack;
 public enum CommonItems
 {
 	IRON_NUGGET(
-		ModItems.iron_nugget, 0, CommonConfig.CommonItems.iron_nuggets, "Iron Nugget",
-		ModList.ET_FUTURUM, "nugget_iron", 0
+		ModItems.iron_nugget, 0, CommonConfig.CommonStuff.iron_nuggets, "Iron Nugget",
+		ModList.ET_FUTURUM, "nugget_iron", 0,
+		ModList.GARDEN_STUFF, "iron_nugget", 0,
+		ModList.HEXCRAFT, "itemIronNugget", 0,
+		ModList.NETHERLICIOUS, "Nugget", 0,
+		ModList.THAUMCRAFT, "ItemNugget", 0,
+		ModList.TINKERS_CONSTRUCT, "materials", 19,
+		ModList.TOTEMIC, "subItems", 0
 	),
 	
 	RAW_SILVER(
-		ModItems.raws, 0, CommonConfig.CommonItems.raw_silver, "Raw Silver",
+		ModItems.raws, 0, CommonConfig.CommonStuff.raw_silver, "Raw Silver",
 		ModList.ET_FUTURUM, "modded_raw_ore", 2
 	),
 	RAW_PLATINUM(
-		ModItems.raws, 1, CommonConfig.CommonItems.raw_platinum, "Raw Platinum",
+		ModItems.raws, 1, CommonConfig.CommonStuff.raw_platinum, "Raw Platinum",
 		ModList.ET_FUTURUM, "modded_raw_ore", 5
 	);
 	

@@ -171,13 +171,13 @@ public class ModWorldGen implements IWorldGenerator
 		
 		/* Stones */
 		for (int y = 30; y <= 210; y += 60) {
-			if (CommonConfig.CommonItems.andesite) {
+			if (CommonConfig.CommonStuff.andesite) {
 				addOreSpawn(CommonBlocks.ANDESITE.blkm(), Blocks.stone, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
 			}
-			if (CommonConfig.CommonItems.diorite) {
+			if (CommonConfig.CommonStuff.diorite) {
 				addOreSpawn(CommonBlocks.DIORITE.blkm(), Blocks.stone, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
 			}
-			if (CommonConfig.CommonItems.granite) {
+			if (CommonConfig.CommonStuff.granite) {
 				addOreSpawn(CommonBlocks.GRANITE.blkm(), Blocks.stone, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
 			}
 		}

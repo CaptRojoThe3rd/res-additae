@@ -4,10 +4,17 @@ import cpw.mods.fml.common.Loader;
 
 public enum ModList
 {
-	ET_FUTURUM("etfuturum"),
+	BOTANIA("Botania"),
 	COMPLEX_HUD("complexhud"),
+	ET_FUTURUM("etfuturum"),
+	GARDEN_STUFF("GardenStuff"),
 	HBM_NTM("hbm"),
+	HEXCRAFT("hexcraft"),
 	NEI("NotEnoughItems"),
+	NETHERLICIOUS("netherlicious"),
+	THAUMCRAFT("Thaumcraft"),
+	TINKERS_CONSTRUCT("TConstruct"),
+	TOTEMIC("totemic"),
 	VILLAGE_NAMES("VillageNames");
 	
 	public static boolean isVanillaConcreteProvided()

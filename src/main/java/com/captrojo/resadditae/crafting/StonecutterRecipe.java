@@ -16,34 +16,104 @@ public class StonecutterRecipe
 	public static void registerRecipes()
 	{
 		recipes = new ArrayList<StonecutterRecipe>();
-	
-		for (StoneTypes type : StoneTypes.values()) {
-			ItemStack block;
-			ItemStack slab;
-			ItemStack stair;
+		
+		final StoneTypes[] bountiful_stones = {StoneTypes.ANDESITE, StoneTypes.DIORITE, StoneTypes.GRANITE};
+	stoneLoop0:
+		for (StoneTypes type : bountiful_stones) {
+			ItemStack reg_block;
+			ItemStack reg_slab;
+			ItemStack reg_stair;
+			ItemStack pol_block;
+			ItemStack pol_slab;
+			ItemStack pol_stair;
+			ItemStack brk_block;
+			ItemStack brk_slab;
+			ItemStack brk_stair;
 			
 			switch (type) {
 			case ANDESITE:
-				block = CommonBlocks.POLISHED_ANDESITE.stack(1);
-				slab = CommonBlocks.POLISHED_ANDESITE_SLAB.stack(1);
-				stair = CommonBlocks.POLISHED_ANDESITE_STAIR.stack(1);
+				pol_block = CommonBlocks.POLISHED_ANDESITE.stack(1);
+				pol_slab = CommonBlocks.POLISHED_ANDESITE_SLAB.stack(1);
+				pol_stair = CommonBlocks.POLISHED_ANDESITE_STAIR.stack(1);
+				brk_block = CommonBlocks.ANDESITE_BRICKS.stack(1);
+				brk_slab = CommonBlocks.ANDESITE_BRICK_SLAB.stack(1);
+				brk_stair = CommonBlocks.ANDESITE_BRICK_STAIR.stack(1);
 				break;
 			case DIORITE:
-				block = CommonBlocks.POLISHED_DIORITE.stack(1);
-				slab = CommonBlocks.POLISHED_DIORITE_SLAB.stack(1);
-				stair = CommonBlocks.POLISHED_DIORITE_STAIR.stack(1);
+				pol_block = CommonBlocks.POLISHED_DIORITE.stack(1);
+				pol_slab = CommonBlocks.POLISHED_DIORITE_SLAB.stack(2);
+				pol_stair = CommonBlocks.POLISHED_DIORITE_STAIR.stack(1);
+				brk_block = CommonBlocks.DIORITE_BRICKS.stack(1);
+				brk_slab = CommonBlocks.DIORITE_BRICK_SLAB.stack(2);
+				brk_stair = CommonBlocks.DIORITE_BRICK_STAIR.stack(1);
 				break;
 			case GRANITE:
-				block = CommonBlocks.POLISHED_GRANITE.stack(1);
-				slab = CommonBlocks.POLISHED_GRANITE_SLAB.stack(1);
-				stair = CommonBlocks.POLISHED_GRANITE_STAIR.stack(1);
+				pol_block = CommonBlocks.POLISHED_GRANITE.stack(1);
+				pol_slab = CommonBlocks.POLISHED_GRANITE_SLAB.stack(2);
+				pol_stair = CommonBlocks.POLISHED_GRANITE_STAIR.stack(1);
+				brk_block = CommonBlocks.GRANITE_BRICKS.stack(1);
+				brk_slab = CommonBlocks.GRANITE_BRICK_SLAB.stack(2);
+				brk_stair = CommonBlocks.GRANITE_BRICK_STAIR.stack(1);
 				break;
 			default:
-				block = type.getBlock(1, StoneTypes.M_REGULAR);
-				slab = type.getSlab(1, StoneTypes.M_REGULAR);
-				stair = type.getStair(1, StoneTypes.M_REGULAR);
+				continue stoneLoop0;
+			}
+			
+			addRecipe(pol_block, brk_block);
+			
+			for (int m : StoneTypes.MLIST) {
+				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+					 continue;
+				}
+				addRecipe(pol_block, type.getBlock(1, m));
+			}
+
+			addRecipe(brk_block, brk_slab);
+			addRecipe(brk_block, brk_stair);
+			
+			for (int m : StoneTypes.MLISTSHORT) {
+				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+					 continue;
+				}
+				addRecipe(type.getBlock(1, m), type.getSlab(2, m));
+				addRecipe(type.getBlock(1, m), type.getStair(1, m));
+			}
+
+			addRecipe(pol_block, pol_slab);
+			addRecipe(pol_block, brk_slab);
+			
+			for (int m : StoneTypes.MLISTSHORT) {
+				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+					 continue;
+				}
+				addRecipe(pol_block, type.getSlab(2, m));
+			}
+
+			addRecipe(pol_block, pol_stair);
+			addRecipe(pol_block, brk_stair);
+			
+			for (int m : StoneTypes.MLISTSHORT) {
+				if (m == StoneTypes.M_REGULAR || m == StoneTypes.M_BRICKS) {
+					 continue;
+				}
+				addRecipe(pol_block, type.getStair(1, m));
+			}
+		}
+	
+	stoneLoop1:
+		for (StoneTypes type : StoneTypes.values()) {
+			switch (type) {
+			case ANDESITE:
+			case DIORITE:
+			case GRANITE:
+				continue stoneLoop1;
+			default:
 				break;
 			}
+			
+			ItemStack block = type.getBlock(1, StoneTypes.M_REGULAR);
+			ItemStack slab = type.getSlab(1, StoneTypes.M_REGULAR);
+			ItemStack stair = type.getStair(1, StoneTypes.M_REGULAR);
 			
 			for (int m : StoneTypes.MLIST) {
 				if (m == 0) continue;

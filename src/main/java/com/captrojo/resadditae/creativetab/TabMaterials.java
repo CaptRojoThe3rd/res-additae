@@ -17,7 +17,7 @@ public class TabMaterials
 	{
 		tab = new ModCreativeTab("resadditae.materials", ModItems.ingots);
 		
-		if (CommonConfig.CommonItems.iron_nuggets) {
+		if (CommonConfig.CommonStuff.iron_nuggets) {
 			tab.add(ModItems.iron_nugget);
 		}
 		
@@ -30,7 +30,7 @@ public class TabMaterials
 			tab.add(ModItems.nuggets, m);
 			tab.add(ModBlocks.metal_piles_a, m);
 			if (m == 0) {
-				if (CommonConfig.CommonItems.raw_silver) {
+				if (CommonConfig.CommonStuff.raw_silver) {
 					tab.add(ModItems.raws, m);
 					tab.add(ModBlocks.raw_metal_blocks, m);
 				} else if (CommonConfig.General.show_other_mod_items) {
@@ -38,7 +38,7 @@ public class TabMaterials
 					tab.add(CommonBlocks.RAW_SILVER.stack(1));
 				}
 			} else if (m == 1) {
-				if (CommonConfig.CommonItems.raw_platinum) {
+				if (CommonConfig.CommonStuff.raw_platinum) {
 					tab.add(ModItems.raws, m);
 					tab.add(ModBlocks.raw_metal_blocks, m);
 				} else if (CommonConfig.General.show_other_mod_items) {

@@ -36,7 +36,7 @@ public class ModOreDict
 			}
 		}
 		
-		if (CommonConfig.CommonItems.iron_nuggets) {
+		if (CommonConfig.CommonStuff.iron_nuggets) {
 			OreDictionary.registerOre("nuggetIron", ModItems.iron_nugget);
 		}
 		
@@ -51,7 +51,7 @@ public class ModOreDict
 		OreDictionary.registerOre("blockSilver", MultiBlockStacks.SILVER_BLOCK.info());
 		OreDictionary.registerOre("ingotSilver", MultiItemStacks.SILVER_INGOT.info());
 		OreDictionary.registerOre("nuggetSilver", MultiItemStacks.SILVER_NUGGET.info());
-		if (CommonConfig.CommonItems.raw_silver) {
+		if (CommonConfig.CommonStuff.raw_silver) {
 			OreDictionary.registerOre("oreSilver", MultiItemStacks.SILVER_RAW.info());
 			OreDictionary.registerOre("rawSilver", MultiItemStacks.SILVER_RAW.info());
 		}
@@ -60,7 +60,7 @@ public class ModOreDict
 		OreDictionary.registerOre("blockPlatinum", MultiBlockStacks.PLATINUM_BLOCK.info());
 		OreDictionary.registerOre("ingotPlatinum", MultiItemStacks.PLATINUM_INGOT.info());
 		OreDictionary.registerOre("nuggetPlatinum", MultiItemStacks.PLATINUM_NUGGET.info());
-		if (CommonConfig.CommonItems.raw_platinum) {
+		if (CommonConfig.CommonStuff.raw_platinum) {
 			OreDictionary.registerOre("orePlatinum", MultiItemStacks.PLATINUM_RAW.info());
 			OreDictionary.registerOre("rawPlatinum", MultiItemStacks.PLATINUM_RAW.info());
 		}

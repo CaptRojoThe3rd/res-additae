@@ -70,20 +70,38 @@ public class CraftingRecipes
 		}
 		
 		/* Stone Recipes */
-		if (CommonConfig.CommonItems.andesite && CommonConfig.CommonItems.polished_andesite) {
-			addShaped(StoneTypes.ANDESITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 0));
-			addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 0), new ItemStack(ModBlocks.bountiful_stones, 1, 0));
-			addStair(new ItemStack(ModBlocks.bountiful_stone_stairs_a, 8, 0), new ItemStack(ModBlocks.bountiful_stones, 1, 0));
+		if (CommonConfig.CommonStuff.andesite) {
+			if (CommonConfig.CommonStuff.andesite_polished) {
+				addShaped(StoneTypes.ANDESITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 0));				
+			}
+			if (CommonConfig.CommonStuff.andesite_slab) {
+				addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 0), new ItemStack(ModBlocks.bountiful_stones, 1, 0));
+			}
+			if (CommonConfig.CommonStuff.andesite_stair) {
+				addStair(new ItemStack(ModBlocks.bountiful_stone_stairs_a, 8, 0), new ItemStack(ModBlocks.bountiful_stones, 1, 0));
+			}
 		}
-		if (CommonConfig.CommonItems.diorite && CommonConfig.CommonItems.polished_diorite) {
-			addShaped(StoneTypes.DIORITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 1));
-			addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 1), new ItemStack(ModBlocks.bountiful_stones, 1, 1));
-			addStair(new ItemStack(ModBlocks.bountiful_stone_stairs_a, 8, 8), new ItemStack(ModBlocks.bountiful_stones, 1, 1));
+		if (CommonConfig.CommonStuff.diorite) {
+			if (CommonConfig.CommonStuff.diorite_polished) {
+				addShaped(StoneTypes.DIORITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 1));				
+			}
+			if (CommonConfig.CommonStuff.diorite_slab) {
+				addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 1), new ItemStack(ModBlocks.bountiful_stones, 1, 1));
+			}
+			if (CommonConfig.CommonStuff.diorite_stair) {
+				addStair(new ItemStack(ModBlocks.bountiful_stone_stairs_a, 8, 8), new ItemStack(ModBlocks.bountiful_stones, 1, 1));
+			}
 		}
-		if (CommonConfig.CommonItems.granite && CommonConfig.CommonItems.polished_granite) {
-			addShaped(StoneTypes.GRANITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 2));
-			addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 2), new ItemStack(ModBlocks.bountiful_stones, 1, 2));
-			addStair(new ItemStack(ModBlocks.bountiful_stone_stairs_b, 8, 0), new ItemStack(ModBlocks.bountiful_stones, 1, 2));
+		if (CommonConfig.CommonStuff.granite) {
+			if (CommonConfig.CommonStuff.granite_polished) {
+				addShaped(StoneTypes.GRANITE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.bountiful_stones, 1, 2));				
+			}
+			if (CommonConfig.CommonStuff.granite_slab) {
+				addSlab(new ItemStack(ModBlocks.bountiful_stone_slabs, 6, 2), new ItemStack(ModBlocks.bountiful_stones, 1, 2));
+			}
+			if (CommonConfig.CommonStuff.granite_stair) {
+				addStair(new ItemStack(ModBlocks.bountiful_stone_stairs_b, 8, 0), new ItemStack(ModBlocks.bountiful_stones, 1, 2));
+			}
 		}
 		
 		addShaped(StoneTypes.HELLSTONE.getBlock(4, StoneTypes.M_REGULAR), "aa", "aa", 'a', new ItemStack(ModBlocks.nether_stones, 1, 0));
@@ -335,7 +353,7 @@ public class CraftingRecipes
 		addShapeless(Dyes.MELLOW_YELLOW.stack(1), MultiBlockStacks.FLOWER_YELLOW_DAFFODIL.stack(1));
 		
 		/* Resource Packing/Unpacking */
-		if (CommonConfig.CommonItems.iron_nuggets) {
+		if (CommonConfig.CommonStuff.iron_nuggets) {
 			addShaped(new ItemStack(Items.iron_ingot), "aaa", "aaa", "aaa", 'a', ModItems.iron_nugget);
 			addShapeless(new ItemStack(ModItems.iron_nugget, 9), Items.iron_ingot);
 		}
@@ -352,7 +370,7 @@ public class CraftingRecipes
 			addShapeless(new ItemStack(ModItems.nuggets, 9, m), new ItemStack(ModItems.ingots, 1, m));
 			addShaped(new ItemStack(ModBlocks.metal_blocks, 1, m), "aaa", "aaa", "aaa", 'a', new ItemStack(ModItems.ingots, 1, m));
 			addShapeless(new ItemStack(ModItems.ingots, 9, m), new ItemStack(ModBlocks.metal_blocks, 1, m));
-			if (!(!CommonConfig.CommonItems.raw_silver && m == 0) || (!CommonConfig.CommonItems.raw_platinum && m == 1)) {
+			if (!(!CommonConfig.CommonStuff.raw_silver && m == 0) || (!CommonConfig.CommonStuff.raw_platinum && m == 1)) {
 				addShaped(new ItemStack(ModBlocks.raw_metal_blocks, 1, m), "aaa", "aaa", "aaa", 'a', new ItemStack(ModItems.raws, 1, m));
 				addShapeless(new ItemStack(ModItems.raws, 9, m), new ItemStack(ModBlocks.raw_metal_blocks, 1, m));
 			}

@@ -36,10 +36,10 @@ public class FurnaceRecipes
 		GameRegistry.addSmelting(ModBlocks.ore_silver, MultiItemStacks.SILVER_INGOT.stack(1), 0.85f);
 		GameRegistry.addSmelting(ModBlocks.ore_platinum, MultiItemStacks.PLATINUM_INGOT.stack(1), 1.15f);
 		
-		if (CommonConfig.CommonItems.raw_silver) {
+		if (CommonConfig.CommonStuff.raw_silver) {
 			GameRegistry.addSmelting(MultiItemStacks.SILVER_RAW.stack(1), MultiItemStacks.SILVER_INGOT.stack(1), 0.85f);
 		}
-		if (CommonConfig.CommonItems.raw_platinum) {
+		if (CommonConfig.CommonStuff.raw_platinum) {
 			GameRegistry.addSmelting(MultiItemStacks.PLATINUM_RAW.stack(1), MultiItemStacks.PLATINUM_INGOT.stack(1), 1.15f);
 		}
 		
