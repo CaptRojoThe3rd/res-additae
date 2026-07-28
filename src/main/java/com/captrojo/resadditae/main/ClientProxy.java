@@ -13,14 +13,12 @@ import com.captrojo.resadditae.creativetab.TabUtility;
 import com.captrojo.resadditae.entity.EntityThrownHalberd;
 import com.captrojo.resadditae.gui.hud.HUDElements;
 import com.captrojo.resadditae.item.ModItems;
-import com.captrojo.resadditae.item.charm.ItemCharmBase;
 import com.captrojo.resadditae.render.block.BlockRenderIDs;
 import com.captrojo.resadditae.render.block.RenderDirectionalBlock;
 import com.captrojo.resadditae.render.block.RenderMossLayer;
 import com.captrojo.resadditae.render.block.RenderMultiFence;
 import com.captrojo.resadditae.render.block.RenderMultiStair;
 import com.captrojo.resadditae.render.entity.RenderThrownHalberd;
-import com.captrojo.resadditae.render.item.RenderItemCharm;
 import com.captrojo.resadditae.render.item.RenderItemHalberd;
 import com.captrojo.resadditae.render.spell.TextureMapSpells;
 import com.captrojo.resadditae.render.tileentity.RenderTEMultiSpawner;
@@ -80,10 +78,6 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(ModItems.platinum_halberd, renderhalberd);
 		MinecraftForgeClient.registerItemRenderer(ModItems.ancient_gem_halberd, renderhalberd);
 		
-		RenderItemCharm rendercharm = new RenderItemCharm();
-		for (ItemCharmBase item : ItemCharmBase.all_charms) {
-			MinecraftForgeClient.registerItemRenderer(item, rendercharm);
-		}
 		
 		RenderingRegistry.registerBlockHandler(BlockRenderIDs.DIRECTIONAL.id, new RenderDirectionalBlock());
 		RenderingRegistry.registerBlockHandler(BlockRenderIDs.MULTI_STAIR.id, new RenderMultiStair());

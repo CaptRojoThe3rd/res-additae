@@ -1,4 +1,12 @@
 
+▓▓▓ #0004 ▓▓▓
+
+
+
+Fixed:
+* Shiny rocks now have correct stonecutter recipes
+* Silver and platinum ore now drop the correct raw ore item
+
 ▓▓▓ #0003 ▓▓▓
 
 Additions:

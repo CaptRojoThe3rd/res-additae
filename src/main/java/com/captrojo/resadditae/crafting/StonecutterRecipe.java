@@ -136,7 +136,7 @@ public class StonecutterRecipe
 			for (int m : ModBlocks.shiny_rocks[i].data.getValidMetas()) {
 				addRecipes(new ItemStack(ModBlocks.shiny_rocks[i], 1, m), new ItemStack[] {
 					new ItemStack(ModBlocks.shiny_rock_slabs[i], 2, m),
-					new ItemStack(ModBlocks.shiny_rock_stairs[i], 1, m)
+					new ItemStack(ModBlocks.shiny_rock_stairs[i], 1, m << 3)
 				});
 			}
 		}

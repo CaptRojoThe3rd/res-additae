@@ -6,7 +6,9 @@ import com.captrojo.resadditae.magic.MagicComplexity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 public abstract class Spell
 {
@@ -29,7 +31,13 @@ public abstract class Spell
 		this.texture_name = texture_name;
 	}
 	
-	public abstract void onActivated();
+	public abstract void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp);
+	
+	public abstract void onTriggeredWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp);
+	
+	public abstract void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp);
+	
+	public abstract void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp);
 	
 	public boolean isManaRequirementMet(int available_mana)
 	{

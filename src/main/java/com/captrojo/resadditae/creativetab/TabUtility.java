@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
-import com.captrojo.resadditae.item.charm.ItemCharmBase;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

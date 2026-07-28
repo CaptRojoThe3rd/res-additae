@@ -20,6 +20,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -389,29 +390,29 @@ public class CraftingRecipes
 		}
 
 		/* Pickaxes */
-		addShaped(new ItemStack(ModItems.silver_pickaxe), "aaa", " b ", " b ", 'a', MultiItemStacks.SILVER_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.platinum_pickaxe), "aaa", " b ", " b ", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.ancient_gem_pickaxe), "aaa", " b ", " b ", 'a', MultiItemStacks.ANCIENT_GEM.stack(1), 'b', "stickWood");
+		addPickaxe(ModItems.silver_pickaxe, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addPickaxe(ModItems.platinum_pickaxe, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addPickaxe(ModItems.ancient_gem_pickaxe, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Axes */
-		addShaped(new ItemStack(ModItems.silver_axe), "aa", "ab", " b", 'a', MultiItemStacks.SILVER_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.platinum_axe), "aa", "ab", " b", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.ancient_gem_axe), "aa", "ab", " b", 'a', MultiItemStacks.ANCIENT_GEM.stack(1), 'b', "stickWood");
+		addAxe(ModItems.silver_axe, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addAxe(ModItems.platinum_axe, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addAxe(ModItems.ancient_gem_axe, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Shovels */
-		addShaped(new ItemStack(ModItems.silver_shovel), "a", "b", "b", 'a', MultiItemStacks.SILVER_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.platinum_shovel), "a", "b", "b", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.ancient_gem_shovel), "a", "b", "b", 'a', MultiItemStacks.ANCIENT_GEM.stack(1), 'b', "stickWood");
+		addShovel(ModItems.silver_shovel, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addShovel(ModItems.platinum_shovel, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addShovel(ModItems.ancient_gem_shovel, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Swords */
-		addShaped(new ItemStack(ModItems.silver_sword), "a", "a", "b", 'a', MultiItemStacks.SILVER_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.platinum_sword), "a", "a", "b", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.ancient_gem_sword), "a", "a", "b", 'a', MultiItemStacks.ANCIENT_GEM.stack(1), 'b', "stickWood");
+		addSword(ModItems.silver_sword, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addSword(ModItems.platinum_sword, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addSword(ModItems.ancient_gem_sword, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Hoes */
-		addShaped(new ItemStack(ModItems.silver_hoe), "aa", " b", " b", 'a', MultiItemStacks.SILVER_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.platinum_hoe), "aa", " b", " b", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.ancient_gem_hoe), "aa", " b", " b", 'a', MultiItemStacks.ANCIENT_GEM.stack(1), 'b', "stickWood");
+		addHoe(ModItems.silver_hoe, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addHoe(ModItems.platinum_hoe, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addHoe(ModItems.ancient_gem_hoe, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Scythes */
 		addShaped(new ItemStack(ModItems.wood_scythe), "aaa", "  b", "  b", 'a', "plankWood", 'b', "stickWood");
@@ -419,9 +420,9 @@ public class CraftingRecipes
 		addShaped(new ItemStack(ModItems.iron_scythe), "aaa", "  b", "  b", 'a', "ingotIron", 'b', "stickWood");
 		addShaped(new ItemStack(ModItems.gold_scythe), "aaa", "  b", "  b", 'a', "ingotGold", 'b', "stickWood");
 		addShaped(new ItemStack(ModItems.diamond_scythe), "aaa", "  b", "  b", 'a', "gemDiamond", 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.silver_scythe), "aaa", "  b", "  b", 'a', MultiItemStacks.SILVER_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.platinum_scythe), "aaa", "  b", "  b", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.ancient_gem_scythe), "aaa", "  b", "  b", 'a', MultiItemStacks.ANCIENT_GEM.stack(1), 'b', "stickWood");
+		addScythe(ModItems.silver_scythe, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addScythe(ModItems.platinum_scythe, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addScythe(ModItems.ancient_gem_scythe, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Halberds */
 		addShaped(new ItemStack(ModItems.wood_halberd), "  a", " b ", "b  ", 'a', "plankWood", 'b', "stickWood");
@@ -429,29 +430,29 @@ public class CraftingRecipes
 		addShaped(new ItemStack(ModItems.iron_halberd), "  a", " b ", "b  ", 'a', "ingotIron", 'b', "stickWood");
 		addShaped(new ItemStack(ModItems.gold_halberd), "  a", " b ", "b  ", 'a', "ingotGold", 'b', "stickWood");
 		addShaped(new ItemStack(ModItems.diamond_halberd), "  a", " b ", "b  ", 'a', "gemDiamond", 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.silver_halberd), "  a", " b ", "b  ", 'a', MultiItemStacks.SILVER_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.platinum_halberd), "  a", " b ", "b  ", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1), 'b', "stickWood");
-		addShaped(new ItemStack(ModItems.ancient_gem_halberd), "  a", " b ", "b  ", 'a', MultiItemStacks.ANCIENT_GEM.stack(1), 'b', "stickWood");
+		addHalberd(ModItems.silver_halberd, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addHalberd(ModItems.platinum_halberd, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addHalberd(ModItems.ancient_gem_halberd, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Helmets */
-		addShaped(new ItemStack(ModItems.silver_helmet), "aaa", "a a", 'a', MultiItemStacks.SILVER_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.platinum_helmet), "aaa", "a a", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.ancient_gem_helmet), "aaa", "a a", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
+		addHelmet(ModItems.silver_helmet, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addHelmet(ModItems.platinum_helmet, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addHelmet(ModItems.ancient_gem_helmet, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Chestplates */
-		addShaped(new ItemStack(ModItems.silver_chestplate), "a a", "aaa", "aaa", 'a', MultiItemStacks.SILVER_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.platinum_chestplate), "a a", "aaa", "aaa", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.ancient_gem_chestplate), "a a", "aaa", "aaa", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
+		addChestplate(ModItems.silver_chestplate, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addChestplate(ModItems.platinum_chestplate, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addChestplate(ModItems.ancient_gem_chestplate, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Leggings */
-		addShaped(new ItemStack(ModItems.silver_leggings), "aaa", "a a", "a a", 'a', MultiItemStacks.SILVER_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.platinum_leggings), "aaa", "a a", "a a", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.ancient_gem_leggings), "aaa", "a a", "a a", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
+		addLeggings(ModItems.silver_leggings, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addLeggings(ModItems.platinum_leggings, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addLeggings(ModItems.ancient_gem_leggings, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 
 		/* Boots */
-		addShaped(new ItemStack(ModItems.silver_boots), "a a", "a a", 'a', MultiItemStacks.SILVER_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.platinum_boots), "a a", "a a", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
-		addShaped(new ItemStack(ModItems.ancient_gem_boots), "a a", "a a", 'a', MultiItemStacks.PLATINUM_INGOT.stack(1));
+		addBoots(ModItems.silver_boots, MultiItemStacks.SILVER_INGOT.stack(1), "ingotSilver");
+		addBoots(ModItems.platinum_boots, MultiItemStacks.PLATINUM_INGOT.stack(1), "ingotPlatinum");
+		addBoots(ModItems.ancient_gem_boots, MultiItemStacks.ANCIENT_GEM.stack(1), "gemAncientRA");
 		
 		/* Vessels */
 		addShaped(new ItemStack(ModItems.vessels, 1, VesselTypes.HEART_CONTAINER.meta), "aa", "aa", 'a', new ItemStack(ModItems.vessels, 1, VesselTypes.HEART_CONTAINER.meta | ItemVessel.VF_PIECE));
@@ -502,5 +503,78 @@ public class CraftingRecipes
 	private static void addShapeless(ItemStack result, Object... params)
 	{
 		GameRegistry.addRecipe(new ShapelessOreRecipe(result, params));
+	}
+	
+	private static void addPickaxe(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "aaa", " b ", " b ");
+	}
+	
+	private static void addAxe(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "aa", "ab", " b");
+	}
+	
+	private static void addShovel(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "a", "b", "b");
+	}
+	
+	private static void addSword(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "a", "a", "b");
+	}
+	
+	private static void addHoe(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "aa", " b", " b");
+	}
+	
+	private static void addScythe(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "aaa", "  b", "  b");
+	}
+	
+	private static void addScythe(Item result, String oredict)
+	{
+		addShaped(new ItemStack(result), "aaa", "  b", "  b", 'a', oredict, 'b', "stickWood");
+	}
+	
+	private static void addHalberd(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "  a", " b ", "b  ");
+	}
+	
+	private static void addHalberd(Item result, String oredict)
+	{
+		addShaped(new ItemStack(result), "  a", " b ", "b  ", 'a', oredict, 'b', "stickWood");
+	}
+	
+	private static void addBoots(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "a a", "a a");
+	}
+	
+	private static void addLeggings(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "aaa", "a a", "a a");
+	}
+	
+	private static void addChestplate(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "a a", "aaa", "aaa");
+	}
+	
+	private static void addHelmet(Item result, ItemStack ingred, String oredict)
+	{
+		addTool(result, ingred, oredict, "aaa", "a a");
+	}
+	
+	private static void addTool(Item result, ItemStack ingred, String oredict, String...grid)
+	{
+		addShaped(new ItemStack(result), grid, 'a', ingred, 'b', "stickWood");
+		if (CommonConfig.General.use_oredict_for_equipment_recipes) {
+			addShaped(new ItemStack(result), grid, 'a', oredict, 'b', "stickWood");
+		}
 	}
 }

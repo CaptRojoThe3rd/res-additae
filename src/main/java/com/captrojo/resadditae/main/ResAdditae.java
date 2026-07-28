@@ -33,6 +33,7 @@ import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
 import com.captrojo.resadditae.packet.toclient.PacketSetFlightSpeed;
 import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
 import com.captrojo.resadditae.packet.toserver.PacketPlayerSettings;
+import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
 import com.captrojo.resadditae.tileentity.ModTileEntities;
 import com.captrojo.resadditae.world.ModWorldGen;
 import com.captrojo.resadditae.world.WorldProviderDepths;
@@ -78,15 +79,15 @@ public class ResAdditae
 	@Mod.Instance
 	public static ResAdditae instance;
 	
-	public static final String NAME = "Res Additae+";
+	public static final String NAME = "Res Additae";
 	public static final String MOD_ID = "resadditae";
 	
 //	public static final String VERSION = "1.0.0";
 //	public static final String VERSIONS_ACCEPTED = "1.0.*";
 //	public static final String VERSION_NAME = "1.0.0";
-	public static final String VERSION = "X0003";
-	public static final String VERSIONS_ACCEPTED = "X0003";
-	public static final String VERSION_NAME = "Build #0003";
+	public static final String VERSION = "X0004";
+	public static final String VERSIONS_ACCEPTED = "X0004";
+	public static final String VERSION_NAME = "Build #0004";
 	
 	public static final Logger LOG = LogManager.getLogger(MOD_ID);
 	
@@ -259,6 +260,7 @@ public class ResAdditae
 
 		network.registerMessage(PacketNBTControl.HandlerServer.class, PacketNBTControl.class, 0x80, Side.SERVER);
 		network.registerMessage(PacketPlayerSettings.HandlerServer.class, PacketPlayerSettings.class, 0x81, Side.SERVER);
+		network.registerMessage(PacketUseSpell.HandlerServer.class, PacketUseSpell.class, 0x82, Side.SERVER);
 	}
 	
 	@EventHandler

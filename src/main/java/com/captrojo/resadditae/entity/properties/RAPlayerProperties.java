@@ -15,6 +15,7 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -52,6 +53,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public int magic_skill_level;
 	
 	public ArrayList<LearnedSpell> learned_spells;
+	public Spell[] spell_slots;
+	
 	public Spell spell_in_use;
 	public int spell_use_time;
 	
@@ -61,6 +64,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.periodic_update_counter = 0;
 		
 		this.learned_spells = new ArrayList<LearnedSpell>();
+		this.spell_slots = new Spell[6];
 	}
 	
 	public void reset()
@@ -107,12 +111,31 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			updated = true;
 		} else if (this.spell_in_use != null) {
 			this.spell_use_time++;
+			if (this.spell_in_use.max_use_time < this.spell_use_time) {
+				this.spell_in_use.onDeactivated(player.worldObj, player, this);
+				this.spell_in_use = null;
+				this.spell_use_time = 0;
+			}
 			updated = true;
 		}
 		
 		if (updated && this.player != null) {
 			ResAdditae.network.sendTo(new PacketPlayerExtProps(this), (EntityPlayerMP) this.player);
 		}
+	}
+	
+	public void replenishMana(int amount)
+	{
+		this.mana = Math.min(this.mana + amount, this.mana_max);
+	}
+	
+	public void useMana(int amount)
+	{
+		if (PlayerAttributes.isInCreativeMode(this.player)) {
+			return;
+		}
+		this.mana -= amount;
+		this.mana_recharge_counter = 60;
 	}
 	
 	public void serialize(ByteBuf buf)
@@ -128,13 +151,17 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		
 		buf.writeShort((short) this.magic_skill_level);
 		
-		buf.writeInt(this.spell_in_use == null ? -1 : this.spell_in_use.getID());
-		buf.writeInt(this.spell_use_time);
-		
 		buf.writeInt(this.learned_spells.size());
 		for (LearnedSpell ls : this.learned_spells) {
 			ls.serialize(buf);
 		}
+		
+		for (int i = 0; i < this.spell_slots.length; i++) {
+			buf.writeInt((this.spell_slots[i] == null) ? -1 : this.spell_slots[i].getID());
+		}
+		
+		buf.writeInt(this.spell_in_use == null ? -1 : this.spell_in_use.getID());
+		buf.writeInt(this.spell_use_time);
 	}
 	
 	public void deserialize(ByteBuf buf)
@@ -150,9 +177,6 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		
 		this.magic_skill_level = buf.readShort();
 		
-		this.spell_in_use = Spells.getByID(buf.readInt());
-		this.spell_use_time = buf.readInt();
-		
 		this.learned_spells.clear();
 		int ls_size = buf.readInt();
 		for (int i = 0; i < ls_size; i++) {
@@ -160,6 +184,13 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			ls.deserialize(buf);
 			this.learned_spells.add(ls);
 		}
+		
+		for (int i = 0; i < this.spell_slots.length; i++) {
+			this.spell_slots[i] = Spells.getByID(buf.readInt());
+		}
+		
+		this.spell_in_use = Spells.getByID(buf.readInt());
+		this.spell_use_time = buf.readInt();
 		
 		this.load();
 	}
@@ -180,9 +211,6 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		
 		nbt.setShort("magic_skill_level", (short) this.magic_skill_level);
 		
-		nbt.setInteger("spell_in_use", this.spell_in_use == null ? -1 : this.spell_in_use.getID());
-		nbt.setInteger("spell_use_time", this.spell_use_time);
-		
 		NBTTagList list = new NBTTagList();
 		for (LearnedSpell ls : this.learned_spells) {
 			NBTTagCompound tag = new NBTTagCompound();
@@ -190,6 +218,15 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			list.appendTag(tag);
 		}
 		nbt.setTag("learned_spells", list);
+		
+		int[] iarr = new int[this.spell_slots.length];
+		for (int i = 0; i < this.spell_slots.length; i++) {
+			iarr[i] = (this.spell_slots[i] == null) ? -1 : this.spell_slots[i].getID();
+		}
+		nbt.setIntArray("spell_slots", iarr);
+		
+		nbt.setInteger("spell_in_use", (this.spell_in_use == null) ? -1 : this.spell_in_use.getID());
+		nbt.setInteger("spell_use_time", this.spell_use_time);
 		
 		nbt0.setTag(KEY, nbt);
 	}
@@ -210,9 +247,6 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		
 		this.magic_skill_level = nbt.getShort("magic_skill_level");
 		
-		this.spell_in_use = Spells.getByID(nbt.getInteger("spell_in_use"));
-		this.spell_use_time = nbt.getInteger("spell_use_time");
-		
 		NBTTagList list = nbt.getTagList("learned_spells", NBT.TAG_COMPOUND);
 		this.learned_spells.clear();
 		for (int i = 0; i < list.tagCount(); i++) {
@@ -222,61 +256,21 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			this.learned_spells.add(ls);
 		}
 		
+		int[] iarr = nbt.getIntArray("spell_slots");
+		if (iarr.length == this.spell_slots.length) {
+			for (int i = 0; i < this.spell_slots.length; i++) {
+				this.spell_slots[i] = Spells.getByID(iarr[i]);
+			}
+		}
+		
+		this.spell_in_use = Spells.getByID(nbt.getInteger("spell_in_use"));
+		this.spell_use_time = nbt.getInteger("spell_use_time");
+		
 		this.load();
 	}
-
+	
 	@Override
 	public void init(Entity entity, World world)
 	{
-	}
-	
-	public void replenishMana(int amount)
-	{
-		this.mana = Math.min(this.mana + amount, this.mana_max);
-	}
-	
-	public void useMana(int amount)
-	{
-		if (PlayerAttributes.isInCreativeMode(this.player)) {
-			return;
-		}
-		this.mana -= amount;
-		this.mana_recharge_counter = 60;
-	}
-	
-	public boolean hasEnoughMana(int amount)
-	{
-		if (PlayerAttributes.isInCreativeMode(this.player)) {
-			return true;
-		}
-		return amount <= this.mana;
-	}
-	
-	public boolean canCharmHarmEntity(EntityLivingBase entity, EntityPlayer player)
-	{
-		if (entity instanceof EntityPlayer) {
-			return this.allow_charm_harming_players;
-		}
-		if (entity instanceof EntityTameable && ((EntityTameable) entity).isTamed() && this.allow_charm_harming_entities) {
-			if (this.charm_tamed_mob_behavior == 0) {
-				return false;
-			}
-			return !((EntityTameable) entity).func_152113_b().equals(player.getUniqueID().toString());
-		}
-		return this.allow_charm_harming_entities;
-	}
-	
-	public boolean canCharmHelpEntity(Entity entity)
-	{
-		if (entity instanceof EntityPlayer) {
-			return this.allow_charm_helping_players;
-		}
-		if (entity instanceof EntityTameable && ((EntityTameable) entity).isTamed()) {
-			if (this.charm_tamed_mob_behavior == 0) {
-				return true;
-			}
-			return ((EntityTameable) entity).func_152113_b().equals(player.getUniqueID().toString());
-		}
-		return this.allow_charm_helping_entities;
 	}
 }

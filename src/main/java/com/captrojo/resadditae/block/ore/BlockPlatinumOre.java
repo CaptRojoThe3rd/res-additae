@@ -2,6 +2,7 @@ package com.captrojo.resadditae.block.ore;
 
 import java.util.Random;
 
+import com.captrojo.resadditae.compatibility.CommonItems;
 import com.captrojo.resadditae.item.MultiItemStacks;
 
 import net.minecraft.item.Item;
@@ -17,6 +18,6 @@ public class BlockPlatinumOre extends BlockOreBase
 	@Override
 	public ItemStack itemDropped(int meta)
 	{
-		return MultiItemStacks.PLATINUM_RAW.info();
+		return CommonItems.RAW_PLATINUM.info();
 	}
 }

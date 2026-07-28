@@ -580,6 +580,15 @@ tile.ore_zinc.name=Zinc Ore
 tile.ore_magnesium.name=Magnesium Ore
 tile.ore_boron.name=Boron Ore
 
+tile.ore_sulfur=Sulfur Ore
+tile.ore_niter=Niter Ore
+tile.ore_fluorite=Fluorite Ore
+tile.ore_beryllium=Beryllium Ore
+tile.ore_rare_earth=Rare Earth Ore
+tile.ore_cobalt=Cobalt Ore
+tile.ore_cinnebar=Cinnebar Ore
+tile.ore_coltan=Coltan Ore
+
 tile.flowers_a.aster.name=Aster
 tile.flowers_a.black_eyed_susan.name=Black-Eyed Susan
 tile.flowers_a.calendula.name=Calendula

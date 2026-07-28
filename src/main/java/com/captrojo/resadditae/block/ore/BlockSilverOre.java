@@ -1,5 +1,6 @@
 package com.captrojo.resadditae.block.ore;
 
+import com.captrojo.resadditae.compatibility.CommonItems;
 import com.captrojo.resadditae.item.MultiItemStacks;
 
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,6 @@ public class BlockSilverOre extends BlockOreBase
 	@Override
 	public ItemStack itemDropped(int meta)
 	{
-		return MultiItemStacks.SILVER_RAW.info();
+		return CommonItems.RAW_SILVER.info();
 	}
 }

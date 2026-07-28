@@ -1,15 +1,6 @@
 package com.captrojo.resadditae.item;
 
 import com.captrojo.resadditae.config.CommonConfig;
-import com.captrojo.resadditae.item.charm.ItemArrowsplosionCharm;
-import com.captrojo.resadditae.item.charm.ItemExtinguishCharm;
-import com.captrojo.resadditae.item.charm.ItemFireCharm;
-import com.captrojo.resadditae.item.charm.ItemFireballCharm;
-import com.captrojo.resadditae.item.charm.ItemFloodCharm;
-import com.captrojo.resadditae.item.charm.ItemFreezeCharm;
-import com.captrojo.resadditae.item.charm.ItemHopCharm;
-import com.captrojo.resadditae.item.charm.ItemLightningCharm;
-import com.captrojo.resadditae.item.charm.ItemWindCharm;
 import com.captrojo.resadditae.item.devtool.ItemStructureWand;
 import com.captrojo.resadditae.item.equipment.ItemArmor;
 import com.captrojo.resadditae.item.equipment.ItemAxe;
@@ -20,7 +11,6 @@ import com.captrojo.resadditae.item.equipment.ItemScythe;
 import com.captrojo.resadditae.item.equipment.ItemShovel;
 import com.captrojo.resadditae.item.equipment.ItemSword;
 import com.captrojo.resadditae.item.generic.ItemKey;
-import com.captrojo.resadditae.item.generic.ItemManaPotion;
 import com.captrojo.resadditae.item.generic.ItemMulti;
 import com.captrojo.resadditae.item.generic.ItemMultiPotionIngredient;
 import com.captrojo.resadditae.item.generic.ItemVessel;

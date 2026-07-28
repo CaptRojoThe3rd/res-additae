@@ -48,6 +48,7 @@ public class CommonConfig
 		public static boolean hbm_tools = ModList.HBM_NTM.isLoaded();
 		
 		public static String[] oredict_priority_list = new String[] {"hbm"};
+		public static boolean use_oredict_for_equipment_recipes = false;
 		
 		public static void load()
 		{
@@ -80,6 +81,7 @@ public class CommonConfig
 			hbm_tools = ModConfig.getBool("0501.hbm_tools", "Enable NTM material scythes and halberds", hbm_tools);
 			
 			oredict_priority_list = ModConfig.getStringList("0600.oredict_priority", "When choosing an item from a list of ores in the Ore Dictionary, prefer items from the following mods.\nMods at the top of the list will take priority", oredict_priority_list);
+			use_oredict_for_equipment_recipes = ModConfig.getBool("use_oredict_for_equipment_recipes", "Use the oredict for tool and armor recipes, instead of this mod's materials only", use_oredict_for_equipment_recipes);
 		}
 	}
 	
