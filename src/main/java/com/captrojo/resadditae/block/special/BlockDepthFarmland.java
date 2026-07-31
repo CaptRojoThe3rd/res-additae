@@ -40,38 +40,15 @@ public class BlockDepthFarmland extends BlockFarmland
 		this.setStepSound(soundTypeGravel);
 	}
 
-	/* func_149822_e */
-	/* Originally had unnecessary for loops. Good job, Mojang. */
-	public boolean hasCropGrowingAtop(World world, int x, int y, int z)
-	{
-		Block block = world.getBlock(x, y + 1, z);
-		return (block instanceof IPlantable && canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) block));
-	}
-
-	/* func_149821_m */
-	public boolean hasWaterNearby(World world, int x0, int y0, int z0)
-	{
-		for (int x = x0 - 4; x <= x0 + 4; x++) {
-			for (int y = y0; y <= y0 + 1; y++) {
-				for (int z = z0 - 4; z <= z0 + 4; z++) {
-					if (world.getBlock(x, y, z).getMaterial() == Material.water) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand)
 	{
-		if (!this.hasWaterNearby(world, x, y, z) && !world.canLightningStrikeAt(x, y + 1, z)) {
+		if (!this.func_149821_m(world, x, y, z) && !world.canLightningStrikeAt(x, y + 1, z)) {
 			int l = world.getBlockMetadata(x, y, z);
 
 			if (l > 0) {
 				world.setBlockMetadataWithNotify(x, y, z, l - 1, 2);
-			} else if (!this.hasCropGrowingAtop(world, x, y, z)) {
+			} else if (!this.func_149822_e(world, x, y, z)) {
 				world.setBlock(x, y, z, ModBlocks.depth_soil);
 			}
 		} else {

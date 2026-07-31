@@ -41,23 +41,6 @@ public class GuiSpellMenu extends GuiContainer
 		this.ySize = 234;
 	}
 
-	/* I love it when a useful function is private and I have to copy-paste! */
-	protected Slot getSlotAtPosition(int mouse_x, int mouse_y)
-	{
-		for (int k = 0; k < this.inventorySlots.inventorySlots.size(); ++k) {
-			Slot slot = (Slot) this.inventorySlots.inventorySlots.get(k);
-			if (this.isMouseOverSlot(slot, mouse_x, mouse_y)) {
-				return slot;
-			}
-		}
-		return null;
-	}
-
-	protected boolean isMouseOverSlot(Slot slot, int mouse_x, int mouse_y)
-	{
-		return this.func_146978_c(slot.xDisplayPosition, slot.yDisplayPosition, 16, 16, mouse_x, mouse_y);
-	}
-
 	@Override
 	protected void mouseClicked(int mouse_x, int mouse_y, int mouse_button)
 	{

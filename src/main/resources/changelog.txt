@@ -1,8 +1,15 @@
 
+▓▓▓ #0006 ▓▓▓
+
+Changes:
+* Reduced default distances between structures
+
+
 ▓▓▓ #0005 ▓▓▓
 
 Fixes:
 * Crash when ComplexHUD is not installed due to incorrect I18nHlpr import
+
 
 ▓▓▓ #0004 ▓▓▓
 
@@ -16,6 +23,7 @@ Fixed:
 * Silver and platinum ore now drop the correct raw ore item
 * Traveling to the depths now has more position checks
 * Chasms shouldn't spawn in oceans anymore
+
 
 ▓▓▓ #0003 ▓▓▓
 
@@ -31,6 +39,7 @@ Changes:
 Removals:
 * Charms
 * Mana upgrades
+
 
 ▓▓▓ #0002 ▓▓▓
 

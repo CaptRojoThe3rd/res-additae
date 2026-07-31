@@ -389,7 +389,7 @@ tile.nether_stones.bloodstone.name=Bloodstone
 tile.nether_stone_slabs.hellstone.name=Hellstone Slab
 tile.nether_stone_slabs.bloodstone.name=Bloodstone Slab
 tile.nether_stone_stairs.hellstone.name=Hellstone Stairs
-tile.nether_stone_stairs.bloodstome.name=Bloodstone Stairs
+tile.nether_stone_stairs.bloodstone.name=Bloodstone Stairs
 
 tile.depth_stones.regular.name=Depth Stone
 tile.depth_stones.amber.name=Depth Stone

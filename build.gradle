@@ -88,6 +88,12 @@ tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
 
+jar {
+	manifest {
+		attributes 'FMLAT': 'resadditae_at.cfg'
+	}
+}
+
 // This task creates a .jar file containing the source code of this mod.
 task sourcesJar(type: Jar, dependsOn: classes) {
 	classifier = "sources"

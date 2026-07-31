@@ -3,6 +3,7 @@ package com.captrojo.resadditae.entity.properties;
 import java.util.ArrayList;
 
 import com.captrojo.resadditae.item.ModItems;
+import com.captrojo.resadditae.magic.ActiveSpellData;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.spell.Spell;
@@ -73,6 +74,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public Spell[] spell_slots;
 	public int spell_in_use;
 	public int spell_use_time;
+	public ActiveSpellData active_spell_data;
 	
 	public ItemStack wand_item;
 	
@@ -206,6 +208,11 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	{
 		this.spell_use_time = 0;
 		this.scheduleUpdate();
+	}
+	
+	public <T extends ActiveSpellData> T getActiveSpellData()
+	{
+		return (T) this.active_spell_data;
 	}
 	
 	public void activateSpell(int idx)

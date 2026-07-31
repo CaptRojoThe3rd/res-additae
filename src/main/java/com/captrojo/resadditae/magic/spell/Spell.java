@@ -2,6 +2,7 @@ package com.captrojo.resadditae.magic.spell;
 
 import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
 import com.captrojo.resadditae.magic.MagicComplexity;
+import com.captrojo.resadditae.main.I18nHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -68,6 +69,12 @@ public abstract class Spell
 	public final int getID()
 	{
 		return this.id;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public String getLocalizedName()
+	{
+		return I18nHlpr.get(this.unlocalized_name + ".name");
 	}
 	
 	@SideOnly(Side.CLIENT)

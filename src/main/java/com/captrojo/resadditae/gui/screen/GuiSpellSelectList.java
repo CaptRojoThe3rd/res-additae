@@ -67,7 +67,7 @@ public class GuiSpellSelectList extends GuiScrollingList2
 		FontRenderer fr = this.mc.fontRenderer;
 		Spell spell = this.spell_list.get(idx);
 		
-		String name = I18nHlpr.get(spell.unlocalized_name);
+		String name = spell.getLocalizedName();
 		fr.drawString(name, this.left_x + 24, element_y + 5, 0xffffff);
 		
 		this.mc.getTextureManager().bindTexture(this.mc.renderEngine.getResourceLocation(ResAdditae.SPELL_TEXTUREMAP_ID));
