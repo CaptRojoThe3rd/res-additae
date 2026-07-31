@@ -23,6 +23,10 @@ public class LearnedSpell
 		this.spell = spell;
 	}
 	
+	public void onSpellUsed()
+	{
+	}
+	
 	public void serialize(ByteBuf buf)
 	{
 		buf.writeInt(this.spell.getID());

@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.main;
+package com.captrojo.resadditae.compatibility.helper;
 
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.block.StoneTypes;
@@ -6,6 +6,7 @@ import com.captrojo.resadditae.block.ore.BlockOreFromDict;
 import com.captrojo.resadditae.compatibility.ModList;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.handler.nei.StonecutterRecipeHandler;
+import com.captrojo.resadditae.main.ResAdditae;
 
 import codechicken.nei.api.API;
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -13,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class NEIStuff
+public class NEIHlpr
 {
 	public static void registerHandlers()
 	{

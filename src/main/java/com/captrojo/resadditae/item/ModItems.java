@@ -14,6 +14,7 @@ import com.captrojo.resadditae.item.generic.ItemKey;
 import com.captrojo.resadditae.item.generic.ItemMulti;
 import com.captrojo.resadditae.item.generic.ItemMultiPotionIngredient;
 import com.captrojo.resadditae.item.generic.ItemVessel;
+import com.captrojo.resadditae.item.magic.ItemMagicWand;
 import com.captrojo.resadditae.material.ArmorMaterials;
 import com.captrojo.resadditae.material.ExtendedToolMaterial;
 import com.captrojo.resadditae.material.ToolMaterials;
@@ -112,6 +113,8 @@ public class ModItems
 	public static Item keys;
 	public static Item vessels;
 	
+	public static ItemMagicWand magic_wand;
+	
 	public static Item structure_wand;
 
 	public static void initItems()
@@ -204,6 +207,8 @@ public class ModItems
 		
 		keys = new ItemKey();
 		vessels = new ItemVessel();
+		
+		magic_wand = new ItemMagicWand();
 		
 		structure_wand = new ItemStructureWand();
 	}
@@ -298,6 +303,8 @@ public class ModItems
 		
 		GameRegistry.registerItem(keys, keys.getUnlocalizedName());
 		GameRegistry.registerItem(vessels, vessels.getUnlocalizedName());
+		
+		GameRegistry.registerItem(magic_wand, magic_wand.getUnlocalizedName());
 		
 		GameRegistry.registerItem(structure_wand, structure_wand.getUnlocalizedName());
 	}

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.captrojo.resadditae.apocalypse.Apocalypse;
+import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.magic.LearnedSpell;
+import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.PerformanceInfo;
 import com.captrojo.resadditae.tileentity.TEMossLayer;
@@ -53,6 +57,25 @@ public class CommandRADebug extends CommandBase
 				return;
 			}
 			sender.addChatMessage(new ChatComponentText(args[1]));
+			return;
+		}
+		
+		if (args[0].equals("reset-rpp")) {
+			EntityPlayerMP player = args.length > 1 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
+			RAPlayerProperties.get(player).reset();
+			sender.addChatMessage(I18nHlpr.chatf("commands.radebug.reset-rpp.done", player.getCommandSenderName()));
+			return;
+		}
+		
+		if (args[0].equals("learn-all-spells")) {
+			EntityPlayerMP player = args.length > 1 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
+			RAPlayerProperties rpp = RAPlayerProperties.get(player);
+			rpp.learned_spells.clear();
+			for (Spell spell : Spells.SPELL_LIST) {
+				LearnedSpell ls = new LearnedSpell(spell);
+				rpp.learned_spells.add(ls);
+			}
+			sender.addChatMessage(I18nHlpr.chatf("commands.radebug.learn-all-spells.done", player.getCommandSenderName()));
 			return;
 		}
 		
@@ -163,6 +186,8 @@ public class CommandRADebug extends CommandBase
 		if (args.length == 1) {
 			list = new ArrayList<String>();
 			list.add("echo");
+			list.add("reset-rpp");
+			list.add("learn-all-spells");
 			list.add("get-block-data");
 			list.add("respawn-chasms");
 			list.add("enable-performance-info");

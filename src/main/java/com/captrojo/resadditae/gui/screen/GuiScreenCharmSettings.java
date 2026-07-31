@@ -91,7 +91,7 @@ public class GuiScreenCharmSettings extends GuiScreen
 	{
 		this.drawDefaultBackground();
 
-		Minecraft.getMinecraft().getTextureManager().bindTexture(BG_TEXTURE);
+		this.mc.getTextureManager().bindTexture(BG_TEXTURE);
 		FontRenderer fr = this.fontRendererObj;
 		GL11.glColor4f(1f, 1f, 1f, 1f);
 		

@@ -8,9 +8,9 @@ public class StructureFixedUnderground extends StructureVerySimple
 {
 	private final int y_level;
 	
-	public StructureFixedUnderground(NBTTagCompound tag, int rng_seed, BiomeGenBase[] valid_biomes, int spawn_exclusion_radius, int min_distance, int max_distance, int y_level)
+	public StructureFixedUnderground(String name, NBTTagCompound tag, int rng_seed, BiomeGenBase[] valid_biomes, int spawn_exclusion_radius, int min_distance, int max_distance, int y_level)
 	{
-		super(tag, rng_seed, valid_biomes, spawn_exclusion_radius, min_distance, max_distance);
+		super(name, tag, rng_seed, valid_biomes, spawn_exclusion_radius, min_distance, max_distance);
 		this.y_level = y_level;
 	}
 	

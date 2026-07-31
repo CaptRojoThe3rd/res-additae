@@ -33,7 +33,7 @@ public abstract class Spell
 	
 	public abstract void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp);
 	
-	public abstract void onTriggeredWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp);
+	public abstract void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp);
 	
 	public abstract void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp);
 	
@@ -51,6 +51,9 @@ public abstract class Spell
 	
 	public boolean isComplexityRequirementMet(MagicComplexity complexity_limit)
 	{
+		if (complexity_limit == null) {
+			return false;
+		}
 		return complexity_limit.ordinal() >= this.complexity.ordinal();
 	}
 	

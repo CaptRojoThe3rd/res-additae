@@ -16,6 +16,7 @@ buildscript {
 plugins {
 	id 'java-library'
 	id 'maven-publish'
+	id 'eclipse'
 }
 
 apply plugin: 'forge'
@@ -59,14 +60,14 @@ repositories {
 }
 
 dependencies {
-	implementation("com.github.GTNewHorizons:CodeChickenCore:1.4.12:dev") { transitive = false }
-	compileOnly("com.github.GTNewHorizons:CodeChickenCore:1.4.12:sources") { transitive = false }
+	implementation("com.github.GTNewHorizons:CodeChickenCore:1.4.12:dev")
+	compileOnly("com.github.GTNewHorizons:CodeChickenCore:1.4.12:sources")
 	
-	implementation("com.github.GTNewHorizons:NotEnoughItems:2.8.98-GTNH:dev") { transitive = false }
-	compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.8.98-GTNH:sources") { transitive = false }
+	implementation("com.github.GTNewHorizons:NotEnoughItems:2.8.98-GTNH:dev")
+	compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.8.98-GTNH:sources")
 
-	implementation("com.github.CaptRojoThe3rd:complex-hud:0.0.0:dev")
-	compileOnly("com.github.CaptRojoThe3rd:complex-hud:0.0.0:sources")
+	implementation("com.github.CaptRojoThe3rd:complex-hud:0.0.1:dev")
+	compileOnly("com.github.CaptRojoThe3rd:complex-hud:0.0.1:sources")
 }
 
 processResources {

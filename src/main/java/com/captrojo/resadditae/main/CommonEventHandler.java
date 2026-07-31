@@ -136,6 +136,7 @@ public class CommonEventHandler
 			return;
 		}
 		PlayerAttributes.updatePlayerHealthMod(event.original, event.entityPlayer, true);
+		RAPlayerProperties.transfer(event.original, event.entityPlayer);
 	}
 	
 	@SubscribeEvent

@@ -1,8 +1,8 @@
 [
 	{
 		"modid": "resadditae",
-		"name": "Res Additae+",
-		"description": "Res Additae+ ${version_name}",
+		"name": "Res Additae",
+		"description": "Res Additae ${version_name}",
 		"version": "${version}",
 		"mcversion": "${mcversion}",
 		"url": "",

@@ -6,9 +6,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class StructureEndAirship extends StructureVerySimple
 {
-	public StructureEndAirship(NBTTagCompound tag, int rng_seed, BiomeGenBase[] valid_biomes, int spawn_exclusion_radius, int min_distance, int max_distance)
+	public StructureEndAirship(String name, NBTTagCompound tag, int rng_seed, BiomeGenBase[] valid_biomes, int spawn_exclusion_radius, int min_distance, int max_distance)
 	{
-		super(tag, rng_seed, valid_biomes, spawn_exclusion_radius, min_distance, max_distance);
+		super(name, tag, rng_seed, valid_biomes, spawn_exclusion_radius, min_distance, max_distance);
 	}
 	
 	@Override

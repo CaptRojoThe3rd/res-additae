@@ -1,6 +1,8 @@
 package com.captrojo.resadditae.magic.spell;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.captrojo.resadditae.main.ResAdditae;
@@ -9,38 +11,31 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class Spells
 {
-	public static final Map<Integer, Spell[]> SPELL_REGISTRY = new HashMap<Integer, Spell[]>();
-	private static int current_hi_word;
+	public static final Spell[][] SPELL_ARRAY = new Spell[0x10000][];
+	public static final List<Spell> SPELL_LIST = new ArrayList<Spell>();
+	private static int _current_hi_word;
+	
+	public static Spell arrowsplosion = new SpellArrowsplosion("arrowsplosion");
 	
 	public static void init()
 	{
-		current_hi_word = 0x0000;
-	}
-	
-	public static void registerIcons(IIconRegister reg)
-	{
-		for (Spell[] arr : SPELL_REGISTRY.values()) {
-			for (Spell spell : arr) {
-				if (spell == null) {
-					continue;
-				}
-				spell.registerIcon(reg);
-			}
-		}
+		_current_hi_word = 0x0000;
+		
+		registerSpell(0x0000, arrowsplosion);
 	}
 	
 	public static void setSpellHiWord(int id)
 	{
 		if (id < 0x10000) {
-			current_hi_word = id;
+			_current_hi_word = id;
 		} else {
-			current_hi_word = id >> 16;
+			_current_hi_word = id >> 16;
 		}
 	}
 	
 	public static Spell registerSpell(int id, Spell spell)
 	{
-		return registerSpellL(id | (current_hi_word << 16), spell);
+		return registerSpellL(id | (_current_hi_word << 16), spell);
 	}
 	
 	public static Spell registerSpellL(int id, Spell spell)
@@ -48,10 +43,10 @@ public class Spells
 		int hi_word = id >> 16;
 		int lo_word = id & 0xffff;
 		
-		Spell[] arr = SPELL_REGISTRY.get(hi_word);
+		Spell[] arr = SPELL_ARRAY[hi_word];
 		if (arr == null) {
 			arr = new Spell[0x10000];
-			SPELL_REGISTRY.put(hi_word, arr);
+			SPELL_ARRAY[hi_word] = arr;
 		}
 		
 		if (arr[lo_word] != null) {
@@ -68,6 +63,7 @@ public class Spells
 		}
 		
 		arr[lo_word] = spell;
+		SPELL_LIST.add(spell);
 		spell.id = id;
 		return spell;
 	}
@@ -79,10 +75,20 @@ public class Spells
 		}
 		int hi_word = id >> 16;
 		int lo_word = id & 0xffff;
-		Spell[] arr = SPELL_REGISTRY.get(hi_word);
+		Spell[] arr = SPELL_ARRAY[hi_word];
 		if (arr == null) {
 			return null;
 		}
 		return arr[lo_word];
+	}
+	
+	public static void registerIcons(IIconRegister reg)
+	{
+		for (Spell spell : SPELL_LIST) {
+			if (spell == null) {
+				continue;
+			}
+			spell.registerIcon(reg);
+		}
 	}
 }

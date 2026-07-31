@@ -8,6 +8,7 @@ import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.main.BlockHlpr;
+import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.SimpleCoords;
 import com.captrojo.resadditae.world.SimpleNode;
 import com.captrojo.resadditae.world.SpacedThingCheck;
@@ -84,8 +85,16 @@ public abstract class WorldGenLargeGeodeBase extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, int x0, int y0, int z0)
 	{
-		if (world.getBlock(x0, y0, z0) != ModBlocks.depth_stones_special) {
+		/* Correct noise values will generate stained fractured depth stone. */
+		if (world.getBlock(x0, y0, z0) != ModBlocks.depth_stones_special || world.getBlockMetadata(x0, y0, z0) != 2) {
+			if (CommonConfig.Debug.log_failed_structure_gens) {
+				ResAdditae.LOG.info("Did not generate a geode due to noise value");
+			}
 			return false;
+		}
+		
+		if (CommonConfig.Debug.log_structure_gens) {
+			ResAdditae.LOG.info(String.format("Generated geode at (%d, %d, %d)", x0, y0, z0));
 		}
 		
 		this.size = 300 + rand.nextInt(500);

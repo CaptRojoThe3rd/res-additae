@@ -35,12 +35,12 @@ public class TeleporterDepths extends Teleporter
 		return true;
 	}
 	
-	private boolean hasEnoughSpace(IBlockAccess world, int x, int y, int z)
+	private boolean hasEnoughSpace(IBlockAccess world, int x, int y, int z, boolean check_floor)
 	{
 		if (y < 0 || y > 255) {
 			return false;
 		}
-		if (!this.isValidFloorBlock(world, x, y - 1, z)) {
+		if (!this.isValidFloorBlock(world, x, y - 1, z) && check_floor) {
 			return false;
 		}
 		if (!world.getBlock(x, y, z).isAir(world, x, y, z)) {
@@ -60,19 +60,19 @@ public class TeleporterDepths extends Teleporter
 		/* Scans the edges of a diamond at the specified Y level. */
 		for (int a = 0; a <= d; a++) {
 			/* East Corner → South Corner */
-			if (this.hasEnoughSpace(world, x + d - a, y, z + a)) {
+			if (this.hasEnoughSpace(world, x + d - a, y, z + a, true)) {
 				return new int[] {x + d - a, y, z + a};
 			}
 			/* South Corner → West Corner */
-			if (this.hasEnoughSpace(world, x - a, y, z + d - a)) {
+			if (this.hasEnoughSpace(world, x - a, y, z + d - a, true)) {
 				return new int[] {x - a, y, z + d - a};
 			}
 			/* West Corner → North Corner */
-			if (this.hasEnoughSpace(world, x - d + a, y, z - a)) {
+			if (this.hasEnoughSpace(world, x - d + a, y, z - a, true)) {
 				return new int[] {x - d + a, y, z - a};
 			}
 			/* North Corner → East Corner */
-			if (this.hasEnoughSpace(world, x + a, y, z - d + a)) {
+			if (this.hasEnoughSpace(world, x + a, y, z - d + a, true)) {
 				return new int[] {x + a, y, z - d + a};
 			}
 		}
@@ -88,7 +88,15 @@ public class TeleporterDepths extends Teleporter
 		int z = MathHelper.floor_double(entity.posZ);
 		
 		if (world.provider.dimensionId != 0) {
-			y = 240;
+			for (y = 240; y > 0; y--) {
+				if (this.hasEnoughSpace(world, x, y, z, false)) {
+					break;
+				}
+			}
+			if (y == 0) {
+				/* They will be in a block, but at least they will not be in an unbreakable block. */
+				y = 128;
+			}
 		} else {
 			y = 4;
 		cLoop:

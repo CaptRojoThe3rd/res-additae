@@ -1,11 +1,11 @@
 
 ▓▓▓ #0004 ▓▓▓
 
-
-
 Fixed:
 * Shiny rocks now have correct stonecutter recipes
 * Silver and platinum ore now drop the correct raw ore item
+* Traveling to the depths now has more position checks
+* Chasms shouldn't spawn in oceans anymore
 
 ▓▓▓ #0003 ▓▓▓
 

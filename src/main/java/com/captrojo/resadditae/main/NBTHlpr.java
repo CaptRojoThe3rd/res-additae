@@ -33,10 +33,10 @@ public class NBTHlpr
 	}
 	
 	/**
-	 * USE THIS INSTEAD OF ItemStack.writeToNBT!!!
-	 * 
 	 * Does the same thing as ItemStack.writeToNBT, but stores the item as a string
 	 * ('modid:itemname') instead of a numeric ID.
+	 * 
+	 * Use this when not saving something world-specific.
 	 */
 	public static void saveItemStackToNBT(ItemStack stack, NBTTagCompound tag)
 	{
@@ -53,10 +53,10 @@ public class NBTHlpr
 	}
 	
 	/**
-	 * USE THIS INSTEAD OF ItemStack.readFromNBT!!!
-	 * 
 	 * Does the same thing as ItemStack.loadItemStackFromNBT, but loads the item from a
 	 * string ('modid:itemname') instead of a numeric ID.
+	 * 
+	 * Use this when not saving something world-specific.
 	 */
 	public static ItemStack loadItemStackFromNBT(NBTTagCompound tag)
 	{

@@ -17,6 +17,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenChasm extends WorldGenerator
 {
+	public static boolean generating = false;
+	
 	public static final SpacedThingCheck PLACEMENT_CHK = new SpacedThingCheck(
 		"WorldGenChasm".hashCode(),
 		null,
@@ -69,6 +71,7 @@ public class WorldGenChasm extends WorldGenerator
 		World worldsurf = getOverworld();
 		World worlddepths = getDepthsWorld();
 		if (worldsurf == null || worlddepths == null) {
+			
 			return false;
 		}
 		
@@ -78,6 +81,9 @@ public class WorldGenChasm extends WorldGenerator
 		BiomeGenBase biome = worldsurf.getBiomeGenForCoords(x, z);
 		for (BiomeGenBase chk : INVALID_BIOMES) {
 			if (biome.isEqualTo(chk)) {
+				if (CommonConfig.Debug.log_failed_structure_gens) {
+					ResAdditae.LOG.info("Did not generate a chasm due to biome");
+				}
 				return false;
 			}
 		}
@@ -94,6 +100,9 @@ public class WorldGenChasm extends WorldGenerator
 			air_count = 0;
 		}
 		if (air_count < MIN_EXIT_SPACE) {
+			if (CommonConfig.Debug.log_failed_structure_gens) {
+				ResAdditae.LOG.info("Did not generate a chasm due to lack of space in the Depths");
+			}
 			return false;
 		}
 		
@@ -110,6 +119,16 @@ public class WorldGenChasm extends WorldGenerator
 			return false;
 		}
 		
+		BiomeGenBase biome = worldsurf.getBiomeGenForCoords(x0, z0);
+		for (BiomeGenBase chk : INVALID_BIOMES) {
+			if (chk.isEqualTo(biome)) {
+				if (CommonConfig.Debug.log_failed_structure_gens) {
+					ResAdditae.LOG.info("Did not generate a chasm due to biome");
+				}
+				return false;
+			}
+		}
+		
 		int air_blocks = 0;
 		for (int y = 192; y > 40; y--) {
 			if (worlddepths.getBlock(x0, y, z0).isAir(worlddepths, x0, y, z0)) {
@@ -122,6 +141,9 @@ public class WorldGenChasm extends WorldGenerator
 			air_blocks = 0;
 		}
 		if (air_blocks < 10) {
+			if (CommonConfig.Debug.log_failed_structure_gens) {
+				ResAdditae.LOG.info("Did not generate a chasm due to lack of space in the Depths");
+			}
 			return false;
 		}
 		
@@ -162,6 +184,10 @@ public class WorldGenChasm extends WorldGenerator
 				continue;
 			}
 			air_blocks = 0;
+		}
+		
+		if (air_blocks == 0) {
+			air = new BlockMeta(Blocks.water, 0);
 		}
 		
 		for (int y = 255; y > bottom_y; y--) {
@@ -296,14 +322,26 @@ public class WorldGenChasm extends WorldGenerator
 	@Override
 	public boolean generate(World world, Random rand, int x0, int y0, int z0)
 	{
+		if (generating) {
+			ResAdditae.LOG.info("Didn't generate chasm because one was already being generated");
+			return false;
+		}
+		generating = true;
+		
 		World worldsurf = getOverworld();
 		World worlddepths = getDepthsWorld();
 		if (worldsurf == null || worlddepths == null) {
+			generating = false;
 			return false;
 		}
 		
 		if (!this.canGenerateAt(worldsurf, worlddepths, x0, y0, z0)) {
+			generating = false;
 			return false;
+		}
+		
+		if (CommonConfig.Debug.log_structure_gens) {
+			ResAdditae.LOG.info(String.format("Generated chasm at (%d, %d, %d)", x0, y0, z0));
 		}
 
 		BlockMeta air;
@@ -318,6 +356,7 @@ public class WorldGenChasm extends WorldGenerator
 		int radius = rand.nextInt(5) + 8;
 		
 		this.generateEntireChasm(worldsurf, worlddepths, rand, x0, y0, z0, radius, air, depth_side, surf_side, 256);
+		generating = false;
 		return true;
 	}
 }

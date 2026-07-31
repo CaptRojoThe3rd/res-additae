@@ -11,6 +11,7 @@ public class CommonConfig
 	{
 		ModConfig.load(ResAdditae.config_common);
 		
+		Debug.load();
 		General.load();
 		Player.load();
 		Biomes.load();
@@ -19,6 +20,18 @@ public class CommonConfig
 		WorldGen.load();
 		
 		ModConfig.save();
+	}
+	
+	public static class Debug
+	{
+		public static boolean log_structure_gens = true;
+		public static boolean log_failed_structure_gens = true;
+		
+		public static void load()
+		{
+			log_structure_gens = ModConfig.getBool("log_structure_gens", "Log the position of all generated structures and notable features", log_structure_gens);
+			log_failed_structure_gens = ModConfig.getBool("log_failed_structure_gens", "Log the positions of structures that did not generate. This does not affect the reporting of errors", log_failed_structure_gens);
+		}
 	}
 	
 	public static class General

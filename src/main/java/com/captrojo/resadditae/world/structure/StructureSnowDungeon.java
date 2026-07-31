@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.main.MiscHlpr;
+import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.gen.StaticGenSpacedThing;
 
 import net.minecraft.init.Blocks;
@@ -172,6 +173,10 @@ public class StructureSnowDungeon extends StaticGenSpacedThing
 		int z = chunk_z * 16;
 //		int y = world.getHeightValue(x, z);
 		int y = 200;
+		
+		if (CommonConfig.Debug.log_structure_gens) {
+			ResAdditae.LOG.info(String.format("Generated snow dungeon at (%d, %d, %d)", x, y, z));
+		}
 		
 		this.pyramid.placeInWorld(world, rand, x, y, z, 0l);
 		Integer[] basin_indices = MiscHlpr.getUniqueRandomInts(rand, 4, this.pyramid_basins.length);

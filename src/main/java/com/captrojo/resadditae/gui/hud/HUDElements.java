@@ -34,8 +34,8 @@ public class HUDElements
 		
 		magic_display.calcStuff();
 		if (magic_display.shouldRender()) {
-			int x = sr.getScaledWidth() / 2 - 91 - magic_display.width - 20;
-			int y = sr.getScaledHeight() - magic_display.height - 3;
+			int x = sr.getScaledWidth() / 2 - 91 - magic_display.width - 10;
+			int y = sr.getScaledHeight() - magic_display.height - 2;
 			magic_display.render(x, y, x + magic_display.width, y + magic_display.height);
 		}
 	}

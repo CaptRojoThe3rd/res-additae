@@ -18,6 +18,7 @@ import com.captrojo.resadditae.compatibility.CommonStuffStatus;
 import com.captrojo.resadditae.compatibility.ModList;
 import com.captrojo.resadditae.compatibility.ModOreDict;
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
+import com.captrojo.resadditae.compatibility.helper.EtFuturumHlpr;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.crafting.CraftingRecipes;
 import com.captrojo.resadditae.crafting.FurnaceRecipes;
@@ -32,6 +33,7 @@ import com.captrojo.resadditae.packet.toclient.PacketPerformanceInfo;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
 import com.captrojo.resadditae.packet.toclient.PacketSetFlightSpeed;
 import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
+import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
 import com.captrojo.resadditae.packet.toserver.PacketPlayerSettings;
 import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
 import com.captrojo.resadditae.tileentity.ModTileEntities;
@@ -261,6 +263,7 @@ public class ResAdditae
 		network.registerMessage(PacketNBTControl.HandlerServer.class, PacketNBTControl.class, 0x80, Side.SERVER);
 		network.registerMessage(PacketPlayerSettings.HandlerServer.class, PacketPlayerSettings.class, 0x81, Side.SERVER);
 		network.registerMessage(PacketUseSpell.HandlerServer.class, PacketUseSpell.class, 0x82, Side.SERVER);
+		network.registerMessage(PacketGuiContainerAction.HandlerServer.class, PacketGuiContainerAction.class, 0x83, Side.SERVER);
 	}
 	
 	@EventHandler
@@ -301,6 +304,9 @@ public class ResAdditae
 		ModAchievements.initAchievements();
 		ModAchievements.registerAchievements();
 		
+		if (ModList.ET_FUTURUM.isLoaded()) {
+			EtFuturumHlpr.registerRecipes();
+		}
 		if (ModList.NEI.isLoaded()) {
 			proxy.handleNEIStuff();
 		}

@@ -18,6 +18,7 @@ public class ModStructures
 	public static void load()
 	{
 		dark_dungeon = new StructureFixedUnderground(
+			"dark dungeon",
 			NBTHlpr.loadNBTFromResource(ResAdditae.resource("structures/dark_dungeon.nbt")),
 			"Dark Dungeon".hashCode(),
 			null,
@@ -30,6 +31,7 @@ public class ModStructures
 		snow_dungeon = new StructureSnowDungeon();
 		
 		wood_house = new StructureVerySimple(
+			"wood house",
 			NBTHlpr.loadNBTFromResource(ResAdditae.resource("structures/wood_house.nbt")),
 			"Wood House".hashCode(),
 			new BiomeGenBase[] {
@@ -44,6 +46,7 @@ public class ModStructures
 		);
 		
 		end_airship = new StructureEndAirship(
+			"end airship",
 			NBTHlpr.loadNBTFromResource(ResAdditae.resource("structures/end_airship.nbt")),
 			"End Airship".hashCode(),
 			null,

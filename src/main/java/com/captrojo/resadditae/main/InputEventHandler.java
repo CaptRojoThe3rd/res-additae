@@ -3,39 +3,60 @@ package com.captrojo.resadditae.main;
 import org.lwjgl.input.Keyboard;
 
 import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.gui.GuiHandler;
 import com.captrojo.resadditae.item.IItemWithSettings;
 import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
+import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction.Action;
+import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
+import com.captrojo.resadditae.packet.toserver.PacketUseSpell.UseType;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.MouseInputEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 /* Dedicated event handler for keyboard/mouse input. */
-public class KeyInputHandler
+public class InputEventHandler
 {
+	public static InputEventHandler instance;
+	
 	public static final String MODCAT = "key.categories.resadditae";
+	private static final int LMB = -100;
+	private static final int RMB = -99;
+	private static final int MMB = -98;
 	
 	public static KeyBinding open_item_settings = new KeyBinding("key.item_settings", Keyboard.KEY_LMENU, MODCAT);
 	
 	public static KeyBinding spell_menu = new KeyBinding("key.spell_menu", Keyboard.KEY_APOSTROPHE, MODCAT);
+	public static KeyBinding spell_trigger = new KeyBinding("key.spell_trigger", RMB, MODCAT);
 	public static KeyBinding spell_0 = new KeyBinding("key.spell_0", Keyboard.KEY_I, MODCAT);
 	public static KeyBinding spell_1 = new KeyBinding("key.spell_1", Keyboard.KEY_O, MODCAT);
 	public static KeyBinding spell_2 = new KeyBinding("key.spell_2", Keyboard.KEY_P, MODCAT);
 	public static KeyBinding spell_3 = new KeyBinding("key.spell_3", Keyboard.KEY_K, MODCAT);
 	public static KeyBinding spell_4 = new KeyBinding("key.spell_4", Keyboard.KEY_L, MODCAT);
 	public static KeyBinding spell_5 = new KeyBinding("key.spell_5", Keyboard.KEY_SEMICOLON, MODCAT);
+	
 	public static KeyBinding[] spell_keys = {spell_0, spell_1, spell_2, spell_3, spell_4, spell_5};
 	public static boolean[] active_spell_keys = {false, false, false, false, false, false};
+	
+	static int spell_trigger_cooldown = 0;
+	static int test = 0;
 	
 	public static void registerKeybinds()
 	{
 		ClientRegistry.registerKeyBinding(open_item_settings);
 		
 		ClientRegistry.registerKeyBinding(spell_menu);
+		ClientRegistry.registerKeyBinding(spell_trigger);
 		ClientRegistry.registerKeyBinding(spell_0);
 		ClientRegistry.registerKeyBinding(spell_1);
 		ClientRegistry.registerKeyBinding(spell_2);
@@ -44,7 +65,19 @@ public class KeyInputHandler
 		ClientRegistry.registerKeyBinding(spell_5);
 	}
 	
-	public void activateSpell(int idx)
+	public static String getShortStringFor(KeyBinding kb)
+	{
+		int code = kb.getKeyCode();
+		if (code == Keyboard.KEY_SEMICOLON) {
+			return ";";
+		}
+		if (code == Keyboard.KEY_APOSTROPHE) {
+			return "'";
+		}
+		return GameSettings.getKeyDisplayString(code);
+	}
+	
+	void activateSpell(int idx)
 	{
 		RAPlayerProperties rpp = RAPlayerProperties.get(Minecraft.getMinecraft().thePlayer);
 		Spell spell = rpp.spell_slots[idx];
@@ -52,21 +85,60 @@ public class KeyInputHandler
 			return;
 		}
 		
-		
+		if (rpp.spell_in_use >= 0) {
+			if (rpp.spell_in_use == idx) {
+				ResAdditae.network.sendToServer(new PacketUseSpell(UseType.DEACTIVATE));
+				rpp.spell_in_use = -1;
+			} else {
+				if (!spell.canCastSpell(rpp)) {
+					ResAdditae.network.sendToServer(new PacketUseSpell(UseType.DEACTIVATE));
+					return;
+				}
+				ResAdditae.network.sendToServer(new PacketUseSpell(UseType.ACTIVATE_OTHER, idx));
+				rpp.spell_in_use = idx;
+			}
+		} else {
+			if (!spell.canCastSpell(rpp)) {
+				return;
+			}
+			ResAdditae.network.sendToServer(new PacketUseSpell(UseType.ACTIVATE, idx));
+			rpp.spell_in_use = idx;
+		}
+	}
+	
+	void triggerSpell()
+	{
+		ResAdditae.network.sendToServer(new PacketUseSpell(UseType.TRIGGER_WHILE_ACTIVE));
 	}
 	
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
-		EntityPlayer player = mc.thePlayer;
+		if (mc.currentScreen != null) {
+			return;
+		}
 		
-		if (open_item_settings.isPressed() && mc.currentScreen == null) {
+		EntityPlayer player = mc.thePlayer;
+		World world = player.worldObj;
+		int x = (int) player.posX;
+		int y = (int) player.posY;
+		int z = (int) player.posZ;
+		
+		if (open_item_settings.isPressed()) {
 			ItemStack held = player.getHeldItem();
 			if (held == null || !(held.getItem() instanceof IItemWithSettings)) {
 				return;
 			}
 			mc.displayGuiScreen(((IItemWithSettings) held.getItem()).getSettingsGui(player));
+		}
+		
+		if (spell_menu.isPressed()) {
+			ResAdditae.network.sendToServer(new PacketGuiContainerAction(Action.OPEN, 0, GuiHandler.SPELL_MENU));
+		}
+		
+		if (spell_trigger.isPressed()) {
+			this.triggerSpell();
 		}
 		
 		for (int i = 0; i < spell_keys.length; i++) {

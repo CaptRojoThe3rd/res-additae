@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class GuiHandler implements IGuiHandler
 {
-	public static final int CHARM_SETTINGS = 0x000;
+	public static final int SPELL_MENU = 0x000;
 	
 	public static final int STONECUTTER = 0x100;
 	
@@ -35,6 +35,10 @@ public class GuiHandler implements IGuiHandler
 	
 	private IGuiProvider getProvider(int id, EntityPlayer player, World world, int x, int y, int z)
 	{
+		if (id == SPELL_MENU) {
+			return ProviderSpellMenu.instance;
+		}
+		
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (te != null && te instanceof IGuiProvider) {
 			return (IGuiProvider) te;

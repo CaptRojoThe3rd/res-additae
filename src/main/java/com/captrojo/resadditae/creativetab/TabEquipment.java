@@ -88,5 +88,7 @@ public class TabEquipment
 		tab.add(ModItems.ancient_gem_chestplate);
 		tab.add(ModItems.ancient_gem_leggings);
 		tab.add(ModItems.ancient_gem_boots);
+		
+		ModItems.magic_wand.getSubItems(ModItems.magic_wand, tab, tab.items);
 	}
 }

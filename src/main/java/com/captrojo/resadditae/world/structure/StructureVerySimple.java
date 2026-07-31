@@ -2,6 +2,8 @@ package com.captrojo.resadditae.world.structure;
 
 import java.util.Random;
 
+import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.gen.StaticGenSpacedThing;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -19,9 +21,13 @@ public class StructureVerySimple extends StaticGenSpacedThing
 	protected final Block foundation_block;
 	protected final short foundation_meta;
 	
-	public StructureVerySimple(NBTTagCompound tag, int rng_seed, BiomeGenBase[] valid_biomes, int spawn_exclusion_radius, int min_distance, int max_distance)
+	final String name;
+	
+	public StructureVerySimple(String name, NBTTagCompound tag, int rng_seed, BiomeGenBase[] valid_biomes, int spawn_exclusion_radius, int min_distance, int max_distance)
 	{
 		super(rng_seed, valid_biomes, spawn_exclusion_radius, min_distance, max_distance);
+		
+		this.name = name;
 		
 		this.pieces = new StructurePiece[4];
 		this.pieces[0] = new StructurePiece(tag);
@@ -57,6 +63,10 @@ public class StructureVerySimple extends StaticGenSpacedThing
 		int x = chunk_x * 16;
 		int z = chunk_z * 16;
 		int y = this.getYCoordForGen(world, x, z);
+		
+		if (CommonConfig.Debug.log_structure_gens) {
+			ResAdditae.LOG.info(String.format("Generated %s at (%d, %d, %d)", this.name, x, y, z));
+		}
 		
 		StructurePiece sp = this.getRotationOfStructure(world, chunk_x, chunk_z);
 		sp.placeInWorld(world, world.rand, x, y, z, 0l);

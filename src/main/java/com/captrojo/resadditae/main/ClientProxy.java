@@ -1,6 +1,7 @@
 package com.captrojo.resadditae.main;
 
 import com.captrojo.resadditae.compatibility.ModList;
+import com.captrojo.resadditae.compatibility.helper.NEIHlpr;
 import com.captrojo.resadditae.config.ClientConfig;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.creativetab.ModCreativeTab;
@@ -36,6 +37,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy
 {
@@ -52,7 +54,8 @@ public class ClientProxy extends CommonProxy
 		ClientEventHandler.instance = new ClientEventHandler();
 		this.registerEventHandlers(ClientEventHandler.instance);
 		
-		FMLCommonHandler.instance().bus().register(new KeyInputHandler());
+		InputEventHandler.instance = new InputEventHandler();
+		FMLCommonHandler.instance().bus().register(InputEventHandler.instance);
 	}
 
 	@Override
@@ -105,7 +108,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerKeybinds()
 	{
-		KeyInputHandler.registerKeybinds();
+		InputEventHandler.registerKeybinds();
 	}
 	
 	@Override
@@ -123,11 +126,11 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void handleNEIStuff()
 	{
-		NEIStuff.registerHandlers();
+		NEIHlpr.registerHandlers();
 		if (ModList.NEI.getVersionString().contains("GTNH")) {
-			NEIStuff.sendInfoToGTNH();
+			NEIHlpr.sendInfoToGTNH();
 		}
-		NEIStuff.hideItems();
+		NEIHlpr.hideItems();
 	}
 	
 	@Override

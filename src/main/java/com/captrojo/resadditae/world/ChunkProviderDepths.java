@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.world.biome.ModBiomes;
+import com.captrojo.resadditae.world.biome.depths.BiomeDepthsBase;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import net.minecraft.block.Block;
@@ -12,7 +13,6 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -402,7 +402,11 @@ public class ChunkProviderDepths implements IChunkProvider
 	{
 		int x = chunk_x << 4;
 		int z = chunk_z << 4;
-		BiomeGenBase biome = this.world.getBiomeGenForCoords(x + 16, z + 16);
+		BiomeGenBase biome0 = this.world.getBiomeGenForCoords(x + 16, z + 16);
+		if (!(biome0 instanceof BiomeDepthsBase)) {
+			return;
+		}
+		BiomeDepthsBase biome = (BiomeDepthsBase) biome0;
 		
 		this.rand.setSeed(this.world.getSeed());
 		long rn1 = this.rand.nextLong() / 2L * 2L + 1L;
@@ -412,7 +416,7 @@ public class ChunkProviderDepths implements IChunkProvider
 		BlockFalling.fallInstantly = true;
 		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunk_prov, this.world, this.rand, chunk_x, chunk_z, false));
 		
-		biome.decorate(world, rand, chunk_x, chunk_z);
+		biome.decorate(this.world, this.rand, chunk_x, chunk_z);
 
 		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(chunk_prov, this.world, this.rand, chunk_x, chunk_z, false));
 		BlockFalling.fallInstantly = false;
@@ -439,7 +443,7 @@ public class ChunkProviderDepths implements IChunkProvider
 
 	public String makeString()
 	{
-		return "HellRandomLevelSource";
+		return "DepthsRandomLevelSource";
 	}
 
 	public List getPossibleCreatures(EnumCreatureType p_73155_1_, int p_73155_2_, int p_73155_3_, int p_73155_4_)

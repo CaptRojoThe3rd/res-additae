@@ -2,6 +2,7 @@ package com.captrojo.resadditae.packet.toserver;
 
 import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
 import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -15,8 +16,9 @@ public class PacketUseSpell implements IMessage
 	public static enum UseType
 	{
 		ACTIVATE,
+		ACTIVATE_OTHER,
 		TRIGGER_WHILE_ACTIVE,
-		DEACTIVATE
+		DEACTIVATE,
 	}
 	
 	UseType use_type;
@@ -24,6 +26,12 @@ public class PacketUseSpell implements IMessage
 	
 	public PacketUseSpell()
 	{
+		this(null);
+	}
+	
+	public PacketUseSpell(UseType type)
+	{
+		this(type, 0);
 	}
 	
 	public PacketUseSpell(UseType type, int slot)
@@ -60,19 +68,18 @@ public class PacketUseSpell implements IMessage
 				return null;
 			}
 			
-			if (!spell.canCastSpell(rpp)) {
-				return null;
-			}
-			
 			switch (packet.use_type) {
+			case ACTIVATE_OTHER:
+				rpp.deactivateSpell();
+				/* fallthrough */
 			case ACTIVATE:
-				spell.onActivated(world, player, rpp);
+				rpp.activateSpell(packet.slot);
 				break;
 			case TRIGGER_WHILE_ACTIVE:
-				spell.onTriggeredWhileActive(world, player, rpp);
+				rpp.triggerSpell();
 				break;
 			case DEACTIVATE:
-				spell.onDeactivated(world, player, rpp);
+				rpp.deactivateSpell();
 				break;
 			}
 			

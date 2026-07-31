@@ -21,6 +21,10 @@ commands.flightspeed.set=Set flight speed to %f
 
 commands.radebug.usage=Usage: /rastruct echo|get-block-data|respawn-chasms|enable-performance-info|disable-performance-info|reset-performance-info
 
+commands.radebug.reset-rpp.done=Reset RAPlayerProperties of %s
+
+commands.radebug.learn-all-spells.done=%s has learned all spells
+
 commands.radebug.get-block-data.usage=Usage: /rastruct get-block-data <x> <y> <z>
 
 commands.radebug.respawn-chasms.usage=Usage: /rastruct respawn-chasms <chunk_radius>
@@ -327,45 +331,22 @@ item.vessel.mana_vessel_piece.name=Mana Vessel Piece
 item.vessel.mana_recharge_upgrade_1.name=Mana Recharge Rate Upgrade
 item.vessel.mana_recharge_upgrade_2.name=Strong Mana Recharge Rate Upgrade
 
-item.charm.prim_desc_title=§8§kM§r§8 Primary Action §8§kM§r§8
-item.charm.sec_desc_title=§8§kM§r§8 Secondary Action §8§kM§r§8
-item.charm.active_ability_desc_title=§8§kM§r§8 Active Ability §8§kM§r§8
-item.charm.mana_req=§7  Mana Cost: %d
-item.charm.settings_keybind_hint=§8Press %s to open charm settings
+item.magic_wand.name=Wand
 
-item.charm_hop.name=Hop Charm
-item.charm_hop.desc_prim=§7  Hop up a few blocks into the air.
+item.magic_wand.material=§7Wand Material: %s
+item.magic_wand.material.plain_wood=§8Plain Wood
 
-item.charm_extinguish.name=Extinguishing Charm
-item.charm_extinguish.desc_prim=§7  Extinguish nearby mobs.
-item.charm_extinguish.desc_sec=§7  Grant one minute of fire resistance to nearby mobs.
+item.magic_wand.core=§7Wand Core: %s
+item.magic_wand.core.lapis=§9Lapis Lazuli
+item.magic_wand.core.blaze=§6Blaze Rod
 
-item.charm_wind.name=Wind Charm
-item.charm_wind.desc_prim=§7  Throw mobs in front of you away.
-item.charm_wind.desc_sec=§7  Throw mobs all around you away.
-
-item.charm_fire.name=Fire Charm
-item.charm_fire.desc_prim=§7  Ignite nearby mobs.
-item.charm_fire.desc_sec=§7  Summon a ring of fire around yourself.
-item.charm_fire.desc_active_ability=§7  When used, fire resistance is granted for 30 seconds.
-
-item.charm_flood.name=Flood Charm
-item.charm_flood.desc_prim=§7  Flood the area around you.
-
-item.charm_lightning.name=Lightning Charm
-item.charm_lightning.desc_prim=§7  Smite nearby mobs.
-item.charm_lightning.desc_sec=§7  Summon a ring of lightning around yourself.
-
-item.charm_arrowsplosion.name=Arrowsplosion Charm
-item.charm_arrowsplosion.desc_prim=§7  Launch a large number of arrows in all directions around you.
-
-item.charm_fireball.name=Fireball Charm
-item.charm_fireball.desc_prim=§7  Set fire and melt nearby blocks.
-item.charm_fireball.desc_sec=§7  Obliterate everything nearby.
-
-item.charm_freeze.name=Freeze Charm
-item.charm_freeze.desc_prim=§7  Freeze nearby mobs and cause them to wither.
-item.charm_freeze.desc_sec=§7  Freeze nearby blocks, causing plants to die.
+item.magic_wand.power=§7Wand Power: %s
+item.magic_wand.power.beginner=§fBeginner
+item.magic_wand.power.basic=§cBasic
+item.magic_wand.power.intermediate=§2Intermediate
+item.magic_wand.power.advanced=§3Advanced
+item.magic_wand.power.expert=§bExpert
+item.magic_wand.power.godlike=§5Godlike
 
 item.mana_potion.name=Mana Potion
 item.mana_potion.effect=+%d Mana
