@@ -1,4 +1,9 @@
 
+▓▓▓ #0005 ▓▓▓
+
+Fixes:
+* Crash when ComplexHUD is not installed due to incorrect I18nHlpr import
+
 ▓▓▓ #0004 ▓▓▓
 
 Additons:
