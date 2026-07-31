@@ -1,6 +1,6 @@
 package com.captrojo.resadditae.block.special;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.TeleporterDepths;
 
@@ -73,12 +73,12 @@ public class BlockDepthsPortal extends Block
 		}
 
 		int origin, dest;
-		if (entity.dimension == CommonConfig.WorldGen.depths_dimension_id) {
-			origin = CommonConfig.WorldGen.depths_dimension_id;
+		if (entity.dimension == WorldGenConfig.depths_dimension_id) {
+			origin = WorldGenConfig.depths_dimension_id;
 			dest = 0;
 		} else {
 			origin = 0;
-			dest = CommonConfig.WorldGen.depths_dimension_id;
+			dest = WorldGenConfig.depths_dimension_id;
 		}
 
 		MinecraftServer server = MinecraftServer.getServer();

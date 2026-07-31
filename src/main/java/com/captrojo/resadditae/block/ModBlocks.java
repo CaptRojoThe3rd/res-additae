@@ -38,7 +38,7 @@ import com.captrojo.resadditae.block.utility.BlockMultiSpawner;
 import com.captrojo.resadditae.block.utility.BlockSnowDungeonSpawner;
 import com.captrojo.resadditae.block.utility.BlockSnowDungeonVault;
 import com.captrojo.resadditae.block.utility.BlockStonecutter;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.item.Dyes;
 import com.captrojo.resadditae.item.block.ItemBlockBasicSlab;
 import com.captrojo.resadditae.item.block.ItemBlockMaterialPile;
@@ -564,7 +564,7 @@ public class ModBlocks
 			stained_clay_stairs[i * 4 + 3] = new BlockMultiStair("stained_clay_stair_" + (i * 4 + 3), stained_clays[i], 6, 7, false);
 		}
 		
-		if (CommonConfig.General.v_concrete_more_colors) {
+		if (GeneralConfig.v_concrete_more_colors) {
 			vanilla_concrete_double_slabs = new BlockMultiWDblSlab[2];
 			vanilla_concrete_double_slabs[0] = new BlockMultiWDblSlab("vanilla_concrete_double_slab_0", MultiBlocks.VANILLA_CONCRETE_0);
 			vanilla_concrete_double_slabs[1] = new BlockMultiWDblSlab("vanilla_concrete_double_slab_1", MultiBlocks.VANILLA_CONCRETE_1);
@@ -600,7 +600,7 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.hbm_concrete_more_colors) {
+		if (GeneralConfig.hbm_concrete_more_colors) {
 			hbm_base_concrete_double_slabs = new BlockMultiWDblSlab[3];
 			hbm_base_concrete_double_slabs[0] = new BlockMultiWDblSlab("hbm_base_concrete_double_slab_0", MultiBlocks.HBM_BASE_CONCRETE_0);
 			hbm_base_concrete_double_slabs[1] = new BlockMultiWDblSlab("hbm_base_concrete_double_slab_1", MultiBlocks.HBM_BASE_CONCRETE_1);
@@ -764,7 +764,7 @@ public class ModBlocks
 		GameRegistry.registerBlock(prismarine_rune_2, ItemBlockMulti.class, prismarine_rune_2.getUnlocalizedName());
 		GameRegistry.registerBlock(prismarine_rune_3, ItemBlockMulti.class, prismarine_rune_3.getUnlocalizedName());
 		
-		if (CommonConfig.General.wool_slabs_stairs) {
+		if (GeneralConfig.wool_slabs_stairs) {
 			for (BlockMulti block : vanilla_wool_double_slabs) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
@@ -776,11 +776,11 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.wool_more_colors) {
+		if (GeneralConfig.wool_more_colors) {
 			for (BlockMulti block : wools) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
-			if (CommonConfig.General.wool_slabs_stairs) {
+			if (GeneralConfig.wool_slabs_stairs) {
 				for (BlockMultiSlab block : wool_slabs) {
 					GameRegistry.registerBlock(block, ItemBlockMultiSlab.class, block.getUnlocalizedName());
 				}
@@ -790,7 +790,7 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.glass_slabs_stairs) {
+		if (GeneralConfig.glass_slabs_stairs) {
 			GameRegistry.registerBlock(glass_double_slab, glass_double_slab.getUnlocalizedName());
 			GameRegistry.registerBlock(glass_slab, ItemBlockBasicSlab.class, glass_slab.getUnlocalizedName());
 			GameRegistry.registerBlock(glass_stair, glass_stair.getUnlocalizedName());
@@ -805,11 +805,11 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.glass_more_colors) {
+		if (GeneralConfig.glass_more_colors) {
 			for (BlockMulti block : stained_glass) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
-			if (CommonConfig.General.glass_slabs_stairs) {
+			if (GeneralConfig.glass_slabs_stairs) {
 				for (BlockMultiSlab block : stained_glass_slabs) {
 					GameRegistry.registerBlock(block, ItemBlockMultiSlab.class, block.getUnlocalizedName());
 				}
@@ -822,7 +822,7 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.clay_slabs_stairs) {
+		if (GeneralConfig.clay_slabs_stairs) {
 			GameRegistry.registerBlock(hardened_clay_double_slab, hardened_clay_double_slab.getUnlocalizedName());
 			GameRegistry.registerBlock(hardened_clay_slab, ItemBlockBasicSlab.class, hardened_clay_slab.getUnlocalizedName());
 			GameRegistry.registerBlock(hardened_clay_stair, hardened_clay_stair.getUnlocalizedName());
@@ -837,11 +837,11 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.clay_more_colors) {
+		if (GeneralConfig.clay_more_colors) {
 			for (BlockMulti block : stained_clays) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
-			if (CommonConfig.General.clay_slabs_stairs) {
+			if (GeneralConfig.clay_slabs_stairs) {
 				for (BlockMultiSlab block : stained_clay_slabs) {
 					GameRegistry.registerBlock(block, ItemBlockMultiSlab.class, block.getUnlocalizedName());
 				}
@@ -851,7 +851,7 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.v_concrete_slabs_stairs) {
+		if (GeneralConfig.v_concrete_slabs_stairs) {
 			for (BlockMulti block : vanilla_concrete_double_slabs) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
@@ -863,11 +863,11 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.v_concrete_more_colors) {
+		if (GeneralConfig.v_concrete_more_colors) {
 			for (BlockMulti block : concretes) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
-			if (CommonConfig.General.v_concrete_slabs_stairs) {
+			if (GeneralConfig.v_concrete_slabs_stairs) {
 				for (BlockMultiSlab block : concrete_slabs) {
 					GameRegistry.registerBlock(block, ItemBlockMultiSlab.class, block.getUnlocalizedName());
 				}
@@ -880,7 +880,7 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.hbm_concrete_slabs_stairs) {
+		if (GeneralConfig.hbm_concrete_slabs_stairs) {
 			for (BlockMulti block : hbm_base_concrete_double_slabs) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
@@ -892,11 +892,11 @@ public class ModBlocks
 			}
 		}
 		
-		if (CommonConfig.General.hbm_concrete_more_colors) {
+		if (GeneralConfig.hbm_concrete_more_colors) {
 			for (BlockMulti block : hbm_concretes) {
 				GameRegistry.registerBlock(block, ItemBlockMulti.class, block.getUnlocalizedName());
 			}
-			if (CommonConfig.General.hbm_concrete_slabs_stairs) {
+			if (GeneralConfig.hbm_concrete_slabs_stairs) {
 				for (BlockMultiSlab block : hbm_concrete_slabs) {
 					GameRegistry.registerBlock(block, ItemBlockMultiSlab.class, block.getUnlocalizedName());
 				}

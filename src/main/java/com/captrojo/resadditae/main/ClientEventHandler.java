@@ -1,6 +1,6 @@
 package com.captrojo.resadditae.main;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.gui.hud.HUDElements;
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.world.WorldProviderDepths;
@@ -27,7 +27,7 @@ public class ClientEventHandler extends CommonEventHandler
 	@SubscribeEvent
 	public void getFogColorEvent(EntityViewRenderEvent.FogColors event)
 	{
-		if (event.entity.dimension == CommonConfig.WorldGen.depths_dimension_id && event.entity.isPotionActive(Potion.nightVision)) {
+		if (event.entity.dimension == WorldGenConfig.depths_dimension_id && event.entity.isPotionActive(Potion.nightVision)) {
 			Vec3 color = WorldProviderDepths.FOG_COLOR;
 			event.red = (float) color.xCoord;
 			event.green = (float) color.yCoord;

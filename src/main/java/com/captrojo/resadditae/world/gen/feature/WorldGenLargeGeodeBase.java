@@ -6,7 +6,8 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.DebugConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.main.BlockHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.SimpleCoords;
@@ -23,9 +24,9 @@ public abstract class WorldGenLargeGeodeBase extends WorldGenerator
 	public static final SpacedThingCheck PLACEMENT_CHK = new SpacedThingCheck(
 		"WorldGenLargeGeodeBase".hashCode(),
 		null,
-		CommonConfig.WorldGen.geode_excl_rad,
-		CommonConfig.WorldGen.geode_min_dist,
-		CommonConfig.WorldGen.geode_max_dist
+		WorldGenConfig.geode_excl_rad,
+		WorldGenConfig.geode_min_dist,
+		WorldGenConfig.geode_max_dist
 	);
 	
 	private static HashMap<BlockMeta, BlockMeta> minable_map;
@@ -87,13 +88,13 @@ public abstract class WorldGenLargeGeodeBase extends WorldGenerator
 	{
 		/* Correct noise values will generate stained fractured depth stone. */
 		if (world.getBlock(x0, y0, z0) != ModBlocks.depth_stones_special || world.getBlockMetadata(x0, y0, z0) != 2) {
-			if (CommonConfig.Debug.log_failed_structure_gens) {
+			if (DebugConfig.log_failed_structure_gens) {
 				ResAdditae.LOG.info("Did not generate a geode due to noise value");
 			}
 			return false;
 		}
 		
-		if (CommonConfig.Debug.log_structure_gens) {
+		if (DebugConfig.log_structure_gens) {
 			ResAdditae.LOG.info(String.format("Generated geode at (%d, %d, %d)", x0, y0, z0));
 		}
 		

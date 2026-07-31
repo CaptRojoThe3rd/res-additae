@@ -3,7 +3,7 @@ package com.captrojo.resadditae.creativetab;
 import java.util.ArrayList;
 
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.item.ModItems;
 
 import net.minecraft.item.ItemStack;
@@ -31,12 +31,12 @@ public class TabEquipment
 		tab.add(ModItems.diamond_scythe);
 		tab.add(ModItems.diamond_halberd);
 		
-		if (CommonConfig.General.netherite_tools) {
+		if (GeneralConfig.netherite_tools) {
 			tab.add(ModItems.netherite_scythe);
 			tab.add(ModItems.netherite_halberd);
 		}
 		
-		if (CommonConfig.General.hbm_tools) {
+		if (GeneralConfig.hbm_tools) {
 			tab.add(ModItems.steel_scythe);
 			tab.add(ModItems.steel_halberd);
 			

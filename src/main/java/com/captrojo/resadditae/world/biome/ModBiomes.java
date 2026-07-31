@@ -1,6 +1,6 @@
 package com.captrojo.resadditae.world.biome;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.BiomeConfig;
 import com.captrojo.resadditae.world.biome.depths.BiomeAmberDepths;
 import com.captrojo.resadditae.world.biome.depths.BiomeDepthsBase;
 import com.captrojo.resadditae.world.biome.depths.BiomeJadeDepths;
@@ -33,23 +33,23 @@ public class ModBiomes
 	
 	public static void initBiomes()
 	{
-		depths_amber = new BiomeAmberDepths(CommonConfig.Biomes.depths_amber_id);
-		depths_jade = new BiomeJadeDepths(CommonConfig.Biomes.depths_jade_id);
-		depths_ruby = new BiomeRubyDepths(CommonConfig.Biomes.depths_ruby_id);
-		depths_sapphire = new BiomeSapphireDepths(CommonConfig.Biomes.depths_sapphire_id);
-		depths_topaz = new BiomeTopazDepths(CommonConfig.Biomes.depths_topaz_id);
+		depths_amber = new BiomeAmberDepths(BiomeConfig.depths_amber_id);
+		depths_jade = new BiomeJadeDepths(BiomeConfig.depths_jade_id);
+		depths_ruby = new BiomeRubyDepths(BiomeConfig.depths_ruby_id);
+		depths_sapphire = new BiomeSapphireDepths(BiomeConfig.depths_sapphire_id);
+		depths_topaz = new BiomeTopazDepths(BiomeConfig.depths_topaz_id);
 		
-		if (CommonConfig.Biomes.chestnut_forest_enabled) {
-			chestnut_forest = new BiomeChestnutForest(CommonConfig.Biomes.chestnut_forest_id);
-			chestnut_forest_entry = new BiomeEntry(chestnut_forest, CommonConfig.Biomes.chestnut_forest_weight);
+		if (BiomeConfig.chestnut_forest_enabled) {
+			chestnut_forest = new BiomeChestnutForest(BiomeConfig.chestnut_forest_id);
+			chestnut_forest_entry = new BiomeEntry(chestnut_forest, BiomeConfig.chestnut_forest_weight);
 		}
-		if (CommonConfig.Biomes.enchanted_ash_forest_enabled) {
-			enchanted_ash_forest = new BiomeEnchantedAshForest(CommonConfig.Biomes.enchanted_ash_forest_id);
-			enchanted_ash_forest_entry = new BiomeEntry(enchanted_ash_forest, CommonConfig.Biomes.enchanted_ash_forest_weight);
+		if (BiomeConfig.enchanted_ash_forest_enabled) {
+			enchanted_ash_forest = new BiomeEnchantedAshForest(BiomeConfig.enchanted_ash_forest_id);
+			enchanted_ash_forest_entry = new BiomeEntry(enchanted_ash_forest, BiomeConfig.enchanted_ash_forest_weight);
 		}
-		if (CommonConfig.Biomes.violet_forest_enabled) {
-			violet_forest = new BiomeVioletForest(CommonConfig.Biomes.violet_forest_id);
-			violet_forest_entry = new BiomeEntry(violet_forest, CommonConfig.Biomes.violet_forest_weight);
+		if (BiomeConfig.violet_forest_enabled) {
+			violet_forest = new BiomeVioletForest(BiomeConfig.violet_forest_id);
+			violet_forest_entry = new BiomeEntry(violet_forest, BiomeConfig.violet_forest_weight);
 		}
 	}
 	
@@ -65,19 +65,19 @@ public class ModBiomes
 		BiomeDictionary.registerBiomeType(depths_sapphire, Type.SPOOKY);
 		BiomeDictionary.registerBiomeType(depths_topaz, Type.SPOOKY);
 		
-		if (CommonConfig.Biomes.chestnut_forest_enabled) {
+		if (BiomeConfig.chestnut_forest_enabled) {
 			BiomeDictionary.registerBiomeType(chestnut_forest, Type.FOREST);
 			BiomeManager.addBiome(BiomeType.WARM, chestnut_forest_entry);
 			BiomeManager.addSpawnBiome(chestnut_forest);
 			BiomeManager.addVillageBiome(chestnut_forest, true);
 			BiomeManager.addStrongholdBiome(chestnut_forest);
 		}
-		if (CommonConfig.Biomes.enchanted_ash_forest_enabled) {
+		if (BiomeConfig.enchanted_ash_forest_enabled) {
 			BiomeDictionary.registerBiomeType(enchanted_ash_forest, Type.FOREST, Type.MAGICAL);
 			BiomeManager.addBiome(BiomeType.COOL, enchanted_ash_forest_entry);
 			BiomeManager.addStrongholdBiome(enchanted_ash_forest);
 		}
-		if (CommonConfig.Biomes.violet_forest_enabled) {
+		if (BiomeConfig.violet_forest_enabled) {
 			BiomeDictionary.registerBiomeType(violet_forest, Type.FOREST, Type.CONIFEROUS);
 			BiomeManager.addBiome(BiomeType.COOL, violet_forest_entry);
 			BiomeManager.addSpawnBiome(violet_forest);

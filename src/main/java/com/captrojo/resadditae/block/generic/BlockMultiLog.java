@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.captrojo.resadditae.block.IMultiBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.sounds.ModSounds;
 
 import cpw.mods.fml.relauncher.Side;
@@ -99,7 +99,7 @@ public class BlockMultiLog extends BlockLog implements IMultiBlock
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float sx, float sy, float sz)
 	{
-		if (!CommonConfig.General.strip_logs) {
+		if (!GeneralConfig.strip_logs) {
 			return false;
 		}
 		

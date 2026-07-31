@@ -8,15 +8,6 @@ public class ClientConfig
 	{
 		ModConfig.load(ResAdditae.config_client);
 		
-		HUD.load();
-		
 		ModConfig.save();
-	}
-	
-	public static class HUD
-	{
-		public static void load()
-		{
-		}
 	}
 }

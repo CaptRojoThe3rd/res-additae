@@ -2,7 +2,7 @@ package com.captrojo.resadditae.world.structure;
 
 import java.util.Random;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.DebugConfig;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.gen.StaticGenSpacedThing;
 
@@ -64,7 +64,7 @@ public class StructureVerySimple extends StaticGenSpacedThing
 		int z = chunk_z * 16;
 		int y = this.getYCoordForGen(world, x, z);
 		
-		if (CommonConfig.Debug.log_structure_gens) {
+		if (DebugConfig.log_structure_gens) {
 			ResAdditae.LOG.info(String.format("Generated %s at (%d, %d, %d)", this.name, x, y, z));
 		}
 		

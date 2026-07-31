@@ -4,7 +4,8 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.DebugConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.SpacedThingCheck;
 
@@ -22,9 +23,9 @@ public class WorldGenChasm extends WorldGenerator
 	public static final SpacedThingCheck PLACEMENT_CHK = new SpacedThingCheck(
 		"WorldGenChasm".hashCode(),
 		null,
-		CommonConfig.WorldGen.chasm_excl_rad,
-		CommonConfig.WorldGen.chasm_min_dist,
-		CommonConfig.WorldGen.chasm_max_dist
+		WorldGenConfig.chasm_excl_rad,
+		WorldGenConfig.chasm_min_dist,
+		WorldGenConfig.chasm_max_dist
 //		0,
 //		4,
 //		8
@@ -55,7 +56,7 @@ public class WorldGenChasm extends WorldGenerator
 	public static World getDepthsWorld()
 	{
 		try {
-			return MinecraftServer.getServer().worldServerForDimension(CommonConfig.WorldGen.depths_dimension_id);
+			return MinecraftServer.getServer().worldServerForDimension(WorldGenConfig.depths_dimension_id);
 		} catch (RuntimeException e) {
 			ResAdditae.LOG.info("Failed to get depths world, skipping chasm gen");
 			return null;
@@ -81,7 +82,7 @@ public class WorldGenChasm extends WorldGenerator
 		BiomeGenBase biome = worldsurf.getBiomeGenForCoords(x, z);
 		for (BiomeGenBase chk : INVALID_BIOMES) {
 			if (biome.isEqualTo(chk)) {
-				if (CommonConfig.Debug.log_failed_structure_gens) {
+				if (DebugConfig.log_failed_structure_gens) {
 					ResAdditae.LOG.info("Did not generate a chasm due to biome");
 				}
 				return false;
@@ -100,7 +101,7 @@ public class WorldGenChasm extends WorldGenerator
 			air_count = 0;
 		}
 		if (air_count < MIN_EXIT_SPACE) {
-			if (CommonConfig.Debug.log_failed_structure_gens) {
+			if (DebugConfig.log_failed_structure_gens) {
 				ResAdditae.LOG.info("Did not generate a chasm due to lack of space in the Depths");
 			}
 			return false;
@@ -122,7 +123,7 @@ public class WorldGenChasm extends WorldGenerator
 		BiomeGenBase biome = worldsurf.getBiomeGenForCoords(x0, z0);
 		for (BiomeGenBase chk : INVALID_BIOMES) {
 			if (chk.isEqualTo(biome)) {
-				if (CommonConfig.Debug.log_failed_structure_gens) {
+				if (DebugConfig.log_failed_structure_gens) {
 					ResAdditae.LOG.info("Did not generate a chasm due to biome");
 				}
 				return false;
@@ -141,7 +142,7 @@ public class WorldGenChasm extends WorldGenerator
 			air_blocks = 0;
 		}
 		if (air_blocks < 10) {
-			if (CommonConfig.Debug.log_failed_structure_gens) {
+			if (DebugConfig.log_failed_structure_gens) {
 				ResAdditae.LOG.info("Did not generate a chasm due to lack of space in the Depths");
 			}
 			return false;
@@ -340,7 +341,7 @@ public class WorldGenChasm extends WorldGenerator
 			return false;
 		}
 		
-		if (CommonConfig.Debug.log_structure_gens) {
+		if (DebugConfig.log_structure_gens) {
 			ResAdditae.LOG.info(String.format("Generated chasm at (%d, %d, %d)", x0, y0, z0));
 		}
 

@@ -3,7 +3,7 @@ package com.captrojo.resadditae.item.generic;
 import java.util.List;
 
 import com.captrojo.resadditae.achievement.ModAchievements;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.PlayerConfig;
 import com.captrojo.resadditae.entity.properties.ManaUpgrades;
 import com.captrojo.resadditae.entity.properties.PlayerAttributes;
 import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
@@ -37,9 +37,9 @@ public class ItemVessel extends Item
 			att_inst.applyModifier(health_mod);
 		}
 		
-		if (anti && health_mod.getAmount() <= ((double) CommonConfig.Player.health_minimum * 2d) - 20d) {
+		if (anti && health_mod.getAmount() <= ((double) PlayerConfig.health_minimum * 2d) - 20d) {
 			return stack;
-		} else if (health_mod.getAmount() >= (double) (CommonConfig.Player.health_maximum - CommonConfig.Player.health_base) * 2d) {
+		} else if (health_mod.getAmount() >= (double) (PlayerConfig.health_maximum - PlayerConfig.health_base) * 2d) {
 			return stack;
 		}
 		
@@ -52,7 +52,7 @@ public class ItemVessel extends Item
 		if (!anti) {
 			player.triggerAchievement(ModAchievements.hearts_increased);
 		}
-		if (health_mod.getAmount() >= (double) (CommonConfig.Player.health_maximum - CommonConfig.Player.health_base) * 2d) {
+		if (health_mod.getAmount() >= (double) (PlayerConfig.health_maximum - PlayerConfig.health_base) * 2d) {
 			player.triggerAchievement(ModAchievements.hearts_maxed);
 		}
 		

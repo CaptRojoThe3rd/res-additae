@@ -3,7 +3,8 @@ package com.captrojo.resadditae.creativetab;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.compatibility.CommonItems;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.CommonStuffConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
 
@@ -17,7 +18,7 @@ public class TabMaterials
 	{
 		tab = new ModCreativeTab("resadditae.materials", ModItems.ingots);
 		
-		if (CommonConfig.CommonStuff.iron_nuggets) {
+		if (CommonStuffConfig.iron_nuggets) {
 			tab.add(ModItems.iron_nugget);
 		}
 		
@@ -30,18 +31,18 @@ public class TabMaterials
 			tab.add(ModItems.nuggets, m);
 			tab.add(ModBlocks.metal_piles_a, m);
 			if (m == 0) {
-				if (CommonConfig.CommonStuff.raw_silver) {
+				if (CommonStuffConfig.raw_silver) {
 					tab.add(ModItems.raws, m);
 					tab.add(ModBlocks.raw_metal_blocks, m);
-				} else if (CommonConfig.General.show_other_mod_items) {
+				} else if (GeneralConfig.show_other_mod_items) {
 					tab.add(CommonItems.RAW_SILVER.stack(1));
 					tab.add(CommonBlocks.RAW_SILVER.stack(1));
 				}
 			} else if (m == 1) {
-				if (CommonConfig.CommonStuff.raw_platinum) {
+				if (CommonStuffConfig.raw_platinum) {
 					tab.add(ModItems.raws, m);
 					tab.add(ModBlocks.raw_metal_blocks, m);
-				} else if (CommonConfig.General.show_other_mod_items) {
+				} else if (GeneralConfig.show_other_mod_items) {
 					tab.add(CommonItems.RAW_PLATINUM.stack(1));
 					tab.add(CommonBlocks.RAW_PLATINUM.stack(1));
 				}

@@ -19,7 +19,8 @@ import com.captrojo.resadditae.compatibility.ModList;
 import com.captrojo.resadditae.compatibility.ModOreDict;
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
 import com.captrojo.resadditae.compatibility.helper.EtFuturumHlpr;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.CommonFeaturesConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.crafting.CraftingRecipes;
 import com.captrojo.resadditae.crafting.FurnaceRecipes;
 import com.captrojo.resadditae.crafting.StonecutterRecipe;
@@ -87,9 +88,9 @@ public class ResAdditae
 //	public static final String VERSION = "1.0.0";
 //	public static final String VERSIONS_ACCEPTED = "1.0.*";
 //	public static final String VERSION_NAME = "1.0.0";
-	public static final String VERSION = "X0004";
-	public static final String VERSIONS_ACCEPTED = "X0004";
-	public static final String VERSION_NAME = "Build #0004";
+	public static final String VERSION = "X0005";
+	public static final String VERSIONS_ACCEPTED = "X0005";
+	public static final String VERSION_NAME = "Build #0005";
 	
 	public static final Logger LOG = LogManager.getLogger(MOD_ID);
 	
@@ -243,8 +244,8 @@ public class ResAdditae
 		
 		ModEntities.register();
 		
-		DimensionManager.registerProviderType(CommonConfig.WorldGen.depths_dimension_id, WorldProviderDepths.class, true);
-		DimensionManager.registerDimension(CommonConfig.WorldGen.depths_dimension_id, CommonConfig.WorldGen.depths_dimension_id);
+		DimensionManager.registerProviderType(WorldGenConfig.depths_dimension_id, WorldProviderDepths.class, true);
+		DimensionManager.registerDimension(WorldGenConfig.depths_dimension_id, WorldGenConfig.depths_dimension_id);
 		GameRegistry.registerWorldGenerator(new ModWorldGen(), 1);
 		ModBiomes.initBiomes();
 		ModBiomes.registerBiomes();
@@ -320,7 +321,7 @@ public class ResAdditae
 	@EventHandler
 	public void serverStart(FMLServerStartingEvent event)
 	{
-		if (CommonConfig.CommonFeatures.fill_command) {
+		if (CommonFeaturesConfig.fill_command) {
 			event.registerServerCommand(new CommandFill());
 		}
 		event.registerServerCommand(new CommandFlightSpeed());

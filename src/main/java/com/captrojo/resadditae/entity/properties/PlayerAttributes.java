@@ -2,7 +2,7 @@ package com.captrojo.resadditae.entity.properties;
 
 import java.util.UUID;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.PlayerConfig;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -23,7 +23,7 @@ public class PlayerAttributes
 		IAttributeInstance att_inst = original.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
 		AttributeModifier health_mod = att_inst.getModifier(PlayerAttributes.HEART_CONTAINER_UUID);
 		if (health_mod == null) {
-			health_mod = new AttributeModifier(PlayerAttributes.HEART_CONTAINER_UUID, PlayerAttributes.HEART_CONTAINER_NAME, ((double) CommonConfig.Player.health_base * 2) - 20d, 0);
+			health_mod = new AttributeModifier(PlayerAttributes.HEART_CONTAINER_UUID, PlayerAttributes.HEART_CONTAINER_NAME, ((double) PlayerConfig.health_base * 2) - 20d, 0);
 		} else {
 			att_inst.removeModifier(health_mod);
 		}

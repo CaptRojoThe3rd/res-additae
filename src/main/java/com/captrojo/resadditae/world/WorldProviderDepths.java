@@ -1,6 +1,6 @@
 package com.captrojo.resadditae.world;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.world.WorldChunkManagerDepths.BiomeGenLayers;
 
 import cpw.mods.fml.relauncher.Side;
@@ -37,7 +37,7 @@ public class WorldProviderDepths extends WorldProvider
 	@Override
 	public void registerWorldChunkManager()
 	{
-		this.dimensionId = CommonConfig.WorldGen.depths_dimension_id;
+		this.dimensionId = WorldGenConfig.depths_dimension_id;
 		this.hasNoSky = true;
 
 		BiomeGenLayers biome_gens = createBiomeGens(this.worldObj.getSeed());

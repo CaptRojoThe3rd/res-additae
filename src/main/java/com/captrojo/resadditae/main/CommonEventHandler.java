@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.entity.properties.MobDropDataBase;
 import com.captrojo.resadditae.entity.properties.PlayerAttributes;
 import com.captrojo.resadditae.entity.properties.RAMobProperties;
@@ -154,7 +154,7 @@ public class CommonEventHandler
 		if (event.player.worldObj.isRemote) {
 			return;
 		}
-		if (CommonConfig.General.enable_motd) {
+		if (GeneralConfig.enable_motd) {
 			event.player.addChatMessage(new ChatComponentText("Loaded world with " + ResAdditae.NAME + " " + ResAdditae.VERSION_NAME));
 		}
 	}

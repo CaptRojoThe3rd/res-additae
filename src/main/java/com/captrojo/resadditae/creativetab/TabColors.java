@@ -6,7 +6,7 @@ import com.captrojo.resadditae.block.generic.BlockMulti;
 import com.captrojo.resadditae.block.generic.BlockMultiSlab;
 import com.captrojo.resadditae.block.generic.BlockMultiStair;
 import com.captrojo.resadditae.block.generic.BlockStainedGlassPane;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 
 import net.minecraft.item.Item;
 
@@ -18,7 +18,7 @@ public class TabColors
 	{
 		tab = new ModCreativeTab("resadditae.colors", Item.getItemFromBlock(ModBlocks.wools[4]));
 		
-		if (CommonConfig.General.wool_slabs_stairs) {
+		if (GeneralConfig.wool_slabs_stairs) {
 			for (BlockMultiSlab block : ModBlocks.vanilla_wool_slabs) {
 				tab.add(block, block.data.getValidMetas());
 			}
@@ -26,11 +26,11 @@ public class TabColors
 				tab.add(block, 0, 8);
 			}
 		}
-		if (CommonConfig.General.wool_more_colors) {
+		if (GeneralConfig.wool_more_colors) {
 			for (BlockMulti block : ModBlocks.wools) {
 				tab.add(block, block.data.getValidMetas());
 			}
-			if (CommonConfig.General.wool_slabs_stairs) {
+			if (GeneralConfig.wool_slabs_stairs) {
 				for (BlockMultiSlab block : ModBlocks.wool_slabs) {
 					tab.add(block, block.data.getValidMetas());
 				}
@@ -40,7 +40,7 @@ public class TabColors
 			}
 		}
 		
-		if (CommonConfig.General.glass_slabs_stairs) {
+		if (GeneralConfig.glass_slabs_stairs) {
 			for (BlockMultiSlab block : ModBlocks.vanilla_stained_glass_slabs) {
 				tab.add(block, block.data.getValidMetas());
 			}
@@ -48,11 +48,11 @@ public class TabColors
 				tab.add(block, 0, 8);
 			}
 		}
-		if (CommonConfig.General.glass_more_colors) {
+		if (GeneralConfig.glass_more_colors) {
 			for (BlockMulti block : ModBlocks.stained_glass) {
 				tab.add(block, block.data.getValidMetas());
 			}
-			if (CommonConfig.General.glass_slabs_stairs) {
+			if (GeneralConfig.glass_slabs_stairs) {
 				for (BlockMultiSlab block : ModBlocks.stained_glass_slabs) {
 					tab.add(block, block.data.getValidMetas());
 				}
@@ -68,7 +68,7 @@ public class TabColors
 			}
 		}
 		
-		if (CommonConfig.General.clay_slabs_stairs) {
+		if (GeneralConfig.clay_slabs_stairs) {
 			for (BlockMultiSlab block : ModBlocks.vanilla_stained_clay_slabs) {
 				tab.add(block, block.data.getValidMetas());
 			}
@@ -76,11 +76,11 @@ public class TabColors
 				tab.add(block, 0, 8);
 			}
 		}
-		if (CommonConfig.General.clay_more_colors) {
+		if (GeneralConfig.clay_more_colors) {
 			for (BlockMulti block : ModBlocks.stained_clays) {
 				tab.add(block, block.data.getValidMetas());
 			}
-			if (CommonConfig.General.clay_slabs_stairs) {
+			if (GeneralConfig.clay_slabs_stairs) {
 				for (BlockMultiSlab block : ModBlocks.stained_clay_slabs) {
 					tab.add(block, block.data.getValidMetas());
 				}
@@ -90,7 +90,7 @@ public class TabColors
 			}
 		}
 		
-		if (CommonConfig.General.v_concrete_slabs_stairs) {
+		if (GeneralConfig.v_concrete_slabs_stairs) {
 			for (BlockMultiSlab block : ModBlocks.vanilla_concrete_slabs) {
 				tab.add(block, block.data.getValidMetas());
 			}
@@ -98,11 +98,11 @@ public class TabColors
 				tab.add(block, 0, 8);
 			}
 		}
-		if (CommonConfig.General.v_concrete_more_colors) {
+		if (GeneralConfig.v_concrete_more_colors) {
 			for (BlockMulti block : ModBlocks.concretes) {
 				tab.add(block, block.data.getValidMetas());
 			}
-			if (CommonConfig.General.v_concrete_slabs_stairs) {
+			if (GeneralConfig.v_concrete_slabs_stairs) {
 				for (BlockMultiSlab block : ModBlocks.concrete_slabs) {
 					tab.add(block, block.data.getValidMetas());
 				}
@@ -115,7 +115,7 @@ public class TabColors
 			}
 		}
 		
-		if (CommonConfig.General.hbm_concrete_slabs_stairs) {
+		if (GeneralConfig.hbm_concrete_slabs_stairs) {
 			for (BlockMultiSlab block : ModBlocks.hbm_base_concrete_slabs) {
 				tab.add(block, block.data.getValidMetas());
 			}
@@ -123,11 +123,11 @@ public class TabColors
 				tab.add(block, 0, 8);
 			}
 		}
-		if (CommonConfig.General.hbm_concrete_more_colors) {
+		if (GeneralConfig.hbm_concrete_more_colors) {
 			for (BlockMulti block : ModBlocks.hbm_concretes) {
 				tab.add(block, block.data.getValidMetas());
 			}
-			if (CommonConfig.General.hbm_concrete_slabs_stairs) {
+			if (GeneralConfig.hbm_concrete_slabs_stairs) {
 				for (BlockMultiSlab block : ModBlocks.hbm_concrete_slabs) {
 					tab.add(block, block.data.getValidMetas());
 				}

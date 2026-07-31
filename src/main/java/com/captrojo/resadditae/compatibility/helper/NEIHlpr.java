@@ -4,7 +4,8 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.block.StoneTypes;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict;
 import com.captrojo.resadditae.compatibility.ModList;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.CommonStuffConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.handler.nei.StonecutterRecipeHandler;
 import com.captrojo.resadditae.main.ResAdditae;
 
@@ -31,87 +32,87 @@ public class NEIHlpr
 	
 	public static void hideItems()
 	{
-		if (!CommonConfig.CommonStuff.andesite) {
+		if (!CommonStuffConfig.andesite) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stones, 1, 0));
 		}
-		if (!CommonConfig.CommonStuff.andesite_polished) {
+		if (!CommonStuffConfig.andesite_polished) {
 			API.hideItem(StoneTypes.ANDESITE.getBlock(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.andesite_bricks) { 
+		if (!CommonStuffConfig.andesite_bricks) { 
 			API.hideItem(StoneTypes.ANDESITE.getBlock(1, StoneTypes.M_BRICKS));
 		}
-		if (!CommonConfig.CommonStuff.andesite_slab) {
+		if (!CommonStuffConfig.andesite_slab) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stone_slabs, 1, 0));
 		}
-		if (!CommonConfig.CommonStuff.andesite_polished_slab) {
+		if (!CommonStuffConfig.andesite_polished_slab) {
 			API.hideItem(StoneTypes.ANDESITE.getSlab(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.andesite_brick_slab) {
+		if (!CommonStuffConfig.andesite_brick_slab) {
 			API.hideItem(StoneTypes.ANDESITE.getSlab(1, StoneTypes.M_BRICKS));
 		}
-		if (!CommonConfig.CommonStuff.andesite_stair) {
+		if (!CommonStuffConfig.andesite_stair) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stone_stairs_a, 1, 0));
 		}
-		if (!CommonConfig.CommonStuff.andesite_polished_stair) {
+		if (!CommonStuffConfig.andesite_polished_stair) {
 			API.hideItem(StoneTypes.ANDESITE.getStair(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.andesite_brick_stair) {
+		if (!CommonStuffConfig.andesite_brick_stair) {
 			API.hideItem(StoneTypes.ANDESITE.getStair(1, StoneTypes.M_BRICKS));
 		}
 		
-		if (!CommonConfig.CommonStuff.diorite) {
+		if (!CommonStuffConfig.diorite) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stones, 1, 1));
 		}
-		if (!CommonConfig.CommonStuff.diorite_polished) {
+		if (!CommonStuffConfig.diorite_polished) {
 			API.hideItem(StoneTypes.DIORITE.getBlock(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.diorite_bricks) { 
+		if (!CommonStuffConfig.diorite_bricks) { 
 			API.hideItem(StoneTypes.DIORITE.getBlock(1, StoneTypes.M_BRICKS));
 		}
-		if (!CommonConfig.CommonStuff.diorite_slab) {
+		if (!CommonStuffConfig.diorite_slab) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stone_slabs, 1, 1));
 		}
-		if (!CommonConfig.CommonStuff.diorite_polished_slab) {
+		if (!CommonStuffConfig.diorite_polished_slab) {
 			API.hideItem(StoneTypes.DIORITE.getSlab(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.diorite_brick_slab) {
+		if (!CommonStuffConfig.diorite_brick_slab) {
 			API.hideItem(StoneTypes.DIORITE.getSlab(1, StoneTypes.M_BRICKS));
 		}
-		if (!CommonConfig.CommonStuff.diorite_stair) {
+		if (!CommonStuffConfig.diorite_stair) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stone_stairs_a, 1, 8));
 		}
-		if (!CommonConfig.CommonStuff.diorite_polished_stair) {
+		if (!CommonStuffConfig.diorite_polished_stair) {
 			API.hideItem(StoneTypes.DIORITE.getStair(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.diorite_brick_stair) {
+		if (!CommonStuffConfig.diorite_brick_stair) {
 			API.hideItem(StoneTypes.DIORITE.getStair(1, StoneTypes.M_BRICKS));
 		}
 		
-		if (!CommonConfig.CommonStuff.granite) {
+		if (!CommonStuffConfig.granite) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stones, 1, 2));
 		}
-		if (!CommonConfig.CommonStuff.granite_polished) {
+		if (!CommonStuffConfig.granite_polished) {
 			API.hideItem(StoneTypes.GRANITE.getBlock(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.granite_bricks) { 
+		if (!CommonStuffConfig.granite_bricks) { 
 			API.hideItem(StoneTypes.GRANITE.getBlock(1, StoneTypes.M_BRICKS));
 		}
-		if (!CommonConfig.CommonStuff.granite_slab) {
+		if (!CommonStuffConfig.granite_slab) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stone_slabs, 1, 2));
 		}
-		if (!CommonConfig.CommonStuff.granite_polished_slab) {
+		if (!CommonStuffConfig.granite_polished_slab) {
 			API.hideItem(StoneTypes.GRANITE.getSlab(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.granite_brick_slab) {
+		if (!CommonStuffConfig.granite_brick_slab) {
 			API.hideItem(StoneTypes.GRANITE.getSlab(1, StoneTypes.M_BRICKS));
 		}
-		if (!CommonConfig.CommonStuff.granite_stair) {
+		if (!CommonStuffConfig.granite_stair) {
 			API.hideItem(new ItemStack(ModBlocks.bountiful_stone_stairs_b, 1, 0));
 		}
-		if (!CommonConfig.CommonStuff.granite_polished_stair) {
+		if (!CommonStuffConfig.granite_polished_stair) {
 			API.hideItem(StoneTypes.GRANITE.getStair(1, StoneTypes.M_POLISHED));
 		}
-		if (!CommonConfig.CommonStuff.granite_brick_stair) {
+		if (!CommonStuffConfig.granite_brick_stair) {
 			API.hideItem(StoneTypes.GRANITE.getStair(1, StoneTypes.M_BRICKS));
 		}
 		
@@ -123,11 +124,11 @@ public class NEIHlpr
 		API.hideItem(new ItemStack(ModBlocks.hardened_clay_double_slab, 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(ModBlocks.vanilla_stained_clay_double_slabs[0], 1, OreDictionary.WILDCARD_VALUE));
 		API.hideItem(new ItemStack(ModBlocks.vanilla_stained_clay_double_slabs[1], 1, OreDictionary.WILDCARD_VALUE));
-		if (CommonConfig.General.v_concrete_more_colors) {
+		if (GeneralConfig.v_concrete_more_colors) {
 			API.hideItem(new ItemStack(ModBlocks.vanilla_concrete_double_slabs[0], 1, OreDictionary.WILDCARD_VALUE));
 			API.hideItem(new ItemStack(ModBlocks.vanilla_concrete_double_slabs[1], 1, OreDictionary.WILDCARD_VALUE));
 		}
-		if (CommonConfig.General.hbm_concrete_more_colors) {
+		if (GeneralConfig.hbm_concrete_more_colors) {
 			API.hideItem(new ItemStack(ModBlocks.hbm_base_concrete_double_slabs[0], 1, OreDictionary.WILDCARD_VALUE));
 			API.hideItem(new ItemStack(ModBlocks.hbm_base_concrete_double_slabs[1], 1, OreDictionary.WILDCARD_VALUE));
 			API.hideItem(new ItemStack(ModBlocks.hbm_base_concrete_double_slabs[2], 1, OreDictionary.WILDCARD_VALUE));

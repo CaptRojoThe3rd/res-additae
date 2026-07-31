@@ -1,7 +1,7 @@
 package com.captrojo.resadditae.compatibility;
 
-import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.config.JsonConfig;
+import com.captrojo.resadditae.config.common.CommonStuffConfig;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.main.ResAdditae;
 
@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 public enum CommonItems
 {
 	IRON_NUGGET(
-		ModItems.iron_nugget, 0, CommonConfig.CommonStuff.iron_nuggets, "Iron Nugget",
+		ModItems.iron_nugget, 0, CommonStuffConfig.iron_nuggets, "Iron Nugget",
 		ModList.ET_FUTURUM, "nugget_iron", 0,
 		ModList.GARDEN_STUFF, "iron_nugget", 0,
 		ModList.HEXCRAFT, "itemIronNugget", 0,
@@ -23,11 +23,11 @@ public enum CommonItems
 	),
 	
 	RAW_SILVER(
-		ModItems.raws, 0, CommonConfig.CommonStuff.raw_silver, "Raw Silver",
+		ModItems.raws, 0, CommonStuffConfig.raw_silver, "Raw Silver",
 		ModList.ET_FUTURUM, "modded_raw_ore", 2
 	),
 	RAW_PLATINUM(
-		ModItems.raws, 1, CommonConfig.CommonStuff.raw_platinum, "Raw Platinum",
+		ModItems.raws, 1, CommonStuffConfig.raw_platinum, "Raw Platinum",
 		ModList.ET_FUTURUM, "modded_raw_ore", 5
 	);
 	

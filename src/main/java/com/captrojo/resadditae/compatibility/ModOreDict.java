@@ -6,7 +6,8 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.block.MultiBlockStacks;
 import com.captrojo.resadditae.block.WoodTypes;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.CommonStuffConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItemStacks;
 
@@ -27,7 +28,7 @@ public class ModOreDict
 			OreDictionary.registerOre("stairWood", type.getStair().stack(1));
 		}
 		
-		if (CommonConfig.General.glass_more_colors) {
+		if (GeneralConfig.glass_more_colors) {
 			for (int i = 0; i < 9; i++) {
 				OreDictionary.registerOre("blockGlass", new ItemStack(ModBlocks.stained_glass[i], 1, OreDictionary.WILDCARD_VALUE));
 			}
@@ -36,7 +37,7 @@ public class ModOreDict
 			}
 		}
 		
-		if (CommonConfig.CommonStuff.iron_nuggets) {
+		if (CommonStuffConfig.iron_nuggets) {
 			OreDictionary.registerOre("nuggetIron", ModItems.iron_nugget);
 		}
 		
@@ -51,7 +52,7 @@ public class ModOreDict
 		OreDictionary.registerOre("blockSilver", MultiBlockStacks.SILVER_BLOCK.info());
 		OreDictionary.registerOre("ingotSilver", MultiItemStacks.SILVER_INGOT.info());
 		OreDictionary.registerOre("nuggetSilver", MultiItemStacks.SILVER_NUGGET.info());
-		if (CommonConfig.CommonStuff.raw_silver) {
+		if (CommonStuffConfig.raw_silver) {
 			OreDictionary.registerOre("oreSilver", MultiItemStacks.SILVER_RAW.info());
 			OreDictionary.registerOre("rawSilver", MultiItemStacks.SILVER_RAW.info());
 		}
@@ -60,7 +61,7 @@ public class ModOreDict
 		OreDictionary.registerOre("blockPlatinum", MultiBlockStacks.PLATINUM_BLOCK.info());
 		OreDictionary.registerOre("ingotPlatinum", MultiItemStacks.PLATINUM_INGOT.info());
 		OreDictionary.registerOre("nuggetPlatinum", MultiItemStacks.PLATINUM_NUGGET.info());
-		if (CommonConfig.CommonStuff.raw_platinum) {
+		if (CommonStuffConfig.raw_platinum) {
 			OreDictionary.registerOre("orePlatinum", MultiItemStacks.PLATINUM_RAW.info());
 			OreDictionary.registerOre("rawPlatinum", MultiItemStacks.PLATINUM_RAW.info());
 		}
@@ -80,7 +81,7 @@ public class ModOreDict
 	{
 		ArrayList<ItemStack> items = OreDictionary.getOres(key);
 		
-		for (String modid : CommonConfig.General.oredict_priority_list) {
+		for (String modid : GeneralConfig.oredict_priority_list) {
 			for (ItemStack item : items) {
 				UniqueIdentifier uidr = GameRegistry.findUniqueIdentifierFor(item.getItem());
 				if (uidr.modId.equals(modid)) {

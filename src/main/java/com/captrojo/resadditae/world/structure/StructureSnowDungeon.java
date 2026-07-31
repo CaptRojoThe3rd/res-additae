@@ -2,7 +2,8 @@ package com.captrojo.resadditae.world.structure;
 
 import java.util.Random;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.DebugConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.main.MiscHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.gen.StaticGenSpacedThing;
@@ -49,9 +50,9 @@ public class StructureSnowDungeon extends StaticGenSpacedThing
 			new BiomeGenBase[] {
 				BiomeGenBase.icePlains
 			},
-			CommonConfig.WorldGen.snow_dungeon_excl_rad,
-			CommonConfig.WorldGen.snow_dungeon_min_dist,
-			CommonConfig.WorldGen.snow_dungeon_max_dist
+			WorldGenConfig.snow_dungeon_excl_rad,
+			WorldGenConfig.snow_dungeon_min_dist,
+			WorldGenConfig.snow_dungeon_max_dist
 		);
 		
 		this.pyramid = ModStructures.loadPiece("snow_dungeon/pyramid");
@@ -174,7 +175,7 @@ public class StructureSnowDungeon extends StaticGenSpacedThing
 //		int y = world.getHeightValue(x, z);
 		int y = 200;
 		
-		if (CommonConfig.Debug.log_structure_gens) {
+		if (DebugConfig.log_structure_gens) {
 			ResAdditae.LOG.info(String.format("Generated snow dungeon at (%d, %d, %d)", x, y, z));
 		}
 		

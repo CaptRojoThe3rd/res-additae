@@ -6,7 +6,8 @@ import java.util.Random;
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.CommonStuffConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
 import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeD2;
@@ -149,7 +150,7 @@ public class ModWorldGen implements IWorldGenerator
 			this.generateOverworld(rand, chunk_x, chunk_z, world, chunk_gen, chunk_prov);
 		} else if (world.provider.dimensionId == 1) {
 			this.generateEnd(rand, chunk_x, chunk_z, world, chunk_gen, chunk_prov);
-		} else if (world.provider.dimensionId == CommonConfig.WorldGen.depths_dimension_id) {
+		} else if (world.provider.dimensionId == WorldGenConfig.depths_dimension_id) {
 			this.generateDepths(rand, chunk_x, chunk_z, world, chunk_gen, chunk_prov);
 		}
 	}
@@ -171,13 +172,13 @@ public class ModWorldGen implements IWorldGenerator
 		
 		/* Stones */
 		for (int y = 30; y <= 210; y += 60) {
-			if (CommonConfig.CommonStuff.andesite) {
+			if (CommonStuffConfig.andesite) {
 				addOreSpawn(CommonBlocks.ANDESITE.blkm(), Blocks.stone, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
 			}
-			if (CommonConfig.CommonStuff.diorite) {
+			if (CommonStuffConfig.diorite) {
 				addOreSpawn(CommonBlocks.DIORITE.blkm(), Blocks.stone, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
 			}
-			if (CommonConfig.CommonStuff.granite) {
+			if (CommonStuffConfig.granite) {
 				addOreSpawn(CommonBlocks.GRANITE.blkm(), Blocks.stone, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
 			}
 		}
@@ -187,20 +188,20 @@ public class ModWorldGen implements IWorldGenerator
 		addOreSpawn(ModBlocks.ore_platinum.getTgtOreMap(), world, rand, block_x, block_z, 16, 16, 1 + rand.nextInt(3), 4, 3, 20);
 		
 		/* Structures */
-		if (CommonConfig.WorldGen.dark_dungeon_enabled && ModStructures.dark_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
+		if (WorldGenConfig.dark_dungeon_enabled && ModStructures.dark_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
 			ModStructures.dark_dungeon.generate(world, chunk_x, chunk_z);
 		}
-		if (CommonConfig.WorldGen.snow_dungeon_enabled && ModStructures.snow_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
+		if (WorldGenConfig.snow_dungeon_enabled && ModStructures.snow_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
 			ModStructures.snow_dungeon.generate(world, chunk_x, chunk_z);
 		}
-		if (CommonConfig.WorldGen.wooden_house_enabled && ModStructures.wood_house.canPlaceAt(world, chunk_x, chunk_z)) {
+		if (WorldGenConfig.wooden_house_enabled && ModStructures.wood_house.canPlaceAt(world, chunk_x, chunk_z)) {
 			ModStructures.wood_house.generate(world, chunk_x, chunk_z);
 		}
 	}
 	
 	public void generateEnd(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
-		if (CommonConfig.WorldGen.end_airship_enabled && ModStructures.end_airship.canPlaceAt(world, chunk_x, chunk_z)) {
+		if (WorldGenConfig.end_airship_enabled && ModStructures.end_airship.canPlaceAt(world, chunk_x, chunk_z)) {
 			ModStructures.end_airship.generate(world, chunk_x, chunk_z);
 		}
 	}

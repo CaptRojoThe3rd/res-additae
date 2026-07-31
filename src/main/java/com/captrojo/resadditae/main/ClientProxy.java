@@ -3,7 +3,7 @@ package com.captrojo.resadditae.main;
 import com.captrojo.resadditae.compatibility.ModList;
 import com.captrojo.resadditae.compatibility.helper.NEIHlpr;
 import com.captrojo.resadditae.config.ClientConfig;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.creativetab.ModCreativeTab;
 import com.captrojo.resadditae.creativetab.TabBlocks;
 import com.captrojo.resadditae.creativetab.TabColors;
@@ -67,10 +67,10 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(ModItems.iron_halberd, renderhalberd);
 		MinecraftForgeClient.registerItemRenderer(ModItems.gold_halberd, renderhalberd);
 		MinecraftForgeClient.registerItemRenderer(ModItems.diamond_halberd, renderhalberd);
-		if (CommonConfig.General.netherite_tools) {
+		if (GeneralConfig.netherite_tools) {
 			MinecraftForgeClient.registerItemRenderer(ModItems.netherite_halberd, renderhalberd);
 		}
-		if (CommonConfig.General.hbm_tools) {
+		if (GeneralConfig.hbm_tools) {
 			MinecraftForgeClient.registerItemRenderer(ModItems.steel_halberd, renderhalberd);
 			MinecraftForgeClient.registerItemRenderer(ModItems.titanium_halberd, renderhalberd);
 			MinecraftForgeClient.registerItemRenderer(ModItems.cobalt_halberd, renderhalberd);

@@ -6,7 +6,7 @@ import com.captrojo.resadditae.block.ore.BlockOreFromDict;
 import com.captrojo.resadditae.block.ore.BlockOreFromDict.FromOredictType;
 import com.captrojo.resadditae.compatibility.CommonItems;
 import com.captrojo.resadditae.compatibility.ModList;
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.CommonStuffConfig;
 import com.captrojo.resadditae.item.Dyes;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItemStacks;
@@ -36,10 +36,10 @@ public class FurnaceRecipes
 		GameRegistry.addSmelting(ModBlocks.ore_silver, MultiItemStacks.SILVER_INGOT.stack(1), 0.85f);
 		GameRegistry.addSmelting(ModBlocks.ore_platinum, MultiItemStacks.PLATINUM_INGOT.stack(1), 1.15f);
 		
-		if (CommonConfig.CommonStuff.raw_silver) {
+		if (CommonStuffConfig.raw_silver) {
 			GameRegistry.addSmelting(MultiItemStacks.SILVER_RAW.stack(1), MultiItemStacks.SILVER_INGOT.stack(1), 0.85f);
 		}
-		if (CommonConfig.CommonStuff.raw_platinum) {
+		if (CommonStuffConfig.raw_platinum) {
 			GameRegistry.addSmelting(MultiItemStacks.PLATINUM_RAW.stack(1), MultiItemStacks.PLATINUM_INGOT.stack(1), 1.15f);
 		}
 		

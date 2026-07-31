@@ -1,6 +1,6 @@
 package com.captrojo.resadditae.world.structure;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.main.NBTHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.SpacedThingCheck;
@@ -22,9 +22,9 @@ public class ModStructures
 			NBTHlpr.loadNBTFromResource(ResAdditae.resource("structures/dark_dungeon.nbt")),
 			"Dark Dungeon".hashCode(),
 			null,
-			CommonConfig.WorldGen.dark_dungeon_excl_rad,
-			CommonConfig.WorldGen.dark_dungeon_min_dist,
-			CommonConfig.WorldGen.dark_dungeon_max_dist,
+			WorldGenConfig.dark_dungeon_excl_rad,
+			WorldGenConfig.dark_dungeon_min_dist,
+			WorldGenConfig.dark_dungeon_max_dist,
 			5
 		);
 		
@@ -40,9 +40,9 @@ public class ModStructures
 				BiomeGenBase.taiga,
 				BiomeGenBase.roofedForest
 			},
-			CommonConfig.WorldGen.wooden_house_excl_rad,
-			CommonConfig.WorldGen.wooden_house_min_dist,
-			CommonConfig.WorldGen.wooden_house_max_dist
+			WorldGenConfig.wooden_house_excl_rad,
+			WorldGenConfig.wooden_house_min_dist,
+			WorldGenConfig.wooden_house_max_dist
 		);
 		
 		end_airship = new StructureEndAirship(
@@ -50,9 +50,9 @@ public class ModStructures
 			NBTHlpr.loadNBTFromResource(ResAdditae.resource("structures/end_airship.nbt")),
 			"End Airship".hashCode(),
 			null,
-			CommonConfig.WorldGen.end_airship_excl_rad,
-			CommonConfig.WorldGen.end_airship_min_dist,
-			CommonConfig.WorldGen.end_airship_max_dist
+			WorldGenConfig.end_airship_excl_rad,
+			WorldGenConfig.end_airship_min_dist,
+			WorldGenConfig.end_airship_max_dist
 		);
 	}
 	

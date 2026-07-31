@@ -1,6 +1,7 @@
 package com.captrojo.resadditae.item;
 
-import com.captrojo.resadditae.config.CommonConfig;
+import com.captrojo.resadditae.config.common.CommonStuffConfig;
+import com.captrojo.resadditae.config.common.GeneralConfig;
 import com.captrojo.resadditae.item.devtool.ItemStructureWand;
 import com.captrojo.resadditae.item.equipment.ItemArmor;
 import com.captrojo.resadditae.item.equipment.ItemAxe;
@@ -119,7 +120,7 @@ public class ModItems
 
 	public static void initItems()
 	{
-		if (CommonConfig.CommonStuff.iron_nuggets) {
+		if (CommonStuffConfig.iron_nuggets) {
 			iron_nugget = new Item().setUnlocalizedName("iron_nugget").setTextureName("iron_nugget");
 		}
 		
@@ -147,12 +148,12 @@ public class ModItems
 		diamond_scythe = new ItemScythe("diamond_scythe", "diamond_scythe", ToolMaterial.EMERALD, ExtendedToolMaterial.DIAMOND);
 		diamond_halberd = new ItemHalberd("diamond_halberd", "diamond_halberd", "textures/tools/diamond_halberd.png", ToolMaterial.EMERALD, ExtendedToolMaterial.DIAMOND);
 		
-		if (CommonConfig.General.netherite_tools) {
+		if (GeneralConfig.netherite_tools) {
 			netherite_scythe = new ItemScythe("netherite_scythe", "netherite_scythe", ToolMaterials.NETHERITE, ExtendedToolMaterial.NETHERITE);
 			netherite_halberd = new ItemHalberd("netherite_halberd", "netherite_halberd", "textures/tools/netherite_halberd.png", ToolMaterials.NETHERITE, ExtendedToolMaterial.NETHERITE);
 		}
 		
-		if (CommonConfig.General.hbm_tools) {
+		if (GeneralConfig.hbm_tools) {
 			steel_scythe = new ItemScythe("steel_scythe", "steel_scythe", ToolMaterials.HBM_STEEL, ExtendedToolMaterial.HBM_STEEL);
 			steel_halberd = new ItemHalberd("steel_halberd", "steel_halberd", "textures/tools/steel_halberd.png", ToolMaterials.HBM_STEEL, ExtendedToolMaterial.HBM_STEEL);
 		
@@ -215,7 +216,7 @@ public class ModItems
 
 	public static void registerItems()
 	{
-		if (CommonConfig.CommonStuff.iron_nuggets) {
+		if (CommonStuffConfig.iron_nuggets) {
 			GameRegistry.registerItem(iron_nugget, iron_nugget.getUnlocalizedName());
 		}
 		
@@ -243,12 +244,12 @@ public class ModItems
 		GameRegistry.registerItem(diamond_scythe, diamond_scythe.getUnlocalizedName());
 		GameRegistry.registerItem(diamond_halberd, diamond_halberd.getUnlocalizedName());
 		
-		if (CommonConfig.General.netherite_tools) {
+		if (GeneralConfig.netherite_tools) {
 			GameRegistry.registerItem(netherite_scythe, netherite_scythe.getUnlocalizedName());
 			GameRegistry.registerItem(netherite_halberd, netherite_halberd.getUnlocalizedName());
 		}
 		
-		if (CommonConfig.General.hbm_tools) {
+		if (GeneralConfig.hbm_tools) {
 			GameRegistry.registerItem(steel_scythe, steel_scythe.getUnlocalizedName());
 			GameRegistry.registerItem(steel_halberd, steel_halberd.getUnlocalizedName());
 			
