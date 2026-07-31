@@ -372,6 +372,8 @@ item.structure_wand.loot.chat.selected=Selected structure loot block at (%d, %d,
 item.structure_wand.loot.desc.pos=§7Pos: (%d, %d, %d)
 item.structure_wand.loot.desc.idx=§7Idx: %d
 
+spell.arrowsplosion.name=Arrowsplosion
+
 tile.bountiful_stones.andesite.name=Andesite
 tile.bountiful_stones.diorite.name=Diorite
 tile.bountiful_stones.granite.name=Granite

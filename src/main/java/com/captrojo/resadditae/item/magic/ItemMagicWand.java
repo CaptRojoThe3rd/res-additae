@@ -2,11 +2,11 @@ package com.captrojo.resadditae.item.magic;
 
 import java.util.List;
 
-import com.captrojo.complexhud.main.I18nHlpr;
 import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.WandCore;
 import com.captrojo.resadditae.magic.WandMaterial;
+import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
