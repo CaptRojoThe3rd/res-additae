@@ -1,6 +1,11 @@
 
 ▓▓▓ #0004 ▓▓▓
 
+Additons:
+* Magic wands which allow you to cast spells when equipped
+* A spell menu that allows you to bind spells to hotkeys and equip a wand
+* More logging of structure and feature generation
+
 Fixed:
 * Shiny rocks now have correct stonecutter recipes
 * Silver and platinum ore now drop the correct raw ore item
