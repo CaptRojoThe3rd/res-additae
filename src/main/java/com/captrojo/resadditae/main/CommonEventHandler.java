@@ -5,11 +5,11 @@ import java.util.Random;
 import com.captrojo.resadditae.block.IDoubleSlab;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.config.common.GeneralConfig;
-import com.captrojo.resadditae.entity.properties.MobDropDataBase;
-import com.captrojo.resadditae.entity.properties.PlayerAttributes;
-import com.captrojo.resadditae.entity.properties.RAMobProperties;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
-import com.captrojo.resadditae.entity.properties.SpawnSource;
+import com.captrojo.resadditae.extprop.MobDropDataBase;
+import com.captrojo.resadditae.extprop.PlayerAttributes;
+import com.captrojo.resadditae.extprop.RAMobProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.SpawnSource;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
 import com.captrojo.resadditae.tileentity.TESnowDungeonSpawner;
@@ -162,11 +162,12 @@ public class CommonEventHandler
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent event)
 	{
+		RAPlayerProperties rpp = RAPlayerProperties.get(event.player);
 		if (event.side == Side.CLIENT) {
+			rpp.tickClient();
 			return;
 		}
-		
-		RAPlayerProperties.get(event.player).tick(event.player);
+		rpp.tick();
 	}
 	
 	@SubscribeEvent

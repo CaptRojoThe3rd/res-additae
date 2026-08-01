@@ -2,13 +2,14 @@ package com.captrojo.resadditae.gui.screen;
 
 import java.util.ArrayList;
 
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.GuiScrollingList2;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.render.RenderHlpr;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -70,7 +71,7 @@ public class GuiSpellSelectList extends GuiScrollingList2
 		String name = spell.getLocalizedName();
 		fr.drawString(name, this.left_x + 24, element_y + 5, 0xffffff);
 		
-		this.mc.getTextureManager().bindTexture(this.mc.renderEngine.getResourceLocation(ResAdditae.SPELL_TEXTUREMAP_ID));
+		RenderHlpr.bindSpellTextureMap(this.mc);
 		IIcon icon = spell.getIcon();
 		this.gui.drawTexturedModelRectFromIcon(this.left_x + 4, element_y + 2, icon, 16, 16);
 	}

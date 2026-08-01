@@ -3,6 +3,7 @@ package com.captrojo.resadditae.item.equipment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.material.ExtendedToolMaterial;
 import com.google.common.collect.Sets;
@@ -94,6 +95,6 @@ public class ItemScythe extends ItemTool
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
 	{
-		ResAdditae.addItemDescription(stack, list);
+		ItemHlpr.addItemDescription(stack, list);
 	}
 }

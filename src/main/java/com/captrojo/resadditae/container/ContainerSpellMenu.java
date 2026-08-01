@@ -2,7 +2,7 @@ package com.captrojo.resadditae.container;
 
 import com.captrojo.resadditae.container.slot.SlotDummy;
 import com.captrojo.resadditae.container.slot.SlotWand;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.container.GuiSpellMenu;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;

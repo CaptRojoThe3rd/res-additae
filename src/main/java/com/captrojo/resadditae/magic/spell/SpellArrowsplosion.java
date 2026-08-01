@@ -1,9 +1,11 @@
 package com.captrojo.resadditae.magic.spell;
 
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.main.ResAdditae;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.world.World;
@@ -15,7 +17,7 @@ public class SpellArrowsplosion extends Spell
 		super(name, ResAdditae.ident("arrowsplosion"));
 		
 		this.complexity = MagicComplexity.INTERMEDIATE;
-		this.skill_requirement = 20;
+		this.skill_requirement = 70;
 		this.mana_requirement = 100;
 		
 		this.is_instant = true;
@@ -41,10 +43,13 @@ public class SpellArrowsplosion extends Spell
 				EntityArrow arrow = new EntityArrow(world, player, 1f);
 				arrow.canBePickedUp = 0;
 				arrow.setDamage(30);
-				arrow.setVelocity(xv, yv, zv);
+				arrow.motionX = xv;
+				arrow.motionY = yv;
+				arrow.motionZ = zv;
 				world.spawnEntityInWorld(arrow);
 			}
 		}
+		rpp.onSpellUsed();
 		rpp.useMana(100, true);
 	}
 
@@ -55,6 +60,30 @@ public class SpellArrowsplosion extends Spell
 
 	@Override
 	public void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
 	}
 }

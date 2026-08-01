@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.captrojo.resadditae.achievement.ModAchievements;
 import com.captrojo.resadditae.config.common.PlayerConfig;
-import com.captrojo.resadditae.entity.properties.ManaUpgrades;
-import com.captrojo.resadditae.entity.properties.PlayerAttributes;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.ManaUpgrades;
+import com.captrojo.resadditae.extprop.PlayerAttributes;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.item.ModItems;
+import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
@@ -166,6 +167,6 @@ public class ItemVessel extends Item
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
 	{
-		ResAdditae.addItemDescription(stack, list);
+		ItemHlpr.addItemDescription(stack, list);
 	}
 }

@@ -16,12 +16,14 @@ public class Spells
 	private static int _current_hi_word;
 	
 	public static Spell arrowsplosion = new SpellArrowsplosion("arrowsplosion");
+	public static Spell lifesteal = new SpellLifesteal("lifesteal");
 	
 	public static void init()
 	{
 		_current_hi_word = 0x0000;
 		
 		registerSpell(0x0000, arrowsplosion);
+		registerSpell(0x0001, lifesteal);
 	}
 	
 	public static void setSpellHiWord(int id)

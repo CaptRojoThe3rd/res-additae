@@ -105,6 +105,7 @@ commands.rastruct.load-loot-from-memory.noloot=§cUnknown loot %s
 commands.rastruct.load-loot-from-memory.loaded=Loaded loot %s from memory
 
 death.attack.thrown_halberd=%s was impaled by %s
+death.attack.magic_lifesteal=%s's life was drained by %s
 
 gui.charm_settings.title=Charm Settings
 gui.charm_settings.help_players=Charms help players
@@ -373,6 +374,7 @@ item.structure_wand.loot.desc.pos=§7Pos: (%d, %d, %d)
 item.structure_wand.loot.desc.idx=§7Idx: %d
 
 spell.arrowsplosion.name=Arrowsplosion
+spell.lifesteal.name=Lifesteal
 
 tile.bountiful_stones.andesite.name=Andesite
 tile.bountiful_stones.diorite.name=Diorite

@@ -14,6 +14,7 @@ import com.captrojo.resadditae.creativetab.TabUtility;
 import com.captrojo.resadditae.entity.EntityThrownHalberd;
 import com.captrojo.resadditae.gui.hud.HUDElements;
 import com.captrojo.resadditae.item.ModItems;
+import com.captrojo.resadditae.render.RenderHlpr;
 import com.captrojo.resadditae.render.block.BlockRenderIDs;
 import com.captrojo.resadditae.render.block.RenderDirectionalBlock;
 import com.captrojo.resadditae.render.block.RenderMossLayer;
@@ -37,7 +38,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy
 {
@@ -100,9 +100,9 @@ public class ClientProxy extends CommonProxy
 	{
 		HUDElements.init();
 		
-		ResAdditae.texturemap_spells = new TextureMapSpells();
+		RenderHlpr.texturemap_spells = new TextureMapSpells();
 		ResourceLocation loc = new ResourceLocation("textures/atlas/spells.png");
-		Minecraft.getMinecraft().renderEngine.loadTextureMap(loc, ResAdditae.texturemap_spells);
+		Minecraft.getMinecraft().renderEngine.loadTextureMap(loc, RenderHlpr.texturemap_spells);
 	}
 	
 	@Override

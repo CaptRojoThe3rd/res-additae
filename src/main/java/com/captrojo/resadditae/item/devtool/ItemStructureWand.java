@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.main.I18nHlpr;
+import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.tileentity.TEStructureBlock;
 import com.captrojo.resadditae.world.structure.StructurePiece;
@@ -153,7 +154,7 @@ public class ItemStructureWand extends Item
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
 	{
-		ResAdditae.addItemDescription(stack, list);
+		ItemHlpr.addItemDescription(stack, list);
 		
 		int meta = stack.getItemDamage();
 		NBTTagCompound tag = stack.getTagCompound();

@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.captrojo.resadditae.container.ContainerSpellMenu;
 import com.captrojo.resadditae.container.slot.SlotDummy;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.screen.GuiSpellSelect;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.main.ResAdditae;

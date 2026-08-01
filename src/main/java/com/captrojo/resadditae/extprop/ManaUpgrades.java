@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.entity.properties;
+package com.captrojo.resadditae.extprop;
 
 import com.captrojo.resadditae.main.ResAdditae;
 

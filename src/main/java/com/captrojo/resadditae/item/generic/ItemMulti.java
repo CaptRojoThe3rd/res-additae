@@ -3,7 +3,7 @@ package com.captrojo.resadditae.item.generic;
 import java.util.List;
 
 import com.captrojo.resadditae.item.IMultiItemData;
-import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.main.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -63,6 +63,6 @@ public class ItemMulti extends Item
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
 	{
-		ResAdditae.addItemDescription(stack, list);
+		ItemHlpr.addItemDescription(stack, list);
 	}
 }

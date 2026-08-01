@@ -1,17 +1,17 @@
 package com.captrojo.resadditae.render.spell;
 
-import com.captrojo.resadditae.magic.spell.Spell;
-import com.captrojo.resadditae.magic.spell.Spells;
-import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.render.RenderHlpr;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.IResourceManager;
 
+@SideOnly(Side.CLIENT)
 public class TextureMapSpells extends TextureMap
 {
 	public TextureMapSpells()
 	{
-		super(ResAdditae.SPELL_TEXTUREMAP_ID, "textures/spells");
+		super(RenderHlpr.SPELL_TEXTUREMAP_ID, "textures/spells");
 	}
 	
 	/* We don't actually need to put anything here since IIcon registration is handled by

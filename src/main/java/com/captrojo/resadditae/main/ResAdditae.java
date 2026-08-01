@@ -1,7 +1,6 @@
 package com.captrojo.resadditae.main;
 
 import java.io.File;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,14 +26,14 @@ import com.captrojo.resadditae.crafting.StonecutterRecipe;
 import com.captrojo.resadditae.entity.ModEntities;
 import com.captrojo.resadditae.gui.GuiHandler;
 import com.captrojo.resadditae.item.ModItems;
-import com.captrojo.resadditae.item.block.ItemBlockMulti;
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
 import com.captrojo.resadditae.packet.toclient.PacketPerformanceInfo;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
 import com.captrojo.resadditae.packet.toclient.PacketSetFlightSpeed;
-import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
+import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
+import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
 import com.captrojo.resadditae.packet.toserver.PacketPlayerSettings;
 import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
 import com.captrojo.resadditae.tileentity.ModTileEntities;
@@ -56,15 +55,14 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.ResourceLocation;
@@ -102,9 +100,6 @@ public class ResAdditae
 	
 	public static SimpleNetworkWrapper network;
 	
-	public static final int SPELL_TEXTUREMAP_ID = 37;
-	public static TextureMap texturemap_spells;
-	
 	public static String dir_minecraft;
 	public static String dir_config;
 	public static String dir_crash_reports;
@@ -116,6 +111,10 @@ public class ResAdditae
 	
 	public static boolean common_items_error = false;
 	
+	/* Did you know that the Forge-provided function is even more unsafe?
+	 * It just checks if the thread is "Client thread" and assumes we are on the server if it
+	 * is not! That might be okay in some situations, but not all of them.
+	 */
 	public static Side getSideUnsafely(Side assumed_upon_failure)
 	{
 		Thread thr = Thread.currentThread();
@@ -128,6 +127,7 @@ public class ResAdditae
 		return assumed_upon_failure;
 	}
 	
+	/* Add "resadditae:" to the string if another identifier is not already present. */
 	public static String ident(String str)
 	{
 		if (str.contains(":")) {
@@ -136,39 +136,12 @@ public class ResAdditae
 		return MOD_ID + ":" + str;
 	}
 	
+	/* Create a resource location, calling ResAdditae.ident on the path. */
 	public static ResourceLocation resource(String path)
 	{
 		return new ResourceLocation(ident(path));
 	}
 	
-	public static void addItemDescription(ItemStack stack, List list)
-	{
-		Item item = stack.getItem();
-		String unlocalized;
-		if (item instanceof ItemBlockMulti) {
-			unlocalized = ((ItemBlockMulti) item).getUnlocalizedName(stack, true);
-		} else {
-			unlocalized = item.getUnlocalizedName(stack);
-		}
-		
-		String base = I18n.format(unlocalized + ".desc");
-		if (base.equals(unlocalized + ".desc")) return;
-		
-		String s = "";
-		for (int i = 0; i < base.length(); i++) {
-			if (base.charAt(i) == '\\') {
-				if (base.charAt(i + 1) == 'n') {
-					list.add(s);
-					s = "";
-					i++;
-					continue;
-				}
-			}
-			s += base.charAt(i);
-		}
-		list.add(s);
-	}
-
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
@@ -260,6 +233,7 @@ public class ResAdditae
 		network.registerMessage(PacketPlayerExtProps.HandlerClient.class, PacketPlayerExtProps.class, 0x01, Side.CLIENT);
 		network.registerMessage(PacketDisplayAlert.HandlerClient.class, PacketDisplayAlert.class, 0x02, Side.CLIENT);
 		network.registerMessage(PacketPerformanceInfo.HandlerClient.class, PacketPerformanceInfo.class, 0x03, Side.CLIENT);
+		network.registerMessage(PacketSpellFeedback.HandlerClient.class, PacketSpellFeedback.class, 0x04, Side.CLIENT);
 
 		network.registerMessage(PacketNBTControl.HandlerServer.class, PacketNBTControl.class, 0x80, Side.SERVER);
 		network.registerMessage(PacketPlayerSettings.HandlerServer.class, PacketPlayerSettings.class, 0x81, Side.SERVER);

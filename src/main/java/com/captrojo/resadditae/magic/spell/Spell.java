@@ -1,13 +1,16 @@
 package com.captrojo.resadditae.magic.spell;
 
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.main.I18nHlpr;
+import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
@@ -40,6 +43,18 @@ public abstract class Spell
 	
 	public abstract void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp);
 	
+	@SideOnly(Side.CLIENT)
+	public abstract void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+
+	@SideOnly(Side.CLIENT)
+	public abstract void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+
+	@SideOnly(Side.CLIENT)
+	public abstract void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+
+	@SideOnly(Side.CLIENT)
+	public abstract void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+	
 	public boolean isManaRequirementMet(int available_mana)
 	{
 		return available_mana >= this.mana_requirement;
@@ -64,6 +79,12 @@ public abstract class Spell
 			return false;
 		}
 		return true;
+	}
+	
+	/* Tell the client to do something after a spell is triggered on the server. */
+	public void sendFeedback(EntityPlayer player, PacketSpellFeedback.Feedback...actions)
+	{
+		ResAdditae.network.sendTo(new PacketSpellFeedback(actions), (EntityPlayerMP) player);
 	}
 	
 	public final int getID()

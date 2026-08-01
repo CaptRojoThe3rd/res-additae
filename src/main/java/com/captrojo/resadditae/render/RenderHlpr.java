@@ -2,9 +2,11 @@ package com.captrojo.resadditae.render;
 
 import com.captrojo.resadditae.main.ResAdditae;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -12,6 +14,11 @@ import net.minecraft.util.ResourceLocation;
 public class RenderHlpr
 {
 	private static final ResourceLocation MOD_ICONS = ResAdditae.resource("textures/gui/icons.png");
+	private static final ResourceLocation MOD_PARTICLES = ResAdditae.resource("textures/particle/particles.png");
+	
+	public static final int SPELL_TEXTUREMAP_ID = 37;
+	@SideOnly(Side.CLIENT)
+	public static TextureMap texturemap_spells;
 	
 	private static double px_div_w;
 	private static double px_div_h;
@@ -30,6 +37,18 @@ public class RenderHlpr
 		px_div_h = (1d / 256d);
 	}
 	
+	public static void bindModParticles(Minecraft mc)
+	{
+		bindTexture(mc, MOD_PARTICLES);
+		px_div_w = (1d / 128d);
+		px_div_h = (1d / 128d);
+	}
+	
+	public static void bindVanillaParticles(Minecraft mc)
+	{
+		bindTexture(mc, EffectRenderer.particleTextures);
+	}
+	
 	public static void bindItemTextureMap(Minecraft mc)
 	{
 		bindTexture(mc, TextureMap.locationItemsTexture);
@@ -37,7 +56,7 @@ public class RenderHlpr
 	
 	public static void bindSpellTextureMap(Minecraft mc)
 	{
-		bindTexture(mc, mc.renderEngine.getResourceLocation(ResAdditae.SPELL_TEXTUREMAP_ID));
+		bindTexture(mc, mc.renderEngine.getResourceLocation(SPELL_TEXTUREMAP_ID));
 	}
 	
 	public static void drawTexturedModalRect(int x, int y, int u, int v, int w, int h)
@@ -47,6 +66,17 @@ public class RenderHlpr
 		ts.addVertexWithUV((double) (x + 0), (double) (y + h), z_level, (double) (u + 0) * px_div_w, (double) (v + h) * px_div_h);
 	        ts.addVertexWithUV((double) (x + w), (double) (y + h), z_level, (double) (u + w) * px_div_w, (double) (v + h) * px_div_h);
 	        ts.addVertexWithUV((double) (x + w), (double) (y + 0), z_level, (double) (u + w) * px_div_w, (double) (v + 0) * px_div_h);
+	        ts.addVertexWithUV((double) (x + 0), (double) (y + 0), z_level, (double) (u + 0) * px_div_w, (double) (v + 0) * px_div_h);
+		ts.draw();
+	}
+	
+	public static void drawTexturedModalRect(int x, int y, int w, int h, int u, int v, int uw, int vh)
+	{
+		Tessellator ts = Tessellator.instance;
+		ts.startDrawingQuads();
+		ts.addVertexWithUV((double) (x + 0), (double) (y + h), z_level, (double) (u + 0) * px_div_w, (double) (v + vh) * px_div_h);
+	        ts.addVertexWithUV((double) (x + w), (double) (y + h), z_level, (double) (u + uw) * px_div_w, (double) (v + vh) * px_div_h);
+	        ts.addVertexWithUV((double) (x + w), (double) (y + 0), z_level, (double) (u + uw) * px_div_w, (double) (v + 0) * px_div_h);
 	        ts.addVertexWithUV((double) (x + 0), (double) (y + 0), z_level, (double) (u + 0) * px_div_w, (double) (v + 0) * px_div_h);
 		ts.draw();
 	}
@@ -60,5 +90,18 @@ public class RenderHlpr
 		ts.addVertexWithUV((double) (x + w), (double) (y + 0), (double) z_level, (double) icon.getMaxU(), (double) icon.getMinV());
 		ts.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) z_level, (double) icon.getMinU(), (double) icon.getMinV());
 		ts.draw();
+	}
+	
+	public static IIcon createIcon(int u, int v, int w, int h, int map_w, int map_h)
+	{
+		float mw = 1f / (float) map_w;
+		float mh = 1f / (float) map_h;
+		float uf = (float) u * mw;
+		float vf = (float) v * mh;
+		float wf = (float) w * mw;
+		float hf = (float) h * mh;
+		IconHack icon = new IconHack();
+		icon.set(uf, uf + wf, vf, vf + hf);
+		return icon;
 	}
 }

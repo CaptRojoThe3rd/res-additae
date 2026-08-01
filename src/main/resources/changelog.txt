@@ -1,8 +1,15 @@
 
 ▓▓▓ #0006 ▓▓▓
 
+Addtions:
+* Arrowsplosion spell. Shoots high-damage arrows in all directions
+* Lifesteal spell. Heals up to two hearts while damaging target by two hearts
+
 Changes:
 * Reduced default distances between structures
+
+Fixes:
+* Fixed some programming errors that prevented the mod from being used on a server.
 
 
 ▓▓▓ #0005 ▓▓▓

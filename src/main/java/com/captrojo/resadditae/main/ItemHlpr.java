@@ -1,6 +1,9 @@
 package com.captrojo.resadditae.main;
 
+import java.util.List;
 import java.util.Random;
+
+import com.captrojo.resadditae.item.block.ItemBlockMulti;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -44,5 +47,33 @@ public class ItemHlpr
 	public static Block getBlockFromStack(ItemStack stack)
 	{
 		return Block.getBlockFromItem(stack.getItem());
+	}
+
+	public static void addItemDescription(ItemStack stack, List list)
+	{
+		Item item = stack.getItem();
+		String unlocalized;
+		if (item instanceof ItemBlockMulti) {
+			unlocalized = ((ItemBlockMulti) item).getUnlocalizedName(stack, true);
+		} else {
+			unlocalized = item.getUnlocalizedName(stack);
+		}
+		
+		String base = I18nHlpr.getf(unlocalized + ".desc");
+		if (base.equals(unlocalized + ".desc")) return;
+		
+		String s = "";
+		for (int i = 0; i < base.length(); i++) {
+			if (base.charAt(i) == '\\') {
+				if (base.charAt(i + 1) == 'n') {
+					list.add(s);
+					s = "";
+					i++;
+					continue;
+				}
+			}
+			s += base.charAt(i);
+		}
+		list.add(s);
 	}
 }

@@ -1,8 +1,8 @@
 package com.captrojo.resadditae.packet.toserver;
 
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.magic.SpellTargetData;
 import com.captrojo.resadditae.magic.spell.Spell;
-import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -23,21 +23,22 @@ public class PacketUseSpell implements IMessage
 	
 	UseType use_type;
 	int slot;
+	SpellTargetData target;
 	
 	public PacketUseSpell()
 	{
-		this(null);
 	}
 	
-	public PacketUseSpell(UseType type)
+	public PacketUseSpell(RAPlayerProperties rpp, UseType type)
 	{
-		this(type, 0);
+		this(rpp, type, 0);
 	}
 	
-	public PacketUseSpell(UseType type, int slot)
+	public PacketUseSpell(RAPlayerProperties rpp, UseType type, int slot)
 	{
 		this.use_type = type;
 		this.slot = slot;
+		this.target = rpp.spell_target;
 	}
 	
 	@Override
@@ -45,6 +46,9 @@ public class PacketUseSpell implements IMessage
 	{
 		this.use_type = UseType.values()[buf.readByte()];
 		this.slot = buf.readByte();
+		
+		this.target = new SpellTargetData();
+		this.target.deserialize(buf);
 	}
 
 	@Override
@@ -52,6 +56,8 @@ public class PacketUseSpell implements IMessage
 	{
 		buf.writeByte(this.use_type.ordinal());
 		buf.writeByte(this.slot);
+		
+		this.target.serialize(buf);
 	}
 	
 	public static class HandlerServer implements IMessageHandler<PacketUseSpell, IMessage>
@@ -62,6 +68,7 @@ public class PacketUseSpell implements IMessage
 			EntityPlayer player = ctx.getServerHandler().playerEntity;
 			World world = player.worldObj;
 			RAPlayerProperties rpp = RAPlayerProperties.get(player);
+			rpp.spell_target = packet.target;
 			
 			Spell spell = rpp.spell_slots[packet.slot];
 			if (spell == null) {

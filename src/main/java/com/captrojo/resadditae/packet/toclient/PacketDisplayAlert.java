@@ -1,6 +1,6 @@
 package com.captrojo.resadditae.packet.toclient;
 
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.main.I18nHlpr;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;

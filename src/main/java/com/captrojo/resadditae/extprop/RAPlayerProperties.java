@@ -1,17 +1,19 @@
-package com.captrojo.resadditae.entity.properties;
+package com.captrojo.resadditae.extprop;
 
 import java.util.ArrayList;
 
 import com.captrojo.resadditae.item.ModItems;
-import com.captrojo.resadditae.magic.ActiveSpellData;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
+import com.captrojo.resadditae.magic.SpellTargetData;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.main.SerialHlpr;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,7 +76,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public Spell[] spell_slots;
 	public int spell_in_use;
 	public int spell_use_time;
-	public ActiveSpellData active_spell_data;
+	public SpellTargetData spell_target;
 	
 	public ItemStack wand_item;
 	
@@ -86,6 +88,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.learned_spells = new ArrayList<LearnedSpell>();
 		this.spell_slots = new Spell[6];
 		this.spell_in_use = -1;
+		this.spell_target = new SpellTargetData();
 	}
 	
 	public void reset()
@@ -102,12 +105,13 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.load();
 	}
 	
+	/* Do initialization after deserialization or loading from NBT */
 	public void load()
 	{
 		this.mana_max = this.mana_level * 100;
 	}
 	
-	public void tick(EntityPlayer player)
+	public void tick()
 	{
 		boolean updated = this.update_scheduled;
 		
@@ -133,7 +137,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		} else if (this.spell_in_use > 0) {
 			this.spell_use_time++;
 			Spell spell = this.getSpellInUse();
-			spell.tickWhileActive(player.worldObj, player, this);
+			spell.tickWhileActive(this.player.worldObj, this.player, this);
 			if (spell.max_use_time < this.spell_use_time) {
 				this.deactivateSpell();
 			}
@@ -144,6 +148,14 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			this.sendUpdate();
 		}
 		this.update_scheduled = false;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void tickClient()
+	{
+		if (this.isSpellInUse()) {
+			this.getSpellInUse().tickWhileActiveClient(this.player.worldObj, this.player, this);
+		}
 	}
 	
 	/* Increase the amount of mana the player has.
@@ -162,20 +174,21 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	 * the player's mana begins recharging.
 	 * Returns the actual amount subtracted.
 	 */
-	public int useMana(int amount, boolean delay)
+	public int useMana(int amount, boolean recharge_delay)
 	{
-//		if (PlayerAttributes.isInCreativeMode(this.player)) {
-//			return;
-//		}
+		if (PlayerAttributes.isInCreativeMode(this.player)) {
+			return 0;
+		}
 		int dif = (this.mana < amount) ? this.mana : amount;
 		this.mana -= dif;
-		if (delay) {
+		if (recharge_delay) {
 			this.mana_recharge_counter = 60;
 		}
 		this.scheduleUpdate();
 		return dif;
 	}
 	
+	/* Get the power of the equipped wand */
 	public MagicComplexity getWandPower()
 	{
 		if (this.wand_item == null) {
@@ -184,6 +197,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		return ModItems.magic_wand.getWandPower(this.wand_item.getItemDamage());
 	}
 	
+	/* Get a learned spell from a provided spell */
 	public LearnedSpell getLearnedFromSpell(Spell spell)
 	{
 		for (LearnedSpell ls : this.learned_spells) {
@@ -208,11 +222,6 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	{
 		this.spell_use_time = 0;
 		this.scheduleUpdate();
-	}
-	
-	public <T extends ActiveSpellData> T getActiveSpellData()
-	{
-		return (T) this.active_spell_data;
 	}
 	
 	public void activateSpell(int idx)
@@ -255,9 +264,50 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.spell_use_time = 0;
 	}
 	
-	public void onSpellUsed(int idx)
+	@SideOnly(Side.CLIENT)
+	public void activateSpellClient(int idx)
 	{
-		LearnedSpell ls = this.getLearnedFromSpell(this.spell_slots[idx]);
+		if (idx < 0 || idx >= this.spell_slots.length) {
+			return;
+		}
+		Spell spell = this.spell_slots[idx];
+
+		if (!spell.canCastSpell(this)) {
+			return;
+		}
+		this.spell_in_use = idx;
+		
+		if (spell.is_instant) {
+			this.triggerSpellClient();
+			this.spell_in_use = -1;
+			return;
+		}
+		
+		spell.onActivatedClient(this.player.worldObj, this.player, this);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void triggerSpellClient()
+	{
+		if (!this.isSpellInUse()) {
+			return;
+		}
+		this.getSpellInUse().onTriggeredClient(this.player.worldObj, this.player, this);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void deactivateSpellClient()
+	{
+		if (!this.isSpellInUse()) {
+			return;
+		}
+		this.getSpellInUse().onDeactivatedClient(this.player.worldObj, this.player, this);
+		this.spell_in_use = -1;
+	}
+	
+	public void onSpellUsed()
+	{
+		LearnedSpell ls = this.getLearnedFromSpell(this.spell_slots[this.spell_in_use]);
 		if (ls != null) {
 			ls.onSpellUsed();
 		}
@@ -314,8 +364,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		for (int i = 0; i < this.spell_slots.length; i++) {
 			buf.writeInt((this.spell_slots[i] == null) ? -1 : this.spell_slots[i].getID());
 		}
-		buf.writeInt(this.spell_in_use);
-		buf.writeInt(this.spell_use_time);
+		buf.writeByte(this.spell_in_use);
 		
 		if (this.wand_item == null) {
 			buf.writeByte(0);
@@ -351,8 +400,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		for (int i = 0; i < this.spell_slots.length; i++) {
 			this.spell_slots[i] = Spells.getByID(buf.readInt());
 		}
-		this.spell_in_use = buf.readInt();
-		this.spell_use_time = buf.readInt();
+		this.spell_in_use = buf.readByte();
 		
 		if (buf.readByte() == 1) {
 			this.wand_item = SerialHlpr.deserializeItemStack(buf);
@@ -392,8 +440,6 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			iarr[i] = (this.spell_slots[i] == null) ? -1 : this.spell_slots[i].getID();
 		}
 		nbt.setIntArray("spell_slots", iarr);
-		nbt.setInteger("spell_in_use", this.spell_in_use);
-		nbt.setInteger("spell_use_time", this.spell_use_time);
 		
 		if (this.wand_item != null) {
 			nbt.setTag("wand_item", this.wand_item.writeToNBT(new NBTTagCompound()));
@@ -435,8 +481,6 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 				this.spell_slots[i] = Spells.getByID(iarr[i]);
 			}
 		}
-		this.spell_in_use = nbt.getInteger("spell_in_use");
-		this.spell_use_time = nbt.getInteger("spell_use_time");
 		
 		if (nbt.hasKey("wand_item")) {
 			this.wand_item = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("wand_item"));

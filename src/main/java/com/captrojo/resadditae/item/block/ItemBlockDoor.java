@@ -2,6 +2,7 @@ package com.captrojo.resadditae.item.block;
 
 import java.util.List;
 
+import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
@@ -99,7 +100,7 @@ public class ItemBlockDoor extends ItemBlock
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
 	{
-		ResAdditae.addItemDescription(stack, list);
+		ItemHlpr.addItemDescription(stack, list);
 	}
 	
 	@Override

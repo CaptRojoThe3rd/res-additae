@@ -3,9 +3,13 @@ package com.captrojo.resadditae.main;
 import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.gui.hud.HUDElements;
 import com.captrojo.resadditae.magic.spell.Spells;
+import com.captrojo.resadditae.render.ItemTexturemapHacks;
+import com.captrojo.resadditae.render.RenderHlpr;
 import com.captrojo.resadditae.world.WorldProviderDepths;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.Vec3;
@@ -25,6 +29,7 @@ public class ClientEventHandler extends CommonEventHandler
 	public static long last_tick_time = 0;
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void getFogColorEvent(EntityViewRenderEvent.FogColors event)
 	{
 		if (event.entity.dimension == WorldGenConfig.depths_dimension_id && event.entity.isPotionActive(Potion.nightVision)) {
@@ -36,6 +41,7 @@ public class ClientEventHandler extends CommonEventHandler
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void renderGameOverlayEvent(RenderGameOverlayEvent event)
 	{
 		if (event.type == ElementType.CROSSHAIRS) {
@@ -44,6 +50,7 @@ public class ClientEventHandler extends CommonEventHandler
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void renderHUDTextEvent(RenderGameOverlayEvent.Text event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
@@ -75,10 +82,13 @@ public class ClientEventHandler extends CommonEventHandler
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onTextureStitching(TextureStitchEvent.Pre event)
 	{
-		if (event.map.getTextureType() == ResAdditae.SPELL_TEXTUREMAP_ID) {
+		if (event.map.getTextureType() == RenderHlpr.SPELL_TEXTUREMAP_ID) {
 			Spells.registerIcons(event.map);
+		} else if (event.map.getTextureType() == 1) {
+			ItemTexturemapHacks.registerIcons(event.map);
 		}
 	}
 }

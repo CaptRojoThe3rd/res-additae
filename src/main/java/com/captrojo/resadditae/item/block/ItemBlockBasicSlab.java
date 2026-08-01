@@ -5,7 +5,7 @@ import java.util.List;
 import com.captrojo.resadditae.block.IBlockData;
 import com.captrojo.resadditae.block.ISingleSlab;
 import com.captrojo.resadditae.block.generic.BlockBasicSlab;
-import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.main.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -96,6 +96,6 @@ public class ItemBlockBasicSlab extends ItemSlab
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
 	{
-		ResAdditae.addItemDescription(stack, list);
+		ItemHlpr.addItemDescription(stack, list);
 	}
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.captrojo.resadditae.apocalypse.Apocalypse;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;

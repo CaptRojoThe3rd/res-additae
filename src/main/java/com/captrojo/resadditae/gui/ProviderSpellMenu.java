@@ -1,7 +1,7 @@
 package com.captrojo.resadditae.gui;
 
 import com.captrojo.resadditae.container.ContainerSpellMenu;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.container.GuiSpellMenu;
 
 import net.minecraft.entity.player.EntityPlayer;

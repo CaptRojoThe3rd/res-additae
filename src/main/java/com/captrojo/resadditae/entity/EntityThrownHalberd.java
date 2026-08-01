@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.equipment.ItemHalberd;
-import com.captrojo.resadditae.main.ModDamageSource;
+import com.captrojo.resadditae.main.ModDamageSources;
 import com.captrojo.resadditae.sounds.ModSounds;
 
 import net.minecraft.block.Block;
@@ -252,9 +252,9 @@ public class EntityThrownHalberd extends EntityArrow
 					DamageSource damagesource = null;
 
 					if (this.shootingEntity == null) {
-						damagesource = ModDamageSource.causeThrownHalberdDamage(this, this);
+						damagesource = ModDamageSources.causeThrownHalberdDamage(this, this);
 					} else {
-						damagesource = ModDamageSource.causeThrownHalberdDamage(this, this.shootingEntity);
+						damagesource = ModDamageSources.causeThrownHalberdDamage(this, this.shootingEntity);
 					}
 
 					if (this.isBurning() && !(movingobjectposition.entityHit instanceof EntityEnderman)) {

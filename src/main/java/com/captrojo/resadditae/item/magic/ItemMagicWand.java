@@ -2,11 +2,12 @@ package com.captrojo.resadditae.item.magic;
 
 import java.util.List;
 
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.WandCore;
 import com.captrojo.resadditae.magic.WandMaterial;
 import com.captrojo.resadditae.main.I18nHlpr;
+import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
@@ -119,7 +120,7 @@ public class ItemMagicWand extends Item
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
 	{
-		ResAdditae.addItemDescription(stack, list);
+		ItemHlpr.addItemDescription(stack, list);
 		
 		int meta = stack.getItemDamage();
 		WandMaterial wand_material = this.getWandMaterial(meta);

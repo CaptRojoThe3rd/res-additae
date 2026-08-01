@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists.Tiers;
-import com.captrojo.resadditae.entity.properties.RAMobProperties;
-import com.captrojo.resadditae.entity.properties.SpawnSource;
+import com.captrojo.resadditae.extprop.RAMobProperties;
+import com.captrojo.resadditae.extprop.SpawnSource;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
 import com.captrojo.resadditae.main.ItemHlpr;

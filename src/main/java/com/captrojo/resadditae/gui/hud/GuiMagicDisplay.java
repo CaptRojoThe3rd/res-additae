@@ -7,7 +7,7 @@ import com.captrojo.complexhud.api.IConfigEntry;
 import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.main.InputEventHandler;
 import com.captrojo.resadditae.main.ResAdditae;
@@ -34,13 +34,18 @@ public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 	
 	static final int U_BAR_BG = 0;
 	static final int U_BAR_FG = 121;
-	
 	static final int V_BARS = 156;
+	static final int W_BAR = 121;
+	static final int H_BAR = 5;
+	
+	static final int U_ACT = 242;
+	static final int V_ACT_LO = 252;
+	static final int V_ACT_HI = 254;
+	static final int W_ACT = 14;
+	static final int H_ACT = 2;
 	
 	static final int W_WAND = 17;
-	static final int W_BAR = 121;
 	
-	static final int H_BAR = 5;
 	static final int H_SPELLS = 18;
 	
 	Minecraft mc;
@@ -89,6 +94,12 @@ public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 		this.bindModIcons();
 		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_BG, V_BARS, W_BAR, H_BAR);
 		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_FG, V_BARS, bar_size, H_BAR);
+		
+		if (rpp.isSpellInUse()) {
+			int x = xl + W_WAND + 1 + (rpp.spell_in_use * 17);
+			int v = ((this.mc.ingameGUI.getUpdateCounter() & 0x2) == 0) ? V_ACT_LO : V_ACT_HI;
+			this.drawTexturedModalRect(x, yb - H_BAR - H_ACT, U_ACT, v, W_ACT, H_ACT);
+		}
 		
 		if (rpp.wand_item != null) {
 			IIcon icon = rpp.wand_item.getIconIndex();

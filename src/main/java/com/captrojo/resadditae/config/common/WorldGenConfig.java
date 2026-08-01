@@ -45,6 +45,9 @@ public class WorldGenConfig
 		ModConfig._category = "structures";
 		ModConfig.setCategoryComment("Structure spawning stuff.\n\n'enabled' - Whether the structure is enabled\n'exclusion_radius' - Radius (in chunks) around spawn in which the structure cannot generate\n'min_distance' - Minimum distance between each instance of the structure\n'max-distance' - Maximum distance between each instance of the structure");
 		
+		
+		ModConfig._category = "structures.depths";
+		
 		chasm_excl_rad = ModConfig.getInt("chasm_exclusion_radius", null, 4);
 		chasm_min_dist = ModConfig.getInt("chasm_min_distance", null, 12);
 		chasm_max_dist = ModConfig.getInt("chasm_max_distance", null, 24);

@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists;
 import com.captrojo.resadditae.compatibility.OrderedEquipmentLists.Tiers;
-import com.captrojo.resadditae.entity.properties.RAMobProperties;
+import com.captrojo.resadditae.extprop.RAMobProperties;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

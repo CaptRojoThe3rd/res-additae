@@ -1,10 +1,12 @@
 package com.captrojo.resadditae.magic.spell;
 
-import com.captrojo.resadditae.entity.properties.RAPlayerProperties;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -44,5 +46,29 @@ public class SpellDebug extends Spell
 	public void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp)
 	{
 		player.addChatMessage(I18nHlpr.chat("Deactivated: " + this.unlocalized_name));
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	{
 	}
 }
