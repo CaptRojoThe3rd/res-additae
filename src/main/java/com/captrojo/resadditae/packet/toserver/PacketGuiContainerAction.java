@@ -69,6 +69,7 @@ public class PacketGuiContainerAction implements IMessage
 						container.getClass().getSimpleName(),
 						packet.idx, packet.val
 					));
+					return null;
 				}
 				((IHasSelectionInput) container).makeSelection(packet.idx, packet.val);
 			}

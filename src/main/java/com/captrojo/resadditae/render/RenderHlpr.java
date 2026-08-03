@@ -104,4 +104,33 @@ public class RenderHlpr
 		icon.set(uf, uf + wf, vf, vf + hf);
 		return icon;
 	}
+	
+	public static int getRainbowCycleColor(int ticks)
+	{
+		int r = 0;
+		int g = 0;
+		int b = 0;
+		
+		int step = (ticks / 256) % 5;
+		int count = ticks & 0xff;
+		
+		if (step == 0) {
+			r = 255;
+			g = count;
+		} else if (step == 1) {
+			r = 255 - count;
+			g = 255;
+		} else if (step == 2) {
+			g = 255;
+			b = count;
+		} else if (step == 3) {
+			g = 255 - count;
+			b = 255;
+		} else if (step == 4) {
+			b = 255;
+			r = count;
+		}
+		
+		return (r << 16) | (g << 8) | b;
+	}
 }

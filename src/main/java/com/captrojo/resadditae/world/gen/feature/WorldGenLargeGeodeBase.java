@@ -98,8 +98,8 @@ public abstract class WorldGenLargeGeodeBase extends WorldGenerator
 			ResAdditae.LOG.info(String.format("Generated geode at (%d, %d, %d)", x0, y0, z0));
 		}
 		
-		this.size = 300 + rand.nextInt(500);
-		this.cavern = new WorldGenCavern(size, new BlockMeta(ModBlocks.depth_stones_special, 2));
+		this.size = 200 + rand.nextInt(600);
+		this.cavern = new WorldGenCavern(this.size, ModBlocks.flashover_air, new BlockMeta(ModBlocks.depth_stones_special, 2));
 		this.cavern.generate(world, rand, x0, y0, z0);
 		this.cavern.min_pos.subtract(boundary_offs);
 		this.cavern.max_pos.add(boundary_offs);
@@ -110,10 +110,22 @@ public abstract class WorldGenLargeGeodeBase extends WorldGenerator
 					if (!world.getBlock(x, y, z).isOpaqueCube()) {
 						continue;
 					}
-					if (!BlockHlpr.isAnyBlockNearby(world, x, y, z, 4, Blocks.air)) {
+					if (BlockHlpr.isAnyBlockNearby(world, x, y, z, 1, Blocks.air)) {
+						continue;
+					}
+					if (!BlockHlpr.isAnyBlockNearby(world, x, y, z, 4, ModBlocks.flashover_air)) {
 						continue;
 					}
 					this.setShellBlock(world, rand, x, y, z);
+				}
+			}
+		}
+		for (int x = this.cavern.min_pos.x; x < this.cavern.max_pos.x; x++) {
+			for (int y = this.cavern.min_pos.y; y < this.cavern.max_pos.y; y++) {
+				for (int z = this.cavern.min_pos.z; z < this.cavern.max_pos.z; z++) {
+					if (world.getBlock(x, y, z) == ModBlocks.flashover_air) {
+						this.setBlockAndNotifyAdequately(world, x, y, z, Blocks.air, 0);
+					}
 				}
 			}
 		}

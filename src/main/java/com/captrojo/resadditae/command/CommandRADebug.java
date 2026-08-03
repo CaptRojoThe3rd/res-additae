@@ -62,7 +62,7 @@ public class CommandRADebug extends CommandBase
 		
 		if (args[0].equals("reset-rpp")) {
 			EntityPlayerMP player = args.length > 1 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
-			RAPlayerProperties.get(player).reset();
+			RAPlayerProperties.reset(player);
 			sender.addChatMessage(I18nHlpr.chatf("commands.radebug.reset-rpp.done", player.getCommandSenderName()));
 			return;
 		}

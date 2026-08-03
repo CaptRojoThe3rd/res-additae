@@ -49,7 +49,7 @@ public class SpellArrowsplosion extends Spell
 				world.spawnEntityInWorld(arrow);
 			}
 		}
-		rpp.onSpellUsed();
+		rpp.onSpellUsed(600);
 		rpp.useMana(100, true);
 	}
 

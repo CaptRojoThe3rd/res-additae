@@ -2,8 +2,10 @@ package com.captrojo.resadditae.magic.spell;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.MagicComplexity;
+import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
 import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback;
 
 import cpw.mods.fml.relauncher.Side;
@@ -73,18 +75,20 @@ public abstract class Spell
 		return complexity_limit.ordinal() >= this.complexity.ordinal();
 	}
 	
-	public boolean canCastSpell(RAPlayerProperties rpp)
-	{
-		if (!this.isManaRequirementMet(rpp.mana)) {
-			return false;
-		}
-		return true;
-	}
-	
 	/* Tell the client to do something after a spell is triggered on the server. */
 	public void sendFeedback(EntityPlayer player, PacketSpellFeedback.Feedback...actions)
 	{
 		ResAdditae.network.sendTo(new PacketSpellFeedback(actions), (EntityPlayerMP) player);
+	}
+	
+	public void sendAlert(EntityPlayer player, Alerts alert)
+	{
+		ResAdditae.network.sendTo(new PacketDisplayAlert(alert, this.getID()), (EntityPlayerMP) player);
+	}
+	
+	public void sendAlert(EntityPlayer player, Alerts alert, Object a, Object b)
+	{
+		ResAdditae.network.sendTo(new PacketDisplayAlert(alert, this.getID(), a, b), (EntityPlayerMP) player);
 	}
 	
 	public final int getID()

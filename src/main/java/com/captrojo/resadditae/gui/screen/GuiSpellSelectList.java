@@ -2,13 +2,12 @@ package com.captrojo.resadditae.gui.screen;
 
 import java.util.ArrayList;
 
+import com.captrojo.complexhud.main.I18nHlpr;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.GuiScrollingList2;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.spell.Spell;
-import com.captrojo.resadditae.main.I18nHlpr;
-import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.render.RenderHlpr;
 
 import net.minecraft.client.Minecraft;
@@ -18,25 +17,33 @@ import net.minecraft.util.IIcon;
 
 public class GuiSpellSelectList extends GuiScrollingList2
 {
+	static final int U_PROF = 0;
+	static final int V_PROF_BG = 192;
+	static final int V_PROF_FG = 197;
+	static final int W_PROF = 96;
+	static final float WF_PROF = 96.0f;
+	static final int H_PROF = 5;
+	
 	GuiSpellSelect gui;
-	ArrayList<Spell> spell_list;
+	ArrayList<LearnedSpell> spell_list;
 	
 	public GuiSpellSelectList(RAPlayerProperties rpp, GuiSpellSelect gui, int x, int y)
 	{
-		super(Minecraft.getMinecraft(), 184, 120, y + 4, y + 124, x + 4, 20);
+		super(Minecraft.getMinecraft(), 252, 184, y + 4, y + 188, x, 20);
 		this.draw_list_background = false;
 		this.draw_gradient_rect = false;
 		this.draw_edge_gradient = false;
 		
 		this.gui = gui;
 		
-		this.spell_list = new ArrayList<Spell>();
+		this.spell_list = new ArrayList<LearnedSpell>();
 		MagicComplexity wand_power = rpp.getWandPower();
 		for (LearnedSpell ls : rpp.learned_spells) {
 			if (ls.spell.isComplexityRequirementMet(wand_power)) {
-				this.spell_list.add(ls.spell);
+				this.spell_list.add(ls);
 			}
 		}
+		this.spell_list.sort(null);
 	}
 
 	@Override
@@ -48,7 +55,7 @@ public class GuiSpellSelectList extends GuiScrollingList2
 	@Override
 	protected void elementClicked(int idx, boolean double_click)
 	{
-		this.gui.selectSpell(this.spell_list.get(idx));
+		this.gui.selectSpell(this.spell_list.get(idx).spell);
 	}
 
 	@Override
@@ -66,14 +73,29 @@ public class GuiSpellSelectList extends GuiScrollingList2
 	protected void drawSlot(int idx, int element_right_x, int element_y, int element_h, Tessellator ts)
 	{
 		FontRenderer fr = this.mc.fontRenderer;
-		Spell spell = this.spell_list.get(idx);
+		LearnedSpell ls = this.spell_list.get(idx);
 		
-		String name = spell.getLocalizedName();
-		fr.drawString(name, this.left_x + 24, element_y + 5, 0xffffff);
+		boolean hover = this.checkMousePos(this.left_x, element_right_x, element_y, element_y + 20);
+		int font_color = hover ? 0xffffc0 : 0xffffff;
+
+		RenderHlpr.bindTexture(this.mc, GuiSpellSelect.BG_TEXTURE);
+		if (hover) {
+			this.gui.drawTexturedModalRect(this.left_x + 3, element_y, 0, 236, 250, 20);
+		}
+		this.gui.drawTexturedModalRect(element_right_x - 106, element_y + 12, U_PROF, V_PROF_BG, W_PROF, H_PROF);
+		int prog_w = (int) (WF_PROF * ls.getProfPtProgress());
+		this.gui.drawTexturedModalRect(element_right_x - 106, element_y + 12, U_PROF, V_PROF_FG, prog_w, H_PROF);
 		
 		RenderHlpr.bindSpellTextureMap(this.mc);
-		IIcon icon = spell.getIcon();
+		IIcon icon = ls.spell.getIcon();
 		this.gui.drawTexturedModelRectFromIcon(this.left_x + 4, element_y + 2, icon, 16, 16);
+		
+		fr.drawString(I18nHlpr.get("gui.spell_list.proficiency"), element_right_x - 106, element_y + 3, font_color);
+		String str_lv = I18nHlpr.getf("gui.spell_list.lvl", ls.proficiency);
+		fr.drawString(str_lv, element_right_x - 10 - fr.getStringWidth(str_lv), element_y + 3, font_color);
+		
+		String name = ls.spell.getLocalizedName();
+		fr.drawString(name, this.left_x + 24, element_y + 5, font_color);
 	}
 	
 	@Override

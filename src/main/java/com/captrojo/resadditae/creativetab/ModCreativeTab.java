@@ -41,7 +41,7 @@ public class ModCreativeTab extends CreativeTabs
 			
 			String name = Item.itemRegistry.getNameForObject(item);
 			
-			if (name.contains("resadditae")) {
+			if (name.contains("resadditae") && !name.contains("double_slab")) {
 				if (item instanceof ItemBlock) {
 					(Block.getBlockFromItem(item)).setCreativeTab(tabAllSearch);
 					continue;

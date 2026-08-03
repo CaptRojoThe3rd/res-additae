@@ -31,7 +31,7 @@ public class WorldGenChasm extends WorldGenerator
 //		8
 	);
 	
-	public static final BiomeGenBase[] INVALID_BIOMES = {
+	public static final BiomeGenBase[] COVER_BIOMES = {
 		BiomeGenBase.beach,
 		BiomeGenBase.coldBeach,
 		BiomeGenBase.stoneBeach,
@@ -49,6 +49,7 @@ public class WorldGenChasm extends WorldGenerator
 			return MinecraftServer.getServer().worldServerForDimension(0);
 		} catch (RuntimeException e) {
 			ResAdditae.LOG.info("Failed to get overworld world, skipping chasm gen");
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -59,6 +60,7 @@ public class WorldGenChasm extends WorldGenerator
 			return MinecraftServer.getServer().worldServerForDimension(WorldGenConfig.depths_dimension_id);
 		} catch (RuntimeException e) {
 			ResAdditae.LOG.info("Failed to get depths world, skipping chasm gen");
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -69,44 +71,6 @@ public class WorldGenChasm extends WorldGenerator
 			return false;
 		}
 		
-		World worldsurf = getOverworld();
-		World worlddepths = getDepthsWorld();
-		if (worldsurf == null || worlddepths == null) {
-			
-			return false;
-		}
-		
-		int x = chunk_x << 4 + 8;
-		int z = chunk_z << 4 + 8;
-		
-		BiomeGenBase biome = worldsurf.getBiomeGenForCoords(x, z);
-		for (BiomeGenBase chk : INVALID_BIOMES) {
-			if (biome.isEqualTo(chk)) {
-				if (DebugConfig.log_failed_structure_gens) {
-					ResAdditae.LOG.info("Did not generate a chasm due to biome");
-				}
-				return false;
-			}
-		}
-		
-		int air_count = 0;
-		for (int y = 192; y > 40; y--) {
-			if (worlddepths.getBlock(x, y, z).isAir(worlddepths, x, y, z)) {
-				air_count++;
-				if (air_count == MIN_EXIT_SPACE) {
-					break;
-				}
-				continue;
-			}
-			air_count = 0;
-		}
-		if (air_count < MIN_EXIT_SPACE) {
-			if (DebugConfig.log_failed_structure_gens) {
-				ResAdditae.LOG.info("Did not generate a chasm due to lack of space in the Depths");
-			}
-			return false;
-		}
-		
 		return true;
 	}
 	
@@ -114,22 +78,19 @@ public class WorldGenChasm extends WorldGenerator
 	{
 	}
 	
-	private boolean canGenerateAt(World worldsurf, World worlddepths, int x0, int y0, int z0)
+	public boolean shouldBeCovered(World worldsurf, int x0, int z0)
 	{
-		if (worldsurf.getBlock(x0, y0 - 1, z0) == Blocks.water) {
-			return false;
-		}
-		
 		BiomeGenBase biome = worldsurf.getBiomeGenForCoords(x0, z0);
-		for (BiomeGenBase chk : INVALID_BIOMES) {
+		for (BiomeGenBase chk : COVER_BIOMES) {
 			if (chk.isEqualTo(biome)) {
-				if (DebugConfig.log_failed_structure_gens) {
-					ResAdditae.LOG.info("Did not generate a chasm due to biome");
-				}
-				return false;
+				return true;
 			}
 		}
-		
+		return false;
+	}
+	
+	private boolean canGenerateAt(World worldsurf, World worlddepths, int x0, int y0, int z0)
+	{
 		int air_blocks = 0;
 		for (int y = 192; y > 40; y--) {
 			if (worlddepths.getBlock(x0, y, z0).isAir(worlddepths, x0, y, z0)) {
@@ -230,8 +191,6 @@ public class WorldGenChasm extends WorldGenerator
 		int[][] circle = this.getMessyCircle(rand, radius);
 		int circle_bit = 0;
 		
-//		ResAdditae.LOG.info(String.format("Generated chasm at (%d, %d, %d)", x0, y0, z0));
-		
 		for (int y = 0; y < y_limit; y++) {
 			if ((y & 0x1) == circle_bit) {
 				circle = this.getMessyCircle(rand, radius);
@@ -245,15 +204,19 @@ public class WorldGenChasm extends WorldGenerator
 					
 					if (circle[xc][zc] == 0) {
 						continue;
-					} else if (circle[xc][zc] == 1 && existing.isAir(worldsurf, x, y, z)) {
-						if (y < 56) {
+					} else if (circle[xc][zc] == 1 && !existing.isOpaqueCube()) {
+						if (y < 63) {
 							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, surf_side.block, surf_side.meta);
-						} else {
+						} else if (y < (y_limit - 3)) {
 							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
 						}
 					} else if (circle[xc][zc] == 2) {
 						if (y < 4) {
 							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, ModBlocks.depths_portal, 0);
+						} else if (y > (y_limit - 3)) {
+							if (rand.nextBoolean()) {
+								this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
+							}
 						} else {
 							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
 						}
@@ -332,6 +295,7 @@ public class WorldGenChasm extends WorldGenerator
 		World worldsurf = getOverworld();
 		World worlddepths = getDepthsWorld();
 		if (worldsurf == null || worlddepths == null) {
+			ResAdditae.LOG.error("Didn't generate chasm due to world error");
 			generating = false;
 			return false;
 		}
@@ -356,7 +320,15 @@ public class WorldGenChasm extends WorldGenerator
 		
 		int radius = rand.nextInt(5) + 8;
 		
-		this.generateEntireChasm(worldsurf, worlddepths, rand, x0, y0, z0, radius, air, depth_side, surf_side, 256);
+		int surf_y_limit = 256;
+		if (this.shouldBeCovered(worldsurf, x0, z0)) {
+			surf_y_limit = 24;
+			if (DebugConfig.log_structure_gens) {
+				ResAdditae.LOG.info("The chasm was generated completely underground");
+			}
+		}
+		
+		this.generateEntireChasm(worldsurf, worlddepths, rand, x0, y0, z0, radius, air, depth_side, surf_side, surf_y_limit);
 		generating = false;
 		return true;
 	}

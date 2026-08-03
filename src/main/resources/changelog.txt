@@ -2,13 +2,15 @@
 ▓▓▓ #0006 ▓▓▓
 
 Addtions:
-* Arrowsplosion spell. Shoots high-damage arrows in all directions
 * Lifesteal spell. Heals up to two hearts while damaging target by two hearts
 
 Changes:
+* Chasms now generate completely underground when encountering an ocean or river (#11)
 * Reduced default distances between structures
 
 Fixes:
+* Unlocalized block names (#2)
+* Depths portal blocks can be mined (#13)
 * Fixed some programming errors that prevented the mod from being used on a server.
 
 
@@ -35,7 +37,7 @@ Fixed:
 ▓▓▓ #0003 ▓▓▓
 
 Additions:
-* Began work on new magic system to replace the charms added in #0001
+* Began work on new magic system to replace the charms added in X0001
 * Better support for using other mods' items
 
 Changes:

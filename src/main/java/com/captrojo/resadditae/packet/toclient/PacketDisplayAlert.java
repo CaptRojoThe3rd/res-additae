@@ -1,7 +1,10 @@
 package com.captrojo.resadditae.packet.toclient;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.magic.spell.Spells;
+import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.I18nHlpr;
+import com.captrojo.resadditae.packet.DynamicTypeRW;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -13,43 +16,37 @@ import net.minecraft.client.Minecraft;
 
 public class PacketDisplayAlert implements IMessage
 {
-	private Type type;
-	private String string;
+	Alerts alert;
+	Object[] data;
 	
 	public PacketDisplayAlert()
 	{
 	}
-
-	public PacketDisplayAlert(Type type, String string)
+	
+	public PacketDisplayAlert(Alerts alert, Object...data)
 	{
-		this.type = type;
-		this.string = string;
+		this.alert = alert;
+		this.data = data;
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
-		this.type = Type.values()[buf.readByte()];
-		this.string = "";
-		for (byte b = buf.readByte(); b != 0; b = buf.readByte()) {
-			this.string += (char) b;
+		this.alert = Alerts.values()[buf.readByte()];
+		this.data = new Object[buf.readByte()];
+		for (int i = 0; i < this.data.length; i++) {
+			this.data[i] = DynamicTypeRW.read(buf);
 		}
-		buf.release();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf)
 	{
-		buf.writeByte(this.type.ordinal());
-		for (char c : this.string.toCharArray()) {
-			buf.writeByte(c);
+		buf.writeByte(this.alert.ordinal());
+		buf.writeByte(this.data.length);
+		for (Object obj : this.data) {
+			DynamicTypeRW.write(buf, obj);
 		}
-		buf.writeByte(0);
-	}
-	
-	public static enum Type
-	{
-		HOTBAR_LOW
 	}
 	
 	public static class HandlerClient implements IMessageHandler<PacketDisplayAlert, IMessage>
@@ -58,12 +55,7 @@ public class PacketDisplayAlert implements IMessage
 		@SideOnly(Side.CLIENT)
 		public IMessage onMessage(PacketDisplayAlert packet, MessageContext ctx)
 		{
-			switch (packet.type) {
-			case HOTBAR_LOW:
-				Minecraft.getMinecraft().ingameGUI.func_110326_a(I18nHlpr.get(packet.string), false);
-				break;
-			}
-			
+			Alerts.display(packet.alert, packet.data);
 			return null;
 		}
 	}

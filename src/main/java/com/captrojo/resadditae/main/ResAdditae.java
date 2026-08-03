@@ -309,19 +309,19 @@ public class ResAdditae
 //		HashSet<String> ignored = new HashSet<String>();
 //		HashMap<String, Item> remapped_items = new HashMap<String, Item>();
 //		HashMap<String, Block> remapped_blocks = new HashMap<String, Block>();
-//		
+//
 //		for (Entry<String, Block> e : remapped_blocks.entrySet()) {
 //			remapped_items.put(e.getKey(), Item.getItemFromBlock(e.getValue()));
 //		}
-//		
+//
 //		for (MissingMapping mapping : event.get()) {
 //			ResAdditae.LOG.info(String.format("Missing %s %s", mapping.type.name(), mapping.name));
-//			
+//
 //			if (ignored.contains(mapping.name)) {
 //				mapping.ignore();
 //				continue;
 //			}
-//			
+//
 //			if (mapping.type == GameRegistry.Type.ITEM) {
 //				Item item = remapped_items.get(mapping.name);
 //				if (item != null) {

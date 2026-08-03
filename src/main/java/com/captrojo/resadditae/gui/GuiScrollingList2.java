@@ -101,6 +101,17 @@ public abstract class GuiScrollingList2
 		return p_27256_1_ >= var3 && p_27256_1_ <= var4 && var6 >= 0 && var5 >= 0 && var6 < this.getSize() ? var6 : -1;
 	}
 	
+	public boolean checkMousePos(int left, int right, int top, int bottom)
+	{
+		if (this.mouse_x < left || this.mouse_x > right) {
+			return false;
+		}
+		if (this.mouse_y < top || this.mouse_y > bottom) {
+			return false;
+		}
+		return true;
+	}
+	
 	protected int getContentHeight()
 	{
 		return this.getSize() * this.element_height + this.field_27261_r;

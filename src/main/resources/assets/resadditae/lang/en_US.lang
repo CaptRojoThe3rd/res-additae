@@ -11,8 +11,14 @@ achievement.mana_increased.desc=Consume a mana vessel to increase your maximum m
 achievement.mana_maxed=Hogwarts Graduate
 achievement.mana_maxed.desc=Reach the maximum amount of mana
 
-alert.not_enough_mana=Not enough mana!
-alert.no_entities_nearby=No entities nearby!
+alert.not_enough_mana=§cNot enough mana!
+alert.on_cooldown=§cSpell is on cooldown!
+alert.no_target=§cYou aren't targeting anything!
+alert.health_already_full=§cYour health is already at maximum!
+
+alert.lifesteal_used=§7Drained §b%f§7 hearts from §6%s§7
+
+alert.spell_prof_lvl_up=§b%s§7 proficiency leveled up!
 
 commands.fill.usage=Usage: /fill <x1> <y1> <z1> <x2> <y2> <z2> <block> [<meta>] [replace <block> [<meta>]] [update]
 
@@ -115,6 +121,16 @@ gui.charm_settings.hurt_entities=Charms hurt mobs
 gui.charm_settings.tamed_mob_behavior=Tamed mob behavior
 gui.charm_settings.tamed_mob_info.all=Animals tamed by anyone will never be hurt and will always be helped.
 gui.charm_settings.tamed_mob_info.yours=Animals tamed only by you will never be hurt and will always be helped.
+
+gui.spell_list.proficiency=Proficiency
+gui.spell_list.lvl=Lv. %d
+
+gui.spell_menu.mana=Mana
+gui.spell_menu.skill=Skill
+gui.spell_menu.lvl=Lv. %d
+gui.spell_menu.lvl_max=MAX
+gui.spell_menu.view_spells=View Spells
+gui.spell_menu.lvlup=Level Up!
 
 gui.stonecutter.title=Stonecutter
 

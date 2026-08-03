@@ -1,8 +1,8 @@
 package com.captrojo.resadditae.packet.toserver;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.SpellTargetData;
-import com.captrojo.resadditae.magic.spell.Spell;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -70,8 +70,7 @@ public class PacketUseSpell implements IMessage
 			RAPlayerProperties rpp = RAPlayerProperties.get(player);
 			rpp.spell_target = packet.target;
 			
-			Spell spell = rpp.spell_slots[packet.slot];
-			if (spell == null) {
+			if (rpp.spell_slots[packet.slot] == null) {
 				return null;
 			}
 			

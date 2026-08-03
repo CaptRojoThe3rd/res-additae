@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
-import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.SimpleCoords;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 
 public class WorldGenCavern extends WorldGenMinable
 {
+	private final Block air;
 	private final BlockMeta replace;
 	private final int size;
 	
@@ -21,9 +22,10 @@ public class WorldGenCavern extends WorldGenMinable
 	public SimpleCoords min_pos;
 	public SimpleCoords max_pos;
 	
-	public WorldGenCavern(int size, BlockMeta replace)
+	public WorldGenCavern(int size, Block air, BlockMeta replace)
 	{
-		super(Blocks.air, size);
+		super(air, size);
+		this.air = air;
 		this.replace = replace;
 		this.size = size;
 	}
@@ -75,7 +77,7 @@ public class WorldGenCavern extends WorldGenMinable
 								double d14 = ((double) z1 + 0.5 - d8) / (d10 / 2.0);
 
 								if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0 && world.getBlock(x1, y1, z1).isReplaceableOreGen(world, x1, y1, z1, this.replace.block)) {
-									world.setBlock(x1, y1, z1, Blocks.air, 0, 2);
+									world.setBlock(x1, y1, z1, this.air, 0, 2);
 									this.coords.add(new SimpleCoords(x1, y1, z1));
 									this.updatePos(x1, y1, z1);
 								}

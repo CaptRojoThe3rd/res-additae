@@ -77,6 +77,14 @@ public class ContainerSpellMenu extends Container implements IHasSelectionInput
 	}
 	
 	@Override
+	public ItemStack slotClick(int p_75144_1_, int p_75144_2_, int p_75144_3_, EntityPlayer player)
+	{
+		ItemStack ret = super.slotClick(p_75144_1_, p_75144_2_, p_75144_3_, player);
+		this.rpp.onWandChanged(this.wand_inv.getStackInSlot(0));
+		return ret;
+	}
+	
+	@Override
 	public void onContainerClosed(EntityPlayer player)
 	{
 		if (player.worldObj.isRemote) {
@@ -88,7 +96,13 @@ public class ContainerSpellMenu extends Container implements IHasSelectionInput
 	@Override
 	public void makeSelection(int idx, int val)
 	{
-		Spell spell = Spells.getByID(val);
-		this.rpp.spell_slots[idx] = spell;
+		if (idx >= 0) {
+			Spell spell = Spells.getByID(val);
+			this.rpp.spell_slots[idx] = this.rpp.getLearnedFromSpell(spell);
+		} else if (idx == -2) {
+			this.rpp.manaLvlUp();
+		} else if (idx == -3) {
+			this.rpp.magicSkillLvlUp();
+		}
 	}
 }

@@ -5,7 +5,7 @@ import org.lwjgl.input.Keyboard;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.GuiHandler;
 import com.captrojo.resadditae.item.IItemWithSettings;
-import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction.Action;
 import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
@@ -14,15 +14,12 @@ import com.captrojo.resadditae.packet.toserver.PacketUseSpell.UseType;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
-import cpw.mods.fml.common.gameevent.InputEvent.MouseInputEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 /* Dedicated event handler for keyboard/mouse input. */
 public class InputEventHandler
@@ -81,8 +78,7 @@ public class InputEventHandler
 	{
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		Spell spell = rpp.spell_slots[idx];
-		if (spell == null) {
+		if (rpp.spell_slots[idx] == null) {
 			return;
 		}
 		
@@ -91,18 +87,10 @@ public class InputEventHandler
 				ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.DEACTIVATE));
 				rpp.deactivateSpellClient();
 			} else {
-				if (!spell.canCastSpell(rpp)) {
-					ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.DEACTIVATE));
-					rpp.deactivateSpellClient();
-					return;
-				}
 				ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.ACTIVATE_OTHER, idx));
 				rpp.activateSpellClient(idx);
 			}
 		} else {
-			if (!spell.canCastSpell(rpp)) {
-				return;
-			}
 			ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.ACTIVATE, idx));
 			rpp.activateSpellClient(idx);
 		}

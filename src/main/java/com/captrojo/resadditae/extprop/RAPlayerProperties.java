@@ -8,6 +8,7 @@ import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.SpellTargetData;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
+import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.main.SerialHlpr;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
@@ -29,6 +30,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 {
 	public static final String KEY = "RAPlayerProperties";
 	
+	public static final int MANA_LVL_MAX = 20;
+	public static final int MAGIC_SKILL_LVL_MAX = 100;
+	
 	public static RAPlayerProperties get(EntityPlayer player)
 	{
 		RAPlayerProperties rpp = (RAPlayerProperties) player.getExtendedProperties(KEY);
@@ -38,6 +42,19 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			player.registerExtendedProperties(KEY, rpp);
 		}
 		return rpp;
+	}
+	
+	public static void reset(EntityPlayer player)
+	{
+		RAPlayerProperties rpp = (RAPlayerProperties) player.getExtendedProperties(KEY);
+		if (rpp == null) {
+			rpp = new RAPlayerProperties(player);
+			rpp.reset();
+			player.registerExtendedProperties(KEY, rpp);
+		}
+		NBTTagCompound nbt = new NBTTagCompound();
+		(new RAPlayerProperties(player)).saveNBTData(nbt);
+		rpp.loadNBTData(nbt);
 	}
 	
 	public static void transfer(EntityPlayer old_player, EntityPlayer new_player)
@@ -73,9 +90,11 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public int magic_skill_level;
 	public ArrayList<LearnedSpell> learned_spells;
 	
-	public Spell[] spell_slots;
+	public LearnedSpell[] spell_slots;
 	public int spell_in_use;
 	public int spell_use_time;
+	public int[] spell_cooldowns;
+	public int[] spell_cooldown_starts;
 	public SpellTargetData spell_target;
 	
 	public ItemStack wand_item;
@@ -86,8 +105,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.periodic_update_counter = 0;
 		
 		this.learned_spells = new ArrayList<LearnedSpell>();
-		this.spell_slots = new Spell[6];
+		this.spell_slots = new LearnedSpell[6];
 		this.spell_in_use = -1;
+		this.spell_cooldowns = new int[6];
+		this.spell_cooldown_starts = new int[6];
 		this.spell_target = new SpellTargetData();
 	}
 	
@@ -99,7 +120,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.allow_charm_harming_entities = true;
 		this.charm_tamed_mob_behavior = 0;
 		
-		this.mana_level = 1; /* TODO: this is for debug purposes, remove this later */
+		this.mana_level = 1;
+		this.magic_skill_level = 1;
 		this.mana = 0;
 		
 		this.load();
@@ -131,12 +153,19 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			updated = true;
 		}
 		
+		for (int i = 0; i < 6; i++) {
+			if (this.spell_cooldowns[i] > 0) {
+				this.spell_cooldowns[i]--;
+				updated = true;
+			}
+		}
+		
 		if (this.spell_in_use < 0 && this.spell_use_time > 0) {
 			this.resetSpellUseTime();
 			updated = true;
 		} else if (this.spell_in_use > 0) {
 			this.spell_use_time++;
-			Spell spell = this.getSpellInUse();
+			Spell spell = this.getSpellInUse().spell;
 			spell.tickWhileActive(this.player.worldObj, this.player, this);
 			if (spell.max_use_time < this.spell_use_time) {
 				this.deactivateSpell();
@@ -154,7 +183,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public void tickClient()
 	{
 		if (this.isSpellInUse()) {
-			this.getSpellInUse().tickWhileActiveClient(this.player.worldObj, this.player, this);
+			this.getSpellInUse().spell.tickWhileActiveClient(this.player.worldObj, this.player, this);
 		}
 	}
 	
@@ -197,6 +226,43 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		return ModItems.magic_wand.getWandPower(this.wand_item.getItemDamage());
 	}
 	
+	public int getManaLvlXPReq()
+	{
+		return 20 + (this.mana_level * 10);
+	}
+	
+	public float getManaLvlXPProg()
+	{
+		float prog = (float) this.player.experienceLevel / (float) this.getManaLvlXPReq();
+		return Math.min(prog, 1.0f);
+	}
+	
+	public void manaLvlUp()
+	{
+		this.player.addExperienceLevel(-this.getManaLvlXPReq());
+		this.mana_level++;
+		this.mana_max = this.mana_level * 100;
+		this.scheduleUpdate();
+	}
+	
+	public int getMagicSkillLvlXPReq()
+	{
+		return this.magic_skill_level * 5;
+	}
+	
+	public float getMagicSkillLvlXPProg()
+	{
+		float prog = (float) this.player.experienceLevel / (float) this.getMagicSkillLvlXPReq();
+		return Math.min(prog, 1.0f);
+	}
+	
+	public void magicSkillLvlUp()
+	{
+		this.player.addExperienceLevel(-this.getMagicSkillLvlXPReq());
+		this.magic_skill_level++;
+		this.scheduleUpdate();
+	}
+	
 	/* Get a learned spell from a provided spell */
 	public LearnedSpell getLearnedFromSpell(Spell spell)
 	{
@@ -213,7 +279,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		return (this.spell_in_use >= 0 && this.spell_in_use < this.spell_slots.length);
 	}
 	
-	public Spell getSpellInUse()
+	public LearnedSpell getSpellInUse()
 	{
 		return this.isSpellInUse() ? this.spell_slots[this.spell_in_use] : null;
 	}
@@ -229,9 +295,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (idx < 0 || idx >= this.spell_slots.length) {
 			return;
 		}
-		Spell spell = this.spell_slots[idx];
+		Spell spell = this.spell_slots[idx].spell;
 
-		if (!spell.canCastSpell(this)) {
+		if (!spell.isManaRequirementMet(this.mana) || this.isSpellOnCooldown()) {
 			return;
 		}
 		this.spell_in_use = idx;
@@ -251,7 +317,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (!this.isSpellInUse()) {
 			return;
 		}
-		this.getSpellInUse().onTriggered(this.player.worldObj, this.player, this);
+		if (this.isSpellOnCooldown()) {
+			return;
+		}
+		this.getSpellInUse().spell.onTriggered(this.player.worldObj, this.player, this);
 	}
 	
 	public void deactivateSpell()
@@ -259,7 +328,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (!this.isSpellInUse()) {
 			return;
 		}
-		this.getSpellInUse().onDeactivated(this.player.worldObj, this.player, this);
+		this.getSpellInUse().spell.onDeactivated(this.player.worldObj, this.player, this);
 		this.spell_in_use = -1;
 		this.spell_use_time = 0;
 	}
@@ -270,9 +339,14 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (idx < 0 || idx >= this.spell_slots.length) {
 			return;
 		}
-		Spell spell = this.spell_slots[idx];
+		Spell spell = this.spell_slots[idx].spell;
 
-		if (!spell.canCastSpell(this)) {
+		if (!spell.isManaRequirementMet(this.mana)) {
+			Alerts.display(Alerts.NOT_ENOUGH_MANA);
+			return;
+		}
+		if (this.isSpellOnCooldown()) {
+			Alerts.display(Alerts.ON_COOLDOWN);
 			return;
 		}
 		this.spell_in_use = idx;
@@ -292,7 +366,11 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (!this.isSpellInUse()) {
 			return;
 		}
-		this.getSpellInUse().onTriggeredClient(this.player.worldObj, this.player, this);
+		if (this.isSpellOnCooldown()) {
+			Alerts.display(Alerts.ON_COOLDOWN);
+			return;
+		}
+		this.getSpellInUse().spell.onTriggeredClient(this.player.worldObj, this.player, this);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -301,15 +379,25 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (!this.isSpellInUse()) {
 			return;
 		}
-		this.getSpellInUse().onDeactivatedClient(this.player.worldObj, this.player, this);
+		this.getSpellInUse().spell.onDeactivatedClient(this.player.worldObj, this.player, this);
 		this.spell_in_use = -1;
 	}
 	
-	public void onSpellUsed()
+	public boolean isSpellOnCooldown()
 	{
-		LearnedSpell ls = this.getLearnedFromSpell(this.spell_slots[this.spell_in_use]);
+		if (this.spell_in_use < 0 || this.spell_in_use >= this.spell_cooldowns.length) {
+			return false;
+		}
+		return this.spell_cooldowns[this.spell_in_use] > 0;
+	}
+	
+	public void onSpellUsed(int cooldown)
+	{
+		LearnedSpell ls = this.getSpellInUse();
 		if (ls != null) {
-			ls.onSpellUsed();
+			ls.onSpellUsed(this);
+			this.spell_cooldowns[this.spell_in_use] = cooldown;
+			this.spell_cooldown_starts[this.spell_in_use] = cooldown;
 		}
 		this.scheduleUpdate();
 	}
@@ -322,11 +410,11 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			wand_pwr = ModItems.magic_wand.getWandPower(wand_stack.getItemDamage());
 		}
 		for (int i = 0; i < this.spell_slots.length; i++) {
-			Spell spell = this.spell_slots[i];
-			if (spell == null) {
+			LearnedSpell ls = this.spell_slots[i];
+			if (ls == null) {
 				continue;
 			}
-			if (!spell.isComplexityRequirementMet(wand_pwr)) {
+			if (!ls.spell.isComplexityRequirementMet(wand_pwr)) {
 				this.spell_slots[i] = null;
 			}
 		}
@@ -362,7 +450,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		}
 		
 		for (int i = 0; i < this.spell_slots.length; i++) {
-			buf.writeInt((this.spell_slots[i] == null) ? -1 : this.spell_slots[i].getID());
+			buf.writeInt((this.spell_slots[i] == null) ? -1 : this.spell_slots[i].spell.getID());
+			buf.writeShort(this.spell_cooldowns[i]);
+			buf.writeShort(this.spell_cooldown_starts[i]);
 		}
 		buf.writeByte(this.spell_in_use);
 		
@@ -398,7 +488,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		}
 		
 		for (int i = 0; i < this.spell_slots.length; i++) {
-			this.spell_slots[i] = Spells.getByID(buf.readInt());
+			this.spell_slots[i] = this.getLearnedFromSpell(Spells.getByID(buf.readInt()));
+			this.spell_cooldowns[i] = buf.readShort();
+			this.spell_cooldown_starts[i] = buf.readShort();
 		}
 		this.spell_in_use = buf.readByte();
 		
@@ -435,11 +527,17 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		}
 		nbt.setTag("learned_spells", list);
 		
-		int[] iarr = new int[this.spell_slots.length];
+		int[] iarr1 = new int[this.spell_slots.length];
+		int[] iarr2 = new int[this.spell_cooldowns.length];
+		int[] iarr3 = new int[this.spell_cooldown_starts.length];
 		for (int i = 0; i < this.spell_slots.length; i++) {
-			iarr[i] = (this.spell_slots[i] == null) ? -1 : this.spell_slots[i].getID();
+			iarr1[i] = (this.spell_slots[i] == null) ? -1 : this.spell_slots[i].spell.getID();
+			iarr2[i] = this.spell_cooldowns[i];
+			iarr3[i] = this.spell_cooldown_starts[i];
 		}
-		nbt.setIntArray("spell_slots", iarr);
+		nbt.setIntArray("spell_slots", iarr1);
+		nbt.setIntArray("spell_cooldowns", iarr2);
+		nbt.setIntArray("spell_cooldown_starts", iarr3);
 		
 		if (this.wand_item != null) {
 			nbt.setTag("wand_item", this.wand_item.writeToNBT(new NBTTagCompound()));
@@ -475,10 +573,14 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			}
 		}
 		
-		int[] iarr = nbt.getIntArray("spell_slots");
-		if (iarr.length == this.spell_slots.length) {
+		int[] iarr1 = nbt.getIntArray("spell_slots");
+		int[] iarr2 = nbt.getIntArray("spell_cooldowns");
+		int[] iarr3 = nbt.getIntArray("spell_cooldown_starts");
+		if (iarr1.length == this.spell_slots.length) {
 			for (int i = 0; i < this.spell_slots.length; i++) {
-				this.spell_slots[i] = Spells.getByID(iarr[i]);
+				this.spell_slots[i] = this.getLearnedFromSpell(Spells.getByID(iarr1[i]));
+				this.spell_cooldowns[i] = iarr2[i];
+				this.spell_cooldown_starts[i] = iarr3[i];
 			}
 		}
 		

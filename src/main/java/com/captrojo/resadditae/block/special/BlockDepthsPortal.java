@@ -54,6 +54,8 @@ public class BlockDepthsPortal extends Block
 
 		this.setBlockName("depths_portal");
 		this.setBlockTextureName(ResAdditae.ident("depths/portal"));
+		
+		this.setBlockUnbreakable();
 	}
 
 	@Override

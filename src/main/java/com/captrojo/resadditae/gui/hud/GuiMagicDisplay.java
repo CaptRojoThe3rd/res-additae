@@ -8,6 +8,7 @@ import com.captrojo.complexhud.api.PositionInfoXY2;
 import com.captrojo.complexhud.api.PositionOperation;
 import com.captrojo.complexhud.api.PositionOrigin;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.main.InputEventHandler;
 import com.captrojo.resadditae.main.ResAdditae;
@@ -31,6 +32,11 @@ import net.minecraft.util.ResourceLocation;
 public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 {
 	static final ResourceLocation MOD_ICONS = ResAdditae.resource("textures/gui/icons.png");
+	
+	static final int U_COOLDN = 0;
+	static final int V_COOLDN = 0;
+	static final int W_COOLDN = 16;
+	static final int H_COOLDN = 16;
 	
 	static final int U_BAR_BG = 0;
 	static final int U_BAR_FG = 121;
@@ -64,6 +70,11 @@ public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 		this.mc.getTextureManager().bindTexture(MOD_ICONS);
 	}
 	
+	public int getSpellXOffs(int xl, int idx)
+	{
+		return xl + W_WAND + 1 + (idx * 17);
+	}
+	
 	public boolean shouldRender()
 	{
 		return this.should_render;
@@ -89,44 +100,68 @@ public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 		FontRenderer fr = this.mc.fontRenderer;
 		
 		RAPlayerProperties rpp = RAPlayerProperties.get(this.mc.thePlayer);
-		int bar_size = MathHelper.ceiling_float_int((float) rpp.mana / (float) rpp.mana_max * (float) W_BAR);
-
-		this.bindModIcons();
-		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_BG, V_BARS, W_BAR, H_BAR);
-		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_FG, V_BARS, bar_size, H_BAR);
 		
-		if (rpp.isSpellInUse()) {
-			int x = xl + W_WAND + 1 + (rpp.spell_in_use * 17);
-			int v = ((this.mc.ingameGUI.getUpdateCounter() & 0x2) == 0) ? V_ACT_LO : V_ACT_HI;
-			this.drawTexturedModalRect(x, yb - H_BAR - H_ACT, U_ACT, v, W_ACT, H_ACT);
-		}
-		
+		/* ITEM TEXTURE MAP */
 		if (rpp.wand_item != null) {
 			IIcon icon = rpp.wand_item.getIconIndex();
 			RenderHlpr.bindItemTextureMap(this.mc);
 			this.drawTexturedModelRectFromIcon(xl, yt, icon, 16, 16);
 		}
-
+		
+		/* SPELL TEXTURE MAP */
 		RenderHlpr.bindSpellTextureMap(this.mc);
 		for (int i = 0; i < rpp.spell_slots.length; i++) {
-			Spell spell = rpp.spell_slots[i];
-			if (spell == null) {
+			LearnedSpell ls = rpp.spell_slots[i];
+			if (ls == null) {
 				continue;
 			}
-			IIcon icon = spell.getIcon();
-			int x = xl + W_WAND + 1 + (i * 17);
+			IIcon icon = ls.spell.getIcon();
+			int x = this.getSpellXOffs(xl, i);
 			this.drawTexturedModelRectFromIcon(x, yt, icon, 16, 16);
 		}
 		
+		/* MOD ICONS TEXTURE */
+		this.bindModIcons();
+		int bar_offs = (rpp.mana_level - 1) * H_BAR;
+		int bar_size = MathHelper.ceiling_float_int((float) rpp.mana / (float) rpp.mana_max * (float) W_BAR);
+		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_BG, V_BARS + bar_offs, W_BAR, H_BAR);
+		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_FG, V_BARS + bar_offs, bar_size, H_BAR);
+		
+		if (rpp.isSpellInUse()) {
+			int x = this.getSpellXOffs(xl, rpp.spell_in_use);
+			int v = ((this.mc.ingameGUI.getUpdateCounter() & 0x2) == 0) ? V_ACT_LO : V_ACT_HI;
+			this.drawTexturedModalRect(x, yb - H_BAR - H_ACT, U_ACT, v, W_ACT, H_ACT);
+		}
+		
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.333f);
+		for (int i = 0; i < rpp.spell_cooldowns.length; i++) {
+			int cur = rpp.spell_cooldowns[i];
+			int max = rpp.spell_cooldown_starts[i];
+			if (cur == 0 || max == 0) {
+				continue;
+			}
+			
+			int anim_idx = 55 - ((56 * cur) / max);
+			int horz_idx = anim_idx % 14;
+			int vert_idx = anim_idx / 14;
+			
+			int x = this.getSpellXOffs(xl, i);
+			int u = U_COOLDN + (W_COOLDN * horz_idx);
+			int v = V_COOLDN + (H_COOLDN * vert_idx);
+			
+			this.drawTexturedModalRect(x, yt, u, v, W_COOLDN, H_COOLDN);
+		}
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		
+		/* FONT TEXTURES */
 		for (int i = 0; i < rpp.spell_slots.length; i++) {
-			Spell spell = rpp.spell_slots[i];
-			if (spell == null) {
+			if (rpp.spell_slots[i] == null) {
 				continue;
 			}
 			KeyBinding kb = InputEventHandler.spell_keys[i];
 			String str = InputEventHandler.getShortStringFor(kb);
 			int str_w = fr.getStringWidth(str);
-			int str_x = (xl + W_WAND + 1 + (i * 17)) + 17 - str_w;
+			int str_x = this.getSpellXOffs(xl, i) + 17 - str_w;
 			int str_y = yt + 10;
 			fr.drawString(str, str_x + 1, str_y, 0x000000);
 			fr.drawString(str, str_x - 1, str_y, 0x000000);
