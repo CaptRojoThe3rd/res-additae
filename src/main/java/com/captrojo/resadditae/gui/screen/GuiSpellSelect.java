@@ -9,6 +9,7 @@ import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction.Action;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 
@@ -48,7 +49,7 @@ public class GuiSpellSelect extends GuiScreen
 	{
 		this.mc.currentScreen = this.parent;
 	}
-
+	
 	@Override
 	public void initGui()
 	{

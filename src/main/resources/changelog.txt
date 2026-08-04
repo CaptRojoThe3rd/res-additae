@@ -3,6 +3,7 @@
 
 Addtions:
 * Lifesteal spell. Heals up to two hearts while damaging target by two hearts
+* Spellbooks. Used to learn spells
 
 Changes:
 * Chasms now generate completely underground when encountering an ocean or river (#11)
@@ -12,6 +13,9 @@ Fixes:
 * Unlocalized block names (#2)
 * Depths portal blocks can be mined (#13)
 * Fixed some programming errors that prevented the mod from being used on a server.
+
+Removals:
+* Luminous Dust
 
 
 ▓▓▓ #0005 ▓▓▓

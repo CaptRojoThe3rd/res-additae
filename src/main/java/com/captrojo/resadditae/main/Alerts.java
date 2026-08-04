@@ -18,16 +18,12 @@ public enum Alerts
 	
 	LIFESTEAL_USED("alert.lifesteal_used"),
 	
+	SPELL_LEARNED("alert.spell_learned"),
 	SPELL_PROF_LVLUP("alert.spell_prof_lvl_up");
 	
-	/* Send or display alert depending on the side. Don't do anything if side is null */
-	public static void alertOnSide(EntityPlayer player, Side side, Alerts alert, int...data)
+	public static void send(EntityPlayer player, Alerts alert, Object...data)
 	{
-		if (side == Side.CLIENT) {
-			display(alert, data);
-		} else if (side == Side.SERVER) {
-			ResAdditae.network.sendTo(new PacketDisplayAlert(alert, data), (EntityPlayerMP) player);
-		}
+		ResAdditae.network.sendTo(new PacketDisplayAlert(alert, data), (EntityPlayerMP) player);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -46,6 +42,7 @@ public enum Alerts
 			str = I18nHlpr.getf(alert.key, (float) data[1] / 2.0f, (String) data[2]);
 			break;
 			
+		case SPELL_LEARNED:
 		case SPELL_PROF_LVLUP:
 			str = I18nHlpr.getf(alert.key, Spells.getByID((int) data[0]).getLocalizedName());
 			break;

@@ -13,9 +13,9 @@ import com.captrojo.resadditae.item.equipment.ItemShovel;
 import com.captrojo.resadditae.item.equipment.ItemSword;
 import com.captrojo.resadditae.item.generic.ItemKey;
 import com.captrojo.resadditae.item.generic.ItemMulti;
-import com.captrojo.resadditae.item.generic.ItemMultiPotionIngredient;
 import com.captrojo.resadditae.item.generic.ItemVessel;
 import com.captrojo.resadditae.item.magic.ItemMagicWand;
+import com.captrojo.resadditae.item.magic.ItemSpellbook;
 import com.captrojo.resadditae.material.ArmorMaterials;
 import com.captrojo.resadditae.material.ExtendedToolMaterial;
 import com.captrojo.resadditae.material.ToolMaterials;
@@ -38,7 +38,6 @@ public class ModItems
 	public static Item raws;
 	public static Item gems;
 	
-	public static Item potion_ingredients;
 	public static Item dye;
 	public static Item shiny_rocks;
 	
@@ -115,6 +114,7 @@ public class ModItems
 	public static Item vessels;
 	
 	public static ItemMagicWand magic_wand;
+	public static ItemSpellbook spellbook;
 	
 	public static Item structure_wand;
 
@@ -129,7 +129,6 @@ public class ModItems
 		raws = new ItemMulti("raws", MultiItems.RAWS);
 		gems = new ItemMulti("gems", MultiItems.GEMS);
 		
-		potion_ingredients = new ItemMultiPotionIngredient("potion_ingredients", MultiItems.POTION_INGREDS);
 		dye = new ItemMulti("dye", new DyeItemData());
 		shiny_rocks = new ItemMulti("shiny_rocks", MultiItems.SHINY_ROCKS);
 		
@@ -210,6 +209,7 @@ public class ModItems
 		vessels = new ItemVessel();
 		
 		magic_wand = new ItemMagicWand();
+		spellbook = new ItemSpellbook();
 		
 		structure_wand = new ItemStructureWand();
 	}
@@ -225,7 +225,6 @@ public class ModItems
 		GameRegistry.registerItem(raws, raws.getUnlocalizedName());
 		GameRegistry.registerItem(gems, gems.getUnlocalizedName());
 		
-		GameRegistry.registerItem(potion_ingredients, potion_ingredients.getUnlocalizedName());
 		GameRegistry.registerItem(dye, dye.getUnlocalizedName());
 		GameRegistry.registerItem(shiny_rocks, shiny_rocks.getUnlocalizedName());
 		
@@ -306,6 +305,7 @@ public class ModItems
 		GameRegistry.registerItem(vessels, vessels.getUnlocalizedName());
 		
 		GameRegistry.registerItem(magic_wand, magic_wand.getUnlocalizedName());
+		GameRegistry.registerItem(spellbook, spellbook.getUnlocalizedName());
 		
 		GameRegistry.registerItem(structure_wand, structure_wand.getUnlocalizedName());
 	}

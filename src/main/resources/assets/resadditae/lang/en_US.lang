@@ -18,6 +18,7 @@ alert.health_already_full=§cYour health is already at maximum!
 
 alert.lifesteal_used=§7Drained §b%f§7 hearts from §6%s§7
 
+alert.spell_learned=§7You learned the §b%s§7 spell!
 alert.spell_prof_lvl_up=§b%s§7 proficiency leveled up!
 
 commands.fill.usage=Usage: /fill <x1> <y1> <z1> <x2> <y2> <z2> <block> [<meta>] [replace <block> [<meta>]] [update]
@@ -121,6 +122,27 @@ gui.charm_settings.hurt_entities=Charms hurt mobs
 gui.charm_settings.tamed_mob_behavior=Tamed mob behavior
 gui.charm_settings.tamed_mob_info.all=Animals tamed by anyone will never be hurt and will always be helped.
 gui.charm_settings.tamed_mob_info.yours=Animals tamed only by you will never be hurt and will always be helped.
+
+gui.spellbook.title.beginner=§f§n%s
+gui.spellbook.title.basic=§e§n%s
+gui.spellbook.title.intermediate=§2§n%s
+gui.spellbook.title.advanced=§3§n%s
+gui.spellbook.title.expert=§c§n%s
+gui.spellbook.title.godlike=§5§n%s
+gui.spellbook.wand_power=Wand Power Requirement
+gui.spellbook.wand_power.beginner=Beginner
+gui.spellbook.wand_power.basic=Basic
+gui.spellbook.wand_power.intermediate=Intermediate
+gui.spellbook.wand_power.advanced=Advanced
+gui.spellbook.wand_power.expert=Expert
+gui.spellbook.wand_power.godlike=Godlike
+gui.spellbook.skill_req=Skill Requirement
+gui.spellbook.mana_req=Mana Requirement
+gui.spellbook.learn_spell=Learn Spell
+gui.spellbook.learned_msg_1a=You've learned this spell.
+gui.spellbook.learned_msg_1b=You've already learned this spell.
+gui.spellbook.learned_msg_2=Do you protect this book and share its teachings with others, or do you burn it and keep its knowledge for yourself?
+gui.spellbook.lvl=Lv. %d
 
 gui.spell_list.proficiency=Proficiency
 gui.spell_list.lvl=Lv. %d
@@ -359,14 +381,13 @@ item.magic_wand.core.blaze=§6Blaze Rod
 
 item.magic_wand.power=§7Wand Power: %s
 item.magic_wand.power.beginner=§fBeginner
-item.magic_wand.power.basic=§cBasic
+item.magic_wand.power.basic=§eBasic
 item.magic_wand.power.intermediate=§2Intermediate
 item.magic_wand.power.advanced=§3Advanced
-item.magic_wand.power.expert=§bExpert
+item.magic_wand.power.expert=§cExpert
 item.magic_wand.power.godlike=§5Godlike
 
-item.mana_potion.name=Mana Potion
-item.mana_potion.effect=+%d Mana
+item.spellbook.name=Spellbook
 
 item.structure_wand.save.name=Structure Wand (Save)
 item.structure_wand.save.chat.firstpos=Set first pos to (%d, %d, %d)
@@ -390,6 +411,7 @@ item.structure_wand.loot.desc.pos=§7Pos: (%d, %d, %d)
 item.structure_wand.loot.desc.idx=§7Idx: %d
 
 spell.arrowsplosion.name=Arrowsplosion
+spell.arrowsplosion.book=Summons a sphere of arrows around you, dealing high damage to nearby mobs.
 spell.lifesteal.name=Lifesteal
 
 tile.bountiful_stones.andesite.name=Andesite

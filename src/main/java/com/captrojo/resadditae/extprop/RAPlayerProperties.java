@@ -46,12 +46,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	
 	public static void reset(EntityPlayer player)
 	{
-		RAPlayerProperties rpp = (RAPlayerProperties) player.getExtendedProperties(KEY);
-		if (rpp == null) {
-			rpp = new RAPlayerProperties(player);
-			rpp.reset();
-			player.registerExtendedProperties(KEY, rpp);
-		}
+		RAPlayerProperties rpp = get(player);
 		NBTTagCompound nbt = new NBTTagCompound();
 		(new RAPlayerProperties(player)).saveNBTData(nbt);
 		rpp.loadNBTData(nbt);
@@ -110,6 +105,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.spell_cooldowns = new int[6];
 		this.spell_cooldown_starts = new int[6];
 		this.spell_target = new SpellTargetData();
+		
+		this.reset();
 	}
 	
 	public void reset()
@@ -272,6 +269,18 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			}
 		}
 		return null;
+	}
+	
+	public boolean hasLearnedSpell(Spell spell)
+	{
+		return this.getLearnedFromSpell(spell) != null;
+	}
+	
+	public void learnNewSpell(Spell spell)
+	{
+		if (spell != null) {
+			this.learned_spells.add(new LearnedSpell(spell));
+		}
 	}
 	
 	public boolean isSpellInUse()

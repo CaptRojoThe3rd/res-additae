@@ -72,8 +72,7 @@ public class CommandRADebug extends CommandBase
 			RAPlayerProperties rpp = RAPlayerProperties.get(player);
 			rpp.learned_spells.clear();
 			for (Spell spell : Spells.SPELL_LIST) {
-				LearnedSpell ls = new LearnedSpell(spell);
-				rpp.learned_spells.add(ls);
+				rpp.learnNewSpell(spell);
 			}
 			sender.addChatMessage(I18nHlpr.chatf("commands.radebug.learn-all-spells.done", player.getCommandSenderName()));
 			return;

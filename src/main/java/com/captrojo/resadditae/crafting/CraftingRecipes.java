@@ -260,9 +260,6 @@ public class CraftingRecipes
 			addShaped(new ItemStack(PRIS_STAIR_B[m >> 1], 8, (m & 0x1) << 3), "  a", " aa", "aaa", 'a', new ItemStack(ModBlocks.prismarine_1, 1, m));
 		}
 		
-		/* Potion Ingredients */
-		addShapeless(new ItemStack(ModItems.potion_ingredients, 1, 0), new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), Items.glowstone_dust);
-		
 		/* Dye */
 		addShapeless(Dyes.CHARCOAL.stack(1), new ItemStack(Items.coal, 1, 1));
 		addShapeless(Dyes.SHADOW_GRAY.stack(2), Dyes.CHARCOAL.stack(1), "dyeGray");
@@ -461,14 +458,14 @@ public class CraftingRecipes
 		/* Utility */
 		addShaped(new ItemStack(ModBlocks.stonecutter), "aa", "aa", 'a', "cobblestone");
 		
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x10));
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x11));
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x12));
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x13));
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x14));
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x15));
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x16));
-		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(ModItems.potion_ingredients, 1, 0), 'b', new ItemStack(ModItems.keys, 1, 0x17));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x10));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x11));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x12));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x13));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x14));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x15));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x16));
+		addShaped(new ItemStack(ModItems.keys, 2, 0x1f), " a ", "aba", " a ", 'a', new ItemStack(Items.dye, 1, Dyes.M_BLUE_LAPIS), 'b', new ItemStack(ModItems.keys, 1, 0x17));
 	}
 	
 	private static void addVanillaColoredSlabsStairs(Block[] slabs, Block[] stairs, Block block)

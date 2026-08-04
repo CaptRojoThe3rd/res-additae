@@ -54,7 +54,6 @@ public class TabMaterials
 			tab.add(ModBlocks.gem_piles_a, m);
 		}
 		
-		tab.add(ModItems.potion_ingredients, MultiItems.POTION_INGREDS.getValidMetas());
 		tab.add(ModItems.dye, MultiItems.DYE.getValidMetas());
 		tab.add(ModItems.shiny_rocks, MultiItems.SHINY_ROCKS.getValidMetas());
 	}

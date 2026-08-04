@@ -33,6 +33,7 @@ import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
 import com.captrojo.resadditae.packet.toclient.PacketSetFlightSpeed;
 import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
+import com.captrojo.resadditae.packet.toserver.PacketLearnSpell;
 import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
 import com.captrojo.resadditae.packet.toserver.PacketPlayerSettings;
 import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
@@ -55,10 +56,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockTrapDoor;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor;
@@ -239,6 +237,7 @@ public class ResAdditae
 		network.registerMessage(PacketPlayerSettings.HandlerServer.class, PacketPlayerSettings.class, 0x81, Side.SERVER);
 		network.registerMessage(PacketUseSpell.HandlerServer.class, PacketUseSpell.class, 0x82, Side.SERVER);
 		network.registerMessage(PacketGuiContainerAction.HandlerServer.class, PacketGuiContainerAction.class, 0x83, Side.SERVER);
+		network.registerMessage(PacketLearnSpell.HandlerServer.class, PacketLearnSpell.class, 0x84, Side.SERVER);
 	}
 	
 	@EventHandler

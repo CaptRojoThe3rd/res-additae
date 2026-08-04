@@ -26,10 +26,6 @@ public enum MultiItems implements IMultiItemData
 		0, "ancient_gem", "ancient_gem/ancient_gem"
 	),
 	
-	POTION_INGREDS(
-		0, "luminous_dust", "luminous_dust"
-	),
-	
 	DYE(
 		0x00, "jet_black", "dye/0/jet_black",
 		0x01, "charcoal", "dye/0/charcoal",

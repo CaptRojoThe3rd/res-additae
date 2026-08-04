@@ -27,7 +27,14 @@ public class RenderHlpr
 	
 	public static void bindTexture(Minecraft mc, ResourceLocation resource)
 	{
+		bindTexture(mc, resource, 256, 256);
+	}
+	
+	public static void bindTexture(Minecraft mc, ResourceLocation resource, int w, int h)
+	{
 		mc.renderEngine.bindTexture(resource);
+		px_div_w = 1d / (double) w;
+		px_div_h = 1d / (double) h;
 	}
 	
 	public static void bindModIcons(Minecraft mc)
@@ -47,6 +54,8 @@ public class RenderHlpr
 	public static void bindVanillaParticles(Minecraft mc)
 	{
 		bindTexture(mc, EffectRenderer.particleTextures);
+		px_div_w = (1d / 128d);
+		px_div_h = (1d / 128d);
 	}
 	
 	public static void bindItemTextureMap(Minecraft mc)
