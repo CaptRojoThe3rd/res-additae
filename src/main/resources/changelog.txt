@@ -4,6 +4,7 @@
 Addtions:
 * Lifesteal spell. Heals up to two hearts while damaging target by two hearts
 * Spellbooks. Used to learn spells
+* Functional mana and magic skill leveling
 
 Changes:
 * Chasms now generate completely underground when encountering an ocean or river (#11)

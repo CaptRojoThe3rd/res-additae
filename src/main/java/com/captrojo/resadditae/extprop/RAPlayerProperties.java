@@ -162,9 +162,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			updated = true;
 		} else if (this.spell_in_use > 0) {
 			this.spell_use_time++;
-			Spell spell = this.getSpellInUse().spell;
-			spell.tickWhileActive(this.player.worldObj, this.player, this);
-			if (spell.max_use_time < this.spell_use_time) {
+			LearnedSpell ls = this.getSpellInUse();
+			ls.spell.tickWhileActive(this.player.worldObj, this.player, this, ls);
+			if (ls.spell.max_use_time < this.spell_use_time) {
 				this.deactivateSpell();
 			}
 			updated = true;
@@ -180,7 +180,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public void tickClient()
 	{
 		if (this.isSpellInUse()) {
-			this.getSpellInUse().spell.tickWhileActiveClient(this.player.worldObj, this.player, this);
+			LearnedSpell ls = this.getSpellInUse();
+			ls.spell.tickWhileActiveClient(this.player.worldObj, this.player, this, ls);
 		}
 	}
 	
@@ -220,7 +221,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (this.wand_item == null) {
 			return null;
 		}
-		return ModItems.magic_wand.getWandPower(this.wand_item.getItemDamage());
+		return ModItems.magic_wand.getWandLevel(this.wand_item.getItemDamage());
 	}
 	
 	public int getManaLvlXPReq()
@@ -304,9 +305,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (idx < 0 || idx >= this.spell_slots.length) {
 			return;
 		}
-		Spell spell = this.spell_slots[idx].spell;
+		LearnedSpell ls = this.spell_slots[idx];
+		Spell spell = ls.spell;
 
-		if (!spell.isManaRequirementMet(this.mana) || this.isSpellOnCooldown()) {
+		if (!spell.isManaRequirementMet(this, ls) || this.isSpellOnCooldown()) {
 			return;
 		}
 		this.spell_in_use = idx;
@@ -317,7 +319,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			return;
 		}
 		
-		spell.onActivated(this.player.worldObj, this.player, this);
+		spell.onActivated(this.player.worldObj, this.player, this, this.spell_slots[idx]);
 		this.scheduleUpdate();
 	}
 	
@@ -329,7 +331,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (this.isSpellOnCooldown()) {
 			return;
 		}
-		this.getSpellInUse().spell.onTriggered(this.player.worldObj, this.player, this);
+		LearnedSpell ls = this.getSpellInUse();
+		ls.spell.onTriggered(this.player.worldObj, this.player, this, ls);
 	}
 	
 	public void deactivateSpell()
@@ -337,7 +340,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (!this.isSpellInUse()) {
 			return;
 		}
-		this.getSpellInUse().spell.onDeactivated(this.player.worldObj, this.player, this);
+		LearnedSpell ls = this.getSpellInUse();
+		ls.spell.onDeactivated(this.player.worldObj, this.player, this, ls);
 		this.spell_in_use = -1;
 		this.spell_use_time = 0;
 	}
@@ -348,9 +352,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (idx < 0 || idx >= this.spell_slots.length) {
 			return;
 		}
-		Spell spell = this.spell_slots[idx].spell;
+		LearnedSpell ls = this.spell_slots[idx];
+		Spell spell = ls.spell;
 
-		if (!spell.isManaRequirementMet(this.mana)) {
+		if (!spell.isManaRequirementMet(this, ls)) {
 			Alerts.display(Alerts.NOT_ENOUGH_MANA);
 			return;
 		}
@@ -366,7 +371,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			return;
 		}
 		
-		spell.onActivatedClient(this.player.worldObj, this.player, this);
+		spell.onActivatedClient(this.player.worldObj, this.player, this, ls);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -379,7 +384,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			Alerts.display(Alerts.ON_COOLDOWN);
 			return;
 		}
-		this.getSpellInUse().spell.onTriggeredClient(this.player.worldObj, this.player, this);
+		LearnedSpell ls = this.getSpellInUse();
+		ls.spell.onTriggeredClient(this.player.worldObj, this.player, this, ls);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -388,7 +394,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		if (!this.isSpellInUse()) {
 			return;
 		}
-		this.getSpellInUse().spell.onDeactivatedClient(this.player.worldObj, this.player, this);
+		LearnedSpell ls = this.getSpellInUse();
+		ls.spell.onDeactivatedClient(this.player.worldObj, this.player, this, ls);
 		this.spell_in_use = -1;
 	}
 	
@@ -416,14 +423,14 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.wand_item = wand_stack;
 		MagicComplexity wand_pwr = null;
 		if (this.wand_item != null) {
-			wand_pwr = ModItems.magic_wand.getWandPower(wand_stack.getItemDamage());
+			wand_pwr = ModItems.magic_wand.getWandLevel(wand_stack.getItemDamage());
 		}
 		for (int i = 0; i < this.spell_slots.length; i++) {
 			LearnedSpell ls = this.spell_slots[i];
 			if (ls == null) {
 				continue;
 			}
-			if (!ls.spell.isComplexityRequirementMet(wand_pwr)) {
+			if (!ls.spell.isPowerRequirementMet(wand_pwr)) {
 				this.spell_slots[i] = null;
 			}
 		}

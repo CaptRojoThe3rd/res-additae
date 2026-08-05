@@ -9,6 +9,8 @@ public enum MagicComplexity
 	EXPERT("expert"),
 	GODLIKE("godlike");
 	
+	public static final MagicComplexity _MAX = GODLIKE;
+	
 	public final String name;
 	
 	private MagicComplexity(String name)

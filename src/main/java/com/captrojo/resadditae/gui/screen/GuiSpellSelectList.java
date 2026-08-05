@@ -2,12 +2,11 @@ package com.captrojo.resadditae.gui.screen;
 
 import java.util.ArrayList;
 
-import com.captrojo.complexhud.main.I18nHlpr;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.GuiScrollingList2;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
-import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.render.RenderHlpr;
 
 import net.minecraft.client.Minecraft;
@@ -27,7 +26,7 @@ public class GuiSpellSelectList extends GuiScrollingList2
 	GuiSpellSelect gui;
 	ArrayList<LearnedSpell> spell_list;
 	
-	public GuiSpellSelectList(RAPlayerProperties rpp, GuiSpellSelect gui, int x, int y)
+	public GuiSpellSelectList(RAPlayerProperties rpp, GuiSpellSelect gui, int x, int y, MagicComplexity level)
 	{
 		super(Minecraft.getMinecraft(), 252, 184, y + 4, y + 188, x, 20);
 		this.draw_list_background = false;
@@ -37,9 +36,8 @@ public class GuiSpellSelectList extends GuiScrollingList2
 		this.gui = gui;
 		
 		this.spell_list = new ArrayList<LearnedSpell>();
-		MagicComplexity wand_power = rpp.getWandPower();
 		for (LearnedSpell ls : rpp.learned_spells) {
-			if (ls.spell.isComplexityRequirementMet(wand_power)) {
+			if (ls.spell.isPowerRequirementMet(level)) {
 				this.spell_list.add(ls);
 			}
 		}

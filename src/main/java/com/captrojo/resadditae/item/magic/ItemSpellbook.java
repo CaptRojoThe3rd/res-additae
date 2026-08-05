@@ -53,10 +53,18 @@ public class ItemSpellbook extends Item
 		this.setMaxStackSize(1);
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public void displayGui(ItemStack stack, EntityPlayer player)
+	{
+		Minecraft.getMinecraft().displayGuiScreen(new GuiSpellbook(stack, player));
+	}
+	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		Minecraft.getMinecraft().displayGuiScreen(new GuiSpellbook(stack, player));
+		if (world.isRemote) {
+			this.displayGui(stack, player);
+		}
 		return stack;
 	}
 	

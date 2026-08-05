@@ -1,6 +1,7 @@
 package com.captrojo.resadditae.magic.spell;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.I18nHlpr;
@@ -25,11 +26,12 @@ public abstract class Spell
 	protected IIcon icon;
 	
 	public MagicComplexity complexity;
-	public int skill_requirement;
-	public int mana_requirement;
+	public int base_skill_requirement;
+	public int base_mana_requirement;
 	
 	public boolean is_instant;
 	public int max_use_time;
+	public int base_cooldown_time;
 	
 	public Spell(String name, String texture_name)
 	{
@@ -37,37 +39,70 @@ public abstract class Spell
 		this.texture_name = texture_name;
 	}
 	
-	public abstract void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp);
+	/* Called when the spell is activated with its slot's keybind */
+	public abstract void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 	
-	public abstract void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp);
+	/* Called when the spell is triggered, either with its slot's keybind (if the spell is
+	 * an instant-use spell), or with the spell trigger keybind after the spell has been
+	 * activated
+	 */
+	public abstract void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 	
-	public abstract void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp);
+	/* Called every tick while the spell is active */
+	public abstract void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 	
-	public abstract void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp);
+	/* Called when the spell is deactivated, either by the user deactivating it with the spell
+	 * slot's keybind, or by selecting a different spell
+	 */
+	public abstract void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 	
 	@SideOnly(Side.CLIENT)
-	public abstract void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+	public abstract void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 
 	@SideOnly(Side.CLIENT)
-	public abstract void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+	public abstract void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 
 	@SideOnly(Side.CLIENT)
-	public abstract void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+	public abstract void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 
 	@SideOnly(Side.CLIENT)
-	public abstract void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp);
+	public abstract void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
 	
-	public boolean isManaRequirementMet(int available_mana)
+	/* Get the mana requirement for the spell, adjusting for any other properties.
+	 * `spell` may be null.
+	 */
+	public int getManaRequirement(RAPlayerProperties rpp, LearnedSpell spell)
 	{
-		return available_mana >= this.mana_requirement;
+		return this.base_mana_requirement;
 	}
 	
-	public boolean isSkillRequirementMet(int skill_level)
+	/* Get the skill requirement for the spell, adjusting for any other properties.
+	 * `spell` may be null.
+	 */
+	public int getSkillRequirement(RAPlayerProperties rpp, LearnedSpell spell)
 	{
-		return skill_level >= this.skill_requirement;
+		return this.base_skill_requirement;
 	}
 	
-	public boolean isComplexityRequirementMet(MagicComplexity complexity_limit)
+	/* Get the cooldown time for the spell, adjusting for any other properties.
+	 * `spell` may be null.
+	 */
+	public int getCooldownTime(RAPlayerProperties rpp, LearnedSpell spell)
+	{
+		return this.base_cooldown_time;
+	}
+	
+	public boolean isManaRequirementMet(RAPlayerProperties rpp, LearnedSpell spell)
+	{
+		return rpp.mana >= this.getManaRequirement(rpp, spell);
+	}
+	
+	public boolean isSkillRequirementMet(RAPlayerProperties rpp, LearnedSpell spell)
+	{
+		return rpp.magic_skill_level >= this.getSkillRequirement(rpp, spell);
+	}
+	
+	public boolean isPowerRequirementMet(MagicComplexity complexity_limit)
 	{
 		if (complexity_limit == null) {
 			return false;

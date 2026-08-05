@@ -56,7 +56,7 @@ public class ItemMagicWand extends Item
 		return WandCore.values()[a];
 	}
 	
-	public MagicComplexity getWandPower(int meta)
+	public MagicComplexity getWandLevel(int meta)
 	{
 		int a = (meta >> 8) & 0x7;
 		if (a >= MagicComplexity.values().length) {
@@ -125,15 +125,15 @@ public class ItemMagicWand extends Item
 		int meta = stack.getItemDamage();
 		WandMaterial wand_material = this.getWandMaterial(meta);
 		WandCore wand_core = this.getWandCore(meta);
-		MagicComplexity wand_power = this.getWandPower(meta);
+		MagicComplexity wand_level = this.getWandLevel(meta);
 		
 		String key_material = this.getUnlocalizedName() + ".material";
 		String key_core = this.getUnlocalizedName() + ".core";
-		String key_power = this.getUnlocalizedName() + ".power";
+		String key_level = this.getUnlocalizedName() + ".level";
 		
 		list.add("");
 		list.add(I18nHlpr.getf(key_material, I18nHlpr.get(key_material + "." + wand_material.name)));
 		list.add(I18nHlpr.getf(key_core, I18nHlpr.get(key_core + "." + wand_core.name)));
-		list.add(I18nHlpr.getf(key_power, I18nHlpr.get(key_power + "." + wand_power.name)));
+		list.add(I18nHlpr.getf(key_level, I18nHlpr.get(key_level + "." + wand_level.name)));
 	}
 }

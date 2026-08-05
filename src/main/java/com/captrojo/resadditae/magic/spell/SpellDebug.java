@@ -1,6 +1,7 @@
 package com.captrojo.resadditae.magic.spell;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
@@ -17,58 +18,58 @@ public class SpellDebug extends Spell
 		super(name, ResAdditae.ident("debug_rainbow"));
 		
 		this.complexity = MagicComplexity.BEGINNER;
-		this.skill_requirement = 0;
-		this.mana_requirement = 10;
+		this.base_skill_requirement = 0;
+		this.base_mana_requirement = 10;
 		
 		this.is_instant = false;
 		this.max_use_time = 72000;
 	}
 
 	@Override
-	public void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 		player.addChatMessage(I18nHlpr.chat("Activated: " + this.unlocalized_name));
 	}
 
 	@Override
-	public void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 		player.addChatMessage(I18nHlpr.chat("Triggered: " + this.unlocalized_name));
 		rpp.useMana(25, true);
 	}
 
 	@Override
-	public void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 	}
 
 	@Override
-	public void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 		player.addChatMessage(I18nHlpr.chat("Deactivated: " + this.unlocalized_name));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp)
+	public void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell)
 	{
 	}
 }

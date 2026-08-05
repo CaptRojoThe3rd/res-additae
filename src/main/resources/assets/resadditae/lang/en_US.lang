@@ -124,25 +124,27 @@ gui.charm_settings.tamed_mob_info.all=Animals tamed by anyone will never be hurt
 gui.charm_settings.tamed_mob_info.yours=Animals tamed only by you will never be hurt and will always be helped.
 
 gui.spellbook.title.beginner=§f§n%s
-gui.spellbook.title.basic=§e§n%s
+gui.spellbook.title.basic=§6§n%s
 gui.spellbook.title.intermediate=§2§n%s
 gui.spellbook.title.advanced=§3§n%s
 gui.spellbook.title.expert=§c§n%s
 gui.spellbook.title.godlike=§5§n%s
-gui.spellbook.wand_power=Wand Power Requirement
-gui.spellbook.wand_power.beginner=Beginner
-gui.spellbook.wand_power.basic=Basic
-gui.spellbook.wand_power.intermediate=Intermediate
-gui.spellbook.wand_power.advanced=Advanced
-gui.spellbook.wand_power.expert=Expert
-gui.spellbook.wand_power.godlike=Godlike
+gui.spellbook.wand_level=Wand Level Requirement
+gui.spellbook.wand_level.beginner=Beginner
+gui.spellbook.wand_level.basic=Basic
+gui.spellbook.wand_level.intermediate=Intermediate
+gui.spellbook.wand_level.advanced=Advanced
+gui.spellbook.wand_level.expert=Expert
+gui.spellbook.wand_level.godlike=Godlike
 gui.spellbook.skill_req=Skill Requirement
 gui.spellbook.mana_req=Mana Requirement
+gui.spellbook.cooldown=Cooldown
 gui.spellbook.learn_spell=Learn Spell
 gui.spellbook.learned_msg_1a=You've learned this spell.
 gui.spellbook.learned_msg_1b=You've already learned this spell.
 gui.spellbook.learned_msg_2=Do you protect this book and share its teachings with others, or do you burn it and keep its knowledge for yourself?
 gui.spellbook.lvl=Lv. %d
+gui.spellbook.sec=%fs
 
 gui.spell_list.proficiency=Proficiency
 gui.spell_list.lvl=Lv. %d
@@ -379,13 +381,13 @@ item.magic_wand.core=§7Wand Core: %s
 item.magic_wand.core.lapis=§9Lapis Lazuli
 item.magic_wand.core.blaze=§6Blaze Rod
 
-item.magic_wand.power=§7Wand Power: %s
-item.magic_wand.power.beginner=§fBeginner
-item.magic_wand.power.basic=§eBasic
-item.magic_wand.power.intermediate=§2Intermediate
-item.magic_wand.power.advanced=§3Advanced
-item.magic_wand.power.expert=§cExpert
-item.magic_wand.power.godlike=§5Godlike
+item.magic_wand.level=§7Wand Power: %s
+item.magic_wand.level.beginner=§fBeginner
+item.magic_wand.level.basic=§eBasic
+item.magic_wand.level.intermediate=§2Intermediate
+item.magic_wand.level.advanced=§3Advanced
+item.magic_wand.level.expert=§cExpert
+item.magic_wand.level.godlike=§5Godlike
 
 item.spellbook.name=Spellbook
 
@@ -413,6 +415,7 @@ item.structure_wand.loot.desc.idx=§7Idx: %d
 spell.arrowsplosion.name=Arrowsplosion
 spell.arrowsplosion.book=Summons a sphere of arrows around you, dealing high damage to nearby mobs.
 spell.lifesteal.name=Lifesteal
+spell.lifesteal.book=Allows you to steal health from mobs or other players. The damage dealt to the mob or player translates 1:1 to the health you receive.
 
 tile.bountiful_stones.andesite.name=Andesite
 tile.bountiful_stones.diorite.name=Diorite

@@ -1,10 +1,11 @@
 package com.captrojo.resadditae.gui.screen;
 
-import com.captrojo.complexhud.main.I18nHlpr;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.item.magic.ItemSpellbook;
+import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toserver.PacketLearnSpell;
 import com.captrojo.resadditae.render.RenderHlpr;
@@ -35,15 +36,26 @@ public class GuiSpellbook extends GuiScreen
 	String str_spell_title;
 	String str_spell_desc;
 	
-	String str_wand_power_1;
-	String str_wand_power_2;
+	String str_wand_level_1;
+	String str_wand_level_2;
 	String str_skill_1;
 	String str_skill_2;
 	String str_mana_1;
 	String str_mana_2;
-	int strw_wand_power_2;
+	String str_cooldown_1;
+	String str_cooldown_2;
+	
+	int strw_wand_level_2;
 	int strw_skill_2;
 	int strw_mana_2;
+	int strw_cooldown_2;
+	
+	int skill_offs;
+	int mana_offs;
+	int cooldown_offs;
+	
+	boolean show_cooldown;
+	boolean skill_req_met;
 	
 	String str_learned_msg_1;
 	String str_learned_msg_2;
@@ -55,27 +67,48 @@ public class GuiSpellbook extends GuiScreen
 		
 		this.rpp = RAPlayerProperties.get(player);
 		this.spell = ItemSpellbook.getSpell(stack);
-		this.learned = this.rpp.hasLearnedSpell(spell);
+		LearnedSpell ls = this.rpp.getLearnedFromSpell(this.spell);
+		this.learned = (ls != null);
 		
-		this.str_wand_power_1 = I18nHlpr.get("gui.spellbook.wand_power");
+		this.str_wand_level_1 = I18nHlpr.get("gui.spellbook.wand_level");
 		this.str_skill_1 = I18nHlpr.get("gui.spellbook.skill_req");
 		this.str_mana_1 = I18nHlpr.get("gui.spellbook.mana_req");
+		this.str_cooldown_1 = I18nHlpr.get("gui.spellbook.cooldown");
 		
 		if (this.spell != null) {
 			MagicComplexity mc = this.spell.complexity;
 			this.str_spell_title = I18nHlpr.getf("gui.spellbook.title." + mc.name, this.spell.getLocalizedName());
 			this.str_spell_desc = I18nHlpr.get(this.spell.unlocalized_name + ".book").replace("\\n", "\n");
+
+			int skill = this.spell.getSkillRequirement(this.rpp, ls);
+			this.skill_offs = this.spell.base_skill_requirement - skill;
+			int mana = this.spell.getManaRequirement(this.rpp, ls);
+			this.mana_offs = this.spell.base_mana_requirement - mana;
+			int cooldown = this.spell.getCooldownTime(this.rpp, ls);
+			this.cooldown_offs = this.spell.base_cooldown_time - cooldown;
+			this.show_cooldown = (cooldown > 0);
 			
-			this.str_wand_power_2 = I18nHlpr.get("gui.spellbook.wand_power." + mc.name);
-			this.str_skill_2 = I18nHlpr.getf("gui.spellbook.lvl", this.spell.skill_requirement);
-			this.str_mana_2 = Integer.toString(this.spell.mana_requirement);
+			this.skill_req_met = skill <= this.rpp.magic_skill_level;
+			
+			this.str_wand_level_2 = I18nHlpr.get("gui.spellbook.wand_level." + mc.name);
+			this.str_skill_2 = I18nHlpr.getf("gui.spellbook.lvl", skill);
+			this.str_mana_2 = Integer.toString(mana);
+			this.str_cooldown_2 = I18nHlpr.getf("gui.spellbook.sec", ((float) cooldown) / 20.0f);
 		} else {
 			this.str_spell_title = "";
 			this.str_spell_desc = "";
 			
-			this.str_wand_power_2 = "";
+			this.str_wand_level_2 = "";
 			this.str_skill_2 = "";
 			this.str_mana_2 = "";
+			this.str_cooldown_2 = "";
+			
+			this.skill_req_met = true;
+		}
+		
+		if (!this.skill_req_met) {
+			this.str_mana_2 = I18nHlpr.galactifyText(this.str_mana_2);
+			this.str_cooldown_2 = I18nHlpr.galactifyText(this.str_cooldown_2);
 		}
 		
 		this.str_learned_msg_1 = this.learned ? "gui.spellbook.learned_msg_1b" : "gui.spellbook.learned_msg_1a";
@@ -107,7 +140,7 @@ public class GuiSpellbook extends GuiScreen
 			130, 20,
 			I18nHlpr.get("gui.spellbook.learn_spell")
 		));
-		((GuiButton) this.buttonList.get(BTN_LEARN_SPELL)).enabled = !this.learned;
+		((GuiButton) this.buttonList.get(BTN_LEARN_SPELL)).enabled = !this.learned && this.skill_req_met;
 		
 		this.buttonList.add(new GuiButton(
 			BTN_DONE,
@@ -116,36 +149,64 @@ public class GuiSpellbook extends GuiScreen
 			I18nHlpr.get("gui.done")
 		));
 		
-		this.strw_wand_power_2 = this.fontRendererObj.getStringWidth(this.str_wand_power_2);
+		this.strw_wand_level_2 = this.fontRendererObj.getStringWidth(this.str_wand_level_2);
 		this.strw_skill_2 = this.fontRendererObj.getStringWidth(this.str_skill_2);
 		this.strw_mana_2 = this.fontRendererObj.getStringWidth(this.str_mana_2);
+		this.strw_cooldown_2 = this.fontRendererObj.getStringWidth(this.str_cooldown_2);
 	}
 	
 	@Override
 	public void drawScreen(int mouse_x, int mouse_y, float f)
 	{
-		FontRenderer fr = this.fontRendererObj;
+		final FontRenderer fr_regular = this.fontRendererObj;
+		final FontRenderer fr_galactic = this.mc.standardGalacticFontRenderer;
+		FontRenderer fr1 = this.skill_req_met ? fr_regular : fr_galactic;
+		FontRenderer fr2 = fr_regular;
 		
 		this.drawDefaultBackground();
 		RenderHlpr.bindTexture(this.mc, BG_TEXTURE, 320, 200);
 		RenderHlpr.drawTexturedModalRect(this.x_pos, this.y_pos, 0, 0, this.x_size, this.y_size);
 		
-		fr.drawString(this.str_spell_title, this.x_pos + 18, this.y_pos + 16, 0x000000);
-		fr.drawSplitString(this.str_spell_desc, this.x_pos + 18, this.y_pos + 36, 134, 0x404040);
+		final int base_color = 0x404040;
+		final int positive_color = 0x40c040;
+		final int negative_color = 0xc04040;
 		
-		fr.drawString(this.str_wand_power_1, this.x_pos + 168, this.y_pos + 26, 0x404040);
-		fr.drawString(this.str_wand_power_2, this.x_pos + 302 - this.strw_wand_power_2, this.y_pos + 35, 0x404040);
-		fr.drawString(this.str_skill_1, this.x_pos + 168, this.y_pos + 53, 0x404040);
-		fr.drawString(this.str_skill_2, this.x_pos + 302 - this.strw_skill_2, this.y_pos + 62, 0x404040);
-		fr.drawString(this.str_mana_1, this.x_pos + 168, this.y_pos + 80, 0x404040);
-		fr.drawString(this.str_mana_2, this.x_pos + 302 - this.strw_mana_2, this.y_pos + 89, 0x404040);
+		int skill_lbl_color;
+		int skill_color;
+		int mana_color;
+		int cooldown_color;
+		if (this.skill_req_met) {
+			skill_lbl_color = base_color;
+			skill_color = (this.skill_offs == 0) ? base_color : ((this.skill_offs > 0) ? positive_color : negative_color);
+			mana_color = (this.mana_offs == 0) ? base_color : ((this.mana_offs > 0) ? positive_color : negative_color);
+			cooldown_color = (this.cooldown_offs == 0) ? base_color : ((this.cooldown_offs > 0) ? positive_color : negative_color);
+		} else {
+			skill_lbl_color = negative_color;
+			skill_color = negative_color;
+			mana_color = base_color;
+			cooldown_color = base_color;
+		}
+		
+		fr1.drawString(this.str_spell_title, this.x_pos + 18, this.y_pos + 16, 0x000000);
+		fr1.drawSplitString(this.str_spell_desc, this.x_pos + 18, this.y_pos + 36, 134, base_color);
+		
+		fr1.drawString(this.str_wand_level_1, this.x_pos + 168, this.y_pos + 26, base_color);
+		fr1.drawString(this.str_wand_level_2, this.x_pos + 302 - this.strw_wand_level_2, this.y_pos + 35, 0x404040);
+		fr2.drawString(this.str_skill_1, this.x_pos + 168, this.y_pos + 53, skill_lbl_color);
+		fr2.drawString(this.str_skill_2, this.x_pos + 302 - this.strw_skill_2, this.y_pos + 62, skill_color);
+		fr1.drawString(this.str_mana_1, this.x_pos + 168, this.y_pos + 80, base_color);
+		fr1.drawString(this.str_mana_2, this.x_pos + 302 - this.strw_mana_2, this.y_pos + 89, mana_color);
+		if (this.show_cooldown) {
+			fr1.drawString(this.str_cooldown_1, this.x_pos + 168, this.y_pos + 107, base_color);
+			fr1.drawString(this.str_cooldown_2, this.x_pos + 302 - this.strw_cooldown_2, this.y_pos + 116, cooldown_color);
+		}
 		
 		if (this.learned) {
-			fr.drawSplitString(this.str_learned_msg_1, this.x_pos + 1, this.y_pos + 209, 320, 0x202020);
-			fr.drawSplitString(this.str_learned_msg_1, this.x_pos, this.y_pos + 208, 320, 0xffffff);
+			fr2.drawSplitString(this.str_learned_msg_1, this.x_pos + 1, this.y_pos + 209, 320, 0x202020);
+			fr2.drawSplitString(this.str_learned_msg_1, this.x_pos, this.y_pos + 208, 320, 0xffffff);
 
-			fr.drawSplitString(this.str_learned_msg_2, this.x_pos + 1, this.y_pos + 222, 320, 0x202020);
-			fr.drawSplitString(this.str_learned_msg_2, this.x_pos, this.y_pos + 221, 320, 0xffffff);
+			fr2.drawSplitString(this.str_learned_msg_2, this.x_pos + 1, this.y_pos + 222, 320, 0x202020);
+			fr2.drawSplitString(this.str_learned_msg_2, this.x_pos, this.y_pos + 221, 320, 0xffffff);
 		}
 
 		super.drawScreen(mouse_x, mouse_y, f);

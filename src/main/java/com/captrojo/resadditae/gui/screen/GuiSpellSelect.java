@@ -3,13 +3,13 @@ package com.captrojo.resadditae.gui.screen;
 import org.lwjgl.opengl.GL11;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction.Action;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 
@@ -20,6 +20,7 @@ public class GuiSpellSelect extends GuiScreen
 	GuiScreen parent;
 	RAPlayerProperties rpp;
 	int idx;
+	MagicComplexity level;
 
 	GuiSpellSelectList scroll_list;
 
@@ -28,11 +29,12 @@ public class GuiSpellSelect extends GuiScreen
 	protected int x_pos;
 	protected int y_pos;
 
-	public GuiSpellSelect(GuiScreen parent, RAPlayerProperties rpp, int idx)
+	public GuiSpellSelect(GuiScreen parent, RAPlayerProperties rpp, int idx, MagicComplexity level)
 	{
 		this.parent = parent;
 		this.rpp = rpp;
 		this.idx = idx;
+		this.level = level;
 
 		this.x_size = 256;
 		this.y_size = 192;
@@ -56,7 +58,7 @@ public class GuiSpellSelect extends GuiScreen
 		this.x_pos = (this.width - this.x_size) / 2;
 		this.y_pos = (this.height - this.y_size) / 2;
 
-		this.scroll_list = new GuiSpellSelectList(this.rpp, this, this.x_pos, this.y_pos);
+		this.scroll_list = new GuiSpellSelectList(this.rpp, this, this.x_pos, this.y_pos, this.level);
 	}
 
 	@Override

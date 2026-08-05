@@ -2,13 +2,13 @@ package com.captrojo.resadditae.gui.container;
 
 import org.lwjgl.opengl.GL11;
 
-import com.captrojo.complexhud.main.I18nHlpr;
 import com.captrojo.resadditae.container.ContainerSpellMenu;
 import com.captrojo.resadditae.container.slot.SlotDummy;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.screen.GuiSpellSelect;
 import com.captrojo.resadditae.magic.LearnedSpell;
-import com.captrojo.resadditae.magic.spell.Spell;
+import com.captrojo.resadditae.magic.MagicComplexity;
+import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction.Action;
@@ -65,7 +65,7 @@ public class GuiSpellMenu extends GuiContainer
 		if (slot != null && slot instanceof SlotDummy) {
 			if (mouse_button == 0 && this.click_cooldown <= 0) {
 				this.mc.currentScreen = null;
-				this.mc.displayGuiScreen(new GuiSpellSelect(this, this.rpp, slot.getSlotIndex()));
+				this.mc.displayGuiScreen(new GuiSpellSelect(this, this.rpp, slot.getSlotIndex(), this.rpp.getWandPower()));
 				this.click_cooldown = 5;
 			} else if (mouse_button != 0) {
 				this.rpp.spell_slots[slot.getSlotIndex()] = null;
@@ -197,7 +197,7 @@ public class GuiSpellMenu extends GuiContainer
 	{
 		if (button.id == BTN_VIEW_SPELLS) {
 			this.mc.currentScreen = null;
-			this.mc.displayGuiScreen(new GuiSpellSelect(this, this.rpp, -1));
+			this.mc.displayGuiScreen(new GuiSpellSelect(this, this.rpp, -1, MagicComplexity._MAX));
 			this.click_cooldown = 5;
 		} else if (button.id == BTN_LVLUP_MANA && this.rpp.mana_level < RAPlayerProperties.MANA_LVL_MAX) {
 			ResAdditae.network.sendToServer(new PacketGuiContainerAction(Action.SELECT, -2, 0));
