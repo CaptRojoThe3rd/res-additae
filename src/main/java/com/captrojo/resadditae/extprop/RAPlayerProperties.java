@@ -147,7 +147,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			if (this.mana_recharge_counter > 0) {
 				this.mana_recharge_counter--;
 			} else {
-				this.mana = Math.min(this.mana + 1 + this.mana_level, this.mana_max);
+				this.mana = Math.min(this.mana + 1, this.mana_max);
 				this.mana_recharge_counter = 3;
 			}
 			updated = true;

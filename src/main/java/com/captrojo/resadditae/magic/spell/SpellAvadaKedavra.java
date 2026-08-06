@@ -5,6 +5,7 @@ import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.main.Alerts;
+import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback.Feedback;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -25,7 +26,7 @@ public class SpellAvadaKedavra extends Spell
 		
 		this.use_type = UseType.TRIGGER;
 		this.max_use_time = 72000;
-		this.base_cooldown_time = 20 * 60;
+		this.base_cooldown_time = 20 * 120;
 	}
 
 	@Override
@@ -44,6 +45,8 @@ public class SpellAvadaKedavra extends Spell
 		
 		target.attackEntityFrom(DamageSource.causeIndirectMagicDamage(target, player), Float.MAX_VALUE);
 		rpp.onSpellUsed(idx, this.base_cooldown_time, 20);
+		rpp.useMana(this.base_mana_requirement, true);
+		this.sendFeedback(player, idx, Feedback.DEACTIVATE);
 	}
 
 	@Override

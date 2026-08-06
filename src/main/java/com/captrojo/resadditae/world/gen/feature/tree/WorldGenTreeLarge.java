@@ -14,31 +14,34 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class WorldGenTreeLarge extends WorldGenAbstractTree
 {
-	private static final byte[] OTHER_COORD_PAIRS = new byte[] {(byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1};
+	static final byte[] OTHER_COORD_PAIRS = new byte[] {(byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1};
 	
-	private final Block wood_block;
-	private final int wood_meta;
-	private final Block leaf_block;
-	private final int leaf_meta;
+	final Block wood_block;
+	final int wood_meta;
+	final Block leaf_block;
+	final int leaf_meta;
 	
-	private int min_height_limit;
-	private int max_height_limit;
-	private int leaf_distance_limit = 4;
-	private int trunk_size = 1;
-	private double leaf_density = 1.0D;
+	int min_height_limit;
+	int max_height_limit;
+	int leaf_distance_limit = 4;
+	int trunk_size = 1;
+	double leaf_density = 1.0D;
 	
-	private Random rand = new Random();
-	private World world;
-	private int[] base_pos = new int[] {0, 0, 0};
-	private int height_limit;
-	private int height;
-	private double height_attenuation = 0.618D;
-	private double branch_density = 1.0D;
-	private double branch_slope = 0.381D;
-	private double scale_width = 1.0D;
-	private int[][] leaf_nodes;
+	Random rand = new Random();
+	World world;
+	int[] base_pos = new int[] {0, 0, 0};
+	int height_limit;
+	int height;
+	double height_attenuation = 0.618D;
+	double branch_density = 1.0D;
+	double branch_slope = 0.381D;
+	double scale_width = 1.0D;
+	int[][] leaf_nodes;
+	
+	final Block sapling;
 
-	public WorldGenTreeLarge(boolean notify, WoodTypes wood_type, int min_height, int max_height, int max_leaf_distance, int trunk_size, double leaf_density)
+	public WorldGenTreeLarge(boolean notify, WoodTypes wood_type, int min_height, int max_height,
+		int max_leaf_distance, int trunk_size, double leaf_density)
 	{
 		super(notify);
 		
@@ -52,6 +55,8 @@ public class WorldGenTreeLarge extends WorldGenAbstractTree
 		this.leaf_distance_limit = max_leaf_distance;
 		this.trunk_size = trunk_size;
 		this.leaf_density = leaf_density;
+		
+		this.sapling = wood_type.getSapling().block;
 	}
 
 	/**
@@ -379,10 +384,19 @@ public class WorldGenTreeLarge extends WorldGenAbstractTree
 		}
 	}
 
-	private boolean canSustainPlant(int xo, int zo)
+	boolean isValidSoilBlock(Block block, int x, int y, int z)
 	{
-		Block block = this.world.getBlock(this.base_pos[0] + xo, this.base_pos[1] - 1, this.base_pos[2] + zo);
-		return block.canSustainPlant(world, base_pos[0] + xo, base_pos[1] - 1, base_pos[2] + zo, ForgeDirection.UP, (BlockSapling) Blocks.sapling);
+		return block.canSustainPlant(this.world, x, y, z, ForgeDirection.UP, (BlockSapling) this.sapling);
+	
+	}
+	
+	boolean canSustainPlant(int xo, int zo)
+	{
+		int x = this.base_pos[0] + xo;
+		int y = this.base_pos[1] - 1;
+		int z = this.base_pos[2] + zo;
+		Block block = this.world.getBlock(x, y, z);
+		return this.isValidSoilBlock(block, x, y, z);
 	}
 	
 	/**

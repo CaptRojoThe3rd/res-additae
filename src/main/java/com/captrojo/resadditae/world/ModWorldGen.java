@@ -1,6 +1,8 @@
 package com.captrojo.resadditae.world;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
@@ -8,10 +10,10 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.config.common.CommonStuffConfig;
 import com.captrojo.resadditae.config.common.WorldGenConfig;
+import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
-import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
-import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeD2;
 import com.captrojo.resadditae.world.gen.feature.WorldGenMinableDynamic;
+import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
 import com.captrojo.resadditae.world.structure.ModStructures;
 
 import cpw.mods.fml.common.IWorldGenerator;
@@ -20,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 
@@ -128,6 +131,24 @@ public class ModWorldGen implements IWorldGenerator
 		flower_gen.generate(world, rand, x, y, z);
 	}
 	
+	public static List<Integer> getFloors(World world, int chunk_x, int chunk_z)
+	{
+		int x = chunk_x * 16 + 8;
+		int z = chunk_z * 16 + 8;
+		ArrayList<Integer> yl = new ArrayList<Integer>();
+		
+		for (int y = 32; y < 188; y++) {
+			Block block0 = world.getBlock(x, y, z);
+			Block block1 = world.getBlock(x, y - 1, z);
+			
+			if (block0.isAir(world, x, y, z) && !block1.isAir(world, x, y, z)) {
+				yl.add(y);
+			}
+		}
+		
+		return yl;
+	}
+	
 	private final SpacedThingCheck depths_gas_fracture_chk;
 	private final HashMap<BlockMeta, BlockMeta> depths_gas_fracture_map;
 	
@@ -157,7 +178,40 @@ public class ModWorldGen implements IWorldGenerator
 	
 	public void generateNether(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
+		int block_x = chunk_x * 16;
+		int block_z = chunk_z * 16;
 		
+		for (int y = 30; y <= 210; y += 60) {
+			addOreSpawn(new BlockMeta(ModBlocks.nether_stones, 0), Blocks.netherrack, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
+			addOreSpawn(new BlockMeta(ModBlocks.nether_stones, 1), Blocks.netherrack, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
+		}
+		
+		List<Integer> floors = getFloors(world, chunk_x, chunk_z);
+		
+		for (int y1 : floors) {
+			if (rand.nextInt(3) > 0) {
+				continue;
+			}
+			int x1 = block_x + rand.nextInt(16);
+			int z1 = block_z + rand.nextInt(16);
+			for (y1 = y1 + 5; y1 > 0; y1--) {
+				Block check1 = world.getBlock(x1, y1, z1);
+				Block check2 = world.getBlock(x1, y1 + 1, z1);
+				if (!check1.isAir(world, x1, y1, z1) && check2.isAir(world, x1, y1 + 1, z1)) {
+					break;
+				}
+			}
+			if (world.getBlock(x1, y1, z1) == Blocks.soul_sand) {
+				y1++;
+				WorldGenAbstractTree tree;
+				if (y1 > 50) {
+					tree = ModTrees.thermarbolGen(false);
+				} else {
+					tree = ModTrees.netherPalmGen(false);
+				}
+				tree.generate(world, rand, x1, y1, z1);
+			}
+		}
 	}
 	
 	public void generateOverworld(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)

@@ -2,8 +2,8 @@ package com.captrojo.resadditae.world.gen.feature.tree;
 
 import java.util.Random;
 
+import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.WoodTypes;
-import com.captrojo.resadditae.world.ModWorldGen;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
@@ -21,6 +21,8 @@ public class WorldGenTreePalm extends WorldGenAbstractTree
 	
 	private final int min_height;
 	private final int max_height;
+	
+	private final Block sapling;
 
 	public WorldGenTreePalm(boolean notify, WoodTypes wood_type, int min_height, int max_height)
 	{
@@ -33,8 +35,24 @@ public class WorldGenTreePalm extends WorldGenAbstractTree
 		
 		this.min_height = min_height;
 		this.max_height = max_height;
+		
+		this.sapling = wood_type.getSapling().block;
+	}
+	
+	public boolean isValidSoilBlock(World world, Block soil, int x, int y, int z)
+	{
+		return (!soil.canSustainPlant(world, x, y, z, ForgeDirection.UP, (BlockSapling) this.sapling));
 	}
 
+	public void buildBlock(World world, int x, int y, int z, Block block, int meta)
+	{
+		Block old = world.getBlock(x, y, z);
+		if (world.isAirBlock(x, y, z) || old.isLeaves(world, x, y, z) || old instanceof BlockSapling) {
+			world.setBlock(x, y, z, block, meta, 2);
+		}
+	}
+
+	@Override
 	public boolean generate(World world, Random random, int x, int y, int z)
 	{
 		Block soil = world.getBlock(x, y, z);
@@ -42,7 +60,7 @@ public class WorldGenTreePalm extends WorldGenAbstractTree
 			y--;
 			soil = world.getBlock(x, y, z);
 		}
-		if (!soil.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (BlockSapling) Blocks.sapling)) {
+		if (!this.isValidSoilBlock(world, soil, x, y, z)) {
 			return false;
 		}
 
@@ -53,117 +71,109 @@ public class WorldGenTreePalm extends WorldGenAbstractTree
 		}
 
 		for (int h = 0; h < height; h++) {
-			buildBlock(world, x, y + 1 + h, z, this.wood_block, this.wood_meta);
+			this.buildBlock(world, x, y + 1 + h, z, this.wood_block, this.wood_meta);
 		}
 
-		buildBlock(world, x, y + height + 2, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 1, y + height + 2, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height + 2, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 2, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 2, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 2, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height + 2, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height + 2, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 2, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 2, z + 1, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x, y + height + 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 1, y + height + 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 2, y + height + 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 3, y + height + 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height + 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height + 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 3, y + height + 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 1, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 1, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 1, z - 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 1, z + 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 1, z + 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height + 1, z + 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height + 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height + 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 3, y + height + 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height + 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height + 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 3, y + height + 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 1, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 1, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 1, z - 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 1, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 1, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height + 1, z + 3, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 1, y + height, z, this.wood_block, 0);
-		buildBlock(world, x - 2, y + height, z, this.wood_block, 0);
-		buildBlock(world, x + 1, y + height, z, this.wood_block, 0);
-		buildBlock(world, x + 2, y + height, z, this.wood_block, 0);
-		buildBlock(world, x, y + height, z - 1, this.wood_block, 0);
-		buildBlock(world, x, y + height, z - 2, this.wood_block, 0);
-		buildBlock(world, x, y + height, z + 1, this.wood_block, 0);
-		buildBlock(world, x, y + height, z + 2, this.wood_block, 0);
-		buildBlock(world, x - 3, y + height, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 4, y + height, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 5, y + height, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 3, y + height, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 4, y + height, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 5, y + height, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height, z - 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height, z - 4, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height, z - 5, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height, z + 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height, z + 4, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height, z + 5, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height, z, this.wood_block, 0);
+		this.buildBlock(world, x - 2, y + height, z, this.wood_block, 0);
+		this.buildBlock(world, x + 1, y + height, z, this.wood_block, 0);
+		this.buildBlock(world, x + 2, y + height, z, this.wood_block, 0);
+		this.buildBlock(world, x, y + height, z - 1, this.wood_block, 0);
+		this.buildBlock(world, x, y + height, z - 2, this.wood_block, 0);
+		this.buildBlock(world, x, y + height, z + 1, this.wood_block, 0);
+		this.buildBlock(world, x, y + height, z + 2, this.wood_block, 0);
+		this.buildBlock(world, x - 3, y + height, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 4, y + height, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 5, y + height, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 3, y + height, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 4, y + height, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 5, y + height, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height, z - 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height, z - 4, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height, z - 5, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height, z + 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height, z + 4, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height, z + 5, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 1, y + height + 1, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 1, y + height, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height + 1, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 1, y + height + 1, z + 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 1, y + height, z + 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height + 1, z + 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height + 1, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height + 1, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height + 1, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height + 1, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height, z + 1, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 2, y + height + 1, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height + 1, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 2, y + height + 1, z + 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height + 1, z + 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 2, y + height, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 2, y + height, z + 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height + 1, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height + 1, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height + 1, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height + 1, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height, z + 2, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 3, y + height, z - 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 3, y + height, z - 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 3, y + height, z + 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 3, y + height, z + 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 3, y + height - 1, z - 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 3, y + height - 1, z - 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 3, y + height - 1, z + 3, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 3, y + height - 1, z + 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 3, y + height, z - 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 3, y + height, z - 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 3, y + height, z + 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 3, y + height, z + 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 3, y + height - 1, z - 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 3, y + height - 1, z - 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 3, y + height - 1, z + 3, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 3, y + height - 1, z + 3, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 4, y + height - 1, z - 4, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 4, y + height - 1, z - 4, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 4, y + height - 1, z + 4, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 4, y + height - 1, z + 4, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 4, y + height - 1, z - 4, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 4, y + height - 1, z - 4, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 4, y + height - 1, z + 4, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 4, y + height - 1, z + 4, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 5, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 5, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z - 5, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z + 5, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 6, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 6, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z - 6, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z + 6, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 5, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 5, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z - 5, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z + 5, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 6, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 6, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z - 6, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z + 6, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 1, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 2, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height - 1, z, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z + 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x, y + height - 1, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height - 1, z, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x, y + height - 1, z + 2, this.leaf_block, this.leaf_meta);
 
-		buildBlock(world, x - 2, y + height, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 2, y + height, z + 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height, z - 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 2, y + height, z + 1, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 1, y + height, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height, z - 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x - 1, y + height, z + 2, this.leaf_block, this.leaf_meta);
-		buildBlock(world, x + 1, y + height, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 2, y + height, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height, z - 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 2, y + height, z + 1, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height, z - 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x - 1, y + height, z + 2, this.leaf_block, this.leaf_meta);
+		this.buildBlock(world, x + 1, y + height, z + 2, this.leaf_block, this.leaf_meta);
 
 		return true;
-	}
-
-	public void buildBlock(World world, int x, int y, int z, Block block, int meta)
-	{
-		Block old = world.getBlock(x, y, z);
-		if (world.isAirBlock(x, y, z) || old.isLeaves(world, x, y, z) || old instanceof BlockSapling) {
-			world.setBlock(x, y, z, block, meta, 2);
-		}
 	}
 }

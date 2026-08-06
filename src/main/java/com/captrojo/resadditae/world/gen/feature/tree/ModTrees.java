@@ -2,8 +2,6 @@ package com.captrojo.resadditae.world.gen.feature.tree;
 
 import com.captrojo.resadditae.block.WoodTypes;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public class ModTrees
@@ -40,12 +38,12 @@ public class ModTrees
 	
 	public static WorldGenAbstractTree netherPalmGen(boolean notify)
 	{
-		return new WorldGenTreePalm(notify, WoodTypes.NETHER_PALM, 7, 11);
+		return new WorldGenTreeNetherPalm(notify, WoodTypes.NETHER_PALM, 7, 11);
 	}
 	
 	public static WorldGenAbstractTree thermarbolGen(boolean notify)
 	{
-		return new WorldGenTreeLarge(notify, WoodTypes.THERMARBOL, 6, 16, 4, 1, 1.0d);
+		return new WorldGenTreeThermarbol(notify, WoodTypes.THERMARBOL, 6, 16, 4, 1, 1.0d);
 	}
 	
 	public static WorldGenAbstractTree enchantedAshGen(boolean notify)

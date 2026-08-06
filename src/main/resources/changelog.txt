@@ -5,9 +5,15 @@ Additions:
 * HUD now shows spell trigger keybind when a spell is active
 * Bullet time spell
 * Avada Kedavra (instant kill) spell
+* Nether stone generation
+* Nether tree generation
 
 Changes:
 * Reduced XP requirements for mana/magic skill leveling
+* Added wand outline in spell menu
+
+Fixes:
+* Entity target arrow shouldn't get stuck anymore
 
 
 ▓▓▓ #0006 ▓▓▓
