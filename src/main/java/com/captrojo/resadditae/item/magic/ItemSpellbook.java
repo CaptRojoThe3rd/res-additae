@@ -2,13 +2,13 @@ package com.captrojo.resadditae.item.magic;
 
 import java.util.List;
 
-import com.captrojo.complexhud.main.I18nHlpr;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.screen.GuiSpellbook;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
+import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 
