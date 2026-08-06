@@ -3,6 +3,7 @@ package com.captrojo.resadditae.packet.toserver;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.SpellTargetData;
+import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -27,11 +28,6 @@ public class PacketUseSpell implements IMessage
 	
 	public PacketUseSpell()
 	{
-	}
-	
-	public PacketUseSpell(RAPlayerProperties rpp, UseType type)
-	{
-		this(rpp, type, 0);
 	}
 	
 	public PacketUseSpell(RAPlayerProperties rpp, UseType type, int slot)
@@ -70,22 +66,25 @@ public class PacketUseSpell implements IMessage
 			RAPlayerProperties rpp = RAPlayerProperties.get(player);
 			rpp.spell_target = packet.target;
 			
+			if (packet.slot == -1) {
+				return null;
+			}
 			if (rpp.spell_slots[packet.slot] == null) {
 				return null;
 			}
 			
 			switch (packet.use_type) {
 			case ACTIVATE_OTHER:
-				rpp.deactivateSpell();
+				rpp.deactivateSpell(packet.slot);
 				/* fallthrough */
 			case ACTIVATE:
 				rpp.activateSpell(packet.slot);
 				break;
 			case TRIGGER_WHILE_ACTIVE:
-				rpp.triggerSpell();
+				rpp.triggerSpell(packet.slot);
 				break;
 			case DEACTIVATE:
-				rpp.deactivateSpell();
+				rpp.deactivateSpell(packet.slot);
 				break;
 			}
 			

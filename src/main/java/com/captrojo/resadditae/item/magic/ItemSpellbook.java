@@ -2,11 +2,14 @@ package com.captrojo.resadditae.item.magic;
 
 import java.util.List;
 
+import com.captrojo.complexhud.main.I18nHlpr;
+import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.screen.GuiSpellbook;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
+import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
@@ -104,5 +107,20 @@ public class ItemSpellbook extends Item
 			return this.textures[0];
 		}
 		return this.textures[spell.complexity.ordinal()];
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b1)
+	{
+		ItemHlpr.addItemDescription(stack, list);
+		
+		RAPlayerProperties rpp = RAPlayerProperties.get(player);
+		Spell spell = getSpell(stack);
+		if (rpp.hasLearnedSpell(spell)) {
+			list.add("§7" + spell.getLocalizedName());
+		} else {
+			list.add(I18nHlpr.get("item.spellbook.desc.not_yet_learned"));
+		}
 	}
 }

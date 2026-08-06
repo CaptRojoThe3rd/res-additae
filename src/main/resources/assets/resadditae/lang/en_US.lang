@@ -137,7 +137,7 @@ gui.spellbook.wand_level.advanced=Advanced
 gui.spellbook.wand_level.expert=Expert
 gui.spellbook.wand_level.godlike=Godlike
 gui.spellbook.skill_req=Skill Requirement
-gui.spellbook.mana_req=Mana Requirement
+gui.spellbook.mana_req=Mana Usage
 gui.spellbook.cooldown=Cooldown
 gui.spellbook.learn_spell=Learn Spell
 gui.spellbook.learned_msg_1a=You've learned this spell.
@@ -145,6 +145,7 @@ gui.spellbook.learned_msg_1b=You've already learned this spell.
 gui.spellbook.learned_msg_2=Do you protect this book and share its teachings with others, or do you burn it and keep its knowledge for yourself?
 gui.spellbook.lvl=Lv. %d
 gui.spellbook.sec=%fs
+gui.spellbook.mana_per_sec=%d/s
 
 gui.spell_list.proficiency=Proficiency
 gui.spell_list.lvl=Lv. %d
@@ -381,7 +382,7 @@ item.magic_wand.core=§7Wand Core: %s
 item.magic_wand.core.lapis=§9Lapis Lazuli
 item.magic_wand.core.blaze=§6Blaze Rod
 
-item.magic_wand.level=§7Wand Power: %s
+item.magic_wand.level=§7Wand Level: %s
 item.magic_wand.level.beginner=§fBeginner
 item.magic_wand.level.basic=§eBasic
 item.magic_wand.level.intermediate=§2Intermediate
@@ -390,6 +391,7 @@ item.magic_wand.level.expert=§cExpert
 item.magic_wand.level.godlike=§5Godlike
 
 item.spellbook.name=Spellbook
+item.spellbook.desc.not_yet_learned=§7You have not learned this spell yet.
 
 item.structure_wand.save.name=Structure Wand (Save)
 item.structure_wand.save.chat.firstpos=Set first pos to (%d, %d, %d)
@@ -416,6 +418,10 @@ spell.arrowsplosion.name=Arrowsplosion
 spell.arrowsplosion.book=Summons a sphere of arrows around you, dealing high damage to nearby mobs.
 spell.lifesteal.name=Lifesteal
 spell.lifesteal.book=Allows you to steal health from mobs or other players. The damage dealt to the mob or player translates 1:1 to the health you receive.
+spell.bullet_time.name=Bullet Time
+spell.bullet_time.book=Slow down gravity while in midair. Gives you a boost upwards if you are on the ground.\n\nAs you become more proficient at this spell, you will gain stronger resistance effects while you use it.\n\nWarning: You still take fall damage!
+spell.avada_kedavra.name=Avada Kedavra
+spell.avada_kedavra.book=Instantly kill a mob or player.\n\n§o(This does the same thing as the `/kill` command)
 
 tile.bountiful_stones.andesite.name=Andesite
 tile.bountiful_stones.diorite.name=Diorite

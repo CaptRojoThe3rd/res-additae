@@ -5,6 +5,7 @@ import com.captrojo.resadditae.main.ResAdditae;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -141,5 +142,15 @@ public class RenderHlpr
 		}
 		
 		return (r << 16) | (g << 8) | b;
+	}
+	
+	/* Render text like the XP bar does for the level count. */
+	public static void renderTextBacked(FontRenderer fr, String str, int x, int y, int color)
+	{
+		fr.drawString(str, x + 1, y, 0x000000);
+		fr.drawString(str, x - 1, y, 0x000000);
+		fr.drawString(str, x, y + 1, 0x000000);
+		fr.drawString(str, x, y - 1, 0x000000);
+		fr.drawString(str, x, y, color);
 	}
 }

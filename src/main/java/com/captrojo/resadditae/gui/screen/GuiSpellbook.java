@@ -4,6 +4,7 @@ import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.item.magic.ItemSpellbook;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
+import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
@@ -92,7 +93,11 @@ public class GuiSpellbook extends GuiScreen
 			
 			this.str_wand_level_2 = I18nHlpr.get("gui.spellbook.wand_level." + mc.name);
 			this.str_skill_2 = I18nHlpr.getf("gui.spellbook.lvl", skill);
-			this.str_mana_2 = Integer.toString(mana);
+			if (spell.use_type == UseType.CONTINUOUS) {
+				this.str_mana_2 = I18nHlpr.getf("gui.spellbook.mana_per_sec", mana * 20);
+			} else {
+				this.str_mana_2 = Integer.toString(mana);
+			}
 			this.str_cooldown_2 = I18nHlpr.getf("gui.spellbook.sec", ((float) cooldown) / 20.0f);
 		} else {
 			this.str_spell_title = "";

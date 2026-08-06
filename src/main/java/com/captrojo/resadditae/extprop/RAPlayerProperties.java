@@ -6,6 +6,7 @@ import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.SpellTargetData;
+import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.Alerts;
@@ -86,8 +87,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public ArrayList<LearnedSpell> learned_spells;
 	
 	public LearnedSpell[] spell_slots;
-	public int spell_in_use;
-	public int spell_use_time;
+	public int active_spell;
+	public int spell_active_time;
+	public boolean[] active_continuous_spells;
 	public int[] spell_cooldowns;
 	public int[] spell_cooldown_starts;
 	public SpellTargetData spell_target;
@@ -101,7 +103,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		
 		this.learned_spells = new ArrayList<LearnedSpell>();
 		this.spell_slots = new LearnedSpell[6];
-		this.spell_in_use = -1;
+		this.active_spell = -1;
+		this.active_continuous_spells = new boolean[6];
 		this.spell_cooldowns = new int[6];
 		this.spell_cooldown_starts = new int[6];
 		this.spell_target = new SpellTargetData();
@@ -144,30 +147,42 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			if (this.mana_recharge_counter > 0) {
 				this.mana_recharge_counter--;
 			} else {
-				this.mana = Math.min(this.mana + 2, this.mana_max);
+				this.mana = Math.min(this.mana + 1 + this.mana_level, this.mana_max);
 				this.mana_recharge_counter = 3;
 			}
 			updated = true;
 		}
 		
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < this.spell_cooldowns.length; i++) {
 			if (this.spell_cooldowns[i] > 0) {
 				this.spell_cooldowns[i]--;
 				updated = true;
 			}
 		}
 		
-		if (this.spell_in_use < 0 && this.spell_use_time > 0) {
-			this.resetSpellUseTime();
-			updated = true;
-		} else if (this.spell_in_use > 0) {
-			this.spell_use_time++;
-			LearnedSpell ls = this.getSpellInUse();
-			ls.spell.tickWhileActive(this.player.worldObj, this.player, this, ls);
-			if (ls.spell.max_use_time < this.spell_use_time) {
-				this.deactivateSpell();
+		if (this.isSpellActive()) {
+			this.spell_active_time++;
+			LearnedSpell ls = this.getActiveSpell();
+			if (ls != null) {
+				ls.spell.tickWhileActive(this.player.worldObj, this.player, this, ls, this.active_spell);
+			}
+			if (ls.spell.max_use_time < this.spell_active_time) {
+				this.deactivateSpell(this.active_spell);
 			}
 			updated = true;
+		} else {
+			if (this.spell_active_time > 0) {
+				this.spell_active_time = 0;
+				updated = true;
+			}
+		}
+		for (int i = 0; i < this.active_continuous_spells.length; i++) {
+			if (this.active_continuous_spells[i]) {
+				LearnedSpell ls = this.spell_slots[i];
+				if (ls != null) {
+					ls.spell.tickWhileActive(this.player.worldObj, this.player, this, ls, i);
+				}
+			}
 		}
 		
 		if (updated && this.player != null) {
@@ -179,9 +194,23 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	@SideOnly(Side.CLIENT)
 	public void tickClient()
 	{
-		if (this.isSpellInUse()) {
-			LearnedSpell ls = this.getSpellInUse();
-			ls.spell.tickWhileActiveClient(this.player.worldObj, this.player, this, ls);
+		if (this.isSpellActive()) {
+			LearnedSpell ls = this.getActiveSpell();
+			if (ls != null) {
+				ls.spell.tickWhileActiveClient(this.player.worldObj, this.player, this, ls, this.active_spell);
+			}
+		} else if (this.spell_target.targetfx != null) {
+			this.spell_target.targetfx.destroy();
+			this.spell_target.targetfx = null;
+		}
+		
+		for (int i = 0; i < this.active_continuous_spells.length; i++) {
+			if (this.active_continuous_spells[i]) {
+				LearnedSpell ls = this.spell_slots[i];
+				if (ls != null) {
+					ls.spell.tickWhileActiveClient(this.player.worldObj, this.player, this, ls, i);
+				}
+			}
 		}
 	}
 	
@@ -203,9 +232,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	 */
 	public int useMana(int amount, boolean recharge_delay)
 	{
-		if (PlayerAttributes.isInCreativeMode(this.player)) {
-			return 0;
-		}
+//		if (PlayerAttributes.isInCreativeMode(this.player)) {
+//			return 0;
+//		}
 		int dif = (this.mana < amount) ? this.mana : amount;
 		this.mana -= dif;
 		if (recharge_delay) {
@@ -245,7 +274,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	
 	public int getMagicSkillLvlXPReq()
 	{
-		return this.magic_skill_level * 5;
+		return 2 + this.magic_skill_level * 2;
 	}
 	
 	public float getMagicSkillLvlXPProg()
@@ -284,22 +313,25 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		}
 	}
 	
-	public boolean isSpellInUse()
+	public boolean isSpellActive()
 	{
-		return (this.spell_in_use >= 0 && this.spell_in_use < this.spell_slots.length);
+		return (this.active_spell >= 0 && this.active_spell < this.spell_slots.length);
 	}
 	
-	public LearnedSpell getSpellInUse()
+	public LearnedSpell getActiveSpell()
 	{
-		return this.isSpellInUse() ? this.spell_slots[this.spell_in_use] : null;
+		return this.isSpellActive() ? this.spell_slots[this.active_spell] : null;
 	}
 	
 	public void resetSpellUseTime()
 	{
-		this.spell_use_time = 0;
+		this.spell_active_time = 0;
 		this.scheduleUpdate();
 	}
 	
+	/* Activate a spell. Called upon receiving a packet from the client requesting this.
+	 * Calls triggerSpell if the requested spell is instant-use.
+	 */
 	public void activateSpell(int idx)
 	{
 		if (idx < 0 || idx >= this.spell_slots.length) {
@@ -308,42 +340,58 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		LearnedSpell ls = this.spell_slots[idx];
 		Spell spell = ls.spell;
 
-		if (!spell.isManaRequirementMet(this, ls) || this.isSpellOnCooldown()) {
-			return;
-		}
-		this.spell_in_use = idx;
-		
-		if (spell.is_instant) {
-			this.triggerSpell();
-			this.spell_in_use = -1;
+		if (!spell.isManaRequirementMet(this, ls) || this.isSpellOnCooldown(idx)) {
 			return;
 		}
 		
-		spell.onActivated(this.player.worldObj, this.player, this, this.spell_slots[idx]);
+		if (spell.use_type == UseType.INSTANT) {
+			this.triggerSpell(idx);
+		} else if (spell.use_type == UseType.TRIGGER) {
+			this.active_spell = idx;
+			spell.onActivated(this.player.worldObj, this.player, this, this.spell_slots[idx], idx);
+		} else if (spell.use_type == UseType.CONTINUOUS) {
+			this.active_continuous_spells[idx] = true;
+			spell.onActivated(this.player.worldObj, this.player, this, this.spell_slots[idx], idx);
+		}
 		this.scheduleUpdate();
 	}
 	
-	public void triggerSpell()
+	/* Called to trigger the current active spell, or to activate an instant-use spell. */
+	public void triggerSpell(int idx)
 	{
-		if (!this.isSpellInUse()) {
+		if (this.isSpellOnCooldown(idx)) {
 			return;
 		}
-		if (this.isSpellOnCooldown()) {
-			return;
-		}
-		LearnedSpell ls = this.getSpellInUse();
-		ls.spell.onTriggered(this.player.worldObj, this.player, this, ls);
+		LearnedSpell ls = this.spell_slots[idx];
+		ls.spell.onTriggered(this.player.worldObj, this.player, this, ls, idx);
 	}
-	
-	public void deactivateSpell()
+
+	/* Deactivate the spell. Index is primarily for deactivating continuous spells, but it
+	 * should still be provided for deactivating an active spell.
+	 */
+	public void deactivateSpell(int idx)
 	{
-		if (!this.isSpellInUse()) {
+		if (idx < 0) {
+			ResAdditae.LOG.error("Spell to deactivate is " + Integer.toString(idx));
 			return;
 		}
-		LearnedSpell ls = this.getSpellInUse();
-		ls.spell.onDeactivated(this.player.worldObj, this.player, this, ls);
-		this.spell_in_use = -1;
-		this.spell_use_time = 0;
+		
+		if (this.active_continuous_spells[idx]) {
+			this.active_continuous_spells[idx] = false;
+			LearnedSpell ls = this.spell_slots[idx];
+			ls.spell.onDeactivated(this.player.worldObj, this.player, this, ls, idx);
+			this.scheduleUpdate();
+			return;
+		}
+		
+		if (!this.isSpellActive()) {
+			return;
+		}
+		LearnedSpell ls = this.getActiveSpell();
+		ls.spell.onDeactivated(this.player.worldObj, this.player, this, ls, idx);
+		this.active_spell = -1;
+		this.spell_active_time = 0;
+		this.scheduleUpdate();
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -359,61 +407,76 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			Alerts.display(Alerts.NOT_ENOUGH_MANA);
 			return;
 		}
-		if (this.isSpellOnCooldown()) {
+		if (this.isSpellOnCooldown(idx)) {
 			Alerts.display(Alerts.ON_COOLDOWN);
 			return;
 		}
-		this.spell_in_use = idx;
 		
-		if (spell.is_instant) {
-			this.triggerSpellClient();
-			this.spell_in_use = -1;
-			return;
+		if (spell.use_type == UseType.INSTANT) {
+			this.triggerSpellClient(idx);
+		} else if (spell.use_type == UseType.TRIGGER) {
+			this.active_spell = idx;
+			spell.onActivatedClient(this.player.worldObj, this.player, this, this.spell_slots[idx], idx);
+		} else if (spell.use_type == UseType.CONTINUOUS) {
+			this.active_continuous_spells[idx] = true;
+			spell.onActivatedClient(this.player.worldObj, this.player, this, this.spell_slots[idx], idx);
 		}
-		
-		spell.onActivatedClient(this.player.worldObj, this.player, this, ls);
+		this.scheduleUpdate();
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public void triggerSpellClient()
+	public void triggerSpellClient(int idx)
 	{
-		if (!this.isSpellInUse()) {
+		if (!this.isSpellActive()) {
 			return;
 		}
-		if (this.isSpellOnCooldown()) {
+		if (this.isSpellOnCooldown(idx)) {
 			Alerts.display(Alerts.ON_COOLDOWN);
 			return;
 		}
-		LearnedSpell ls = this.getSpellInUse();
-		ls.spell.onTriggeredClient(this.player.worldObj, this.player, this, ls);
+		LearnedSpell ls = this.spell_slots[idx];
+		ls.spell.onTriggeredClient(this.player.worldObj, this.player, this, ls, idx);
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public void deactivateSpellClient()
+	public void deactivateSpellClient(int idx)
 	{
-		if (!this.isSpellInUse()) {
+		if (this.active_continuous_spells[idx]) {
+			this.active_continuous_spells[idx] = false;
+			LearnedSpell ls = this.spell_slots[idx];
+			ls.spell.onDeactivatedClient(this.player.worldObj, this.player, this, ls, idx);
 			return;
 		}
-		LearnedSpell ls = this.getSpellInUse();
-		ls.spell.onDeactivatedClient(this.player.worldObj, this.player, this, ls);
-		this.spell_in_use = -1;
+		
+		if (!this.isSpellActive()) {
+			return;
+		}
+		LearnedSpell ls = this.getActiveSpell();
+		ls.spell.onDeactivatedClient(this.player.worldObj, this.player, this, ls, idx);
+		this.active_spell = -1;
 	}
 	
-	public boolean isSpellOnCooldown()
+	public boolean isSpellOnCooldown(int idx)
 	{
-		if (this.spell_in_use < 0 || this.spell_in_use >= this.spell_cooldowns.length) {
+		if (idx < 0) {
 			return false;
 		}
-		return this.spell_cooldowns[this.spell_in_use] > 0;
+		return this.spell_cooldowns[idx] > 0;
 	}
 	
-	public void onSpellUsed(int cooldown)
+	public void onSpellUsed(int idx, int cooldown, int xp)
 	{
-		LearnedSpell ls = this.getSpellInUse();
+		if (idx < 0) {
+			return;
+		}
+		LearnedSpell ls = this.spell_slots[idx];
 		if (ls != null) {
 			ls.onSpellUsed(this);
-			this.spell_cooldowns[this.spell_in_use] = cooldown;
-			this.spell_cooldown_starts[this.spell_in_use] = cooldown;
+			this.spell_cooldowns[idx] = cooldown;
+			this.spell_cooldown_starts[idx] = cooldown;
+		}
+		if (xp > 0) {
+			this.player.addExperience(xp);
 		}
 		this.scheduleUpdate();
 	}
@@ -470,7 +533,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			buf.writeShort(this.spell_cooldowns[i]);
 			buf.writeShort(this.spell_cooldown_starts[i]);
 		}
-		buf.writeByte(this.spell_in_use);
+		buf.writeByte(this.active_spell);
+		for (int i = 0; i < this.active_continuous_spells.length; i++) {
+			buf.writeBoolean(this.active_continuous_spells[i]);
+		}
 		
 		if (this.wand_item == null) {
 			buf.writeByte(0);
@@ -508,7 +574,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			this.spell_cooldowns[i] = buf.readShort();
 			this.spell_cooldown_starts[i] = buf.readShort();
 		}
-		this.spell_in_use = buf.readByte();
+		this.active_spell = buf.readByte();
+		for (int i = 0; i < this.active_continuous_spells.length; i++) {
+			this.active_continuous_spells[i] = buf.readBoolean();
+		}
 		
 		if (buf.readByte() == 1) {
 			this.wand_item = SerialHlpr.deserializeItemStack(buf);

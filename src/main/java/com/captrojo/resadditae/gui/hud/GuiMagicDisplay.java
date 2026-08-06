@@ -50,6 +50,12 @@ public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 	static final int W_ACT = 14;
 	static final int H_ACT = 2;
 	
+	static final int U_CONT = 242;
+	static final int V_CONT_LO = 248;
+	static final int V_CONT_HI = 250;
+	static final int W_CONT = 14;
+	static final int H_CONT = 2;
+	
 	static final int W_WAND = 17;
 	
 	static final int H_SPELLS = 18;
@@ -127,10 +133,18 @@ public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_BG, V_BARS + bar_offs, W_BAR, H_BAR);
 		this.drawTexturedModalRect(xr - W_BAR, yb - H_BAR, U_BAR_FG, V_BARS + bar_offs, bar_size, H_BAR);
 		
-		if (rpp.isSpellInUse()) {
-			int x = this.getSpellXOffs(xl, rpp.spell_in_use);
+		if (rpp.isSpellActive()) {
+			int x = this.getSpellXOffs(xl, rpp.active_spell);
 			int v = ((this.mc.ingameGUI.getUpdateCounter() & 0x2) == 0) ? V_ACT_LO : V_ACT_HI;
 			this.drawTexturedModalRect(x, yb - H_BAR - H_ACT, U_ACT, v, W_ACT, H_ACT);
+		}
+		for (int i = 0; i < rpp.active_continuous_spells.length; i++) {
+			if (!rpp.active_continuous_spells[i]) {
+				continue;
+			}
+			int x = this.getSpellXOffs(xl, i);
+			int v = ((this.mc.ingameGUI.getUpdateCounter() & 0x4) == 0) ? V_CONT_LO : V_CONT_HI;
+			this.drawTexturedModalRect(x, yb - H_BAR - H_CONT, U_CONT, v, W_CONT, H_CONT);
 		}
 		
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.333f);
@@ -158,16 +172,27 @@ public class GuiMagicDisplay extends Gui implements IComplexHUDElement
 			if (rpp.spell_slots[i] == null) {
 				continue;
 			}
+
+			int str_y = yt + 10;
+			
+			int font_color = 0xffffff;
+			if (rpp.active_spell == i) {
+				font_color = 0x808080;
+			}
+			
 			KeyBinding kb = InputEventHandler.spell_keys[i];
 			String str = InputEventHandler.getShortStringFor(kb);
 			int str_w = fr.getStringWidth(str);
 			int str_x = this.getSpellXOffs(xl, i) + 17 - str_w;
-			int str_y = yt + 10;
-			fr.drawString(str, str_x + 1, str_y, 0x000000);
-			fr.drawString(str, str_x - 1, str_y, 0x000000);
-			fr.drawString(str, str_x, str_y + 1, 0x000000);
-			fr.drawString(str, str_x, str_y - 1, 0x000000);
-			fr.drawString(str, str_x, str_y, 0xffffff);
+			RenderHlpr.renderTextBacked(fr, str, str_x, str_y, font_color);
+			
+			if (rpp.active_spell == i) {
+				KeyBinding kb1 = InputEventHandler.spell_trigger;
+				String str1 = InputEventHandler.getShortStringFor(kb1);
+				int str_w1 = fr.getStringWidth(str1);
+				int str_x1 = this.getSpellXOffs(xl, i) + 17 - str_w1;
+				RenderHlpr.renderTextBacked(fr, str1, str_x1, str_y - 8, 0xffffff);
+			}
 		}
 		
 		GL11.glDisable(GL11.GL_BLEND);

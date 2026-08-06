@@ -5,60 +5,74 @@ import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.sounds.ModSounds;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class SpellArrowsplosion extends Spell
+public class SpellBulletTime extends Spell
 {
-	public SpellArrowsplosion(String name, String texture_name)
+	public SpellBulletTime(String name, String texture_name)
 	{
 		super(name, texture_name);
 		
 		this.complexity = MagicComplexity.INTERMEDIATE;
-		this.base_skill_requirement = 70;
-		this.base_mana_requirement = 500;
+		this.base_skill_requirement = 22;
+		this.base_mana_requirement = 1;
 		
-		this.use_type = UseType.INSTANT;
-		this.base_cooldown_time = 20 * 30;
+		this.use_type = UseType.CONTINUOUS;
+		this.max_use_time = 72000;
+		this.base_cooldown_time = 0;
+	}
+	
+	void modifyVelocity(EntityPlayer player, RAPlayerProperties rpp)
+	{
+		if (player.motionY <= 0.0) {
+			if (player.onGround) {
+				return;
+			}
+			player.motionY = -0.04;
+		} else if (player.motionY > 0.0 && rpp.spell_active_time > 3 && rpp.spell_active_time < 15) {
+			player.motionY = 1.5 - ((double) rpp.spell_active_time / 10.0);
+		}
+		player.velocityChanged = true;
 	}
 
 	@Override
 	public void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx)
 	{
+		if (player.onGround) {
+			player.addVelocity(0.0, 1.5, 0.0);
+			player.velocityChanged = true;
+		}
+		world.playSoundAtEntity(player, ModSounds.SPELL_BULLET_TIME_ACTIVATE, 1.0f, 1.0f);
+		rpp.onSpellUsed(idx, 0, 0);
 	}
 
 	@Override
 	public void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx)
 	{
-		for (double pitch_deg = -85; pitch_deg < 85; pitch_deg += 10) {
-			for (double yaw_deg = 0; yaw_deg < 360; yaw_deg += 10) {
-				double pitch_rad = pitch_deg * Math.PI / 180;
-				double yaw_rad = yaw_deg * Math.PI / 180;
-				
-				double xv = 1 * Math.cos(pitch_rad) * Math.cos(yaw_rad);
-				double yv = 1 * Math.sin(pitch_rad);
-				double zv = 1 * Math.cos(pitch_rad) * Math.sin(yaw_rad);
-				
-				EntityArrow arrow = new EntityArrow(world, player, 1f);
-				arrow.canBePickedUp = 0;
-				arrow.setDamage(30);
-				arrow.motionX = xv;
-				arrow.motionY = yv;
-				arrow.motionZ = zv;
-				world.spawnEntityInWorld(arrow);
-			}
-		}
-		rpp.onSpellUsed(idx, this.base_cooldown_time, 20);
-		rpp.useMana(100, true);
 	}
 
 	@Override
 	public void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx)
 	{
+		if (player.motionY <= 0.0) {
+			if (rpp.useMana(this.base_mana_requirement, true) != this.base_mana_requirement || player.onGround) {
+				rpp.deactivateSpell(idx);
+				return;
+			}
+		}
+		this.modifyVelocity(player, rpp);
+		
+		int resist = Math.min((spell.proficiency + 5) / 10, 5);
+		if (resist > 0) {
+			player.addPotionEffect(new PotionEffect(Potion.resistance.id, 40, resist - 1, true));
+		}
 	}
 
 	@Override
@@ -82,6 +96,7 @@ public class SpellArrowsplosion extends Spell
 	@SideOnly(Side.CLIENT)
 	public void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx)
 	{
+		this.modifyVelocity(player, rpp);
 	}
 
 	@Override

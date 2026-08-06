@@ -15,8 +15,10 @@ public class Spells
 	public static final List<Spell> SPELL_LIST = new ArrayList<Spell>();
 	private static int _current_hi_word;
 	
-	public static Spell arrowsplosion = new SpellArrowsplosion("arrowsplosion");
-	public static Spell lifesteal = new SpellLifesteal("lifesteal");
+	public static Spell arrowsplosion = new SpellArrowsplosion("arrowsplosion", ResAdditae.ident("arrowsplosion"));
+	public static Spell lifesteal = new SpellLifesteal("lifesteal", ResAdditae.ident("lifesteal"));
+	public static Spell bullet_time = new SpellBulletTime("bullet_time", ResAdditae.ident("bullet_time"));
+	public static Spell avada_kedavra = new SpellAvadaKedavra("avada_kedavra", ResAdditae.ident("avada_kedavra"));
 	
 	public static void init()
 	{
@@ -24,6 +26,8 @@ public class Spells
 		
 		registerSpell(0x0000, arrowsplosion);
 		registerSpell(0x0001, lifesteal);
+		registerSpell(0x0002, bullet_time);
+		registerSpell(0x0003, avada_kedavra);
 	}
 	
 	public static void setSpellHiWord(int id)

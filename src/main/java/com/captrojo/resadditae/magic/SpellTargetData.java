@@ -63,6 +63,7 @@ public class SpellTargetData
 				Minecraft.getMinecraft().effectRenderer.addEffect(this.targetfx);
 			}
 			this.targetfx.target = this.entity;
+			this.targetfx.maintain();
 		} else {
 			if (this.targetfx != null) {
 				this.targetfx.destroy();

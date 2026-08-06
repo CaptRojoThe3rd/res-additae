@@ -3,6 +3,7 @@ package com.captrojo.resadditae.magic.spell;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
+import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
@@ -19,6 +20,9 @@ import net.minecraft.world.World;
 
 public abstract class Spell
 {
+	/* Just put something random here tbh */
+	public static final int WHATEVER_RANGE = 32;
+	
 	int id;
 	
 	public final String unlocalized_name;
@@ -29,7 +33,7 @@ public abstract class Spell
 	public int base_skill_requirement;
 	public int base_mana_requirement;
 	
-	public boolean is_instant;
+	public UseType use_type;
 	public int max_use_time;
 	public int base_cooldown_time;
 	
@@ -40,33 +44,33 @@ public abstract class Spell
 	}
 	
 	/* Called when the spell is activated with its slot's keybind */
-	public abstract void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void onActivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 	
 	/* Called when the spell is triggered, either with its slot's keybind (if the spell is
 	 * an instant-use spell), or with the spell trigger keybind after the spell has been
 	 * activated
 	 */
-	public abstract void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void onTriggered(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 	
 	/* Called every tick while the spell is active */
-	public abstract void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 	
 	/* Called when the spell is deactivated, either by the user deactivating it with the spell
 	 * slot's keybind, or by selecting a different spell
 	 */
-	public abstract void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void onDeactivated(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 	
 	@SideOnly(Side.CLIENT)
-	public abstract void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 
 	@SideOnly(Side.CLIENT)
-	public abstract void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void onTriggeredClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 
 	@SideOnly(Side.CLIENT)
-	public abstract void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void tickWhileActiveClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 
 	@SideOnly(Side.CLIENT)
-	public abstract void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell);
+	public abstract void onDeactivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx);
 	
 	/* Get the mana requirement for the spell, adjusting for any other properties.
 	 * `spell` may be null.
@@ -111,9 +115,9 @@ public abstract class Spell
 	}
 	
 	/* Tell the client to do something after a spell is triggered on the server. */
-	public void sendFeedback(EntityPlayer player, PacketSpellFeedback.Feedback...actions)
+	public void sendFeedback(EntityPlayer player, int idx, PacketSpellFeedback.Feedback...actions)
 	{
-		ResAdditae.network.sendTo(new PacketSpellFeedback(actions), (EntityPlayerMP) player);
+		ResAdditae.network.sendTo(new PacketSpellFeedback(idx, actions), (EntityPlayerMP) player);
 	}
 	
 	public void sendAlert(EntityPlayer player, Alerts alert)

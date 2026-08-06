@@ -45,6 +45,12 @@
 			"entity/thrown_halberd/impact_4"
 		]
 	},
+	"spell.bullet_time.activate": {
+		"category": "player",
+		"sounds": [
+			"spell/bullet_time"
+		]
+	},
 	"step.metal_pile": {
 		"category": "block",
 		"sounds": [

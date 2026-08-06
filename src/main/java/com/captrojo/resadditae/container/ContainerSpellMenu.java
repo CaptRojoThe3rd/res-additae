@@ -99,6 +99,12 @@ public class ContainerSpellMenu extends Container implements IHasSelectionInput
 		if (idx >= 0) {
 			Spell spell = Spells.getByID(val);
 			this.rpp.spell_slots[idx] = this.rpp.getLearnedFromSpell(spell);
+			if (spell == null) {
+				this.rpp.active_continuous_spells[idx] = false;
+				if (this.rpp.active_spell == idx) {
+					this.rpp.active_spell = -1;
+				}
+			}
 		} else if (idx == -2) {
 			this.rpp.manaLvlUp();
 		} else if (idx == -3) {

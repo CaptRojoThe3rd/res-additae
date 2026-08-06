@@ -68,7 +68,12 @@ public class GuiSpellMenu extends GuiContainer
 				this.mc.displayGuiScreen(new GuiSpellSelect(this, this.rpp, slot.getSlotIndex(), this.rpp.getWandPower()));
 				this.click_cooldown = 5;
 			} else if (mouse_button != 0) {
-				this.rpp.spell_slots[slot.getSlotIndex()] = null;
+				int idx = slot.getSlotIndex();
+				this.rpp.spell_slots[idx] = null;
+				this.rpp.active_continuous_spells[idx] = false;
+				if (this.rpp.active_spell == idx) {
+					this.rpp.active_spell = -1;
+				}
 				ResAdditae.network.sendToServer(new PacketGuiContainerAction(Action.SELECT, slot.getSlotIndex(), -1));
 			}
 		}

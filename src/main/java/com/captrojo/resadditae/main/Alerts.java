@@ -39,7 +39,7 @@ public enum Alerts
 			break;
 			
 		case LIFESTEAL_USED:
-			str = I18nHlpr.getf(alert.key, (float) data[1] / 2.0f, (String) data[2]);
+			str = I18nHlpr.getf(alert.key, Math.round(((float) data[1] / 2.0f) * 100.0f) / 100.0f, (String) data[2]);
 			break;
 			
 		case SPELL_LEARNED:

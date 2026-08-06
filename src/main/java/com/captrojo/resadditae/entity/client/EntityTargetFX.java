@@ -32,14 +32,19 @@ public class EntityTargetFX extends EntityFX
 		this.target = target;
 		this.cam = cam;
 		
-		this.particleMaxAge = Integer.MAX_VALUE;
+		this.particleMaxAge = 2;
 		this.particleGravity = 0.0f;
 		this.particleIcon = ItemTexturemapHacks.particle_target_arrow;
 	}
 	
 	public void destroy()
 	{
-		this.particleMaxAge = 0;
+		this.particleMaxAge = this.particleAge;
+	}
+	
+	public void maintain()
+	{
+		this.particleMaxAge++;
 	}
 	
 	@Override

@@ -30,14 +30,16 @@ public class PacketSpellFeedback implements IMessage
 		}
 	}
 	
+	int idx;
 	int actions;
 	
 	public PacketSpellFeedback()
 	{
 	}
 	
-	public PacketSpellFeedback(Feedback...actions)
+	public PacketSpellFeedback(int idx, Feedback...actions)
 	{
+		this.idx = idx;
 		this.actions = 0;
 		for (Feedback action : actions) {
 			this.actions |= action.bit;
@@ -47,12 +49,14 @@ public class PacketSpellFeedback implements IMessage
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
+		this.idx = buf.readByte();
 		this.actions = buf.readInt();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf)
 	{
+		buf.writeByte(this.idx);
 		buf.writeInt(this.actions);
 	}
 	
@@ -65,7 +69,7 @@ public class PacketSpellFeedback implements IMessage
 			RAPlayerProperties rpp = RAPlayerProperties.get(Minecraft.getMinecraft().thePlayer);
 			
 			if (Feedback.DEACTIVATE.yes(packet.actions)) {
-				rpp.deactivateSpellClient();
+				rpp.deactivateSpellClient(packet.idx);
 			}
 			
 			return null;

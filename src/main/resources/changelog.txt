@@ -1,7 +1,18 @@
 
+▓▓▓ #0007 ▓▓▓
+
+Additions:
+* HUD now shows spell trigger keybind when a spell is active
+* Bullet time spell
+* Avada Kedavra (instant kill) spell
+
+Changes:
+* Reduced XP requirements for mana/magic skill leveling
+
+
 ▓▓▓ #0006 ▓▓▓
 
-Addtions:
+Additions:
 * Lifesteal spell. Heals up to two hearts while damaging target by two hearts
 * Spellbooks. Used to learn spells
 * Functional mana and magic skill leveling

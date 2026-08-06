@@ -84,9 +84,9 @@ public class ResAdditae
 //	public static final String VERSION = "1.0.0";
 //	public static final String VERSIONS_ACCEPTED = "1.0.*";
 //	public static final String VERSION_NAME = "1.0.0";
-	public static final String VERSION = "X0006";
-	public static final String VERSIONS_ACCEPTED = "X0006";
-	public static final String VERSION_NAME = "Build #0006";
+	public static final String VERSION = "X0007";
+	public static final String VERSIONS_ACCEPTED = "X0007";
+	public static final String VERSION_NAME = "Build #0007";
 	
 	public static final Logger LOG = LogManager.getLogger(MOD_ID);
 	

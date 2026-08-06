@@ -22,7 +22,6 @@ import com.captrojo.resadditae.render.block.RenderMultiFence;
 import com.captrojo.resadditae.render.block.RenderMultiStair;
 import com.captrojo.resadditae.render.entity.RenderThrownHalberd;
 import com.captrojo.resadditae.render.item.RenderItemHalberd;
-import com.captrojo.resadditae.render.spell.TextureMapSpells;
 import com.captrojo.resadditae.render.tileentity.RenderTEMultiSpawner;
 import com.captrojo.resadditae.render.tileentity.RenderTESnowDungeonSpawner;
 import com.captrojo.resadditae.render.tileentity.RenderTEStructureBlock;
@@ -36,6 +35,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 
@@ -100,7 +100,7 @@ public class ClientProxy extends CommonProxy
 	{
 		HUDElements.init();
 		
-		RenderHlpr.texturemap_spells = new TextureMapSpells();
+		RenderHlpr.texturemap_spells = new TextureMap(RenderHlpr.SPELL_TEXTUREMAP_ID, "textures/spells", true);
 		ResourceLocation loc = new ResourceLocation("textures/atlas/spells.png");
 		Minecraft.getMinecraft().renderEngine.loadTextureMap(loc, RenderHlpr.texturemap_spells);
 	}

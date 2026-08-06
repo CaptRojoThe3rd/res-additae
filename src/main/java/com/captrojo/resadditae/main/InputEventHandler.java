@@ -5,11 +5,11 @@ import org.lwjgl.input.Keyboard;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.GuiHandler;
 import com.captrojo.resadditae.item.IItemWithSettings;
-import com.captrojo.resadditae.magic.LearnedSpell;
+import com.captrojo.resadditae.magic.UseType;
+import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction;
 import com.captrojo.resadditae.packet.toserver.PacketGuiContainerAction.Action;
 import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
-import com.captrojo.resadditae.packet.toserver.PacketUseSpell.UseType;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -71,6 +71,15 @@ public class InputEventHandler
 		if (code == Keyboard.KEY_APOSTROPHE) {
 			return "'";
 		}
+		if (code == LMB) {
+			return "LMB";
+		}
+		if (code == MMB) {
+			return "MMB";
+		}
+		if (code == RMB) {
+			return "RMB";
+		}
 		return GameSettings.getKeyDisplayString(code);
 	}
 	
@@ -81,18 +90,29 @@ public class InputEventHandler
 		if (rpp.spell_slots[idx] == null) {
 			return;
 		}
+		Spell spell = rpp.spell_slots[idx].spell;
 		
-		if (rpp.spell_in_use >= 0) {
-			if (rpp.spell_in_use == idx) {
-				ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.DEACTIVATE));
-				rpp.deactivateSpellClient();
+		if (spell.use_type == UseType.CONTINUOUS) {
+			if (rpp.active_continuous_spells[idx]) {
+				this.sendPacketUseSpell(rpp, PacketUseSpell.UseType.DEACTIVATE, idx);
+				rpp.deactivateSpellClient(idx);
 			} else {
-				ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.ACTIVATE_OTHER, idx));
+				this.sendPacketUseSpell(rpp, PacketUseSpell.UseType.ACTIVATE, idx);
 				rpp.activateSpellClient(idx);
 			}
 		} else {
-			ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.ACTIVATE, idx));
-			rpp.activateSpellClient(idx);
+			if (rpp.active_spell >= 0) {
+				if (rpp.active_spell == idx) {
+					this.sendPacketUseSpell(rpp, PacketUseSpell.UseType.DEACTIVATE, idx);
+					rpp.deactivateSpellClient(idx);
+				} else {
+					this.sendPacketUseSpell(rpp, PacketUseSpell.UseType.ACTIVATE_OTHER, idx);
+					rpp.activateSpellClient(idx);
+				}
+			} else {
+				this.sendPacketUseSpell(rpp, PacketUseSpell.UseType.ACTIVATE, idx);
+				rpp.activateSpellClient(idx);
+			}
 		}
 	}
 	
@@ -100,8 +120,15 @@ public class InputEventHandler
 	{
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		RAPlayerProperties rpp = RAPlayerProperties.get(player);
-		ResAdditae.network.sendToServer(new PacketUseSpell(rpp, UseType.TRIGGER_WHILE_ACTIVE));
-		rpp.triggerSpellClient();
+		if (rpp.isSpellActive()) {
+			this.sendPacketUseSpell(rpp, PacketUseSpell.UseType.TRIGGER_WHILE_ACTIVE, rpp.active_spell);
+			rpp.triggerSpellClient(rpp.active_spell);
+		}
+	}
+	
+	void sendPacketUseSpell(RAPlayerProperties rpp, PacketUseSpell.UseType type, int idx)
+	{
+		ResAdditae.network.sendToServer(new PacketUseSpell(rpp, type, idx));
 	}
 	
 	@SubscribeEvent
