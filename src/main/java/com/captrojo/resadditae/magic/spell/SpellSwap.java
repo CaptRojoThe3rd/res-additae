@@ -5,9 +5,7 @@ import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.main.Alerts;
-import com.captrojo.resadditae.main.ModDamageSources;
-import com.captrojo.resadditae.main.ResAdditae;
-import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback.Feedback;
+import com.captrojo.resadditae.sounds.ModSounds;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,19 +14,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
-public class SpellLifesteal extends Spell
+public class SpellSwap extends Spell
 {
-	public SpellLifesteal(String name, String texture_name)
+	public SpellSwap(String name, String texture_name)
 	{
 		super(name, texture_name);
 		
-		this.complexity = MagicComplexity.BASIC;
-		this.base_skill_requirement = 13;
+		this.complexity = MagicComplexity.ADVANCED;
+		this.base_skill_requirement = 32;
 		this.base_mana_requirement = 50;
 		
 		this.use_type = UseType.TRIGGER;
 		this.max_use_time = 72000;
-		this.base_cooldown_time = 20 * 5;
+		this.base_cooldown_time = 20 * 15;
 	}
 
 	@Override
@@ -45,23 +43,20 @@ public class SpellLifesteal extends Spell
 			return;
 		}
 		
-		float old_health = player.getHealth();
-		player.heal(4.0f);
-		float delta_health = player.getHealth() - old_health;
+		double tx = target.posX;
+		double ty = target.posY;
+		double tz = target.posZ;
+		double px = player.posX;
+		double py = player.posY;
+		double pz = player.posZ;
+		player.setPositionAndUpdate(tx, ty, tz);
+		target.setPositionAndUpdate(px, py, pz);
 		
-		if (delta_health > 0.0f) {
-			target.attackEntityFrom(ModDamageSources.causeMagicLifestealDamage(player), delta_health);
-			rpp.useMana(this.base_mana_requirement, true);
-			rpp.onSpellUsed(idx, this.base_cooldown_time, 20);
-			this.sendAlert(player, Alerts.LIFESTEAL_USED, delta_health, target.getCommandSenderName());
-		} else {
-			this.sendAlert(player, Alerts.HEALTH_ALREADY_FULL);
-		}
+		world.playSoundEffect(tx, ty, tz, ModSounds.TELEPORT, 1.0f, 1.0f);
+		world.playSoundEffect(px, py, pz, ModSounds.TELEPORT, 1.0f, 1.0f);
 		
-		if (player.getHealth() >= player.getMaxHealth()) {
-			this.sendFeedback(player, idx, Feedback.DEACTIVATE);
-			rpp.deactivateSpell(idx);
-		}
+		rpp.useMana(this.base_mana_requirement, true);
+		rpp.onSpellUsed(idx, this.base_cooldown_time, 20);
 	}
 
 	@Override

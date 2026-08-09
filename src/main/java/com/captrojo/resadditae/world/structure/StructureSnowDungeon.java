@@ -172,8 +172,8 @@ public class StructureSnowDungeon extends StaticGenSpacedThing
 		Random rand = world.rand;
 		int x = chunk_x * 16;
 		int z = chunk_z * 16;
-//		int y = world.getHeightValue(x, z);
-		int y = 200;
+		int y = world.getHeightValue(x, z);
+//		int y = 200;
 		
 		if (DebugConfig.log_structure_gens) {
 			ResAdditae.LOG.info(String.format("Generated snow dungeon at (%d, %d, %d)", x, y, z));

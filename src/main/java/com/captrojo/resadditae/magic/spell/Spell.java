@@ -33,6 +33,11 @@ public abstract class Spell
 	public int base_skill_requirement;
 	public int base_mana_requirement;
 	
+	/* Used for continuous spells. 
+	 * Multiplied by base_mana_requirement for display in spellbooks.
+	 */
+	public int mana_uses_per_second;
+	
 	public UseType use_type;
 	public int max_use_time;
 	public int base_cooldown_time;

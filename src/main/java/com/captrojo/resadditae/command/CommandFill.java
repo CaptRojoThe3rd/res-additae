@@ -110,8 +110,10 @@ public class CommandFill extends CommandBase
 			z2--;
 		}
 
-		sender.addChatMessage(new ChatComponentText(String.format("Filling area from (%d, %d, %d) to (%d, %d, %d)",
-			x1, y1, z1, x2, y2, z2)));
+		sender.addChatMessage(new ChatComponentText(String.format(
+			"Filling area from (%d, %d, %d) to (%d, %d, %d)",
+			x1, y1, z1, x2, y2, z2
+		)));
 
 		int blocks_affected = 0;
 		for (int x = x1; x != x2; x += ax) {

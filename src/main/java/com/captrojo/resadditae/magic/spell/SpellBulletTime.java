@@ -24,6 +24,8 @@ public class SpellBulletTime extends Spell
 		this.base_skill_requirement = 22;
 		this.base_mana_requirement = 1;
 		
+		this.mana_uses_per_second = 10;
+		
 		this.use_type = UseType.CONTINUOUS;
 		this.max_use_time = 72000;
 		this.base_cooldown_time = 0;
@@ -62,9 +64,15 @@ public class SpellBulletTime extends Spell
 	public void tickWhileActive(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx)
 	{
 		if (player.motionY <= 0.0) {
-			if (rpp.useMana(this.base_mana_requirement, true) != this.base_mana_requirement || player.onGround) {
+			if (player.onGround) {
 				rpp.deactivateSpell(idx);
 				return;
+			}
+			if ((rpp.update_counter & 0x1) == 0) {
+				if (rpp.useMana(this.base_mana_requirement, true) != this.base_mana_requirement) {
+					rpp.deactivateSpell(idx);
+					return;
+				}
 			}
 		}
 		this.modifyVelocity(player, rpp);

@@ -70,6 +70,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	private boolean update_scheduled = false;
 	
 	public EntityPlayer player;
+	public int update_counter;
 	int periodic_update_counter;
 	
 	public boolean allow_charm_helping_players;
@@ -137,6 +138,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	{
 		boolean updated = this.update_scheduled;
 		
+		this.update_counter++;
 		this.periodic_update_counter--;
 		if (this.periodic_update_counter <= 0) {
 			this.periodic_update_counter = 20;

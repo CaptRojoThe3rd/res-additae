@@ -4,6 +4,8 @@ import com.captrojo.resadditae.main.ResAdditae;
 
 public class ModSounds
 {
+	public static final String TELEPORT = "mob.endermen.portal";
+	
 	public static final String LOG_STRIPPED = ResAdditae.ident("item.axe.strip");
 	
 	public static final String THROWN_HALBERD_IMPACT = ResAdditae.ident("entity.thrown_halberd.impact");

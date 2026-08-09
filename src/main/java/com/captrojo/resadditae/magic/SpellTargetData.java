@@ -26,6 +26,8 @@ public class SpellTargetData
 	int entity_id;
 	
 	@SideOnly(Side.CLIENT)
+	public MovingObjectType req_target;
+	@SideOnly(Side.CLIENT)
 	public EntityTargetFX targetfx;
 	
 	public SpellTargetData()
@@ -49,25 +51,28 @@ public class SpellTargetData
 		}
 		
 		this.type = mop.typeOfHit;
+		
 		if (this.type == MovingObjectType.BLOCK) {
 			this.block_x = mop.blockX;
 			this.block_y = mop.blockY;
 			this.block_z = mop.blockZ;
 		}
 		
-		if (this.type == MovingObjectType.ENTITY && mop.entityHit instanceof EntityLivingBase) {
-			this.entity = (EntityLivingBase) mop.entityHit;
-			this.entity_id = this.entity.getEntityId();
-			if (this.targetfx == null) {
-				this.targetfx = new EntityTargetFX(world, this.entity, player);
-				Minecraft.getMinecraft().effectRenderer.addEffect(this.targetfx);
-			}
-			this.targetfx.target = this.entity;
-			this.targetfx.maintain();
-		} else {
-			if (this.targetfx != null) {
-				this.targetfx.destroy();
-				this.targetfx = null;
+		if (this.req_target == MovingObjectType.ENTITY) {
+			if (this.type == MovingObjectType.ENTITY && mop.entityHit instanceof EntityLivingBase) {
+				this.entity = (EntityLivingBase) mop.entityHit;
+				this.entity_id = this.entity.getEntityId();
+				if (this.targetfx == null) {
+					this.targetfx = new EntityTargetFX(world, this.entity, player);
+					Minecraft.getMinecraft().effectRenderer.addEffect(this.targetfx);
+				}
+				this.targetfx.target = this.entity;
+				this.targetfx.maintain();
+			} else {
+				if (this.targetfx != null) {
+					this.targetfx.destroy();
+					this.targetfx = null;
+				}
 			}
 		}
 	}

@@ -1,4 +1,18 @@
 
+▓▓▓ #0008 ▓▓▓
+
+Additions:
+* Swap spell
+* Hop spell
+* Halt spell
+
+Changes:
+* Bullet time spell uses less mana
+
+Fixes:
+* Snow dungeon spawns at correct height
+
+
 ▓▓▓ #0007 ▓▓▓
 
 Additions:

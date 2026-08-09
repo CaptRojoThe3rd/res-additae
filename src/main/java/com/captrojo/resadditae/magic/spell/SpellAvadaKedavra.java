@@ -12,6 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 public class SpellAvadaKedavra extends Spell
@@ -46,6 +47,7 @@ public class SpellAvadaKedavra extends Spell
 		target.attackEntityFrom(DamageSource.causeIndirectMagicDamage(target, player), Float.MAX_VALUE);
 		rpp.onSpellUsed(idx, this.base_cooldown_time, 20);
 		rpp.useMana(this.base_mana_requirement, true);
+		rpp.deactivateSpell(idx);
 		this.sendFeedback(player, idx, Feedback.DEACTIVATE);
 	}
 
@@ -63,6 +65,7 @@ public class SpellAvadaKedavra extends Spell
 	@SideOnly(Side.CLIENT)
 	public void onActivatedClient(World world, EntityPlayer player, RAPlayerProperties rpp, LearnedSpell spell, int idx)
 	{
+		rpp.spell_target.req_target = MovingObjectType.ENTITY;
 	}
 
 	@Override

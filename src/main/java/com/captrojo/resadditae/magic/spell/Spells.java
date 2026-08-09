@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class Spells
 {
-	public static final Spell[][] SPELL_ARRAY = new Spell[0x10000][];
+	public static final Spell[][] SPELL_ARRAY = new Spell[0x1000][];
 	public static final List<Spell> SPELL_LIST = new ArrayList<Spell>();
 	private static int _current_hi_word;
 	
@@ -19,45 +19,51 @@ public class Spells
 	public static Spell lifesteal = new SpellLifesteal("lifesteal", ResAdditae.ident("lifesteal"));
 	public static Spell bullet_time = new SpellBulletTime("bullet_time", ResAdditae.ident("bullet_time"));
 	public static Spell avada_kedavra = new SpellAvadaKedavra("avada_kedavra", ResAdditae.ident("avada_kedavra"));
+	public static Spell swap = new SpellSwap("swap", ResAdditae.ident("swap"));
+	public static Spell hop = new SpellHop("hop", ResAdditae.ident("hop"));
+	public static Spell halt = new SpellHalt("halt", ResAdditae.ident("halt"));
 	
 	public static void init()
 	{
-		_current_hi_word = 0x0000;
+		_current_hi_word = 0x000;
 		
-		registerSpell(0x0000, arrowsplosion);
-		registerSpell(0x0001, lifesteal);
-		registerSpell(0x0002, bullet_time);
-		registerSpell(0x0003, avada_kedavra);
+		registerSpell(0x000, arrowsplosion);
+		registerSpell(0x001, lifesteal);
+		registerSpell(0x002, bullet_time);
+		registerSpell(0x003, avada_kedavra);
+		registerSpell(0x004, swap);
+		registerSpell(0x005, hop);
+		registerSpell(0x006, halt);
 	}
 	
 	public static void setSpellHiWord(int id)
 	{
-		if (id < 0x10000) {
+		if (id < 0x001000) {
 			_current_hi_word = id;
 		} else {
-			_current_hi_word = id >> 16;
+			_current_hi_word = id >> 12;
 		}
 	}
 	
 	public static Spell registerSpell(int id, Spell spell)
 	{
-		return registerSpellL(id | (_current_hi_word << 16), spell);
+		return registerSpellL(id | (_current_hi_word << 12), spell);
 	}
 	
 	public static Spell registerSpellL(int id, Spell spell)
 	{
-		int hi_word = id >> 16;
-		int lo_word = id & 0xffff;
+		int hi_word = id >> 12;
+		int lo_word = id & 0xfff;
 		
 		Spell[] arr = SPELL_ARRAY[hi_word];
 		if (arr == null) {
-			arr = new Spell[0x10000];
+			arr = new Spell[0x1000];
 			SPELL_ARRAY[hi_word] = arr;
 		}
 		
 		if (arr[lo_word] != null) {
 			String str = String.format(
-				"Spell ID %04x %04x (%d) already taken!\n" +
+				"Spell ID %03x %03x (%d) already taken!\n" +
 				"\tExisting: '%s' (%s)\n" +
 				"\tNew: '%s' (%s)",
 				lo_word, hi_word, id,
@@ -79,8 +85,8 @@ public class Spells
 		if (id < 0) {
 			return null;
 		}
-		int hi_word = id >> 16;
-		int lo_word = id & 0xffff;
+		int hi_word = id >> 12;
+		int lo_word = id & 0xfff;
 		Spell[] arr = SPELL_ARRAY[hi_word];
 		if (arr == null) {
 			return null;

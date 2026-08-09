@@ -94,7 +94,7 @@ public class GuiSpellbook extends GuiScreen
 			this.str_wand_level_2 = I18nHlpr.get("gui.spellbook.wand_level." + mc.name);
 			this.str_skill_2 = I18nHlpr.getf("gui.spellbook.lvl", skill);
 			if (spell.use_type == UseType.CONTINUOUS) {
-				this.str_mana_2 = I18nHlpr.getf("gui.spellbook.mana_per_sec", mana * 20);
+				this.str_mana_2 = I18nHlpr.getf("gui.spellbook.mana_per_sec", mana * this.spell.mana_uses_per_second);
 			} else {
 				this.str_mana_2 = Integer.toString(mana);
 			}

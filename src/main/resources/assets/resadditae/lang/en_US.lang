@@ -422,6 +422,12 @@ spell.bullet_time.name=Bullet Time
 spell.bullet_time.book=Slow down gravity while in midair. Gives you a boost upwards if you are on the ground.\n\nAs you become more proficient at this spell, you will gain stronger resistance effects while you use it.\n\nWarning: You still take fall damage!
 spell.avada_kedavra.name=Avada Kedavra
 spell.avada_kedavra.book=Instantly kill a mob or player.\n\n§o(This does the same thing as the `/kill` command)
+spell.swap.name=Swap
+spell.swap.book=Swap positions with a target.
+spell.hop.name=Hop
+spell.hop.book=Hop up a few blocks.
+spell.halt.name=Halt
+spell.halt.book=Freeze a mob or player in place, damaging them slightly in the process.
 
 tile.bountiful_stones.andesite.name=Andesite
 tile.bountiful_stones.diorite.name=Diorite
