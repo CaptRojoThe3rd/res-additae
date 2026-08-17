@@ -20,12 +20,12 @@ public class LootPool
 	public LootPool(NBTTagCompound tag)
 	{
 		this.items = new ArrayList<LootItem>();
-		NBTTagList list = tag.getTagList("items", NBT.TAG_COMPOUND);
+		NBTTagList list = tag.getTagList("Items", NBT.TAG_COMPOUND);
 		for (int i = 0; i < list.tagCount(); i++) {
 			LootItem item = new LootItem(list.getCompoundTagAt(i));
 			this.items.add(item);
 		}
-		this.rounds = tag.getInteger("rounds");
+		this.rounds = tag.getInteger("Rounds");
 	}
 	
 	public NBTTagCompound saveToNBT()
@@ -36,8 +36,8 @@ public class LootPool
 		for (LootItem item : this.items) {
 			list.appendTag(item.saveToNBT());
 		}
-		tag.setTag("items", list);
-		tag.setInteger("rounds", this.rounds);
+		tag.setTag("Items", list);
+		tag.setInteger("Rounds", this.rounds);
 		
 		return tag;
 	}

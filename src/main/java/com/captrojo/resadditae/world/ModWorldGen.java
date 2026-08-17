@@ -10,11 +10,10 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.config.common.CommonStuffConfig;
 import com.captrojo.resadditae.config.common.WorldGenConfig;
-import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 import com.captrojo.resadditae.world.gen.feature.WorldGenMinableDynamic;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
-import com.captrojo.resadditae.world.structure.ModStructures;
+import com.captrojo.resadditae.world.gen.structure.MapGenWoodenHouse;
 
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
@@ -25,6 +24,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.structure.MapGenStructure;
 
 public class ModWorldGen implements IWorldGenerator
 {
@@ -152,6 +152,8 @@ public class ModWorldGen implements IWorldGenerator
 	private final SpacedThingCheck depths_gas_fracture_chk;
 	private final HashMap<BlockMeta, BlockMeta> depths_gas_fracture_map;
 	
+	private final MapGenStructure mapgen_wooden_house;
+	
 	public ModWorldGen()
 	{
 		this.depths_gas_fracture_chk = new SpacedThingCheck("depths_gas_fracture_chk".hashCode(), null, 0, 16, 24);
@@ -160,6 +162,8 @@ public class ModWorldGen implements IWorldGenerator
 			this.depths_gas_fracture_map.put(new BlockMeta(ModBlocks.depth_stones, m), new BlockMeta(ModBlocks.depth_stones_special, 1));
 		}
 		this.depths_gas_fracture_map.put(new BlockMeta(Blocks.air, 0), new BlockMeta(ModBlocks.flashover_air, 1));
+		
+		this.mapgen_wooden_house = new MapGenWoodenHouse();
 	}
 	
 	@Override
@@ -242,22 +246,26 @@ public class ModWorldGen implements IWorldGenerator
 		addOreSpawn(ModBlocks.ore_platinum.getTgtOreMap(), world, rand, block_x, block_z, 16, 16, 1 + rand.nextInt(3), 4, 3, 20);
 		
 		/* Structures */
-		if (WorldGenConfig.dark_dungeon_enabled && ModStructures.dark_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
-			ModStructures.dark_dungeon.generate(world, chunk_x, chunk_z);
-		}
-		if (WorldGenConfig.snow_dungeon_enabled && ModStructures.snow_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
-			ModStructures.snow_dungeon.generate(world, chunk_x, chunk_z);
-		}
-		if (WorldGenConfig.wooden_house_enabled && ModStructures.wood_house.canPlaceAt(world, chunk_x, chunk_z)) {
-			ModStructures.wood_house.generate(world, chunk_x, chunk_z);
-		}
+		
+		this.mapgen_wooden_house.func_151539_a(chunk_prov, world, chunk_z, chunk_z, null);
+		this.mapgen_wooden_house.generateStructuresInChunk(world, rand, chunk_x, chunk_z);
+		
+//		if (WorldGenConfig.dark_dungeon_enabled && ModStructures.dark_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
+//			ModStructures.dark_dungeon.generate(world, chunk_x, chunk_z);
+//		}
+//		if (WorldGenConfig.snow_dungeon_enabled && ModStructures.snow_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
+//			ModStructures.snow_dungeon.generate(world, chunk_x, chunk_z);
+//		}
+//		if (WorldGenConfig.wooden_house_enabled && ModStructures.wood_house.canPlaceAt(world, chunk_x, chunk_z)) {
+//			ModStructures.wood_house.generate(world, chunk_x, chunk_z);
+//		}
 	}
 	
 	public void generateEnd(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
-		if (WorldGenConfig.end_airship_enabled && ModStructures.end_airship.canPlaceAt(world, chunk_x, chunk_z)) {
-			ModStructures.end_airship.generate(world, chunk_x, chunk_z);
-		}
+//		if (WorldGenConfig.end_airship_enabled && ModStructures.end_airship.canPlaceAt(world, chunk_x, chunk_z)) {
+//			ModStructures.end_airship.generate(world, chunk_x, chunk_z);
+//		}
 	}
 	
 	public void generateDepths(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)

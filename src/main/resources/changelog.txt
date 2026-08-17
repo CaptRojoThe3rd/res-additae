@@ -10,7 +10,8 @@ Changes:
 * Bullet time spell uses less mana
 
 Fixes:
-* Snow dungeon spawns at correct height
+* Snow dungeon spawns at correct height (#19)
+* Depths portals no longer destroyed by explosions (#21)
 
 
 ▓▓▓ #0007 ▓▓▓

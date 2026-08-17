@@ -71,7 +71,7 @@ public class RenderTEStructureBlock extends TileEntitySpecialRenderer
 			rb.overrideBlockBounds(0d, 0d, 0d, 1d, 1d, 1d);
 			ts.setColorOpaque_F(1f, 1f, 1f);
 			
-			rb.setOverrideBlockTexture(ModBlocks.structure_block.number_textures[te.idx / 10]);
+			rb.setOverrideBlockTexture(ModBlocks.structure_block.number_textures[te.idx / 16]);
 			rb.renderFaceZPos(ModBlocks.structure_block, (double) te.xCoord, (double) te.yCoord, (double) te.zCoord, null);
 			rb.renderFaceZNeg(ModBlocks.structure_block, (double) te.xCoord, (double) te.yCoord, (double) te.zCoord, null);
 			rb.renderFaceYPos(ModBlocks.structure_block, (double) te.xCoord, (double) te.yCoord, (double) te.zCoord, null);
@@ -79,7 +79,7 @@ public class RenderTEStructureBlock extends TileEntitySpecialRenderer
 			rb.renderFaceXPos(ModBlocks.structure_block, (double) te.xCoord, (double) te.yCoord, (double) te.zCoord, null);
 			rb.renderFaceXNeg(ModBlocks.structure_block, (double) te.xCoord, (double) te.yCoord, (double) te.zCoord, null);
 			
-			rb.setOverrideBlockTexture(ModBlocks.structure_block.number_textures[te.idx % 10]);
+			rb.setOverrideBlockTexture(ModBlocks.structure_block.number_textures[te.idx % 16]);
 			ts.setTranslation(-te.xCoord + 0.25d, -te.yCoord, -te.zCoord);
 			rb.renderFaceZPos(ModBlocks.structure_block, (double) te.xCoord, (double) te.yCoord, (double) te.zCoord, null);
 			rb.renderFaceYPos(ModBlocks.structure_block, (double) te.xCoord, (double) te.yCoord, (double) te.zCoord, null);

@@ -7,7 +7,7 @@ import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.tileentity.TEStructureBlock;
-import com.captrojo.resadditae.world.structure.StructurePiece;
+import com.captrojo.resadditae.world.gen.structure.nbt.StructurePieceNBT;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -65,8 +65,8 @@ public class ItemStructureWand extends Item
 		}
 		
 		player.addChatMessage(I18nHlpr.chatf("item.structure_wand.place.chat.placing"));
-		StructurePiece structure = new StructurePiece(tag.getCompoundTag("structure"));
-		structure.placeInWorld(world, world.rand, x, y, z, 0l);
+		StructurePieceNBT struct = new StructurePieceNBT().loadFromNBT(tag.getCompoundTag("structure"));
+		struct.placeInWorld(world, world.rand, x, y, z);
 		player.addChatMessage(I18nHlpr.chatf("item.structure_wand.place.chat.placed"));
 	}
 	

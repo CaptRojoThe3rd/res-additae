@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.captrojo.resadditae.item.IMultiItemData;
 import com.captrojo.resadditae.main.ItemHlpr;
+import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

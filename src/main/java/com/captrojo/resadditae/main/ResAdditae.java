@@ -41,8 +41,8 @@ import com.captrojo.resadditae.tileentity.ModTileEntities;
 import com.captrojo.resadditae.world.ModWorldGen;
 import com.captrojo.resadditae.world.WorldProviderDepths;
 import com.captrojo.resadditae.world.biome.ModBiomes;
+import com.captrojo.resadditae.world.gen.structure.ModStructures;
 import com.captrojo.resadditae.world.loot.ModLoot;
-import com.captrojo.resadditae.world.structure.ModStructures;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -70,6 +70,7 @@ import net.minecraftforge.common.DimensionManager;
 
 @Mod(
 	modid = ResAdditae.MOD_ID,
+	name = ResAdditae.NAME,
 	version = ResAdditae.VERSION,
 	acceptableRemoteVersions = ResAdditae.VERSIONS_ACCEPTED
 )
@@ -215,6 +216,7 @@ public class ResAdditae
 		
 		ModEntities.register();
 		
+		ModStructures.load();
 		DimensionManager.registerProviderType(WorldGenConfig.depths_dimension_id, WorldProviderDepths.class, true);
 		DimensionManager.registerDimension(WorldGenConfig.depths_dimension_id, WorldGenConfig.depths_dimension_id);
 		GameRegistry.registerWorldGenerator(new ModWorldGen(), 1);
@@ -273,7 +275,6 @@ public class ResAdditae
 		StonecutterRecipe.registerRecipes();
 		
 		ModLoot.load();
-		ModStructures.load();
 		
 		ModAchievements.initAchievements();
 		ModAchievements.registerAchievements();

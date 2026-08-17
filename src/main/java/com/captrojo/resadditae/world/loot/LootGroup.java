@@ -24,27 +24,27 @@ public class LootGroup
 		this.loadFromNBT(tag);
 	}
 	
-	public void loadFromNBT(NBTTagCompound tag)
+	public LootGroup loadFromNBT(NBTTagCompound tag)
 	{
 		this.pools.clear();
 		
-		NBTTagList list = tag.getTagList("pools", NBT.TAG_COMPOUND);
+		NBTTagList list = tag.getTagList("Pools", NBT.TAG_COMPOUND);
 		for (int i = 0; i < list.tagCount(); i++) {
 			this.pools.add(new LootPool(list.getCompoundTagAt(i)));
 		}
+		
+		return this;
 	}
 	
-	public NBTTagCompound saveToNBT()
+	public NBTTagCompound saveToNBT(NBTTagCompound nbt)
 	{
-		NBTTagCompound tag = new NBTTagCompound();
-		
 		NBTTagList list = new NBTTagList();
 		for (LootPool pool : this.pools) {
 			list.appendTag(pool.saveToNBT());
 		}
-		tag.setTag("pools", list);
+		nbt.setTag("Pools", list);
 		
-		return tag;
+		return nbt;
 	}
 	
 	private void putItemIntoInv(IInventory inv, ItemStack stack, Random rand)

@@ -14,7 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TEStructureBlock extends TileEntity
 {
-	/* 0-63 */
+	/* 0-255 */
 	public int idx;
 	
 	public Block stored_block;
@@ -41,7 +41,7 @@ public class TEStructureBlock extends TileEntity
 	
 	public void incIdx()
 	{
-		this.idx = (this.idx + 1) & 0x3f;
+		this.idx = (this.idx + 1) & 0x7f;
 		this.update();
 	}
 	
@@ -58,7 +58,7 @@ public class TEStructureBlock extends TileEntity
 	
 	public void readDataFromNBT(NBTTagCompound tag)
 	{
-		this.idx = tag.getByte("data_idx");
+		this.idx = tag.getShort("data_idx");
 		
 		if (tag.hasKey("stored_block_name")) {
 			UniqueIdentifier uidr = new UniqueIdentifier(tag.getString("stored_block_name"));
@@ -69,7 +69,7 @@ public class TEStructureBlock extends TileEntity
 	
 	public void writeDataToNBT(NBTTagCompound tag)
 	{
-		tag.setByte("data_idx", (byte) this.idx);
+		tag.setShort("data_idx", (short) this.idx);
 		
 		if (this.stored_block != null) {
 			tag.setString("stored_block_name", GameRegistry.findUniqueIdentifierFor(this.stored_block).toString());

@@ -11,10 +11,10 @@ import java.util.List;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.world.gen.structure.nbt.StructurePieceNBT;
 import com.captrojo.resadditae.world.loot.LootGroup;
 import com.captrojo.resadditae.world.loot.LootItem;
 import com.captrojo.resadditae.world.loot.LootPool;
-import com.captrojo.resadditae.world.structure.StructurePiece;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
@@ -36,7 +36,7 @@ public class CommandRAStruct extends CommandBase
 	@Override
 	public int getRequiredPermissionLevel()
 	{
-		return 1;
+		return 2;
 	}
 	
 	@Override
@@ -58,6 +58,9 @@ public class CommandRAStruct extends CommandBase
 			throw new WrongUsageException(this.getCommandUsage(sender));
 		}
 		
+		if (!(sender instanceof EntityPlayer)) {
+			return;
+		}
 		EntityPlayer player = (EntityPlayer) sender;
 		
 		if (args[0].equals("save-to-disk")) {
@@ -76,31 +79,29 @@ public class CommandRAStruct extends CommandBase
 			}
 			
 			NBTTagCompound htag = held.getTagCompound();
-			int x1 = htag.getInteger("x1");
-			int y1 = htag.getInteger("y1");
-			int z1 = htag.getInteger("z1");
-			int x2 = htag.getInteger("x2");
-			int y2 = htag.getInteger("y2");
-			int z2 = htag.getInteger("z2");
+			int x1a = htag.getInteger("x1");
+			int y1a = htag.getInteger("y1");
+			int z1a = htag.getInteger("z1");
+			int x2a = htag.getInteger("x2");
+			int y2a = htag.getInteger("y2");
+			int z2a = htag.getInteger("z2");
+			int x1 = (x1a < x2a) ? x1a : x2a;
+			int y1 = (y1a < y2a) ? y1a : y2a;
+			int z1 = (z1a < z2a) ? z1a : z2a;
+			int x2 = (x1a >= x2a) ? x1a : x2a;
+			int y2 = (y1a >= y2a) ? y1a : y2a;
+			int z2 = (z1a >= z2a) ? z1a : z2a;
 			int ox = htag.getInteger("ox");
 			int oy = htag.getInteger("oy");
 			int oz = htag.getInteger("oz");
-			StructurePiece struct = new StructurePiece(player.worldObj, x1, y1, z1, x2, y2, z2, ox, oy, oz);
-			NBTTagCompound struct_nbt = struct.saveToNBT();
 			
-			if (args.length > 2) {
-				if (!loot_memory.containsKey(args[2])) {
-					sender.addChatMessage(I18nHlpr.chatf("commands.rastruct.save-to-disk.noloot", args[2]));
-					return;
-				}
-				NBTTagCompound loot = loot_memory.get(args[2]);
-				struct_nbt.setTag("loot", loot);
-			}
+			StructurePieceNBT piece = new StructurePieceNBT(args[1], player.worldObj, x1, y1, z1, x2, y2, z2, ox, oy, oz);
+			NBTTagCompound nbt = piece.saveToNBT(new NBTTagCompound());
 			
 			sender.addChatMessage(I18nHlpr.chatf("commands.rastruct.save-to-disk.saving"));
 			File file = new File(ResAdditae.dir_structures + File.separator + args[1] + ".nbt");
 			try {
-				CompressedStreamTools.writeCompressed(struct_nbt, new FileOutputStream(file));
+				CompressedStreamTools.writeCompressed(nbt, new FileOutputStream(file));
 				sender.addChatMessage(I18nHlpr.chatf("commands.rastruct.save-to-disk.save_success"));
 			} catch (IOException e) {
 				sender.addChatMessage(I18nHlpr.chatf("commands.rastruct.save-to-disk.save_failure"));
@@ -172,7 +173,7 @@ public class CommandRAStruct extends CommandBase
 			}
 			NBTTagCompound groups = htag.getCompoundTag("groups");
 			if (!groups.hasKey("idx_" + idx)) {
-				groups.setTag("idx_" + idx, (new LootGroup()).saveToNBT());
+				groups.setTag("idx_" + idx, (new LootGroup()).saveToNBT(new NBTTagCompound()));
 			}
 			NBTTagCompound group = groups.getCompoundTag("idx_" + idx);
 			groups.setTag("idx_" + idx, group);

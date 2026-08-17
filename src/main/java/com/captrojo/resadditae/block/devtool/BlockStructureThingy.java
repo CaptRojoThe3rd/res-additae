@@ -51,7 +51,7 @@ public class BlockStructureThingy extends Block implements IDumbMultiBlock, ITil
 		int meta = world.getBlockMetadata(x, y, z);
 		TEStructureBlock te = (TEStructureBlock) world.getTileEntity(x, y, z);
 		
-		if (meta == 1 || meta == 2) {
+		if (meta == 1 || meta == 2 || meta == 3) {
 			if (held == null) {
 				if (world.isRemote) {
 					return true;
@@ -117,9 +117,9 @@ public class BlockStructureThingy extends Block implements IDumbMultiBlock, ITil
 		this.textures[2] = reg.registerIcon(ResAdditae.ident("structure_block/loot"));
 		this.textures[3] = reg.registerIcon(ResAdditae.ident("structure_block/entity"));
 		
-		this.number_textures = new IIcon[10];
-		for (int i = 0; i < 10; i++) {
-			this.number_textures[i] = reg.registerIcon(ResAdditae.ident("structure_block/" + i));
+		this.number_textures = new IIcon[16];
+		for (int i = 0; i < 16; i++) {
+			this.number_textures[i] = reg.registerIcon(ResAdditae.ident("structure_block/" + Integer.toHexString(i)));
 		}
 	}
 	

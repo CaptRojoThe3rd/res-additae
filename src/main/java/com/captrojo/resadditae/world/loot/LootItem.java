@@ -35,15 +35,15 @@ public class LootItem
 	
 	public LootItem(NBTTagCompound tag)
 	{
-		this.item = NBTHlpr.loadItemStackFromNBT(tag.getCompoundTag("item"));
-		this.weight = tag.getInteger("weight");
-		this.min_size = tag.getInteger("min_size");
-		this.max_size = tag.getInteger("max_size");
-		this.rand_exp = tag.getDouble("rand_exp");
-		this.expires = tag.getBoolean("expires");
+		this.item = NBTHlpr.loadItemStackFromNBT(tag.getCompoundTag("Item"));
+		this.weight = tag.getInteger("Weight");
+		this.min_size = tag.getInteger("MinSize");
+		this.max_size = tag.getInteger("MaxSize");
+		this.rand_exp = tag.getDouble("RandExp");
+		this.expires = tag.getBoolean("Expires");
 		
-		this.is_enchanted = tag.hasKey("enchant_level");
-		this.enchant_level = tag.getByte("enchant_level");
+		this.is_enchanted = tag.hasKey("EnchLvl");
+		this.enchant_level = tag.getByte("EnchLvl");
 	}
 	
 	public NBTTagCompound saveToNBT()
@@ -52,16 +52,16 @@ public class LootItem
 		
 		NBTTagCompound itemtag = new NBTTagCompound();
 		NBTHlpr.saveItemStackToNBT(this.item, itemtag);
-		tag.setTag("item", itemtag);
+		tag.setTag("Item", itemtag);
 		
-		tag.setInteger("weight", this.weight);
-		tag.setInteger("min_size", this.min_size);
-		tag.setInteger("max_size", this.max_size);
-		tag.setDouble("rand_exp", this.rand_exp);
-		tag.setBoolean("expires", this.expires);
+		tag.setInteger("Weight", this.weight);
+		tag.setInteger("MinSize", this.min_size);
+		tag.setInteger("MaxSize", this.max_size);
+		tag.setDouble("RandExp", this.rand_exp);
+		tag.setBoolean("Expires", this.expires);
 		
 		if (this.is_enchanted) {
-			tag.setByte("enchant_level", this.enchant_level);
+			tag.setByte("EnchLvl", this.enchant_level);
 		}
 		
 		return tag;

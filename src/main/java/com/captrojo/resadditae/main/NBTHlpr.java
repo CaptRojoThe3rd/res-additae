@@ -42,7 +42,7 @@ public class NBTHlpr
 	{
 		stack.writeToNBT(tag);
 		UniqueIdentifier uidr = GameRegistry.findUniqueIdentifierFor(stack.getItem());
-		tag.setString("item", uidr.toString());
+		tag.setString("Item", uidr.toString());
 	}
 	
 	public static NBTTagCompound saveItemStackToNBT(ItemStack stack)
@@ -60,7 +60,7 @@ public class NBTHlpr
 	 */
 	public static ItemStack loadItemStackFromNBT(NBTTagCompound tag)
 	{
-		UniqueIdentifier uidr = new UniqueIdentifier(tag.getString("item"));
+		UniqueIdentifier uidr = new UniqueIdentifier(tag.getString("Item"));
 		Item item = GameRegistry.findItem(uidr.modId, uidr.name);
 		if (item == null) {
 			return null;
@@ -81,5 +81,39 @@ public class NBTHlpr
 			stack.setTagCompound(tag);
 		}
 		return tag;
+	}
+	
+	public static float getFixedPointShort(NBTTagCompound nbt, String key)
+	{
+		return ((float) nbt.getShort(key)) / 256.0f;
+	}
+	
+	public static void setFixedPointShort(NBTTagCompound nbt, String key, float f)
+	{
+		nbt.setShort(key, (short) (f * 256.0f));
+	}
+	
+	/**
+	 * Save a position to a new NBTTagCompound
+	 */
+	public static NBTTagCompound savePosB(byte[] pos)
+	{
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setByte("x", pos[0]);
+		nbt.setByte("y", pos[1]);
+		nbt.setByte("z", pos[2]);
+		return nbt;
+	}
+	
+	/**
+	 * Load a position from an NBTTagCompound
+	 */
+	public static byte[] loadPosB(NBTTagCompound nbt)
+	{
+		return new byte[] {
+			nbt.getByte("x"),
+			nbt.getByte("y"),
+			nbt.getByte("z")
+		};
 	}
 }

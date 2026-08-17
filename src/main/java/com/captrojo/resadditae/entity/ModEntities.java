@@ -8,7 +8,6 @@ public class ModEntities
 {
 	public static void register()
 	{
-		EntityRegistry.registerModEntity(EntityThrownHalberd.class, "ThrownHalberd",
-			1,ResAdditae.instance, 128, 1, true);
+		EntityRegistry.registerModEntity(EntityThrownHalberd.class, "ThrownHalberd", 1, ResAdditae.instance, 128, 1, true);
 	}
 }

@@ -2,6 +2,7 @@ package com.captrojo.resadditae.item.generic;
 
 import com.captrojo.resadditae.block.IUnlockable;
 import com.captrojo.resadditae.item.MultiItems;
+import com.captrojo.resadditae.main.ResAdditae;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
