@@ -257,7 +257,7 @@ public class TEMultiSpawner extends TileEntity
 	{
 		super.readFromNBT(tag);
 		
-		NBTTagList list = tag.getTagList("entities", NBT.TAG_STRING);
+		NBTTagList list = tag.getTagList("Entities", NBT.TAG_STRING);
 		for (int i = 0; i < list.tagCount(); i++) {
 			this.entity_list.add(list.getStringTagAt(i));
 		}
@@ -267,7 +267,7 @@ public class TEMultiSpawner extends TileEntity
 	
 	protected void readSpecificFromNBT(NBTTagCompound tag)
 	{
-		tag.setInteger("spawn_delay", this.spawn_delay);
+		tag.setInteger("SpawnDelay", this.spawn_delay);
 	}
 
 	@Override
@@ -279,14 +279,14 @@ public class TEMultiSpawner extends TileEntity
 		for (String s : this.entity_list) {
 			list.appendTag(new NBTTagString(s));
 		}
-		tag.setTag("entities", list);
+		tag.setTag("Entities", list);
 		
 		this.writeSpecificToNBT(tag);
 	}
 	
 	protected void writeSpecificToNBT(NBTTagCompound tag)
 	{
-		this.spawn_delay = tag.getInteger("spawn_delay");
+		this.spawn_delay = tag.getInteger("SpawnDelay");
 	}
 
 	@Override

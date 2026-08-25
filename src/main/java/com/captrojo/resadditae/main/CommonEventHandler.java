@@ -13,6 +13,8 @@ import com.captrojo.resadditae.extprop.SpawnSource;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
 import com.captrojo.resadditae.tileentity.TESnowDungeonSpawner;
+import com.captrojo.resadditae.util.ItemHlpr;
+import com.captrojo.resadditae.util.MiscHlpr;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

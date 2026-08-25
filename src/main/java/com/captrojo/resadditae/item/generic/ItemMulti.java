@@ -3,8 +3,8 @@ package com.captrojo.resadditae.item.generic;
 import java.util.List;
 
 import com.captrojo.resadditae.item.IMultiItemData;
-import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

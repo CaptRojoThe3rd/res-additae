@@ -103,7 +103,7 @@ public class WorldGenChasm extends WorldGenerator
 			air_blocks = 0;
 		}
 		if (air_blocks < 10) {
-			if (DebugConfig.log_failed_structure_gens) {
+			if (ResAdditae.testing_mode || DebugConfig.log_failed_structure_gens) {
 				ResAdditae.LOG.info("Did not generate a chasm due to lack of space in the Depths");
 			}
 			return false;
@@ -287,7 +287,7 @@ public class WorldGenChasm extends WorldGenerator
 	public boolean generate(World world, Random rand, int x0, int y0, int z0)
 	{
 		if (generating) {
-			ResAdditae.LOG.info("Didn't generate chasm because one was already being generated");
+			ResAdditae.LOG.error("Didn't generate chasm because one was already being generated");
 			return false;
 		}
 		generating = true;
@@ -305,7 +305,7 @@ public class WorldGenChasm extends WorldGenerator
 			return false;
 		}
 		
-		if (DebugConfig.log_structure_gens) {
+		if (ResAdditae.testing_mode || DebugConfig.log_structure_gens) {
 			ResAdditae.LOG.info(String.format("Generated chasm at (%d, %d, %d)", x0, y0, z0));
 		}
 
@@ -323,7 +323,7 @@ public class WorldGenChasm extends WorldGenerator
 		int surf_y_limit = 256;
 		if (this.shouldBeCovered(worldsurf, x0, z0)) {
 			surf_y_limit = 24;
-			if (DebugConfig.log_structure_gens) {
+			if (ResAdditae.testing_mode || DebugConfig.log_structure_gens) {
 				ResAdditae.LOG.info("The chasm was generated completely underground");
 			}
 		}

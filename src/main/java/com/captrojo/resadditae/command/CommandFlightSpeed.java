@@ -3,9 +3,9 @@ package com.captrojo.resadditae.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toclient.PacketSetFlightSpeed;
+import com.captrojo.resadditae.util.I18nHlpr;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;

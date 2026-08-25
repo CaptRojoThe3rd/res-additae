@@ -3,9 +3,9 @@ package com.captrojo.resadditae.item.generic;
 import java.util.List;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
-import com.captrojo.resadditae.main.I18nHlpr;
-import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.util.I18nHlpr;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

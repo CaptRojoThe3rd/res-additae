@@ -1,7 +1,7 @@
 package com.captrojo.resadditae.world.loot;
 
-import com.captrojo.resadditae.main.NBTHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.util.NBTHlpr;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;

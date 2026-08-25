@@ -34,7 +34,7 @@ public class LootPool
 		
 		NBTTagList list = new NBTTagList();
 		for (LootItem item : this.items) {
-			list.appendTag(item.saveToNBT());
+			list.appendTag(item.saveToNBT(new NBTTagCompound()));
 		}
 		tag.setTag("Items", list);
 		tag.setInteger("Rounds", this.rounds);

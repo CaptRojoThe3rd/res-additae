@@ -2,7 +2,7 @@ package com.captrojo.resadditae.extprop;
 
 import java.util.Random;
 
-import com.captrojo.resadditae.main.NBTHlpr;
+import com.captrojo.resadditae.util.NBTHlpr;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

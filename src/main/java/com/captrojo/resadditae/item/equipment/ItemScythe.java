@@ -3,9 +3,9 @@ package com.captrojo.resadditae.item.equipment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.material.ExtendedToolMaterial;
+import com.captrojo.resadditae.util.ItemHlpr;
 import com.google.common.collect.Sets;
 
 import cpw.mods.fml.relauncher.Side;

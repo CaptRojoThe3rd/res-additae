@@ -2,9 +2,11 @@
 ▓▓▓ #0008 ▓▓▓
 
 Additions:
+* New house structure
 * Swap spell
 * Hop spell
 * Halt spell
+* JVM argument "-Dresadditae.testing=true"; enables all debug features
 
 Changes:
 * Bullet time spell uses less mana
@@ -12,6 +14,9 @@ Changes:
 Fixes:
 * Snow dungeon spawns at correct height (#19)
 * Depths portals no longer destroyed by explosions (#21)
+
+Removals:
+* Old house structure
 
 
 ▓▓▓ #0007 ▓▓▓

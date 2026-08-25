@@ -5,12 +5,13 @@ import java.util.List;
 
 import com.captrojo.resadditae.apocalypse.Apocalypse;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
+import com.captrojo.resadditae.item.devtool.ItemStructureWand;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
-import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.PerformanceInfo;
 import com.captrojo.resadditae.tileentity.TEMossLayer;
+import com.captrojo.resadditae.util.I18nHlpr;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 
 import net.minecraft.block.Block;
@@ -192,6 +193,7 @@ public class CommandRADebug extends CommandBase
 			list.add("enable-performance-info");
 			list.add("disable-performance-info");
 			list.add("reset-performance-info");
+			return getListOfStringsFromIterableMatchingLastWord(args, list);
 		}
 		return list;
 	}

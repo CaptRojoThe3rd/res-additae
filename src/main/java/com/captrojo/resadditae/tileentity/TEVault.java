@@ -2,10 +2,11 @@ package com.captrojo.resadditae.tileentity;
 
 import java.util.Random;
 
-import com.captrojo.resadditae.main.ItemHlpr;
-import com.captrojo.resadditae.main.MiscHlpr;
-import com.captrojo.resadditae.main.NBTHlpr;
+import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.sounds.ModSounds;
+import com.captrojo.resadditae.util.ItemHlpr;
+import com.captrojo.resadditae.util.MiscHlpr;
+import com.captrojo.resadditae.util.NBTHlpr;
 import com.captrojo.resadditae.world.loot.LootGroup;
 import com.captrojo.resadditae.world.loot.LootItem;
 import com.captrojo.resadditae.world.loot.LootPool;
@@ -97,8 +98,6 @@ public class TEVault extends TileEntity
 			this.drop_delay = 20;
 			this.worldObj.playSoundEffect(this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, ModSounds.VAULT_DISPENSE, 1.0f, 1.0f);
 		}
-		
-		
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -113,10 +112,11 @@ public class TEVault extends TileEntity
 				continue;
 			}
 			LootItem item = (LootItem) MiscHlpr.getRandomElement(pool.items, rand);
-			ItemStack stack = item.generateItemStack(rand).copy();
+			ItemStack stack = item.generateItemStack(rand);
 			if (stack == null) {
 				continue;
 			}
+			stack = stack.copy();
 			stack.stackSize = 1;
 			return stack;
 		}
@@ -166,18 +166,18 @@ public class TEVault extends TileEntity
 		super.readFromNBT(tag);
 		
 		this.prev_state = this.state;
-		this.state = State.values()[tag.getByte("state")];
+		this.state = State.values()[tag.getByte("State")];
 		if (this.prev_state != this.state) {
 			this.changed_state = true;
 		}
 		
-		if (tag.hasKey("items_to_drop")) {
-			NBTTagList list = tag.getTagList("items_to_drop", NBT.TAG_COMPOUND);
+		if (tag.hasKey("ItemsToDrop")) {
+			NBTTagList list = tag.getTagList("ItemsToDrop", NBT.TAG_COMPOUND);
 			this.items_to_drop = new ItemStack[list.tagCount()];
 			for (int i = 0; i < this.items_to_drop.length; i++) {
 				this.items_to_drop[i] = NBTHlpr.loadItemStackFromNBT(list.getCompoundTagAt(i));
 			}
-			this.drop_idx = tag.getInteger("drop_idx");
+			this.drop_idx = tag.getInteger("DropIdx");
 		}
 	}
 	
@@ -186,15 +186,15 @@ public class TEVault extends TileEntity
 	{
 		super.writeToNBT(tag);
 		
-		tag.setByte("state", (byte) this.state.ordinal());
+		tag.setByte("State", (byte) this.state.ordinal());
 		
 		if (this.state == State.DISPENSING) {
 			NBTTagList list = new NBTTagList();
 			for (ItemStack stack : this.items_to_drop) {
 				list.appendTag(NBTHlpr.saveItemStackToNBT(stack));
 			}
-			tag.setTag("items_to_drop", list);
-			tag.setInteger("drop_idx", this.drop_idx);
+			tag.setTag("ItemsToDrop", list);
+			tag.setInteger("DropIdx", this.drop_idx);
 		}
 	}
 

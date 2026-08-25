@@ -1,7 +1,7 @@
 package com.captrojo.resadditae.magic;
 
 import com.captrojo.resadditae.entity.client.EntityTargetFX;
-import com.captrojo.resadditae.main.PlayerHlpr;
+import com.captrojo.resadditae.util.PlayerHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

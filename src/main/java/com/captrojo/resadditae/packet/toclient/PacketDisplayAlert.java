@@ -3,8 +3,8 @@ package com.captrojo.resadditae.packet.toclient;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.Alerts;
-import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.packet.DynamicTypeRW;
+import com.captrojo.resadditae.util.I18nHlpr;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

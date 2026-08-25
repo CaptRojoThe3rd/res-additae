@@ -3,9 +3,9 @@ package com.captrojo.resadditae.gui.screen;
 import org.lwjgl.opengl.GL11;
 
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
-import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toserver.PacketPlayerSettings;
+import com.captrojo.resadditae.util.I18nHlpr;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

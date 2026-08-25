@@ -3,7 +3,7 @@ package com.captrojo.resadditae.item.block;
 import java.util.List;
 
 import com.captrojo.resadditae.block.IDumbMultiBlock;
-import com.captrojo.resadditae.main.ItemHlpr;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

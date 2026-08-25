@@ -13,6 +13,9 @@ import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 import com.captrojo.resadditae.world.gen.feature.WorldGenMinableDynamic;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
+import com.captrojo.resadditae.world.gen.structure.MapGenDarkDungeon;
+import com.captrojo.resadditae.world.gen.structure.MapGenEndAirship;
+import com.captrojo.resadditae.world.gen.structure.MapGenSnowDungeon;
 import com.captrojo.resadditae.world.gen.structure.MapGenWoodenHouse;
 
 import cpw.mods.fml.common.IWorldGenerator;
@@ -28,6 +31,9 @@ import net.minecraft.world.gen.structure.MapGenStructure;
 
 public class ModWorldGen implements IWorldGenerator
 {
+	public static int cur_chunk_x;
+	public static int cur_chunk_z;
+	
 	public static boolean isSimpleNaturalBlock(Block block)
 	{
 		return (block == Blocks.dirt || block == Blocks.grass || block == Blocks.tallgrass);
@@ -153,6 +159,10 @@ public class ModWorldGen implements IWorldGenerator
 	private final HashMap<BlockMeta, BlockMeta> depths_gas_fracture_map;
 	
 	private final MapGenStructure mapgen_wooden_house;
+	private final MapGenStructure mapgen_dark_dungeon;
+	private final MapGenStructure mapgen_snow_dungeon;
+	
+	private final MapGenStructure mapgen_end_airship;
 	
 	public ModWorldGen()
 	{
@@ -164,11 +174,18 @@ public class ModWorldGen implements IWorldGenerator
 		this.depths_gas_fracture_map.put(new BlockMeta(Blocks.air, 0), new BlockMeta(ModBlocks.flashover_air, 1));
 		
 		this.mapgen_wooden_house = new MapGenWoodenHouse();
+		this.mapgen_dark_dungeon = new MapGenDarkDungeon();
+		this.mapgen_snow_dungeon = new MapGenSnowDungeon();
+		
+		this.mapgen_end_airship = new MapGenEndAirship();
 	}
 	
 	@Override
 	public void generate(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
+		ModWorldGen.cur_chunk_x = chunk_x;
+		ModWorldGen.cur_chunk_z = chunk_z;
+		
 		if (world.provider.dimensionId == -1) {
 			this.generateNether(rand, chunk_x, chunk_z, world, chunk_gen, chunk_prov);
 		} else if (world.provider.dimensionId == 0) {
@@ -246,26 +263,26 @@ public class ModWorldGen implements IWorldGenerator
 		addOreSpawn(ModBlocks.ore_platinum.getTgtOreMap(), world, rand, block_x, block_z, 16, 16, 1 + rand.nextInt(3), 4, 3, 20);
 		
 		/* Structures */
-		
-		this.mapgen_wooden_house.func_151539_a(chunk_prov, world, chunk_z, chunk_z, null);
-		this.mapgen_wooden_house.generateStructuresInChunk(world, rand, chunk_x, chunk_z);
-		
-//		if (WorldGenConfig.dark_dungeon_enabled && ModStructures.dark_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
-//			ModStructures.dark_dungeon.generate(world, chunk_x, chunk_z);
-//		}
-//		if (WorldGenConfig.snow_dungeon_enabled && ModStructures.snow_dungeon.canPlaceAt(world, chunk_x, chunk_z)) {
-//			ModStructures.snow_dungeon.generate(world, chunk_x, chunk_z);
-//		}
-//		if (WorldGenConfig.wooden_house_enabled && ModStructures.wood_house.canPlaceAt(world, chunk_x, chunk_z)) {
-//			ModStructures.wood_house.generate(world, chunk_x, chunk_z);
-//		}
+		if (WorldGenConfig.wooden_house_enabled) {
+			this.mapgen_wooden_house.func_151539_a(chunk_prov, world, chunk_x, chunk_z, null);
+			this.mapgen_wooden_house.generateStructuresInChunk(world, rand, chunk_x, chunk_z);
+		}
+		if (WorldGenConfig.dark_dungeon_enabled) {
+			this.mapgen_dark_dungeon.func_151539_a(chunk_prov, world, chunk_x, chunk_z, null);
+			this.mapgen_dark_dungeon.generateStructuresInChunk(world, rand, chunk_x, chunk_z);
+		}
+		if (WorldGenConfig.snow_dungeon_enabled) {
+			this.mapgen_snow_dungeon.func_151539_a(chunk_prov, world, chunk_x, chunk_z, null);
+			this.mapgen_snow_dungeon.generateStructuresInChunk(world, rand, chunk_x, chunk_z);
+		}
 	}
 	
 	public void generateEnd(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
-//		if (WorldGenConfig.end_airship_enabled && ModStructures.end_airship.canPlaceAt(world, chunk_x, chunk_z)) {
-//			ModStructures.end_airship.generate(world, chunk_x, chunk_z);
-//		}
+		if (WorldGenConfig.end_airship_enabled) {
+			this.mapgen_end_airship.func_151539_a(chunk_prov, world, chunk_x, chunk_z, null);
+			this.mapgen_end_airship.generateStructuresInChunk(world, rand, chunk_x, chunk_z);
+		}
 	}
 	
 	public void generateDepths(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)

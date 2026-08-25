@@ -1,5 +1,7 @@
 package com.captrojo.resadditae.world;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.world.World;
@@ -7,6 +9,15 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class SpacedThingCheck
 {
+	public static final Map<Integer, String> FAILMAP_INT_STR = new HashMap<Integer, String>();
+	
+	static
+	{
+//		FAILMAP_INT_STR.put(0, "No checks failed");
+//		FAILMAP_INT_STR.put(1, "Not at this position");
+		FAILMAP_INT_STR.put(2, "Incorrect biome");
+	}
+	
 	private final int seed;
 	private final BiomeGenBase[] valid_biomes;
 	
@@ -24,9 +35,9 @@ public class SpacedThingCheck
 		this.max_dist = max_distance;
 	}
 	
-	public boolean canPlaceAt(World world, int chunk_x, int chunk_z)
+	public boolean posCheck(World world, int chunk_x, int chunk_z)
 	{
-		if ((chunk_x * chunk_x) + (chunk_z * chunk_z) < (this.excl_rad * this.excl_rad)) {
+		if (Math.sqrt((chunk_x * chunk_x) + (chunk_z * chunk_z)) < this.excl_rad) {
 			return false;
 		}
 		
@@ -54,14 +65,35 @@ public class SpacedThingCheck
 			return false;
 		}
 		
+		return true;
+	}
+	
+	public boolean biomeCheck(World world, int chunk_x, int chunk_z)
+	{
 		if (this.valid_biomes == null) {
 			return true;
 		}
 		for (BiomeGenBase biome : this.valid_biomes) {
-			if (world.getBiomeGenForCoords(cx * 16 + 8, cz * 16 + 8).biomeID == biome.biomeID) {
+			if (world.getBiomeGenForCoords((chunk_x << 4) + 8, (chunk_z << 4) + 8).biomeID == biome.biomeID) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public int allChecks(World world, int chunk_x, int chunk_z)
+	{
+		if (!this.posCheck(world, chunk_x, chunk_z)) {
+			return 1;
+		}
+		if (!this.biomeCheck(world, chunk_x, chunk_z)) {
+			return 2;
+		}
+		return 0;
+	}
+	
+	public boolean canPlaceAt(World world, int chunk_x, int chunk_z)
+	{
+		return this.allChecks(world, chunk_x, chunk_z) == 0;
 	}
 }

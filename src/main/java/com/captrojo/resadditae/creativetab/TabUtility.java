@@ -34,7 +34,7 @@ public class TabUtility
 			tab.add(stack);
 		}
 		
-		tab.add(ModItems.structure_wand, 0, 1, 2);
+		tab.add(ModItems.structure_wand, 0, 1, 2, 3);
 		tab.add(ModBlocks.structure_block, 0, 1, 2, 3);
 	}
 }

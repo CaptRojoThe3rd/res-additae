@@ -6,8 +6,8 @@ import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.GuiScrollingList2;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
-import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.render.RenderHlpr;
+import com.captrojo.resadditae.util.I18nHlpr;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

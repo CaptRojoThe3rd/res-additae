@@ -37,14 +37,14 @@ public class TEStonecutter extends TileEntity implements IControlReceiver, IGuiP
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		this.selection = tag.getInteger("selection");
+		this.selection = tag.getInteger("Selection");
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		tag.setInteger("selection", this.selection);
+		tag.setInteger("Selection", this.selection);
 	}
 
 	@Override

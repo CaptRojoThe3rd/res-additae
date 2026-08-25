@@ -22,7 +22,7 @@ public class Palette
 	 */
 	public int getPaletteEntryIdxFor(World world, int x, int y, int z)
 	{
-		PaletteEntry new_entry = new PaletteEntry(world, x, y, z);
+		PaletteEntry new_entry = new PaletteEntry(world, x, y, z, true);
 		
 		for (int i = 0; i < this.entries.size(); i++) {
 			if (new_entry.equals(this.entries.get(i))) {

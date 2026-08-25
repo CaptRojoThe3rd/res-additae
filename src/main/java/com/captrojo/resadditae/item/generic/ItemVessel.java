@@ -8,8 +8,8 @@ import com.captrojo.resadditae.extprop.ManaUpgrades;
 import com.captrojo.resadditae.extprop.PlayerAttributes;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.item.ModItems;
-import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

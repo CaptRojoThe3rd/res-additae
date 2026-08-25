@@ -13,7 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class CommandFill extends CommandBase
-{
+{	
 	@Override
 	public int getRequiredPermissionLevel()
 	{
@@ -91,6 +91,11 @@ public class CommandFill extends CommandBase
 			}
 		}
 
+		sender.addChatMessage(new ChatComponentText(String.format(
+			"Filling area from (%d, %d, %d) to (%d, %d, %d)",
+			x1, y1, z1, x2, y2, z2
+		)));
+
 		int ax = (x1 <= x2) ? 1 : -1;
 		int ay = (y1 <= y2) ? 1 : -1;
 		int az = (z1 <= z2) ? 1 : -1;
@@ -109,11 +114,6 @@ public class CommandFill extends CommandBase
 		} else {
 			z2--;
 		}
-
-		sender.addChatMessage(new ChatComponentText(String.format(
-			"Filling area from (%d, %d, %d) to (%d, %d, %d)",
-			x1, y1, z1, x2, y2, z2
-		)));
 
 		int blocks_affected = 0;
 		for (int x = x1; x != x2; x += ax) {

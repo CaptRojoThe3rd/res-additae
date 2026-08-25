@@ -2,6 +2,7 @@ package com.captrojo.resadditae.main;
 
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
+import com.captrojo.resadditae.util.I18nHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

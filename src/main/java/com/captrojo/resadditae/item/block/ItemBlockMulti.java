@@ -10,7 +10,7 @@ import com.captrojo.resadditae.block.generic.BlockFenceGate;
 import com.captrojo.resadditae.block.generic.BlockMultiButton;
 import com.captrojo.resadditae.block.generic.BlockMultiLog;
 import com.captrojo.resadditae.block.generic.BlockMultiPressurePlate;
-import com.captrojo.resadditae.main.ItemHlpr;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

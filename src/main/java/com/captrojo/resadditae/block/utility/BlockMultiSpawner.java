@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.IDumbMultiBlock;
+import com.captrojo.resadditae.block.IStructureActor;
 import com.captrojo.resadditae.tileentity.TEMultiSpawner;
-import com.captrojo.resadditae.world.structure.IStructureActor;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

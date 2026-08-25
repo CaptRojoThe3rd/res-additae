@@ -3,6 +3,8 @@ package com.captrojo.resadditae.world.loot;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.captrojo.resadditae.main.ResAdditae;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.captrojo.resadditae.block.IBlockData;
 import com.captrojo.resadditae.block.ISingleSlab;
 import com.captrojo.resadditae.block.generic.BlockBasicSlab;
-import com.captrojo.resadditae.main.ItemHlpr;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

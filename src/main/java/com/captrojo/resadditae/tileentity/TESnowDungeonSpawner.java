@@ -8,8 +8,8 @@ import com.captrojo.resadditae.extprop.RAMobProperties;
 import com.captrojo.resadditae.extprop.SpawnSource;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
-import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.sounds.ModSounds;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -295,28 +295,28 @@ public class TESnowDungeonSpawner extends TEMultiSpawner
 	{
 		this.changed_state = true;
 		this.prev_state = this.state;
-		this.state = State.values()[tag.getByte("state")];
-		this.action_delay = tag.getShort("action_delay");
+		this.state = State.values()[tag.getByte("State")];
+		this.action_delay = tag.getShort("ActionDelay");
 
-		this.player_count = tag.getShort("player_count");
-		this.entities_alive = tag.getShort("entities_alive");
-		this.groups_to_spawn = tag.getShort("groups_to_spawn");
-		this.time_till_next_wave = tag.getShort("time_till_next_wave");
-		this.waves_remaining = tag.getByte("waves_remaining");
-		this.rewards_remaining = tag.getByte("rewards_remaining");
+		this.player_count = tag.getShort("PlayerCount");
+		this.entities_alive = tag.getShort("EntitiesAlive");
+		this.groups_to_spawn = tag.getShort("GroupsToSpawn");
+		this.time_till_next_wave = tag.getShort("TimeTillNextWave");
+		this.waves_remaining = tag.getByte("WavesRemaining");
+		this.rewards_remaining = tag.getByte("RewardsRemaining");
 	}
 
 	@Override
 	protected void writeSpecificToNBT(NBTTagCompound tag)
 	{
-		tag.setByte("state", (byte) this.state.ordinal());
-		tag.setShort("action_delay", (short) this.action_delay);
+		tag.setByte("State", (byte) this.state.ordinal());
+		tag.setShort("ActionDelay", (short) this.action_delay);
 
-		tag.setShort("player_count", (short) this.player_count);
-		tag.setShort("entities_alive", (short) this.entities_alive);
-		tag.setShort("groups_to_spawn", (short) this.groups_to_spawn);
-		tag.setShort("time_till_next_wave", (short) this.time_till_next_wave);
-		tag.setByte("waves_remaining", (byte) this.waves_remaining);
-		tag.setByte("rewards_remaining", (byte) this.rewards_remaining);
+		tag.setShort("PlayerCount", (short) this.player_count);
+		tag.setShort("EntitiesAlive", (short) this.entities_alive);
+		tag.setShort("GroupsToSpawn", (short) this.groups_to_spawn);
+		tag.setShort("TimeTillNextWave", (short) this.time_till_next_wave);
+		tag.setByte("WavesRemaining", (byte) this.waves_remaining);
+		tag.setByte("RewardsRemaining", (byte) this.rewards_remaining);
 	}
 }

@@ -5,10 +5,10 @@ import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.main.Alerts;
-import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
 import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback;
+import com.captrojo.resadditae.util.I18nHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -11,8 +11,8 @@ import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.ResAdditae;
-import com.captrojo.resadditae.main.SerialHlpr;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
+import com.captrojo.resadditae.util.SerialHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -97,6 +97,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	
 	public ItemStack wand_item;
 	
+	DevData dev_data;
+	
 	public RAPlayerProperties(EntityPlayer player)
 	{
 		this.player = player;
@@ -111,6 +113,14 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.spell_target = new SpellTargetData();
 		
 		this.reset();
+	}
+	
+	public DevData getDevData()
+	{
+		if (this.dev_data == null) {
+			this.dev_data = new DevData(this);
+		}
+		return this.dev_data;
 	}
 	
 	public void reset()
@@ -630,6 +640,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			nbt.setTag("wand_item", this.wand_item.writeToNBT(new NBTTagCompound()));
 		}
 		
+		if (this.dev_data != null) {
+			nbt.setTag("DevData", this.dev_data.saveToNBT(new NBTTagCompound()));
+		}
+		
 		nbt0.setTag(KEY, nbt);
 	}
 
@@ -675,6 +689,10 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 			this.wand_item = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("wand_item"));
 		} else {
 			this.wand_item = null;
+		}
+		
+		if (nbt.hasKey("DevData")) {
+			this.dev_data = (new DevData(this)).loadFromNBT(nbt.getCompoundTag("DevData"));
 		}
 		
 		this.load();

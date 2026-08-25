@@ -6,10 +6,10 @@ import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.MagicComplexity;
 import com.captrojo.resadditae.magic.UseType;
 import com.captrojo.resadditae.magic.spell.Spell;
-import com.captrojo.resadditae.main.I18nHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toserver.PacketLearnSpell;
 import com.captrojo.resadditae.render.RenderHlpr;
+import com.captrojo.resadditae.util.I18nHlpr;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;

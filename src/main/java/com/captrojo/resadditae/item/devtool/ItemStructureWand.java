@@ -3,93 +3,206 @@ package com.captrojo.resadditae.item.devtool;
 import java.util.List;
 
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.main.I18nHlpr;
-import com.captrojo.resadditae.main.ItemHlpr;
 import com.captrojo.resadditae.main.ResAdditae;
-import com.captrojo.resadditae.tileentity.TEStructureBlock;
+import com.captrojo.resadditae.util.Consts;
+import com.captrojo.resadditae.util.CoordHlpr;
+import com.captrojo.resadditae.util.I18nHlpr;
+import com.captrojo.resadditae.util.ItemHlpr;
+import com.captrojo.resadditae.world.gen.structure.nbt.StructureComponentNBT;
 import com.captrojo.resadditae.world.gen.structure.nbt.StructurePieceNBT;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class ItemStructureWand extends Item
 {
-	private static final String[] NAMES = new String[] {"save", "place", "loot"};
+	private static final String[] NAMES = new String[] {
+		"save",
+		"place",
+		"fill",
+		"clone"
+	};
 	
-	private static void useSaveWand(ItemStack stack, NBTTagCompound tag, EntityPlayer player, World world, int x, int y, int z)
+	public static boolean fill_wand_void_behavior = true;
+	
+	private static void useSaveWand(ItemStack stack, NBTTagCompound nbt, EntityPlayer player, World world, int x, int y, int z)
 	{
-		byte phase = tag.getByte("phase");
+		byte phase = nbt.getByte("Phase");
 		
 		if (phase == 0) {
-			tag.setInteger("x1", x);
-			tag.setInteger("y1", y);
-			tag.setInteger("z1", z);
-			tag.setByte("phase", (byte) 1);
-			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.save.chat.firstpos", x, y, z));
+			nbt.setInteger("x1", x);
+			nbt.setInteger("y1", y);
+			nbt.setInteger("z1", z);
+			nbt.setByte("Phase", (byte) 1);
+			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.chat.firstpos", x, y, z));
 			return;
 		}
 		if (phase == 1) {
-			tag.setInteger("x2", x);
-			tag.setInteger("y2", y);
-			tag.setInteger("z2", z);
-			tag.setByte("phase", (byte) 2);
-			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.save.chat.secondpos", x, y, z));
+			nbt.setInteger("x2", x);
+			nbt.setInteger("y2", y);
+			nbt.setInteger("z2", z);
+			nbt.setByte("Phase", (byte) 2);
+			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.chat.secondpos", x, y, z));
 			return;
 		}
 		if (phase == 2) {
-			tag.setInteger("ox", x);
-			tag.setInteger("oy", y);
-			tag.setInteger("oz", z);
-			tag.setByte("phase", (byte) 0);
+			nbt.setInteger("xO", x);
+			nbt.setInteger("yO", y);
+			nbt.setInteger("zO", z);
+			nbt.setByte("Phase", (byte) 0);
 			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.save.chat.originpos", x, y, z));
 			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.save.chat.cmdhint"));
 			return;
 		}
 	}
 	
-	private static void usePlaceWand(ItemStack stack, NBTTagCompound tag, EntityPlayer player, World world, int x, int y, int z)
+	private static void usePlaceWand(ItemStack stack, NBTTagCompound nbt, EntityPlayer player, World world, int x, int y, int z)
 	{
-		if (!tag.hasKey("structure")) {
+		if (!nbt.hasKey("Structure")) {
 			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.place.chat.notloaded"));
 			return;
 		}
 		
 		player.addChatMessage(I18nHlpr.chatf("item.structure_wand.place.chat.placing"));
-		StructurePieceNBT struct = new StructurePieceNBT().loadFromNBT(tag.getCompoundTag("structure"));
-		struct.placeInWorld(world, world.rand, x, y, z);
+		StructurePieceNBT struct = new StructurePieceNBT().loadFromNBT(nbt.getCompoundTag("Structure"));
+		StructureComponentNBT sc = new StructureComponentNBT(struct, x, y, z, Consts.NORTH) {};
+		sc.addComponentParts(world, world.rand, Consts.SBB_MINMAX);
 		player.addChatMessage(I18nHlpr.chatf("item.structure_wand.place.chat.placed"));
 	}
 	
-	private static void useLootWand(ItemStack stack, NBTTagCompound tag, EntityPlayer player, World world, int x, int y, int z)
+	private static void useFillWand(ItemStack stack, NBTTagCompound nbt, EntityPlayer player, World world, int x, int y, int z)
 	{
-		Block block = world.getBlock(x, y, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		
-		if (block != ModBlocks.structure_block || meta != 2) {
-			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.loot.chat.invalid_block"));
+		if (player.isSneaking()) {
+			Block block = world.getBlock(x, y, z);
+			UniqueIdentifier uidr = GameRegistry.findUniqueIdentifierFor(block);
+			nbt.setString("Block", uidr.toString());
+			
+			int meta = world.getBlockMetadata(x, y, z);
+			nbt.setShort("Meta", (short) meta);
+			
+			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.fill.chat.selblock", uidr.toString(), meta));
 			return;
 		}
 		
-		TEStructureBlock te = (TEStructureBlock) world.getTileEntity(x, y, z);
-		tag.setByte("idx", (byte) te.idx);
+		if (nbt.hasKey("x1")) {
+			Block block = Blocks.air;
+			int meta = 0;
+			
+			if (!nbt.hasKey("Block")) {
+//				player.addChatMessage(I18nHlpr.chat("item.structure_wand.fill.chat.noselblock"));
+//				return;
+			} else {
+				UniqueIdentifier uidr = new UniqueIdentifier(nbt.getString("Block"));
+				block = GameRegistry.findBlock(uidr.modId, uidr.name);
+				meta = nbt.getShort("meta");
+			}
+			
+			/* Make placing structure voids easier */
+			boolean air_only = (
+				ItemStructureWand.fill_wand_void_behavior &&
+				(block == ModBlocks.structure_block && meta == 0)
+			);
+			
+			int x1 = nbt.getInteger("x1");
+			int y1 = nbt.getInteger("y1");
+			int z1 = nbt.getInteger("z1");
+			nbt.removeTag("x1");
+			nbt.removeTag("y1");
+			nbt.removeTag("z1");
+			int[] arr = CoordHlpr.fixCorners(x1, y1, z1, x, y, z);
+			x1 = arr[0];
+			y1 = arr[1];
+			z1 = arr[2];
+			int x2 = arr[3], y2 = arr[4], z2 = arr[5];
+			
+			for (int xa = x1; xa <= x2; xa++) {
+				for (int ya = y1; ya <= y2; ya++) {
+					for (int za = z1; za <= z2; za++) {
+						if (air_only && !world.isAirBlock(xa, ya, za)) {
+							continue;
+						}
+						world.setBlock(xa, ya, za, block, meta, 2);
+					}
+				}
+			}
+			
+			player.addChatMessage(I18nHlpr.chatf("item.structure_wand.fill.chat.filled", x1, y1, z1, x2, y2, z2));
+			return;
+		}
 		
-		tag.setInteger("current_pool", 0);
-		tag.setInteger("current_item", 0);
+		nbt.setInteger("x1", x);
+		nbt.setInteger("y1", y);
+		nbt.setInteger("z1", z);
+		player.addChatMessage(I18nHlpr.chatf("item.structure_wand.chat.firstpos", x, y, z));
+	}
+	
+	private static void useCloneWand(ItemStack stack, NBTTagCompound nbt, EntityPlayer player, World world, int x, int y, int z)
+	{
+		if (player.isSneaking()) {
+			int phase = nbt.getByte("P");
+			nbt.setByte("P", (byte) (phase ^ 0x1));
+			if (phase == 0) {
+				nbt.setInteger("x1", x);
+				nbt.setInteger("y1", y);
+				nbt.setInteger("z1", z);
+				player.addChatMessage(I18nHlpr.chatf("item.structure_wand.chat.firstpos", x, y, z));
+			} else {
+				nbt.setInteger("x2", x);
+				nbt.setInteger("y2", y);
+				nbt.setInteger("z2", z);
+				player.addChatMessage(I18nHlpr.chatf("item.structure_wand.chat.secondpos", x, y, z));
+			}
+			return;
+		}
 		
-		tag.setInteger("x", x);
-		tag.setInteger("y", y);
-		tag.setInteger("z", z);
-		player.addChatMessage(I18nHlpr.chatf("item.structure_wand.loot.chat.selected", x, y, z));
+		if (!nbt.hasKey("x1") || !nbt.hasKey("x2")) {
+			player.addChatMessage(I18nHlpr.chat("item.structure_wand.clone.chat.noregion"));
+			return;
+		}
+		
+		int[] arr = CoordHlpr.fixCorners(
+			nbt.getInteger("x1"), nbt.getInteger("y1"), nbt.getInteger("z1"),
+			nbt.getInteger("x2"), nbt.getInteger("y2"), nbt.getInteger("z2")
+		);
+		int x1 = arr[0], y1 = arr[1], z1 = arr[2], x2 = arr[3], y2 = arr[4], z2 = arr[5];
+		int xs = x2 - x1, ys = y2 - y1, zs = z2 - z1;
+		
+		for (int xo = 0; xo <= xs; xo++) {
+			int xa = x1 + xo;
+			int xb = x + xo;
+			for (int yo = 0; yo <= ys; yo++) {
+				int ya = y1 + yo;
+				int yb = y + yo;
+				for (int zo = 0; zo <= zs; zo++) {
+					int za = z1 + zo;
+					int zb = z + zo;
+					
+					Block block = world.getBlock(xa, ya, za);
+					int meta = world.getBlockMetadata(xa, ya, za);
+					TileEntity te = world.getTileEntity(xa, ya, za);
+					
+					world.setBlock(xb, yb, zb, block, meta, 2);
+					if (te != null) {
+						world.setTileEntity(xb, yb, zb, te);
+					}
+				}
+			}
+		}
+		
+		player.addChatMessage(I18nHlpr.chat("item.structure_wand.clone.chat.cloned"));
 	}
 	
 	private IIcon[] textures;
@@ -108,26 +221,29 @@ public class ItemStructureWand extends Item
 			return true;
 		}
 		
-		NBTTagCompound tag = stack.getTagCompound();
-		if (tag == null) {
-			tag = new NBTTagCompound();
+		NBTTagCompound nbt = stack.getTagCompound();
+		if (nbt == null) {
+			nbt = new NBTTagCompound();
 		}
 		
 		switch (stack.getItemDamage()) {
 		case 0:
-			useSaveWand(stack, tag, player, world, x, y, z);
+			ItemStructureWand.useSaveWand(stack, nbt, player, world, x, y, z);
 			break;
 		case 1:
-			usePlaceWand(stack, tag, player, world, x, y, z);
+			ItemStructureWand.usePlaceWand(stack, nbt, player, world, x, y, z);
 			break;
 		case 2:
-			useLootWand(stack, tag, player, world, x, y, z);
+			ItemStructureWand.useFillWand(stack, nbt, player, world, x, y, z);
+			break;
+		case 3:
+			ItemStructureWand.useCloneWand(stack, nbt, player, world, x, y, z);
 			break;
 		default:
 			break;
 		}
 		
-		stack.setTagCompound(tag);
+		stack.setTagCompound(nbt);
 		return true;
 	}
 	
@@ -157,23 +273,48 @@ public class ItemStructureWand extends Item
 		ItemHlpr.addItemDescription(stack, list);
 		
 		int meta = stack.getItemDamage();
-		NBTTagCompound tag = stack.getTagCompound();
-		if (tag == null) {
-			tag = new NBTTagCompound();
+		NBTTagCompound nbt = stack.getTagCompound();
+		if (nbt == null) {
+			nbt = new NBTTagCompound();
 		}
 		
 		switch (meta) {
 		case 0:
-			list.add(I18n.format("item.structure_wand.save.desc.firstpos", tag.getInteger("x1"), tag.getInteger("y1"), tag.getInteger("z1")));
-			list.add(I18n.format("item.structure_wand.save.desc.secondpos", tag.getInteger("x2"), tag.getInteger("y2"), tag.getInteger("z2")));
-			list.add(I18n.format("item.structure_wand.save.desc.originpos", tag.getInteger("ox"), tag.getInteger("oy"), tag.getInteger("oz")));
+			list.add(I18nHlpr.getf(
+				"item.structure_wand.desc.firstpos",
+				nbt.getInteger("x1"), nbt.getInteger("y1"), nbt.getInteger("z1")
+			));
+			list.add(I18nHlpr.getf(
+				"item.structure_wand.desc.secondpos",
+				nbt.getInteger("x2"), nbt.getInteger("y2"), nbt.getInteger("z2")
+			));
+			list.add(I18nHlpr.getf(
+				"item.structure_wand.save.desc.originpos",
+				nbt.getInteger("xO"), nbt.getInteger("yO"), nbt.getInteger("zO")
+			));
 			break;
 		case 1:
-			list.add(I18n.format("item.structure_wand.place.desc.struct", tag.getString("structure_name")));
+			list.add(I18nHlpr.getf("item.structure_wand.place.desc.struct", nbt.getString("StructureName")));
 			break;
 		case 2:
-			list.add(I18n.format("item.structure_wand.loot.desc.pos", tag.getInteger("x"), tag.getInteger("y"), tag.getInteger("z")));
-			list.add(I18n.format("item.structure_wand.loot.desc.idx", tag.getByte("idx")));
+			list.add(I18nHlpr.getf(
+				"item.structure_wand.fill.desc.block",
+				nbt.getString("Block"), nbt.getShort("Meta")
+			));
+			list.add(I18nHlpr.getf(
+				"item.structure_wand.desc.firstpos",
+				nbt.getInteger("x1"), nbt.getInteger("y1"), nbt.getInteger("z1")
+			));
+			break;
+		case 3:
+			list.add(I18nHlpr.getf(
+				"item.structure_wand.desc.firstpos",
+				nbt.getInteger("x1"), nbt.getInteger("y1"), nbt.getInteger("z1")
+			));
+			list.add(I18nHlpr.getf(
+				"item.structure_wand.desc.secondpos",
+				nbt.getInteger("x2"), nbt.getInteger("y2"), nbt.getInteger("z2")
+			));
 			break;
 		default:
 			break;
@@ -187,7 +328,8 @@ public class ItemStructureWand extends Item
 		this.textures = new IIcon[NAMES.length];
 		this.textures[0] = reg.registerIcon(ResAdditae.ident("devtools/structure_wand_save"));
 		this.textures[1] = reg.registerIcon(ResAdditae.ident("devtools/structure_wand_place"));
-		this.textures[2] = reg.registerIcon(ResAdditae.ident("devtools/structure_wand_loot"));
+		this.textures[2] = reg.registerIcon(ResAdditae.ident("devtools/structure_wand_fill"));
+		this.textures[3] = reg.registerIcon(ResAdditae.ident("devtools/structure_wand_clone"));
 	}
 	
 	@Override

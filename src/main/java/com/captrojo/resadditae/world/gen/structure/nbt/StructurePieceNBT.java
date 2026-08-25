@@ -3,7 +3,7 @@ package com.captrojo.resadditae.world.gen.structure.nbt;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.captrojo.resadditae.main.NBTHlpr;
+import com.captrojo.resadditae.util.NBTHlpr;
 import com.captrojo.resadditae.world.loot.LootGroup;
 
 import net.minecraft.init.Blocks;
@@ -18,18 +18,20 @@ public class StructurePieceNBT
 {	
 	public String name;
 	
-	int origin_x;
-	int origin_y;
-	int origin_z;
-	int size_x;
-	int size_y;
-	int size_z;
+	public int origin_x;
+	public int origin_y;
+	public int origin_z;
+	public int size_x;
+	public int size_y;
+	public int size_z;
 	
-	Palette palette;
-	PaletteIndex[] pal_indices;
+	public Palette palette;
+	public PaletteIndex[] pal_indices;
 	
-	LootGroup[] loot_groups;
-	String[] entity_names;
+	public PaletteEntry foundation;
+	
+	public LootGroup[] loot_groups;
+	public String[] entity_names;
 	
 	public StructurePieceNBT()
 	{
@@ -88,6 +90,10 @@ public class StructurePieceNBT
 		}
 		nbt.setTag("Blocks", block_list);
 		
+		if (this.foundation != null) {
+			nbt.setTag("Foundation", this.foundation.saveToNBT(new NBTTagCompound()));
+		}
+		
 		if (this.loot_groups != null) {
 			NBTTagList loot_list = new NBTTagList();
 			for (LootGroup loot : this.loot_groups) {
@@ -128,6 +134,10 @@ public class StructurePieceNBT
 			this.pal_indices[i] = new PaletteIndex().loadFromNBT(block_list.getCompoundTagAt(i));
 		}
 		
+		if (nbt.hasKey("Foundation")) {
+			this.foundation = (new PaletteEntry()).loadFromNBT(nbt.getCompoundTag("Foundation"));
+		}
+		
 		if (nbt.hasKey("Loot")) {
 			NBTTagList loot_list = nbt.getTagList("Loot", NBT.TAG_COMPOUND);
 			this.loot_groups = new LootGroup[loot_list.tagCount()];
@@ -161,7 +171,7 @@ public class StructurePieceNBT
 				int x = index.x + x1;
 				int y = index.y + y1;
 				int z = index.z + z1;
-				this.palette.getEntry(index.idx).place(world, rand, x, y, z, this, 0, phase, -1);
+				this.palette.getEntry(index.idx).place(world, rand, x, y, z, this, 2, phase, -1);
 			}
 		}
 	}

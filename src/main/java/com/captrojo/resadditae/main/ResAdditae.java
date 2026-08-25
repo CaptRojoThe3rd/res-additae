@@ -10,7 +10,7 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.command.CommandFill;
 import com.captrojo.resadditae.command.CommandFlightSpeed;
 import com.captrojo.resadditae.command.CommandRADebug;
-import com.captrojo.resadditae.command.CommandRAStruct;
+import com.captrojo.resadditae.command.CommandRADev;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.compatibility.CommonItems;
 import com.captrojo.resadditae.compatibility.CommonStuffStatus;
@@ -102,11 +102,15 @@ public class ResAdditae
 	public static String dir_minecraft;
 	public static String dir_config;
 	public static String dir_crash_reports;
+	public static String dir_resadditae;
+	
 	public static String dir_structures;
-	public static String dir_structure_loots;
+	public static String dir_loots;
 	
 	public static File config_common;
 	public static File config_client;
+	
+	public static boolean testing_mode = Boolean.getBoolean("resadditae.testing");
 	
 	public static boolean common_items_error = false;
 	
@@ -152,10 +156,12 @@ public class ResAdditae
 		dir_minecraft = event.getModConfigurationDirectory().getParent();
 		dir_config = event.getModConfigurationDirectory().toString() + File.separator + "resadditae";
 		dir_crash_reports = dir_minecraft + File.separator + "crash-reports";
-		dir_structures = dir_minecraft + File.separator + "structures";
-		dir_structure_loots = dir_structures + File.separator + "loot";
+		dir_resadditae = dir_minecraft + File.separator + "resadditae";
 		
-		final String[] af = {dir_config, dir_crash_reports, dir_structure_loots};
+		dir_structures = dir_resadditae + File.separator + "structures";
+		dir_loots = dir_resadditae + File.separator + "loot";
+		
+		final String[] af = {dir_config, dir_crash_reports, dir_structures, dir_loots};
 		for (String s : af) {
 			File f = new File(s);
 			if (!f.exists()) {
@@ -299,7 +305,7 @@ public class ResAdditae
 			event.registerServerCommand(new CommandFill());
 		}
 		event.registerServerCommand(new CommandFlightSpeed());
-		event.registerServerCommand(new CommandRAStruct());
+		event.registerServerCommand(new CommandRADev());
 		event.registerServerCommand(new CommandRADebug());
 	}
 	

@@ -2,7 +2,7 @@ package com.captrojo.resadditae.world.loot;
 
 import java.util.Random;
 
-import com.captrojo.resadditae.main.NBTHlpr;
+import com.captrojo.resadditae.util.NBTHlpr;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
@@ -10,61 +10,84 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class LootItem
 {
-	public final ItemStack item;
-	public final int weight;
-	public final int min_size;
-	public final int max_size;
-	public final double rand_exp;
-	public final boolean expires;
+	public ItemStack item;
+	public int weight;
+	public int min_size;
+	public int max_size;
+	
+	public double rand_exp;
+	public boolean expires;
 	
 	public boolean is_enchanted;
 	public byte enchant_level;
 	
-	public LootItem(ItemStack item, int weight, int min_size, int max_size, double rand_exp, boolean expires)
+	public LootItem()
+	{
+	}
+	
+	public LootItem(ItemStack item, int weight, int min_size, int max_size)
 	{
 		this.item = item;
 		this.weight = weight;
 		this.min_size = min_size;
 		this.max_size = max_size;
-		this.rand_exp = rand_exp;
-		this.expires = expires;
+		
+		this.rand_exp = 1.0;
+		this.expires = false;
 		
 		this.is_enchanted = false;
 		this.enchant_level = 0;
 	}
 	
-	public LootItem(NBTTagCompound tag)
+	public LootItem(NBTTagCompound nbt)
 	{
-		this.item = NBTHlpr.loadItemStackFromNBT(tag.getCompoundTag("Item"));
-		this.weight = tag.getInteger("Weight");
-		this.min_size = tag.getInteger("MinSize");
-		this.max_size = tag.getInteger("MaxSize");
-		this.rand_exp = tag.getDouble("RandExp");
-		this.expires = tag.getBoolean("Expires");
-		
-		this.is_enchanted = tag.hasKey("EnchLvl");
-		this.enchant_level = tag.getByte("EnchLvl");
+		this.loadFromNBT(nbt);
 	}
 	
-	public NBTTagCompound saveToNBT()
+	public LootItem loadFromNBT(NBTTagCompound nbt)
 	{
-		NBTTagCompound tag = new NBTTagCompound();
+		this.item = NBTHlpr.loadItemStackFromNBT(nbt.getCompoundTag("Item"));
+		this.weight = nbt.getInteger("Weight");
+		this.min_size = nbt.getInteger("MinSize");
+		this.max_size = nbt.getInteger("MaxSize");
 		
-		NBTTagCompound itemtag = new NBTTagCompound();
-		NBTHlpr.saveItemStackToNBT(this.item, itemtag);
-		tag.setTag("Item", itemtag);
-		
-		tag.setInteger("Weight", this.weight);
-		tag.setInteger("MinSize", this.min_size);
-		tag.setInteger("MaxSize", this.max_size);
-		tag.setDouble("RandExp", this.rand_exp);
-		tag.setBoolean("Expires", this.expires);
-		
-		if (this.is_enchanted) {
-			tag.setByte("EnchLvl", this.enchant_level);
+		if (nbt.hasKey("RandExp")) {
+			this.rand_exp = nbt.getFloat("RandExp");
+		} else {
+			this.rand_exp = 1.0;
 		}
 		
-		return tag;
+		this.expires = nbt.hasKey("Expires") && nbt.getBoolean("Expires");
+		
+		this.is_enchanted = nbt.hasKey("EnchLvl");
+		this.enchant_level = nbt.getByte("EnchLvl");
+		
+		return this;
+	}
+	
+	public NBTTagCompound saveToNBT(NBTTagCompound nbt)
+	{
+		NBTTagCompound itemtag = new NBTTagCompound();
+		NBTHlpr.saveItemStackToNBT(this.item, itemtag);
+		nbt.setTag("Item", itemtag);
+		
+		nbt.setInteger("Weight", this.weight);
+		nbt.setInteger("MinSize", this.min_size);
+		nbt.setInteger("MaxSize", this.max_size);
+		
+		if (this.rand_exp != 1.0) {
+			nbt.setFloat("RandExp", (float) this.rand_exp);
+		}
+		
+		if (this.expires) {
+			nbt.setBoolean("Expires", this.expires);
+		}
+		
+		if (this.is_enchanted) {
+			nbt.setByte("EnchLvl", this.enchant_level);
+		}
+		
+		return nbt;
 	}
 	
 	public ItemStack generateItemStack(Random rand)

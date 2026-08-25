@@ -16,30 +16,34 @@ public class MapGenWoodenHouse extends MapGenScattered
 {
 	public static void load()
 	{
-		MapGenWoodenHouse.ComponentHouse.piece = new StructurePieceNBT(ResAdditae.resource("structures/wooden_house/house.nbt"));
+		MapGenWoodenHouse.ComponentHouse.piece = MapGenScattered.loadPiece("wooden_house/house");
+		MapGenWoodenHouse.ComponentFarm.piece = MapGenScattered.loadPiece("wooden_house/farm");
 		
 		MapGenStructureIO.registerStructure(MapGenWoodenHouse.Start.class, "RA_WoodenHouse");
 		MapGenStructureIO.func_143031_a(MapGenWoodenHouse.ComponentHouse.class, "RA_WH_House");
+		MapGenStructureIO.func_143031_a(MapGenWoodenHouse.ComponentFarm.class, "RA_WH_Farm");
 	}
 	
 	public MapGenWoodenHouse()
 	{
 		super(
 			"RAWoodenHouse",
-//			new BiomeGenBase[] {
-//				BiomeGenBase.forest,
-//				BiomeGenBase.birchForest,
-//				BiomeGenBase.taiga,
-//				BiomeGenBase.roofedForest
-//			},
-			null,
-//			WorldGenConfig.wooden_house_excl_rad,
-//			WorldGenConfig.wooden_house_min_dist,
-//			WorldGenConfig.wooden_house_max_dist
-			0,
-			4,
-			6
+			new BiomeGenBase[] {
+				BiomeGenBase.forest,
+				BiomeGenBase.birchForest,
+				BiomeGenBase.taiga,
+				BiomeGenBase.roofedForest
+			},
+//			null,
+			WorldGenConfig.wooden_house_excl_rad,
+			WorldGenConfig.wooden_house_min_dist,
+			WorldGenConfig.wooden_house_max_dist
+//			0,
+//			4,
+//			6
 		);
+		
+		this.range = 3;
 	}
 
 	@Override
@@ -48,7 +52,7 @@ public class MapGenWoodenHouse extends MapGenScattered
 		return new MapGenWoodenHouse.Start(this.worldObj, this.rand, chunk_x, chunk_z);
 	}
 	
-	public static class Start extends StructureStart
+	public static class Start extends StructureStartLH
 	{
 		public Start()
 		{
@@ -57,7 +61,15 @@ public class MapGenWoodenHouse extends MapGenScattered
 		public Start(World world, Random rand, int chunk_x, int chunk_z)
 		{
 			super(chunk_x, chunk_z);
-			this.components.add(new MapGenWoodenHouse.ComponentHouse(chunk_x << 4, 64, chunk_z << 4, rand));
+			int x = chunk_x << 4, z = chunk_z << 4;
+			int dir = rand.nextInt(4);
+			
+			this.components.add(new MapGenWoodenHouse.ComponentHouse(x, 64, z, dir));
+			if (rand.nextBoolean()) {
+				StructureComponentNBT farm = new MapGenWoodenHouse.ComponentFarm(x, 64, z, dir);
+				this.components.add(farm);
+			}
+			
 			this.updateBoundingBox();
 		}
 	}
@@ -68,15 +80,27 @@ public class MapGenWoodenHouse extends MapGenScattered
 		
 		public ComponentHouse()
 		{
+			super(piece);
 		}
 		
-		public ComponentHouse(int x, int y, int z, Random rand)
+		public ComponentHouse(int x, int y, int z, int dir)
 		{
-			super(piece, x, y, z, rand);
+			super(piece, x, y, z, dir);
+		}
+	}
+	
+	public static class ComponentFarm extends StructureComponentNBT
+	{
+		static StructurePieceNBT piece;
+		
+		public ComponentFarm()
+		{
+			super(piece);
 		}
 		
+		public ComponentFarm(int x, int y, int z, int dir)
 		{
-			this.use_h_pos = true;
+			super(piece, x, y, z, dir);
 		}
 	}
 }

@@ -7,7 +7,7 @@ import com.captrojo.resadditae.block.IMultiBlock;
 import com.captrojo.resadditae.block.IMultiBlockData;
 import com.captrojo.resadditae.block.ISingleSlab;
 import com.captrojo.resadditae.block.generic.BlockMultiSlab;
-import com.captrojo.resadditae.main.ItemHlpr;
+import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

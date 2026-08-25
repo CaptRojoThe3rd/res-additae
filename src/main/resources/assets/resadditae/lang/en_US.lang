@@ -37,79 +37,78 @@ commands.radebug.get-block-data.usage=Usage: /rastruct get-block-data <x> <y> <z
 commands.radebug.respawn-chasms.usage=Usage: /rastruct respawn-chasms <chunk_radius>
 commands.radebug.respawn-chasms.complete=Chasms regenerated
 
-commands.rastruct.usage=Usage: /rastruct load-from-disk|save-to-disk|loot|load-loot-from-disk|save-loot-to-disk|load-loot-from-memory|save-loot-to-memory
+commands.radev.usage=Usage: /radev struct|loot
+commands.radev.invalidnum=Invalid number: §b%s§r
 
-commands.rastruct.save-to-disk.usage=Usage: /rastruct save-to-disk <name> [<loot>]
-commands.rastruct.save-to-disk.nowand=§cYou are not holding a structure saving wand.
-commands.rastruct.save-to-disk.noloot=§cNo loot named %s stored in memory
-commands.rastruct.save-to-disk.saving=Saving...
-commands.rastruct.save-to-disk.save_success=Saved successfully!
-commands.rastruct.save-to-disk.save_failure=§cFailed to save structure
+commands.radev.struct.usage=Usage: /radev struct save|load
+commands.radev.struct.noname=§cNo structure name specified.
+commands.radev.struct.loot.incomplete=Incomplete argument -loot <name(s)>
+commands.radev.struct.foundation.incomplete=Incomplete argument -foundation <block> <meta>
 
-commands.rastruct.load-from-disk.usage=Usage: /rastruct load-from-disk <name>
-commands.rastruct.load-from-disk.nowand=§cYou are not holding a structure placement wand.
-commands.rastruct.load-from-disk.filenotfound=§cUnknown structure %s
-commands.rastruct.load-from-disk.loading=Loading structure...
-commands.rastruct.load-from-disk.load_success=Loaded successfully!
-commands.rastruct.load-from-disk.load_failure=§Failed to load structure
+commands.radev.struct.save.nowand=You are not holding a structure saving wand!
+commands.radev.struct.save.begin=Saving...
+commands.radev.struct.save.failure=Failed to save structure §b%s§r
+commands.radev.struct.save.success=Structure §b%s§r saved to disk
 
-commands.rastruct.loot.usage=Usage: /rastruct loot list-pools|add-pool|set-pool-rounds|delete-pool|switch-pool|list-items|add-item|set-item-enchant-lvl|delete-item
-commands.rastruct.loot.nowand=§cYou are not holding a structure loot wand.
-commands.rastruct.loot.noselection=§cYou have not selected a structure loot block.
+commands.radev.struct.load.nowand=You are not holding a structure placement wand!
+commands.radev.struct.load.failure=Failed to load structure §b%s§r
+commands.radev.struct.load.success=Loaded structure §b%s§r
 
-commands.rastruct.loot.list-pools.count=There are §b%d§r pool(s) in loot group %d
-commands.rastruct.loot.list-pools.pool=* §8IDX §7%d §8RNDS §6%d
+commands.radev.loot.usage=Usage: /radev loot create-group|select-group|delete-group|save-group|load-group|create-pool|select-pool|delete-pool|add-item|delete-item|list-items
+commands.radev.loot.nogroup=No group named §b%s§r
+commands.radev.loot.nogroupsel=No group selected
+commands.radev.loot.nopoolsel=No pool selected
+commands.radev.loot.abovemaxpool=There are only §b%d§r pools in group §a%s§r
+commands.radev.loot.abovemaxitem=There are only §b%d§r items in pool §a%d§r
+commands.radev.loot.expn.incomplete=Incomplete argument -expn <expn>
+commands.radev.loot.ench.incomplete=Incomplete argument -ench <level>
 
-commands.rastruct.loot.add-pool.usage=Usage: /rastruct loot add-pool <rounds>
-commands.rastruct.loot.add-pool.added=Added pool with §b%d§r rounds at index §a%d§r
+commands.radev.loot.create-group.usage=Usage: /radev loot create-group <name>
+commands.radev.loot.create-group.success=Created loot group §b%s§r
 
-commands.rastruct.loot.set-pool-rounds.usage=Usage: /rastruct loot set-pool-rounds <rounds>
-commands.rastruct.loot.set-pool-rounds.set=Set pool §a%d§r to have §b%d§r rounds
+commands.radev.loot.select-group.usage=Usage: /radev loot select-group <name>
+commands.radev.loot.select-group.success=Working with group §b%s§r
 
-commands.rastruct.loot.delete-pool.usage=Usage: /rastruct loot delete-pool <index>
-commands.rastruct.loot.delete-pool.nopool=§cThere is no pool with index §b%d
-commands.rastruct.loot.delete-pool.deleted=Deleted pool with index §a%d§r. Run §b/rastruct loot list-pools§r to see a reorganized list.
-commands.rastruct.loot.delete-pool.idxalert=Please make sure to re-select pool with §b/rastruct loot switch-pool <index>§r
+commands.radev.loot.delete-group.usage=Usage: /radev loot delete-group <name>
+commands.radev.loot-delete-group.success=Deleted group §b%s§r
 
-commands.rastruct.loot.switch-pool.usage=Usage: /rastruct loot switch-pool <index>
-commands.rastruct.loot.switch-pool.set=Working with pool §b%d§r
+commands.radev.loot.save-group.usage=Usage: /radev loot save-group <name> [<filename>]
+commands.radev.loot.save-group.begin=Saving...
+commands.radev.loot.save-group.failure=Failed to save loot §b%s§r
+commands.radev.loot.save-group.success=Saved loot §b%s§r to disk
 
-commands.rastruct.loot.list-items.count=There are §b%d§r item(s) in pool %d
-commands.rastruct.loot.list-items.item=* §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8RE §c%.1f §8EX §4%b
+commands.radev.loot.load-group.usage=Usage: /radev loot load-group <filename> [<name>]
+commands.radev.loot.load-group.failure=Failed to load loot §b%s§r
+commands.radev.loot.load-group.success=Loaded loot §b%s§r
 
-commands.rastruct.loot.add-item.usage=Usage: /rastruct loot add-item <id> <meta> <weight> <min_size> <max_size> <rand_exp> <expires>
-commands.rastruct.loot.add-item.added=Added item §b%s:%d§r at index §a%d§r
+commands.radev.loot.create-pool.usage=Usage: /radev loot create-pool <pools> [select]
+commands.radev.loot.create-pool.success=Created pool with §b%d§r rounds at index §a%d§r
 
-commands.rastruct.loot.set-item-enchant-lvl.usage=Usage: /rastruct loot set-item-enchant-level <index> <level>
-commands.rastruct.loot.set-item-enchant-lvl.noitem=§cThere is no item with index §b%d
-commands.rastruct.loot.set-item-enchant-lvl.abovelimit=§cEnchantment level cannot exceed 127
-commands.rastruct.loot.set-item-enchant-lvl.set=Set enchantment level of item with index §a%d§r to level §b%d§r
+commands.radev.loot.select-pool.usage=Usage: /radev loot select-pool <idx>
+commands.radev.loot.select-pool.success=Working with pool §b%d§r
 
-commands.rastruct.loot.delete-item.usage=Usage: /rastruct loot delete-item <index>
-commands.rastruct.loot.delete-item.noitem=§cThere is no item with index §b%d
-commands.rastruct.loot.delete-item.deleted=Deleted item with index §a%d§r. Run §b/rastruct loot list-items§r to see a reorganized list.
+commands.radev.loot.delete-pool.usage=Usage: /radev loot delete-pool <idx>
+commands.radev.loot.delete-pool.success=Deleted pool
 
-commands.rastruct.save-loot-to-disk.usage=Usage: /rastruct save-loot-to-disk <name>
-commands.rastruct.save-loot-to-disk.nowand=§cYou are not holding a structure loot wand.
-commands.rastruct.save-loot-to-disk.saving=Saving loot...
-commands.rastruct.save-loot-to-disk.save_success=Saved loot successfully!
-commands.rastruct.save-loot-to-disk.save_failure=§cFailed to save loot
+commands.radev.loot.add-item.usage=Usage: /radev loot add-item <ident> <meta> <weight> <min_size> <max_size> [-expn <num>] [-expire] [-ench <level>]
+commands.radev.loot.add-item.unknownitem=Unknown item §b%s§r
+commands.radev.loot.add-item.success=Added item §b%s:%s§r
 
-commands.rastruct.load-loot-from-disk.usage=Usage: /rastruct load-loot-from-disk <name>
-commands.rastruct.load-loot-from-disk.nowand=§cYou are not holding a structure loot wand.
-commands.rastruct.load-loot-from-disk.filenotfound=§cUnknown loot %s
-commands.rastruct.load-loot-from-disk.loading=Loading loot...
-commands.rastruct.load-loot-from-disk.load_success=Loaded loot successfully!
-commands.rastruct.load-loot-from-disk.load_failure=§Failed to load loot
+commands.radev.loot.delete-item.usage=Usage: /radev loot delete-item <idx>
+commands.radev.loot.delete-item.success=Deleted item
 
-commands.rastruct.save-loot-to-memory.usage=Usage: /rastruct save-loot-to-memory <name>
-commands.rastruct.save-loot-to-memory.nowand=§cYou are not holding a structure loot wand.
-commands.rastruct.save-loot-to-memory.saved=Saved loot %s to memory
+commands.radev.loot.list-items.count=There are §b%d§r items in this pool
+commands.radev.loot.list-items.item=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d
+commands.radev.loot.list-items.item_ench=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8ENCH §d%d
+commands.radev.loot.list-items.item_expr=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8EXPR §4%s
+commands.radev.loot.list-items.item_expr_ench=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8EXPR §4%s §8ENCH §d%d
+commands.radev.loot.list-items.item_expn=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8EXPN §c%.1f
+commands.radev.loot.list-items.item_expn_ench=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8EXPN §c%.1f §8ENCH §d%d
+commands.radev.loot.list-items.item_expn_expr=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8EXPN §c%.1f §8EXPR §4%s
+commands.radev.loot.list-items.item_expn_expr_ench=  §8IDX §7%d §8ID §9%s §8META §b%d §8WT §a%d §8MIN §6%d §8MAX §e%d §8EXPN §c%.1f §8EXPR §4%s §8ENCH §d%d
 
-commands.rastruct.load-loot-from-memory.usage=Usage: /rastruct load-loot-from-memory <name>
-commands.rastruct.load-loot-from-memory.nowand=§cYou are not holding a structure loot wand.
-commands.rastruct.load-loot-from-memory.noloot=§cUnknown loot %s
-commands.rastruct.load-loot-from-memory.loaded=Loaded loot %s from memory
+commands.radev.toggle-fill-wand-behavior.true=Filling with structure voids will only replace air blocks
+commands.radev.toggle-fill-wand-behavior.false=Filling with structure voids replaces all blocks
 
 death.attack.thrown_halberd=%s was impaled by %s
 death.attack.magic_lifesteal=%s's life was drained by %s
@@ -159,20 +158,14 @@ gui.spell_menu.lvlup=Level Up!
 
 gui.stonecutter.title=Stonecutter
 
+hud.magic_display=Magic Display
+
 itemGroup.resadditae.blocks=Res Additae - Blocks
 itemGroup.resadditae.colors=Res Additae - Colored Blocks
 itemGroup.resadditae.nature=Res Additae - Nature
 itemGroup.resadditae.materials=Res Additae - Materials
 itemGroup.resadditae.equipment=Res Additae - Equipment
 itemGroup.resadditae.utility=Res Additae - Utility
-
-misc.true=True
-misc.false=False
-misc.all=All
-misc.yours=Yours
-
-key.categories.resadditae=Res Additae
-key.item_settings=Open item settings
 
 item.iron_nugget.name=Iron Nugget
 
@@ -393,13 +386,15 @@ item.magic_wand.level.godlike=§5Godlike
 item.spellbook.name=Spellbook
 item.spellbook.desc.not_yet_learned=§7You have not learned this spell yet.
 
+item.structure_wand.chat.firstpos=Set first pos to (%d, %d, %d)
+item.structure_wand.chat.secondpos=Set second pos to (%d, %d, %d)
+
+item.structure_wand.desc.firstpos=§7First pos: (%d, %d, %d)
+item.structure_wand.desc.secondpos=§7Second pos: (%d, %d, %d)
+
 item.structure_wand.save.name=Structure Wand (Save)
-item.structure_wand.save.chat.firstpos=Set first pos to (%d, %d, %d)
-item.structure_wand.save.chat.secondpos=Set second pos to (%d, %d, %d)
 item.structure_wand.save.chat.originpos=Set origin pos to (%d, %d, %d)
-item.structure_wand.save.chat.cmdhint=Save structure with §b/rastruct save-to-disk <name>
-item.structure_wand.save.desc.firstpos=§7First pos: (%d, %d, %d)
-item.structure_wand.save.desc.secondpos=§7Second pos: (%d, %d, %d)
+item.structure_wand.save.chat.cmdhint=Save structure with §b/radev struct save <name>
 item.structure_wand.save.desc.originpos=§7Origin pos: (%d, %d, %d)
 
 item.structure_wand.place.name=Structure Wand (Place)
@@ -408,11 +403,25 @@ item.structure_wand.place.chat.placing=Placing structure...
 item.structure_wand.place.chat.placed=Structure placed successfully.
 item.structure_wand.place.desc.struct=§7Structure: %s
 
-item.structure_wand.loot.name=Structure Wand (Loot)
-item.structure_wand.loot.chat.invalid_block=§cNot a structure loot block
-item.structure_wand.loot.chat.selected=Selected structure loot block at (%d, %d, %d)
-item.structure_wand.loot.desc.pos=§7Pos: (%d, %d, %d)
-item.structure_wand.loot.desc.idx=§7Idx: %d
+item.structure_wand.fill.name=Structure Wand (Fill)
+item.structure_wand.fill.chat.selblock=Selected block %s:%d
+item.structure_wand.fill.chat.noselblock=No block selected!
+item.structure_wand.fill.chat.filled=Filled area from (%d, %d, %d) to (%d, %d, %d)
+item.structure_wand.fill.desc=Shift-right-click to select block\nRight-click to select positions and fill\n
+item.structure_wand.fill.desc.block=§7Block: %s:%d
+
+item.structure_wand.clone.name=Structure Wand (Clone)
+item.structure_wand.clone.chat.noregion=No region to clone selected
+item.structure_wand.clone.chat.cloned=Cloned region
+item.structure_wand.clone.desc=Shift-right-click to select positions\nRight-click to clone\n
+
+key.categories.resadditae=Res Additae
+key.item_settings=Open item settings
+
+misc.true=True
+misc.false=False
+misc.all=All
+misc.yours=Yours
 
 spell.arrowsplosion.name=Arrowsplosion
 spell.arrowsplosion.book=Summons a sphere of arrows around you, dealing high damage to nearby mobs.

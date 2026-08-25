@@ -5,7 +5,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.main.BlockHlpr;
+import com.captrojo.resadditae.util.BlockHlpr;
 import com.captrojo.resadditae.world.SimpleNode;
 
 import net.minecraft.world.World;
