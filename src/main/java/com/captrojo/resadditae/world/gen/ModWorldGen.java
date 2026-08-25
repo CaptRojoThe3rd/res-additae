@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world;
+package com.captrojo.resadditae.world.gen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.config.common.CommonStuffConfig;
 import com.captrojo.resadditae.config.common.WorldGenConfig;
+import com.captrojo.resadditae.world.SpacedThingCheck;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 import com.captrojo.resadditae.world.gen.feature.WorldGenMinableDynamic;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
@@ -195,12 +196,16 @@ public class ModWorldGen implements IWorldGenerator
 		} else if (world.provider.dimensionId == WorldGenConfig.depths_dimension_id) {
 			this.generateDepths(rand, chunk_x, chunk_z, world, chunk_gen, chunk_prov);
 		}
+		
+		if (world.provider.dimensionId == WorldGenConfig.chasm_dimension) {
+			this.generateDepthsConnectionDimension(rand, chunk_x, chunk_z, world, chunk_gen, chunk_prov);
+		}
 	}
 	
 	public void generateNether(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
-		int block_x = chunk_x * 16;
-		int block_z = chunk_z * 16;
+		int block_x = chunk_x << 4;
+		int block_z = chunk_z << 4;
 		
 		for (int y = 30; y <= 210; y += 60) {
 			addOreSpawn(new BlockMeta(ModBlocks.nether_stones, 0), Blocks.netherrack, world, rand, block_x, block_z, 16, 16, 16 + rand.nextInt(32), 3, y, y + 60);
@@ -237,13 +242,8 @@ public class ModWorldGen implements IWorldGenerator
 	
 	public void generateOverworld(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
-		int block_x = chunk_x * 16;
-		int block_z = chunk_z * 16;
-		
-		/* Chasms */
-		if (WorldGenChasm.canPlaceAt(world, chunk_x, chunk_z)) {
-			(new WorldGenChasm()).generate(world, rand, block_x, world.getHeightValue(block_x, block_z), block_z);
-		}
+		int block_x = chunk_x << 4;
+		int block_z = chunk_z << 4;
 		
 		/* Stones */
 		for (int y = 30; y <= 210; y += 60) {
@@ -285,10 +285,20 @@ public class ModWorldGen implements IWorldGenerator
 		}
 	}
 	
+	public void generateDepthsConnectionDimension(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
+	{
+		int block_x = chunk_x << 4;
+		int block_z = chunk_z << 4;
+		
+		if (WorldGenChasm.canPlaceAt(world, chunk_x, chunk_z)) {
+			(new WorldGenChasm()).generate(world, rand, block_x, world.getHeightValue(block_x, block_z), block_z);
+		}
+	}
+	
 	public void generateDepths(Random rand, int chunk_x, int chunk_z, World world, IChunkProvider chunk_gen, IChunkProvider chunk_prov)
 	{
-		int block_x = chunk_x * 16;
-		int block_z = chunk_z * 16;
+		int block_x = chunk_x << 4;
+		int block_z = chunk_z << 4;
 		
 		/* Chasms */
 		if (WorldGenChasm.canPlaceAt(world, chunk_x, chunk_z)) {

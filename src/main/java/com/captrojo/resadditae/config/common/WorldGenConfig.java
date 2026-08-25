@@ -5,7 +5,8 @@ import com.captrojo.resadditae.config.ModConfig;
 public class WorldGenConfig
 {
 	public static int depths_dimension_id;
-	
+
+	public static int chasm_dimension;
 	public static int chasm_excl_rad;
 	public static int chasm_min_dist;
 	public static int chasm_max_dist;
@@ -48,6 +49,7 @@ public class WorldGenConfig
 		
 		ModConfig._category = "structures.depths";
 		
+		chasm_dimension = ModConfig.getInt("chasm_dimension", "Which dimension chasms should connect the Depths to (default = overworld)", 0);
 		chasm_excl_rad = ModConfig.getInt("chasm_exclusion_radius", null, 4);
 		chasm_min_dist = ModConfig.getInt("chasm_min_distance", null, 12);
 		chasm_max_dist = ModConfig.getInt("chasm_max_distance", null, 24);

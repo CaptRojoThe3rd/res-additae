@@ -2,6 +2,7 @@
 ▓▓▓ #0008 ▓▓▓
 
 Additions:
+* Config option to change the dimension chasms spawn in (#23)
 * New house structure
 * Swap spell
 * Hop spell
@@ -9,6 +10,8 @@ Additions:
 * JVM argument "-Dresadditae.testing=true"; enables all debug features
 
 Changes:
+* Structure code has been completely rewritten
+* Snow dungeons now spawn half as many underground rooms, and the connecting hallways are different
 * Bullet time spell uses less mana
 
 Fixes:

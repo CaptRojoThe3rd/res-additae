@@ -38,9 +38,9 @@ import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
 import com.captrojo.resadditae.packet.toserver.PacketPlayerSettings;
 import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
 import com.captrojo.resadditae.tileentity.ModTileEntities;
-import com.captrojo.resadditae.world.ModWorldGen;
 import com.captrojo.resadditae.world.WorldProviderDepths;
 import com.captrojo.resadditae.world.biome.ModBiomes;
+import com.captrojo.resadditae.world.gen.ModWorldGen;
 import com.captrojo.resadditae.world.gen.structure.ModStructures;
 import com.captrojo.resadditae.world.loot.ModLoot;
 

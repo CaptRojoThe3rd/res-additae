@@ -1,6 +1,7 @@
 package com.captrojo.resadditae.world;
 
 import com.captrojo.resadditae.block.ModBlocks;
+import com.captrojo.resadditae.config.common.WorldGenConfig;
 
 import codechicken.lib.math.MathHelper;
 import net.minecraft.block.Block;
@@ -87,7 +88,7 @@ public class TeleporterDepths extends Teleporter
 		int y = MathHelper.floor_double(entity.posY);
 		int z = MathHelper.floor_double(entity.posZ);
 		
-		if (world.provider.dimensionId != 0) {
+		if (world.provider.dimensionId != WorldGenConfig.chasm_dimension) {
 			for (y = 240; y > 0; y--) {
 				if (this.hasEnoughSpace(world, x, y, z, false)) {
 					break;

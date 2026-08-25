@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world;
+package com.captrojo.resadditae.world.gen;
 
 import com.captrojo.resadditae.compatibility.ModList;
 import com.captrojo.resadditae.main.ResAdditae;
@@ -13,7 +13,7 @@ public class WorldGenEventHandler
 {
 	/*
 	 * It would be nice if this actually worked.
-	 * Unfortunately, event.biome is always null for some reason.
+	 * Unfortunately, event.biome is usually null for some reason.
 	 */
 	@SubscribeEvent
 	public void getVillageBlock(BiomeEvent.GetVillageBlockID event)

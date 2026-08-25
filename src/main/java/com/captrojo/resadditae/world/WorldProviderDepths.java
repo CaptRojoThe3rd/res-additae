@@ -2,6 +2,7 @@ package com.captrojo.resadditae.world;
 
 import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.world.WorldChunkManagerDepths.BiomeGenLayers;
+import com.captrojo.resadditae.world.gen.layer.GenLayerDepthsBiomes;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

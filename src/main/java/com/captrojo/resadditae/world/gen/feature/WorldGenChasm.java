@@ -46,9 +46,9 @@ public class WorldGenChasm extends WorldGenerator
 	public static World getOverworld()
 	{
 		try {
-			return MinecraftServer.getServer().worldServerForDimension(0);
+			return MinecraftServer.getServer().worldServerForDimension(WorldGenConfig.chasm_dimension);
 		} catch (RuntimeException e) {
-			ResAdditae.LOG.info("Failed to get overworld world, skipping chasm gen");
+			ResAdditae.LOG.info("Failed to get surface world, skipping chasm gen");
 			e.printStackTrace();
 			return null;
 		}

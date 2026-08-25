@@ -2,7 +2,7 @@ package com.captrojo.resadditae.main;
 
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.config.JsonConfig;
-import com.captrojo.resadditae.world.WorldGenEventHandler;
+import com.captrojo.resadditae.world.gen.WorldGenEventHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraftforge.common.MinecraftForge;

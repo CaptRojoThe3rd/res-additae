@@ -3,7 +3,7 @@ package com.captrojo.resadditae.world.biome.depths;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.world.ModWorldGen;
+import com.captrojo.resadditae.world.gen.ModWorldGen;
 import com.captrojo.resadditae.world.gen.feature.Geodes;
 import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
 

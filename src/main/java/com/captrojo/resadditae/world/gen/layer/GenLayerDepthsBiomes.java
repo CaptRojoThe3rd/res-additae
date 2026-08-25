@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world;
+package com.captrojo.resadditae.world.gen.layer;
 
 import com.captrojo.resadditae.world.biome.ModBiomes;
 

@@ -78,9 +78,9 @@ public class BlockDepthsPortal extends Block
 		int origin, dest;
 		if (entity.dimension == WorldGenConfig.depths_dimension_id) {
 			origin = WorldGenConfig.depths_dimension_id;
-			dest = 0;
+			dest = WorldGenConfig.chasm_dimension;
 		} else {
-			origin = 0;
+			origin = WorldGenConfig.chasm_dimension;
 			dest = WorldGenConfig.depths_dimension_id;
 		}
 

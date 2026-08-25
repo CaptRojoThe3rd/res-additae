@@ -3,7 +3,7 @@ package com.captrojo.resadditae.world.biome;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.MultiBlockStacks;
-import com.captrojo.resadditae.world.ModWorldGen;
+import com.captrojo.resadditae.world.gen.ModWorldGen;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
 
 import net.minecraft.block.Block;
