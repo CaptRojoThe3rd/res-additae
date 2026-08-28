@@ -1,17 +1,14 @@
 package com.captrojo.resadditae.entity.client;
 
-import com.captrojo.resadditae.render.ItemTexturemapHacks;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
-public class EntityTargetFX extends EntityFX
+public class EntityTargetFX extends EntityModFX
 {
 	private static double getScale(Entity e1, Entity e2)
 	{
@@ -34,7 +31,7 @@ public class EntityTargetFX extends EntityFX
 		
 		this.particleMaxAge = 2;
 		this.particleGravity = 0.0f;
-		this.particleIcon = ItemTexturemapHacks.particle_target_arrow;
+		this.particleIcon = EntityModFX.icon_target;
 	}
 	
 	public void destroy()
@@ -48,7 +45,7 @@ public class EntityTargetFX extends EntityFX
 	}
 	
 	@Override
-	public void renderParticle(Tessellator ts, float pticks, float p_70539_3_, float p_70539_4_, float p_70539_5_, float p_70539_6_, float p_70539_7_)
+	public void setupModParticle(Tessellator ts, float pticks, float p_70539_3_, float p_70539_4_, float p_70539_5_, float p_70539_6_, float p_70539_7_)
 	{
 		double time = this.particleAge + pticks;
 		double scale = getScale(this.target, this.cam);
@@ -77,14 +74,6 @@ public class EntityTargetFX extends EntityFX
 		
 		this.setPosition(x, y, z);
 		this.particleScale = (float) scale;
-		
-		super.renderParticle(ts, pticks, p_70539_3_, p_70539_4_, p_70539_5_, p_70539_6_, p_70539_7_);
-	}
-
-	@Override
-	public int getFXLayer()
-	{
-		return 2;
 	}
 
 	@Override

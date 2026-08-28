@@ -12,6 +12,7 @@ import com.captrojo.resadditae.creativetab.TabMaterials;
 import com.captrojo.resadditae.creativetab.TabNature;
 import com.captrojo.resadditae.creativetab.TabUtility;
 import com.captrojo.resadditae.entity.EntityThrownHalberd;
+import com.captrojo.resadditae.entity.monster.EntitySnowEye;
 import com.captrojo.resadditae.gui.hud.HUDElements;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.render.RenderHlpr;
@@ -20,6 +21,7 @@ import com.captrojo.resadditae.render.block.RenderDirectionalBlock;
 import com.captrojo.resadditae.render.block.RenderMossLayer;
 import com.captrojo.resadditae.render.block.RenderMultiFence;
 import com.captrojo.resadditae.render.block.RenderMultiStair;
+import com.captrojo.resadditae.render.entity.RenderSnowEye;
 import com.captrojo.resadditae.render.entity.RenderThrownHalberd;
 import com.captrojo.resadditae.render.item.RenderItemHalberd;
 import com.captrojo.resadditae.render.tileentity.RenderTEMultiSpawner;
@@ -81,7 +83,6 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(ModItems.platinum_halberd, renderhalberd);
 		MinecraftForgeClient.registerItemRenderer(ModItems.ancient_gem_halberd, renderhalberd);
 		
-		
 		RenderingRegistry.registerBlockHandler(BlockRenderIDs.DIRECTIONAL.id, new RenderDirectionalBlock());
 		RenderingRegistry.registerBlockHandler(BlockRenderIDs.MULTI_STAIR.id, new RenderMultiStair());
 		RenderingRegistry.registerBlockHandler(BlockRenderIDs.MULTI_FENCE.id, new RenderMultiFence());
@@ -93,6 +94,7 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(TEVault.class, new RenderTEVault());
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownHalberd.class, new RenderThrownHalberd());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySnowEye.class, new RenderSnowEye());
 	}
 	
 	@Override

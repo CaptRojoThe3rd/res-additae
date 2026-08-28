@@ -10,7 +10,6 @@ import com.captrojo.resadditae.util.Consts;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockDirectional;
@@ -20,8 +19,6 @@ import net.minecraft.block.BlockLadder;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockRail;
 import net.minecraft.block.BlockRailBase;
-import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.block.BlockSkull;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.BlockTrapDoor;
@@ -33,7 +30,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Facing;
 import net.minecraft.world.World;
 
 /* An entry into a structure's palette of blocks.
@@ -47,133 +43,12 @@ public class PaletteEntry
 
 	public static Block fallback_block = Blocks.sponge;
 
-	private static int rotateBlock90(Block block, int meta)
-	{
-		if (block instanceof BlockStairs || block instanceof BlockFurnace) {
-			int u = meta & 12;
-			switch (meta & 3) {
-			case 0:
-				return 2 + u;
-			case 1:
-				return 3 + u;
-			case 2:
-				return 1 + u;
-			case 3:
-				return 0 + u;
-			}
-		}
-		if (block instanceof BlockRotatedPillar) {
-			int u = meta & 3;
-			switch (meta & 12) {
-			case 4:
-				return 8 + u;
-			case 8:
-				return 4 + u;
-			default:
-				return meta;
-			}
-		}
-		if (block == Blocks.torch || block == Blocks.redstone_torch || block instanceof BlockButton) {
-			int u = meta & 8;
-			switch (meta & 7) {
-			case 1:
-				return 3 + u;
-			case 2:
-				return 4 + u;
-			case 3:
-				return 2 + u;
-			case 4:
-				return 1 + u;
-			default:
-				return u;
-			}
-		}
-		if (block == Blocks.ladder || block instanceof BlockChest) {
-			switch (meta) {
-			case 2:
-				return 5;
-			case 3:
-				return 4;
-			case 4:
-				return 2;
-			case 5:
-				return 3;
-			default:
-				return meta;
-			}
-		}
-		if (block instanceof BlockDoor) {
-			int u = meta & 8;
-			switch (meta & 7) {
-			case 0:
-				return 1 + u;
-			case 1:
-				return 2 + u;
-			case 2:
-				return 3 + u;
-			case 3:
-				return 0 + u;
-			case 4:
-				return 7 + u;
-			case 5:
-				return 4 + u;
-			case 6:
-				return 5 + u;
-			case 7:
-				return 6 + u;
-			}
-		}
-		if (block instanceof BlockTrapDoor) {
-			int u = meta & 12;
-			switch (meta & 3) {
-			case 0:
-				return 3 + u;
-			case 1:
-				return 2 + u;
-			case 2:
-				return 0 + u;
-			case 3:
-				return 1 + u;
-			}
-		}
-		if (block instanceof BlockBed) {
-			int u = meta & 12;
-			return ((meta + 1) & 3) + u;
-		}
-		if (block instanceof BlockSkull) {
-			switch (meta) {
-			case 2:
-				return 5;
-			case 3:
-				return 4;
-			case 4:
-				return 2;
-			case 5:
-				return 3;
-			default:
-				return meta;
-			}
-		}
-		if (block instanceof BlockVine) {
-			meta <<= 1;
-			if ((meta & 16) == 16) {
-				meta &= 15;
-				meta |= 1;
-			}
-		}
-		return meta;
-	}
-
-	private static int rotateMeta(Block block, int meta, int rotation)
-	{
-		for (int i = 0; i < rotation; i++) {
-			meta = rotateBlock90(block, meta);
-		}
-		return meta;
-	}
-
 	private static int getMetaWithOffset(Block block, int meta, int dir)
 	{
+		/* Remember when dealing with metadata:
+		 * Keep EndlessIDs support in mind (it extends meta to 16 bits)
+		 */
+		
 		if (block instanceof BlockRailBase) {
 			int a = meta & ~0x1;
 			int n = meta & 0x1;
@@ -291,6 +166,21 @@ public class PaletteEntry
 				n = Consts.TRAPDOOR_ROT_CCW[n];
 			} else if (dir == Consts.EAST) {
 				n = Consts.TRAPDOOR_ROT_CW[n];
+			}
+			
+			return a | n;
+		}
+		
+		if (block instanceof BlockVine) {
+			int a = meta & ~0xf;
+			int n = meta & 0xf;
+			
+			if (dir == Consts.SOUTH) {
+				n = (n << 2) | (n >> 2);
+			} else if (dir == Consts.WEST) {
+				n = (n >> 1) | (n << 3);
+			} else if (dir == Consts.EAST) {
+				n = (n << 1) | (n >> 3);
 			}
 			
 			return a | n;

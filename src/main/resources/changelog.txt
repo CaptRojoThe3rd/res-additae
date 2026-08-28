@@ -1,4 +1,18 @@
 
+▓▓▓ #0009 ▓▓▓
+
+Additions:
+* Error checking and logging for ore drops to help figure out the cause of #22
+
+Changes:
+* Shiny rocks can now only be obtained from gravel in the overworld (by default)
+* Made recipe for compacted snow more expensive
+
+Fixes:
+* Vines are now rotated correctly in structures
+* Duplicate tool crafting recipes (#10)
+
+
 ▓▓▓ #0008 ▓▓▓
 
 Additions:

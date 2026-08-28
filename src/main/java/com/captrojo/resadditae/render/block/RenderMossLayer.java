@@ -2,7 +2,7 @@ package com.captrojo.resadditae.render.block;
 
 import java.util.Random;
 
-import com.captrojo.resadditae.render.IconHack;
+import com.captrojo.resadditae.render.DumbIcon;
 import com.captrojo.resadditae.tileentity.TEMossLayer;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -28,13 +28,13 @@ public class RenderMossLayer implements ISimpleBlockRenderingHandler
 	
 	private Random texture_rand;
 	private long texture_rand_seed;
-	private IconHack iconhack;
+	private DumbIcon iconhack;
 	
 	public RenderMossLayer()
 	{
 		this.texture_rand = new Random();
 		this.texture_rand_seed = 1234567890;
-		this.iconhack = new IconHack();
+		this.iconhack = new DumbIcon();
 	}
 	
 	@Override

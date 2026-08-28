@@ -33,6 +33,8 @@ public class GeneralConfig
 	public static String[] oredict_priority_list = new String[] {"hbm"};
 	public static boolean use_oredict_for_equipment_recipes = false;
 	
+	public static int[] shiny_rock_gravel_dims = new int[] {0};
+	
 	public static void load()
 	{
 		ModConfig._category = "general";
@@ -44,6 +46,7 @@ public class GeneralConfig
 		show_other_mod_items = ModConfig.getBool("0101.show_other_mod_items", "If a Res Additae item is replaced by one from another mod (e.g. raw metals), show it in the Res Additae creative tab", true);
 		
 		strip_logs = ModConfig.getBool("0300.stripable_logs", "Enable stripping wood logs with an axe", true);
+		shiny_rock_gravel_dims = ModConfig.getIntList("0700.shiny_rock_gravel_dims", "In which dimensions should you be able to get shiny rocks from gravel", shiny_rock_gravel_dims);
 		
 		wool_more_colors = ModConfig.getBool("0400.wool_more_colors", "Add more wool colors", wool_more_colors);
 		wool_slabs_stairs = ModConfig.getBool("0401.wool_slabs_stairs", "Add wool slabs and stairs", wool_slabs_stairs);
@@ -64,6 +67,16 @@ public class GeneralConfig
 		hbm_tools = ModConfig.getBool("0501.hbm_tools", "Enable NTM material scythes and halberds", hbm_tools);
 		
 		oredict_priority_list = ModConfig.getStringList("0600.oredict_priority", "When choosing an item from a list of ores in the Ore Dictionary, prefer items from the following mods.\nMods at the top of the list will take priority", oredict_priority_list);
-		use_oredict_for_equipment_recipes = ModConfig.getBool("use_oredict_for_equipment_recipes", "Use the oredict for tool and armor recipes, instead of this mod's materials only", use_oredict_for_equipment_recipes);
+		use_oredict_for_equipment_recipes = ModConfig.getBool("0601.use_oredict_for_equipment_recipes", "Use the oredict for tool and armor recipes, instead of this mod's materials only", use_oredict_for_equipment_recipes);
+	}
+	
+	public static boolean isDimValidForShinyRockGravel(int dim)
+	{
+		for (int i : GeneralConfig.shiny_rock_gravel_dims) {
+			if (i == dim) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

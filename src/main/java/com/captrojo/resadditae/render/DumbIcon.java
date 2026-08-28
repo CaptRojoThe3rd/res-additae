@@ -4,37 +4,66 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.IIcon;
 
-public class IconHack implements IIcon
+public class DumbIcon implements IIcon
 {
+	public static int _cur_tx_w;
+	public static int _cur_tx_h;
+	
+	public static void setCurTxSize(int w, int h)
+	{
+		DumbIcon._cur_tx_w = w;
+		DumbIcon._cur_tx_h = h;
+	}
+	
 	public float umin;
 	public float umax;
 	public float vmin;
 	public float vmax;
+	public int width;
+	public int height;
 	
-	public IconHack()
+	public DumbIcon()
 	{
 	}
 	
-	public void set(float umin, float umax, float vmin, float vmax)
+	public DumbIcon(int u, int v, int w, int h)
+	{
+		this(u, v, w, h, DumbIcon._cur_tx_w, DumbIcon._cur_tx_h);
+	}
+	
+	public DumbIcon(int u, int v, int w, int h, int tx_w, int tx_h)
+	{
+		int u2 = u + w, v2 = v + h;
+		float u_min = (float) u / (float) tx_w;
+		float u_max = (float) u2 / (float) tx_w;
+		float v_min = (float) v / (float) tx_h;
+		float v_max = (float) v2 / (float) tx_h;
+		this.set(u_min, u_max, v_min, v_max);
+		this.width = w;
+		this.height = h;
+	}
+	
+	public DumbIcon set(float umin, float umax, float vmin, float vmax)
 	{
 		this.umin = umin;
 		this.umax = umax;
 		this.vmin = vmin;
 		this.vmax = vmax;
+		return this;
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getIconWidth()
 	{
-		return 16;
+		return this.width;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getIconHeight()
 	{
-		return 16;
+		return this.height;
 	}
 
 	@Override

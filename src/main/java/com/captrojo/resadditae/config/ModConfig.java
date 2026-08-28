@@ -31,6 +31,13 @@ public class ModConfig
 		prop.comment = comment;
 		return prop.getInt();
 	}
+	
+	public static int[] getIntList(String name, String comment, int[] default_value)
+	{
+		Property prop = _config.get(_category, name, default_value);
+		prop.comment = comment;
+		return prop.getIntList();
+	}
 
 	public static double getDouble(String name, String comment, double default_value)
 	{

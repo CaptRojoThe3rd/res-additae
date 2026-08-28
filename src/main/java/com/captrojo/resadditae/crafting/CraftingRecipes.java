@@ -39,10 +39,10 @@ public class CraftingRecipes
 			}
 		}
 		
-		addShaped(new ItemStack(ModBlocks.compacted_snow, 2, 0), "aa", "aa", 'a', Blocks.snow);
+		addShaped(new ItemStack(ModBlocks.compacted_snow, 2, 0), "aaa", "aaa", "aaa", 'a', Blocks.snow);
 		addShaped(new ItemStack(ModBlocks.compacted_snow, 4, 1), "aa", "aa", 'a', new ItemStack(ModBlocks.compacted_snow, 1, 0));
 		addShaped(new ItemStack(ModBlocks.compacted_snow, 4, 2), "aa", "aa", 'a', new ItemStack(ModBlocks.compacted_snow, 1, 1));
-		addShaped(new ItemStack(ModBlocks.compacted_snow, 2, 3), "ab", "ba", 'a', Blocks.snow, 'b', Blocks.packed_ice);
+		addShaped(new ItemStack(ModBlocks.compacted_snow, 2, 3), "ab", "ba", 'a', new ItemStack(ModBlocks.compacted_snow, 1, 0), 'b', Blocks.packed_ice);
 		addSlab(new ItemStack(ModBlocks.compacted_snow_slab, 6, 0), new ItemStack(ModBlocks.compacted_snow, 1, 0));
 		addSlab(new ItemStack(ModBlocks.compacted_snow_slab, 6, 1), new ItemStack(ModBlocks.compacted_snow, 1, 1));
 		addSlab(new ItemStack(ModBlocks.compacted_snow_slab, 6, 2), new ItemStack(ModBlocks.compacted_snow, 1, 2));
@@ -570,9 +570,10 @@ public class CraftingRecipes
 	
 	private static void addTool(Item result, ItemStack ingred, String oredict, String...grid)
 	{
-		addShaped(new ItemStack(result), grid, 'a', ingred, 'b', "stickWood");
-		if (GeneralConfig.use_oredict_for_equipment_recipes) {
+		if (GeneralConfig.use_oredict_for_equipment_recipes && oredict != null) {
 			addShaped(new ItemStack(result), grid, 'a', oredict, 'b', "stickWood");
+		} else {
+			addShaped(new ItemStack(result), grid, 'a', ingred, 'b', "stickWood");
 		}
 	}
 }

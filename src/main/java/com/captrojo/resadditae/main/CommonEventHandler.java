@@ -59,10 +59,14 @@ public class CommonEventHandler
 			return;
 		}
 		
-		if (event.block == Blocks.gravel) {
+		if (event.block == Blocks.gravel && GeneralConfig.isDimValidForShinyRockGravel(event.world.provider.dimensionId)) {
 			ItemStack first = event.drops.get(0);
-			/* Override the gravel drop code, unless another mod replaced the drop already */
-			if (first.getItem() != Item.getItemFromBlock(Blocks.gravel) && first.getItem() != Items.flint) {
+			/* Override the gravel drop, unless another mod replaced the drop already */
+			if (
+				first != null &&
+				first.getItem() != Item.getItemFromBlock(Blocks.gravel) &&
+				first.getItem() != Items.flint
+			) {
 				return;
 			}
 			event.drops.clear();

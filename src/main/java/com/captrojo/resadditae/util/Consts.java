@@ -4,6 +4,8 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class Consts
 {
+	public static final float RECIP_180_PI = 1.0f / (180.0f / (float) Math.PI);
+	
 	public static final int[] IDENTITY_ARR = {0, 1, 2, 3};
 	
 	public static final int SOUTH = 0;

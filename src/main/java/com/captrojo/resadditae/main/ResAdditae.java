@@ -47,6 +47,7 @@ import com.captrojo.resadditae.world.loot.ModLoot;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -85,9 +86,9 @@ public class ResAdditae
 //	public static final String VERSION = "1.0.0";
 //	public static final String VERSIONS_ACCEPTED = "1.0.*";
 //	public static final String VERSION_NAME = "1.0.0";
-	public static final String VERSION = "X0008";
-	public static final String VERSIONS_ACCEPTED = "X0008";
-	public static final String VERSION_NAME = "Build #0008";
+	public static final String VERSION = "X0009";
+	public static final String VERSIONS_ACCEPTED = "X0009";
+	public static final String VERSION_NAME = "Build #0009";
 	
 	public static final Logger LOG = LogManager.getLogger(MOD_ID);
 	
@@ -114,9 +115,8 @@ public class ResAdditae
 	
 	public static boolean common_items_error = false;
 	
-	/* Did you know that the Forge-provided function is even more unsafe?
-	 * It just checks if the thread is "Client thread" and assumes we are on the server if it
-	 * is not! That might be okay in some situations, but not all of them.
+	/* This function is completely unncessary and is unused, but I'm leaving it here
+	 * because it is funny
 	 */
 	public static Side getSideUnsafely(Side assumed_upon_failure)
 	{
@@ -229,7 +229,7 @@ public class ResAdditae
 		ModBiomes.initBiomes();
 		ModBiomes.registerBiomes();
 		
-		if (!ModList.VILLAGE_NAMES.isLoaded()) {
+		if (!ModList.VILLAGE_NAMES.isLoaded() && !MapGenVillage.villageSpawnBiomes.contains(BiomeGenBase.taiga)) {
 			MapGenVillage.villageSpawnBiomes.add(BiomeGenBase.taiga);
 		}
 		

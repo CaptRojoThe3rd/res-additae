@@ -91,7 +91,7 @@ public class RenderHlpr
 		ts.draw();
 	}
 
-	public static void drawTexturedModelRect(int x, int y, IIcon icon, int w, int h)
+	public static void drawTexturedModalRect(int x, int y, IIcon icon, int w, int h)
 	{
 		Tessellator ts = Tessellator.instance;
 		ts.startDrawingQuads();
@@ -99,6 +99,17 @@ public class RenderHlpr
 		ts.addVertexWithUV((double) (x + w), (double) (y + h), (double) z_level, (double) icon.getMaxU(), (double) icon.getMaxV());
 		ts.addVertexWithUV((double) (x + w), (double) (y + 0), (double) z_level, (double) icon.getMaxU(), (double) icon.getMinV());
 		ts.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) z_level, (double) icon.getMinU(), (double) icon.getMinV());
+		ts.draw();
+	}
+	
+	public static void drawFace(IIcon icon, double x1, double y1, double x2, double y2)
+	{
+		Tessellator ts = Tessellator.instance;
+		ts.startDrawingQuads();
+		ts.addVertexWithUV(x1, y2, 0, (double) icon.getMinU(), (double) icon.getMaxV());
+		ts.addVertexWithUV(x2, y2, 0, (double) icon.getMaxU(), (double) icon.getMaxV());
+		ts.addVertexWithUV(x2, y1, 0, (double) icon.getMaxU(), (double) icon.getMinV());
+		ts.addVertexWithUV(x1, y1, 0, (double) icon.getMinU(), (double) icon.getMinV());
 		ts.draw();
 	}
 	
@@ -110,7 +121,7 @@ public class RenderHlpr
 		float vf = (float) v * mh;
 		float wf = (float) w * mw;
 		float hf = (float) h * mh;
-		IconHack icon = new IconHack();
+		DumbIcon icon = new DumbIcon();
 		icon.set(uf, uf + wf, vf, vf + hf);
 		return icon;
 	}

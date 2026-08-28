@@ -7,12 +7,17 @@ import java.util.Set;
 
 public class MiscHlpr
 {
-	public static Object getRandomElement(List list, Random rand)
+	public static Object getRandomElementFromList(List list, Random rand)
 	{
 		return list.get(rand.nextInt(list.size()));
 	}
 	
 	public static int getRandomElement(int[] arr, Random rand)
+	{
+		return arr[rand.nextInt(arr.length)];
+	}
+	
+	public static <T> T getRandomElement(T[] arr, Random rand)
 	{
 		return arr[rand.nextInt(arr.length)];
 	}

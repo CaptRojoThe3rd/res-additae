@@ -107,11 +107,11 @@ public class TEVault extends TileEntity
 			this.loot = ModLoot.snow_dungeon_vaults[this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)];
 		}
 		for (int q = 0; q < 100; q++) {
-			LootPool pool = (LootPool) MiscHlpr.getRandomElement(this.loot.pools, rand);
+			LootPool pool = (LootPool) MiscHlpr.getRandomElementFromList(this.loot.pools, rand);
 			if (pool.items.size() == 0) {
 				continue;
 			}
-			LootItem item = (LootItem) MiscHlpr.getRandomElement(pool.items, rand);
+			LootItem item = (LootItem) MiscHlpr.getRandomElementFromList(pool.items, rand);
 			ItemStack stack = item.generateItemStack(rand);
 			if (stack == null) {
 				continue;

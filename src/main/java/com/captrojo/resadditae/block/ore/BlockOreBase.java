@@ -82,12 +82,22 @@ public abstract class BlockOreBase extends Block implements IDumbMultiBlock
 	@Override
 	public Item getItemDropped(int meta, Random rand, int fortune)
 	{
+		ItemStack stack = this.itemDropped(meta);
+		if (stack == null) {
+			ResAdditae.LOG.error("[BlockOreBase.getItemDropped] Item " + this.getUnlocalizedName() + " tried to drop null");
+			return Item.getItemFromBlock(this);
+		}
 		return this.itemDropped(meta).getItem();
 	}
 	
 	@Override
 	public int damageDropped(int meta)
 	{
+		ItemStack stack = this.itemDropped(meta);
+		if (stack == null) {
+			ResAdditae.LOG.error("[BlockOreBase.damageDropped] Item " + this.getUnlocalizedName() + " tried to drop null");
+			return meta;
+		}
 		return this.itemDropped(meta).getItemDamage();
 	}
 	
