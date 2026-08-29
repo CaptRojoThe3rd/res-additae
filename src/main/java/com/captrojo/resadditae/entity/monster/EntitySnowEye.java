@@ -1,14 +1,23 @@
 package com.captrojo.resadditae.entity.monster;
 
+import java.util.List;
+
 import com.captrojo.resadditae.entity.client.EntityModFX;
 import com.captrojo.resadditae.entity.client.EntityZapFX;
+import com.captrojo.resadditae.main.ModDamageSources;
+import com.captrojo.resadditae.sounds.ModSounds;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.DamageSource;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -17,14 +26,37 @@ public class EntitySnowEye extends EntityMob
 	public static final int DW_TARGET = 12;
 	public static final int DW_ATTACK_FX_FLAG = 13;
 	
+	public static final AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
+	public static final IEntitySelector selector = new IEntitySelector() {
+		@Override
+		public boolean isEntityApplicable(Entity entity)
+		{
+			if (entity instanceof EntityPlayerMP) {
+				return !((EntityPlayerMP) entity).theItemInWorldManager.isCreative();
+			}
+			if (entity instanceof EntityAgeable) {
+				return true;
+			}
+			if (entity instanceof EntityGolem) {
+				return true;
+			}
+			if (entity instanceof EntityCreeper) {
+				EntityCreeper creeper = (EntityCreeper) entity;
+				return !creeper.getPowered();
+			}
+			return false;
+		}
+	};
+	
 	@SideOnly(Side.CLIENT)
-	private byte prev_attack_fx_flag = 0;
+	private byte prev_attack_fx_flag;
 	
 	public EntitySnowEye(World world)
 	{
 		super(world);
 		
 		this.setSize(1.0f, 1.0f);
+		this.attackTime = this.rand.nextInt(10);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -35,26 +67,27 @@ public class EntitySnowEye extends EntityMob
 		 */
 		this.renderYawOffset = this.rotationYaw;
 		
-		int id = this.dataWatcher.getWatchableObjectInt(EntitySnowEye.DW_TARGET);
-		if (id != -1) {
-			this.entityToAttack = this.worldObj.getEntityByID(id);
-		} else {
-			this.entityToAttack = null;
-		}
+		this.entityToAttack = this.dwGetTarget();
 		
 		if (this.entityToAttack != null) {
-			byte attack_fx_flag = this.dataWatcher.getWatchableObjectByte(EntitySnowEye.DW_ATTACK_FX_FLAG);
+			byte attack_fx_flag = this.dwGetAttackFXFlag();
 			if (attack_fx_flag != this.prev_attack_fx_flag) {
 				this.prev_attack_fx_flag = attack_fx_flag;
 				this.createLaserFX();
 			}
+		} else {
+			this.rotationYaw += 2.0;
 		}
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public void createLaserFX()
 	{
-		Vec3 vec1 = Vec3.createVectorHelper(this.entityToAttack.posX, this.entityToAttack.posY - 0.25, this.entityToAttack.posZ);
+		Vec3 vec1 = Vec3.createVectorHelper(this.entityToAttack.posX, this.entityToAttack.posY, this.entityToAttack.posZ);
+		vec1.yCoord += this.entityToAttack.getEyeHeight();
+		if (this.entityToAttack instanceof EntityPlayer) {
+			vec1.yCoord -= 0.25;
+		}
 		Vec3 vec2 = Vec3.createVectorHelper(this.posX, this.posY + 0.5, this.posZ);
 		Vec3 vec3 = vec1.subtract(vec2);
 		vec3 = vec3.normalize();
@@ -70,16 +103,39 @@ public class EntitySnowEye extends EntityMob
 		}
 	}
 	
+	public Entity getEntityToAttack()
+	{
+		EntitySnowEye.aabb.minX = this.posX - 16.0;
+		EntitySnowEye.aabb.minY = this.posY - 16.0;
+		EntitySnowEye.aabb.minZ = this.posZ - 16.0;
+		EntitySnowEye.aabb.maxX = this.posX + 16.0;
+		EntitySnowEye.aabb.maxY = this.posY + 16.0;
+		EntitySnowEye.aabb.maxZ = this.posZ + 16.0;
+		
+		List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, EntitySnowEye.aabb, EntitySnowEye.selector);
+		Entity closest = null;
+		double dist = 999.0;
+		for (Object o : list) {
+			Entity e = (Entity) o;
+			double d = e.getDistanceToEntity(this);
+			if (d < dist) {
+				dist = d;
+				closest = e;
+			}
+		}
+		
+		return closest;
+	}
+	
 	public void updateAttackTarget()
 	{
 		if (this.entityToAttack == null) {
-			this.entityToAttack = this.worldObj.getClosestPlayerToEntity(this, 16.0);
+			this.entityToAttack = this.getEntityToAttack();
 		}
-		
-		if (this.entityToAttack != null) {
-			this.dataWatcher.updateObject(EntitySnowEye.DW_TARGET, this.entityToAttack.getEntityId());
-		} else {
-			this.dataWatcher.updateObject(EntitySnowEye.DW_TARGET, -1);
+
+		this.dwSetTarget(this.entityToAttack);
+		if (this.entityToAttack == null) {
+			this.rotationYaw += 2.0;
 			return;
 		}
 		
@@ -93,7 +149,7 @@ public class EntitySnowEye extends EntityMob
 			}
 		}
 		
-		byte attack_fx_flag = this.dataWatcher.getWatchableObjectByte(EntitySnowEye.DW_ATTACK_FX_FLAG);
+		byte attack_fx_flag = this.dwGetAttackFXFlag();
 		
 		if (this.entityToAttack != null) {
 			if (this.attackTime <= 0) {
@@ -103,7 +159,29 @@ public class EntitySnowEye extends EntityMob
 			}
 		}
 		
-		this.dataWatcher.updateObject(EntitySnowEye.DW_ATTACK_FX_FLAG, attack_fx_flag);
+		this.dwSetAttackFXFlag(attack_fx_flag);
+	}
+	
+	protected Entity dwGetTarget()
+	{
+		int id = this.dataWatcher.getWatchableObjectInt(EntitySnowEye.DW_TARGET);
+		return (id == -1) ? null : this.worldObj.getEntityByID(id);
+	}
+	
+	protected void dwSetTarget(Entity entity)
+	{
+		int id = (entity == null) ? -1 : entity.getEntityId();
+		this.dataWatcher.updateObject(EntitySnowEye.DW_TARGET, id);
+	}
+	
+	protected byte dwGetAttackFXFlag()
+	{
+		return this.dataWatcher.getWatchableObjectByte(EntitySnowEye.DW_ATTACK_FX_FLAG);
+	}
+	
+	protected void dwSetAttackFXFlag(byte b)
+	{
+		this.dataWatcher.updateObject(EntitySnowEye.DW_ATTACK_FX_FLAG, b);
 	}
 	
 	@Override
@@ -117,13 +195,13 @@ public class EntitySnowEye extends EntityMob
 	@Override
 	public void onLivingUpdate()
 	{
-		super.onLivingUpdate();
-		
-		this.setVelocity(0, 0, 0);
-		
 		if (this.worldObj.isRemote) {
 			this.updateClient();
 		}
+		
+		this.motionY = 0.0;
+
+		super.onLivingUpdate();
 	}
 	
 	@Override
@@ -147,7 +225,15 @@ public class EntitySnowEye extends EntityMob
 	public boolean attackEntityAsMob(Entity entity)
 	{
 		this.attackTime = 10;
-		return entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this.entityToAttack, this), 4.0f);
+		if (entity instanceof EntityCreeper) {
+			entity.onStruckByLightning(null);
+			this.entityToAttack = null;
+			return true;
+		}
+		float pitch = 1.0f + (rand.nextFloat() * 0.4f) - 0.2f;
+		this.worldObj.playSoundAtEntity(this, ModSounds.SNOW_EYE_ATTACK, 1.0f, pitch);
+		this.worldObj.playSoundAtEntity(this.entityToAttack, ModSounds.SNOW_EYE_ATTACK, 1.0f, pitch);
+		return entity.attackEntityFrom(ModDamageSources.causeIndirectMagicDamageAA(this.entityToAttack, this), 6.0f);
 	}
 	
 	@Override
@@ -165,12 +251,12 @@ public class EntitySnowEye extends EntityMob
 	@Override
 	protected String getHurtSound()
 	{
-		return "resadditae:mob.snow_eye.hit";
+		return ModSounds.SNOW_EYE_HIT;
 	}
 
 	@Override
 	protected String getDeathSound()
 	{
-		return "resadditae:mob.snow_eye.death";
+		return ModSounds.SNOW_EYE_HIT;
 	}
 }

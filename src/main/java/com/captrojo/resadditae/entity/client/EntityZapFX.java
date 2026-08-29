@@ -20,5 +20,6 @@ public class EntityZapFX extends EntityModFX
 	public void setupModParticle(Tessellator ts, float pticks, float rot_x, float rot_xz, float rot_z, float rot_yz, float rot_xy)
 	{
 		this.particleIcon = MiscHlpr.getRandomElement(EntityModFX.icons_zap, this.rand);
+		ts.setBrightness(0xf00000);
 	}
 }

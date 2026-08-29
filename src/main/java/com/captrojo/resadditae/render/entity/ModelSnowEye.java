@@ -1,8 +1,7 @@
 package com.captrojo.resadditae.render.entity;
 
-import org.lwjgl.opengl.GL11;
+import java.util.Random;
 
-import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.render.DumbIcon;
 import com.captrojo.resadditae.render.ModelBox2;
 import com.captrojo.resadditae.util.Consts;
@@ -15,6 +14,8 @@ import net.minecraft.util.MathHelper;
 
 public class ModelSnowEye extends ModelBase
 {
+	Random rand;
+	
 	ModelRenderer model_eye;
 	ModelRenderer[] model_orbiting_things;
 	
@@ -28,6 +29,8 @@ public class ModelSnowEye extends ModelBase
 	
 	public ModelSnowEye()
 	{
+		this.rand = new Random();
+		
 		DumbIcon.setCurTxSize(64, 32);
 		this.tx_eye_top = new DumbIcon(16, 0, 16, 16);
 		this.tx_eye_bottom = new DumbIcon(32, 0, 16, 16);
@@ -82,6 +85,9 @@ public class ModelSnowEye extends ModelBase
 	public void setRotationAngles(float f1, float f2, float time, float f4, float f5, float f6, Entity entity)
 	{
 		super.setRotationAngles(f1, f2, time, f4, f5, f6, entity);
+		
+		this.rand.setSeed(entity.hashCode());
+		time += this.rand.nextInt(100) + this.rand.nextFloat();
 		
 		this.model_eye.offsetY = MathHelper.sin(time * 0.25f) * 0.033f;
 		

@@ -2,6 +2,7 @@
 ▓▓▓ #0009 ▓▓▓
 
 Additions:
+* Snow Eye mob. One spawns in every snow dungeon
 * Error checking and logging for ore drops to help figure out the cause of #22
 
 Changes:

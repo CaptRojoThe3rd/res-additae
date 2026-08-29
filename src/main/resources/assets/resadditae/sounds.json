@@ -36,13 +36,27 @@
 			"block/metal_pile_2"
 		]
 	},
-	"entity.thrown_halberd.impact": {
+	"mob.snow_eye.hit": {
+		"category": "hostile",
+		"sounds": [
+			"mob/snow_eye/hurt_1",
+			"mob/snow_eye/hurt_2",
+			"mob/snow_eye/hurt_3"
+		]
+	},
+	"mob.snow_eye.attack": {
+		"category": "hostile",
+		"sounds": [
+			"mob/snow_eye/attack_1"
+		]
+	},
+	"random.thrown_halberd.impact": {
 		"category": "block",
 		"sounds": [
-			"entity/thrown_halberd/impact_1",
-			"entity/thrown_halberd/impact_2",
-			"entity/thrown_halberd/impact_3",
-			"entity/thrown_halberd/impact_4"
+			"random/thrown_halberd/impact_1",
+			"random/thrown_halberd/impact_2",
+			"random/thrown_halberd/impact_3",
+			"random/thrown_halberd/impact_4"
 		]
 	},
 	"spell.bullet_time.activate": {

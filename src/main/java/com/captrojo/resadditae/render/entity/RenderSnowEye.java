@@ -24,6 +24,9 @@ public class RenderSnowEye extends RenderLiving
 	protected void rotateCorpse(EntityLivingBase entity, float p_77043_2_, float p_77043_3_, float p_77043_4_)
 	{
 		super.rotateCorpse(entity, p_77043_2_, p_77043_3_, p_77043_4_);
+		if (entity.rotationPitch == 0.0f) {
+			entity.rotationPitch = 90.0f;
+		}
 		GL11.glRotatef(entity.rotationPitch - 90.0f, 1.0f, 0.0f, 0.0f);
 	}
 
