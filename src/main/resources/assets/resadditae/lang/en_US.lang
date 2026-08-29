@@ -113,6 +113,8 @@ commands.radev.toggle-fill-wand-behavior.false=Filling with structure voids repl
 death.attack.thrown_halberd=%s was impaled by %s
 death.attack.magic_lifesteal=%s's life was drained by %s
 
+entity.resadditae.SnowEye.name=Snow Eye
+
 gui.charm_settings.title=Charm Settings
 gui.charm_settings.help_players=Charms help players
 gui.charm_settings.help_entities=Charms help mobs

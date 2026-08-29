@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.AxisAlignedBB;
@@ -35,14 +36,15 @@ public class EntitySnowEye extends EntityMob
 				return !((EntityPlayerMP) entity).theItemInWorldManager.isCreative();
 			}
 			if (entity instanceof EntityAgeable) {
-				return true;
+				/* One of the snow dungeon basins spawns chickens. */
+				return !(entity instanceof EntityChicken);
 			}
 			if (entity instanceof EntityGolem) {
 				return true;
 			}
 			if (entity instanceof EntityCreeper) {
-				EntityCreeper creeper = (EntityCreeper) entity;
-				return !creeper.getPowered();
+				/* Make creepers charged. */
+				return !((EntityCreeper) entity).getPowered();
 			}
 			return false;
 		}
@@ -117,6 +119,9 @@ public class EntitySnowEye extends EntityMob
 		double dist = 999.0;
 		for (Object o : list) {
 			Entity e = (Entity) o;
+			if (!this.canEntityBeSeen(e)) {
+				continue;
+			}
 			double d = e.getDistanceToEntity(this);
 			if (d < dist) {
 				dist = d;

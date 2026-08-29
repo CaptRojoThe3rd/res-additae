@@ -5,6 +5,8 @@ import org.lwjgl.opengl.GL11;
 import com.captrojo.resadditae.render.DumbIcon;
 import com.captrojo.resadditae.render.RenderHlpr;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityFX;
@@ -12,6 +14,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+@SideOnly(Side.CLIENT)
 public abstract class EntityModFX extends EntityFX
 {
 	public static IIcon[] icons_zap;

@@ -39,10 +39,12 @@ public class MapGenSnowDungeon extends MapGenScattered
 		MapGenSnowDungeon.Treasure.pieces = new StructurePieceNBT[6];
 		MapGenSnowDungeon.ChallengeRoomA.pieces = new StructurePieceNBT[6];
 		MapGenSnowDungeon.ChallengeRoomB.pieces = new StructurePieceNBT[6];
+		MapGenSnowDungeon.ChallengeRoomC.pieces = new StructurePieceNBT[6];
 		for (int i = 3; i <= 8; i++) {
 			MapGenSnowDungeon.Treasure.pieces[i - 3] = MapGenScattered.loadPiece("snow_dungeon/treasure_" + Integer.toString(i));
 			MapGenSnowDungeon.ChallengeRoomA.pieces[i - 3] = MapGenScattered.loadPiece("snow_dungeon/room_a_" + Integer.toString(i));
 			MapGenSnowDungeon.ChallengeRoomB.pieces[i - 3] = MapGenScattered.loadPiece("snow_dungeon/room_b_" + Integer.toString(i));
+			MapGenSnowDungeon.ChallengeRoomC.pieces[i - 3] = MapGenScattered.loadPiece("snow_dungeon/room_c_" + Integer.toString(i));
 		}
 		
 		MapGenStructureIO.registerStructure(MapGenSnowDungeon.Start.class, "RA_SnowDungeon");
@@ -54,6 +56,7 @@ public class MapGenSnowDungeon extends MapGenScattered
 		MapGenStructureIO.func_143031_a(MapGenSnowDungeon.Treasure.class, "RA_SD_Treasure");
 		MapGenStructureIO.func_143031_a(MapGenSnowDungeon.ChallengeRoomA.class, "RA_SD_RoomA");
 		MapGenStructureIO.func_143031_a(MapGenSnowDungeon.ChallengeRoomB.class, "RA_SD_RoomB");
+		MapGenStructureIO.func_143031_a(MapGenSnowDungeon.ChallengeRoomC.class, "RA_SD_RoomC");
 	}
 	
 	public MapGenSnowDungeon()
@@ -161,12 +164,14 @@ public class MapGenSnowDungeon extends MapGenScattered
 		
 		StructureComponentNBT createRandomDungeonRoom(Random rand, int lvl, int x, int y, int z, int dir)
 		{
-			switch (rand.nextInt(2)) {
+			switch (rand.nextInt(3)) {
 			default:
 			case 0:
 				return new MapGenSnowDungeon.ChallengeRoomA(lvl, x, y, z, dir);
 			case 1:
 				return new MapGenSnowDungeon.ChallengeRoomB(lvl, x, y, z, dir);
+			case 2:
+				return new MapGenSnowDungeon.ChallengeRoomC(lvl, x, y, z, dir);
 			}
 		}
 		
@@ -380,6 +385,21 @@ public class MapGenSnowDungeon extends MapGenScattered
 		public ChallengeRoomB(int idx, int x, int y, int z, int dir)
 		{
 			super(MapGenSnowDungeon.ChallengeRoomB.pieces, idx, x, y, z, dir);
+		}
+	}
+	
+	public static class ChallengeRoomC extends StructureComponentMulti
+	{
+		static StructurePieceNBT[] pieces;
+		
+		public ChallengeRoomC()
+		{
+			super(MapGenSnowDungeon.ChallengeRoomC.pieces);
+		}
+		
+		public ChallengeRoomC(int idx, int x, int y, int z, int dir)
+		{
+			super(MapGenSnowDungeon.ChallengeRoomC.pieces, idx, x, y, z, dir);
 		}
 	}
 }

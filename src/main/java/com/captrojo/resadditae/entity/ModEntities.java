@@ -39,6 +39,6 @@ public class ModEntities
 		EntityRegistry.registerModEntity(EntityThrownHalberd.class, "ThrownHalberd", 0, ResAdditae.instance, 128, 1, true);
 		EntityRegistry.registerModEntity(EntitySnowEye.class, "SnowEye", 1, ResAdditae.instance, 128, -1, true);
 		
-		ModEntities.registerSpawnEgg(EntitySnowEye.class, 0x9dc6c1, 0x2bbfab);
+		ModEntities.registerSpawnEgg(EntitySnowEye.class, 0xbbede7, 0x79e5d7);
 	}
 }

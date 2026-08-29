@@ -2,9 +2,12 @@ package com.captrojo.resadditae.entity.client;
 
 import com.captrojo.resadditae.util.MiscHlpr;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.World;
 
+@SideOnly(Side.CLIENT)
 public class EntityZapFX extends EntityModFX
 {
 	public EntityZapFX(World world, double x, double y, double z)

@@ -3,6 +3,7 @@
 
 Additions:
 * Snow Eye mob. One spawns in every snow dungeon
+* Another snow dungeon challenge room (just a modified version of an old design)
 * Error checking and logging for ore drops to help figure out the cause of #22
 
 Changes:
@@ -12,6 +13,7 @@ Changes:
 Fixes:
 * Vines are now rotated correctly in structures
 * Duplicate tool crafting recipes (#10)
+* Removed outdated /flightspeed tab suggestions
 
 
 ▓▓▓ #0008 ▓▓▓

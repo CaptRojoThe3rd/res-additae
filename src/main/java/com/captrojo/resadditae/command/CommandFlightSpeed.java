@@ -57,10 +57,6 @@ public class CommandFlightSpeed extends CommandBase
 		List<String> list = null;
 		if (args.length == 1) {
 			list = new ArrayList<String>();
-			list.add("set");
-			list.add("get");
-		} else if (args.length == 2) {
-			list = new ArrayList<String>();
 			list.add("0.05");
 		}
 		return list;
