@@ -2,6 +2,8 @@ package com.captrojo.resadditae.gui.screen;
 
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.GL11;
+
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.gui.GuiScrollingList2;
 import com.captrojo.resadditae.magic.LearnedSpell;
@@ -72,6 +74,8 @@ public class GuiSpellSelectList extends GuiScrollingList2
 	{
 		FontRenderer fr = this.mc.fontRenderer;
 		LearnedSpell ls = this.spell_list.get(idx);
+		
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		
 		boolean hover = this.checkMousePos(this.left_x, element_right_x, element_y, element_y + 20);
 		int font_color = hover ? 0xffffc0 : 0xffffff;

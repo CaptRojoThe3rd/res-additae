@@ -4,6 +4,8 @@
 Additions:
 * Snow Eye mob. One spawns in every snow dungeon
 * Another snow dungeon challenge room (just a modified version of an old design)
+* Snow dungeon achievements
+* Spell stats
 * Error checking and logging for ore drops to help figure out the cause of #22
 
 Changes:
@@ -11,9 +13,13 @@ Changes:
 * Made recipe for compacted snow more expensive
 
 Fixes:
-* Vines are now rotated correctly in structures
+* Netherite scythe and halberd cannot be crafted (#6)
 * Duplicate tool crafting recipes (#10)
-* Removed outdated /flightspeed tab suggestions
+* Netherite and NTM-material halberds render as iron halberds when thrown
+* Vines incorrectly rotated correctly in structures
+* Outdated /flightspeed tab completion suggestions
+* Minor coloring bug in spell selection menu
+* Mana and magic skill levels can be pushed beyond maximum if the game is lagging
 
 
 ▓▓▓ #0008 ▓▓▓

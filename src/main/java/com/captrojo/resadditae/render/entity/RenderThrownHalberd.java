@@ -18,13 +18,23 @@ import net.minecraft.util.ResourceLocation;
 public class RenderThrownHalberd extends Render
 {
 	private static final ResourceLocation[] TEXTURES = {
-		new ResourceLocation(ResAdditae.ident("textures/tools/wood_halberd.png")),
-		new ResourceLocation(ResAdditae.ident("textures/tools/stone_halberd.png")),
-		new ResourceLocation(ResAdditae.ident("textures/tools/iron_halberd.png")),
-		new ResourceLocation(ResAdditae.ident("textures/tools/gold_halberd.png")),
-		new ResourceLocation(ResAdditae.ident("textures/tools/diamond_halberd.png")),
-		new ResourceLocation(ResAdditae.ident("textures/tools/silver_halberd.png")),
-		new ResourceLocation(ResAdditae.ident("textures/tools/platinum_halberd.png"))
+		ResAdditae.resource("textures/tools/wood_halberd.png"),
+		ResAdditae.resource("textures/tools/stone_halberd.png"),
+		ResAdditae.resource("textures/tools/copper_halberd.png"),
+		ResAdditae.resource("textures/tools/iron_halberd.png"),
+		ResAdditae.resource("textures/tools/gold_halberd.png"),
+		ResAdditae.resource("textures/tools/diamond_halberd.png"),
+		ResAdditae.resource("textures/tools/netherite_halberd.png"),
+		
+		ResAdditae.resource("textures/tools/silver_halberd.png"),
+		ResAdditae.resource("textures/tools/platinum_halberd.png"),
+		ResAdditae.resource("textures/tools/ancient_gem_halberd.png"),
+		
+		ResAdditae.resource("textures/tools/steel_halberd.png"),
+		ResAdditae.resource("textures/tools/titanium_halberd.png"),
+		ResAdditae.resource("textures/tools/cobalt_halberd.png"),
+		ResAdditae.resource("textures/tools/starmetal_halberd.png"),
+		ResAdditae.resource("textures/tools/cmb_halberd.png"),
 	};
 	
 	@Override

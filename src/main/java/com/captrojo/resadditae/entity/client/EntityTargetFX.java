@@ -74,6 +74,8 @@ public class EntityTargetFX extends EntityModFX
 		
 		this.setPosition(x, y, z);
 		this.particleScale = (float) scale;
+		
+		ts.setBrightness(0xf00000);
 	}
 
 	@Override

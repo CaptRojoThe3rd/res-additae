@@ -5,7 +5,6 @@ import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.captrojo.resadditae.achievement.ModAchievements;
 import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.command.CommandFill;
 import com.captrojo.resadditae.command.CommandFlightSpeed;
@@ -37,6 +36,8 @@ import com.captrojo.resadditae.packet.toserver.PacketLearnSpell;
 import com.captrojo.resadditae.packet.toserver.PacketNBTControl;
 import com.captrojo.resadditae.packet.toserver.PacketPlayerSettings;
 import com.captrojo.resadditae.packet.toserver.PacketUseSpell;
+import com.captrojo.resadditae.stats.ModAchievements;
+import com.captrojo.resadditae.stats.ModStats;
 import com.captrojo.resadditae.tileentity.ModTileEntities;
 import com.captrojo.resadditae.world.WorldProviderDepths;
 import com.captrojo.resadditae.world.biome.ModBiomes;
@@ -115,7 +116,8 @@ public class ResAdditae
 	
 	public static boolean common_items_error = false;
 	
-	/* This function is completely unncessary and is unused, but I'm leaving it here
+	/**
+	 * This function is completely unncessary and is unused, but I'm leaving it here
 	 * because it is funny
 	 */
 	public static Side getSideUnsafely(Side assumed_upon_failure)
@@ -130,7 +132,9 @@ public class ResAdditae
 		return assumed_upon_failure;
 	}
 	
-	/* Add "resadditae:" to the string if another identifier is not already present. */
+	/**
+	 * Add "resadditae:" to the string if another identifier is not already present.
+	 */
 	public static String ident(String str)
 	{
 		if (str.contains(":")) {
@@ -139,7 +143,9 @@ public class ResAdditae
 		return MOD_ID + ":" + str;
 	}
 	
-	/* Create a resource location, calling ResAdditae.ident on the path. */
+	/**
+	 * Create a resource location, calling ResAdditae.ident on the path.
+	 */
 	public static ResourceLocation resource(String path)
 	{
 		return new ResourceLocation(ident(path));
@@ -282,8 +288,8 @@ public class ResAdditae
 		
 		ModLoot.load();
 		
+		ModStats.initStats();
 		ModAchievements.initAchievements();
-		ModAchievements.registerAchievements();
 		
 		if (ModList.ET_FUTURUM.isLoaded()) {
 			EtFuturumHlpr.registerRecipes();

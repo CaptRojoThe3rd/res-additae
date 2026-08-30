@@ -58,7 +58,6 @@ public class EntitySnowEye extends EntityMob
 		super(world);
 		
 		this.setSize(1.0f, 1.0f);
-		this.attackTime = this.rand.nextInt(10);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -140,6 +139,9 @@ public class EntitySnowEye extends EntityMob
 
 		this.dwSetTarget(this.entityToAttack);
 		if (this.entityToAttack == null) {
+			if (this.attackTime == 0) {
+				this.attackTime = this.rand.nextInt(10);
+			}
 			this.rotationYaw += 2.0;
 			return;
 		}
@@ -158,9 +160,8 @@ public class EntitySnowEye extends EntityMob
 		
 		if (this.entityToAttack != null) {
 			if (this.attackTime <= 0) {
-				if (this.attackEntityAsMob(this.entityToAttack)) {
-					attack_fx_flag++;
-				}
+				this.attackEntityAsMob(this.entityToAttack);
+				attack_fx_flag++;
 			}
 		}
 		

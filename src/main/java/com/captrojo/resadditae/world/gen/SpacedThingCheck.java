@@ -1,4 +1,4 @@
-package com.captrojo.resadditae.world;
+package com.captrojo.resadditae.world.gen;
 
 import java.util.HashMap;
 import java.util.Map;

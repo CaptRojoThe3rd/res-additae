@@ -1,15 +1,17 @@
 
 achievement.hearts_increased=Stronger and Stronger
 achievement.hearts_increased.desc=Consume a heart container to increase your maximum health
-
 achievement.hearts_maxed=I'm [TITLE CARD]
 achievement.hearts_maxed.desc=Reach the maximum number of heart containers
 
-achievement.mana_increased=Magical
-achievement.mana_increased.desc=Consume a mana vessel to increase your maximum mana
-
-achievement.mana_maxed=Hogwarts Graduate
-achievement.mana_maxed.desc=Reach the maximum amount of mana
+achievement.snow_dungeon_find=An Icy Fortress
+achievement.snow_dungeon_find.desc=Enter a Snow Dungeon
+achievement.snow_dungeon_key=Frozen and Locked
+achievement.snow_dungeon_key.desc=Defeat the mobs from a Snow Dungeon spawner and get a key
+achievement.snow_dungeon_vault=Refridgerator
+achievement.snow_dungeon_vault.desc=Unlock a Snow Dungeon vault
+achievement.snow_dungeon_recharge=Greedy
+achievement.snow_dungeon_recharge.desc=Recharge a Snow Dungeon spawner
 
 alert.not_enough_mana=§cNot enough mana!
 alert.on_cooldown=§cSpell is on cooldown!
@@ -124,7 +126,7 @@ gui.charm_settings.tamed_mob_behavior=Tamed mob behavior
 gui.charm_settings.tamed_mob_info.all=Animals tamed by anyone will never be hurt and will always be helped.
 gui.charm_settings.tamed_mob_info.yours=Animals tamed only by you will never be hurt and will always be helped.
 
-gui.spellbook.title.beginner=§f§n%s
+gui.spellbook.title.beginner=§7§n%s
 gui.spellbook.title.basic=§6§n%s
 gui.spellbook.title.intermediate=§2§n%s
 gui.spellbook.title.advanced=§3§n%s
@@ -439,6 +441,10 @@ spell.hop.name=Hop
 spell.hop.book=Hop up a few blocks.
 spell.halt.name=Halt
 spell.halt.book=Freeze a mob or player in place, damaging them slightly in the process.
+
+stat.spells_learned=Spells Learned
+stat.spells_cast=Spells Cast
+stat.mana_used=Mana Used
 
 tile.bountiful_stones.andesite.name=Andesite
 tile.bountiful_stones.diorite.name=Diorite

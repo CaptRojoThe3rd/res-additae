@@ -206,8 +206,10 @@ public class GuiSpellMenu extends GuiContainer
 			this.click_cooldown = 5;
 		} else if (button.id == BTN_LVLUP_MANA && this.rpp.mana_level < RAPlayerProperties.MANA_LVL_MAX) {
 			ResAdditae.network.sendToServer(new PacketGuiContainerAction(Action.SELECT, -2, 0));
+			this.rpp.mana_level++;
 		} else if (button.id == BTN_LVLUP_SKILL && this.rpp.magic_skill_level < RAPlayerProperties.MAGIC_SKILL_LVL_MAX) {
 			ResAdditae.network.sendToServer(new PacketGuiContainerAction(Action.SELECT, -3, 0));
+			this.rpp.magic_skill_level++;
 		}
 	}
 }

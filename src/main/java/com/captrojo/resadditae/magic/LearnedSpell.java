@@ -6,6 +6,7 @@ import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
+import com.captrojo.resadditae.stats.ModStats;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -36,6 +37,7 @@ public class LearnedSpell implements Comparable<LearnedSpell>
 			this.proficiency++;
 			this.spell.sendAlert(rpp.player, Alerts.SPELL_PROF_LVLUP);
 		}
+		rpp.player.addStat(ModStats.spells_cast, 1);
 	}
 	
 	public float getProfPtProgress()

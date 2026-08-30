@@ -1,7 +1,5 @@
 package com.captrojo.resadditae.world.gen;
 
-import com.captrojo.resadditae.world.SpacedThingCheck;
-
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;

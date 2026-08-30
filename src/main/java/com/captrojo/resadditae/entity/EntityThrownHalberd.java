@@ -1,6 +1,8 @@
 package com.captrojo.resadditae.entity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.equipment.ItemHalberd;
@@ -30,6 +32,38 @@ import net.minecraft.world.World;
 public class EntityThrownHalberd extends EntityArrow
 {
 	public static final int DW_HALBERD_TYPE = 17;
+	
+	public static final Map<Item, Byte> halberd_dw_map;
+	
+	static
+	{
+		halberd_dw_map = new HashMap<Item, Byte>();
+		
+		halberd_dw_map.put(ModItems.wood_halberd, (byte) 0);
+		halberd_dw_map.put(ModItems.stone_halberd, (byte) 1);
+		halberd_dw_map.put(ModItems.iron_halberd, (byte) 3);
+		halberd_dw_map.put(ModItems.gold_halberd, (byte) 4);
+		halberd_dw_map.put(ModItems.diamond_halberd, (byte) 5);
+		halberd_dw_map.put(ModItems.netherite_halberd, (byte) 6);
+		
+		halberd_dw_map.put(ModItems.silver_halberd, (byte) 7);
+		halberd_dw_map.put(ModItems.platinum_halberd, (byte) 8);
+		halberd_dw_map.put(ModItems.ancient_gem_halberd, (byte) 9);
+		
+		halberd_dw_map.put(ModItems.steel_halberd, (byte) 10);
+		halberd_dw_map.put(ModItems.titanium_halberd, (byte) 11);
+		halberd_dw_map.put(ModItems.cobalt_halberd, (byte) 12);
+		halberd_dw_map.put(ModItems.starmetal_halberd, (byte) 13);
+		halberd_dw_map.put(ModItems.cmb_halberd, (byte) 14);
+	}
+
+	private static byte getHalberdTypeFromItem(Item item)
+	{
+		if (halberd_dw_map.containsKey(item)) {
+			return halberd_dw_map.get(item);
+		}
+		return 3;
+	}
 
 	protected boolean has_halberd_item;
 	protected ItemStack halberd_item;
@@ -46,7 +80,7 @@ public class EntityThrownHalberd extends EntityArrow
 	private int ticks_in_ground;
 	private int ticks_in_air;
 	
-	private double damage = 2.0d;
+	private double damage = 2.0;
 	private int knockback_strength;
 
 	public EntityThrownHalberd(World world)
@@ -69,39 +103,13 @@ public class EntityThrownHalberd extends EntityArrow
 		this.damaged = false;
 
 		ItemHalberd item = (ItemHalberd) stack.getItem();
-		this.damage = item.attack_damage * 0.8d;
+		this.damage = item.attack_damage * 0.8;
 
-		//this.setPosition(entity.posX, entity.posY + (double) entity.getEyeHeight(), entity.posZ);
+//		this.setPosition(entity.posX, entity.posY + (double) entity.getEyeHeight(), entity.posZ);
 		this.setLocationAndAngles(entity.posX, entity.posY + (double) entity.getEyeHeight(), entity.posZ, entity.rotationYaw, entity.rotationPitch);
-		this.motionX = (2d / item.weight) * (double) (-MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI));
-		this.motionZ = (2d / item.weight) * (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI));
-		this.motionY = (2d / item.weight) * (double) (-MathHelper.sin(this.rotationPitch / 180.0F * (float) Math.PI));
-	}
-
-	private static byte getHalberdTypeFromItem(Item item)
-	{
-		if (item == ModItems.wood_halberd) {
-			return 0;
-		}
-		if (item == ModItems.stone_halberd) {
-			return 1;
-		}
-		if (item == ModItems.iron_halberd) {
-			return 2;
-		}
-		if (item == ModItems.gold_halberd) {
-			return 3;
-		}
-		if (item == ModItems.diamond_halberd) {
-			return 4;
-		}
-		if (item == ModItems.silver_halberd) {
-			return 5;
-		}
-		if (item == ModItems.platinum_halberd) {
-			return 6;
-		}
-		return 2;
+		this.motionX = (2 / item.weight) * (double) (-MathHelper.sin(this.rotationYaw / 180.0f * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0f * (float) Math.PI));
+		this.motionZ = (2 / item.weight) * (double) (MathHelper.cos(this.rotationYaw / 180.0f * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0f * (float) Math.PI));
+		this.motionY = (2 / item.weight) * (double) (-MathHelper.sin(this.rotationPitch / 180.0f * (float) Math.PI));
 	}
 
 	public boolean isStuckInGround()
@@ -117,6 +125,11 @@ public class EntityThrownHalberd extends EntityArrow
 	public byte getHalberdTypeForRender()
 	{
 		return this.dataWatcher.getWatchableObjectByte(DW_HALBERD_TYPE);
+	}
+
+	public void setActuallyDead()
+	{
+		this.isDead = true;
 	}
 
 	@Override
@@ -135,12 +148,8 @@ public class EntityThrownHalberd extends EntityArrow
 			this.setActuallyDead();
 		}
 	}
-
-	public void setActuallyDead()
-	{
-		this.isDead = true;
-	}
 	
+	@Override
 	public void onUpdate()
 	{
 		super.onUpdate();

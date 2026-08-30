@@ -12,12 +12,14 @@ import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.extprop.SpawnSource;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.item.MultiItems;
+import com.captrojo.resadditae.stats.ModAchievements;
 import com.captrojo.resadditae.tileentity.TESnowDungeonSpawner;
 import com.captrojo.resadditae.util.ItemHlpr;
 import com.captrojo.resadditae.util.MiscHlpr;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -33,7 +35,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import net.minecraftforge.event.brewing.PotionBrewEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -133,47 +134,6 @@ public class CommonEventHandler
 			ItemStack stack = drop.getDrop(rand, event.lootingLevel);
 			ItemHlpr.spawnEntityItemAt(stack, entity);
 		}
-	}
-	
-	@SubscribeEvent
-	public void onPlayerClone(PlayerEvent.Clone event)
-	{
-		if (event.entity.worldObj.isRemote) {
-			return;
-		}
-		PlayerAttributes.updatePlayerHealthMod(event.original, event.entityPlayer, true);
-		RAPlayerProperties.transfer(event.original, event.entityPlayer);
-	}
-	
-	@SubscribeEvent
-	public void onPlayerChangingDimension(PlayerChangedDimensionEvent event)
-	{
-		if (event.player.worldObj.isRemote) {
-			return;
-		}
-		PlayerAttributes.updatePlayerHealthMod(event.player, event.player, false);
-	}
-	
-	@SubscribeEvent
-	public void onPlayerLogin(PlayerLoggedInEvent event)
-	{
-		if (event.player.worldObj.isRemote) {
-			return;
-		}
-		if (GeneralConfig.enable_motd) {
-			event.player.addChatMessage(new ChatComponentText("Loaded world with " + ResAdditae.NAME + " " + ResAdditae.VERSION_NAME));
-		}
-	}
-	
-	@SubscribeEvent
-	public void onPlayerTick(PlayerTickEvent event)
-	{
-		RAPlayerProperties rpp = RAPlayerProperties.get(event.player);
-		if (event.side == Side.CLIENT) {
-			rpp.tickClient();
-			return;
-		}
-		rpp.tick();
 	}
 	
 	@SubscribeEvent

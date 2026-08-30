@@ -5,10 +5,13 @@ import java.util.Random;
 import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.util.Consts;
 import com.captrojo.resadditae.util.MiscHlpr;
+import com.captrojo.resadditae.world.ModWorldData;
 import com.captrojo.resadditae.world.gen.structure.nbt.StructureComponentNBT;
 import com.captrojo.resadditae.world.gen.structure.nbt.StructurePieceNBT;
+import com.captrojo.resadditae.world.snowdungeon.SnowDungeon;
 
 import net.minecraft.util.Direction;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureStart;
@@ -81,7 +84,7 @@ public class MapGenSnowDungeon extends MapGenScattered
 	@Override
 	protected StructureStart getStructureStart(int chunk_x, int chunk_z)
 	{
-		return new MapGenSnowDungeon.Start(this.rand, chunk_x, chunk_z);
+		return new MapGenSnowDungeon.Start(this.worldObj, this.rand, chunk_x, chunk_z);
 	}
 	
 	public static class Start extends StructureStart
@@ -96,12 +99,13 @@ public class MapGenSnowDungeon extends MapGenScattered
 		{
 		}
 		
-		public Start(Random rand, int chunk_x, int chunk_z)
+		public Start(World world, Random rand, int chunk_x, int chunk_z)
 		{
 			super(chunk_x, chunk_z);
 			int x = chunk_x << 4, y = 72, z = chunk_z << 4;
-			
-			this.components.add(new MapGenSnowDungeon.Pyramid(x, y, z));
+
+			MapGenSnowDungeon.Pyramid pyramid = new MapGenSnowDungeon.Pyramid(x, y, z);
+			this.components.add(pyramid);
 			
 			Integer[] arr = MiscHlpr.getUniqueRandomInts(rand, 4, MapGenSnowDungeon.Basin.pieces.length - 2);
 			this.components.add(new MapGenSnowDungeon.Basin(x - 11, y + 1, z - 11, arr[0]));
@@ -118,6 +122,10 @@ public class MapGenSnowDungeon extends MapGenScattered
 			this.generateFromStartNode(rand, MapGenSnowDungeon.UGND_START_NODES[7 - d], 3, x, y, z);
 			
 			this.updateBoundingBox();
+			
+			ModWorldData mwd = ModWorldData.getForWorld(world);
+			SnowDungeon sd = new SnowDungeon(x, y, z, pyramid.getBoundingBox());
+			mwd.addSnowDungeon(sd);
 		}
 		
 		void generateFromStartNode(Random rand, int[] start_node, int base_lvl, int x, int y, int z)

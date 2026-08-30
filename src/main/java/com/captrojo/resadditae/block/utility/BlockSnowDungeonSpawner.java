@@ -3,6 +3,7 @@ package com.captrojo.resadditae.block.utility;
 import com.captrojo.resadditae.block.IUnlockable;
 import com.captrojo.resadditae.item.MultiItems;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.stats.ModAchievements;
 import com.captrojo.resadditae.tileentity.TESnowDungeonSpawner;
 
 import cpw.mods.fml.relauncher.Side;
@@ -120,5 +121,6 @@ public class BlockSnowDungeonSpawner extends BlockMultiSpawner implements IUnloc
 	{
 		TESnowDungeonSpawner te = (TESnowDungeonSpawner) world.getTileEntity(x, y, z);
 		te.setState(TESnowDungeonSpawner.State.INACTIVE);
+		player.triggerAchievement(ModAchievements.snow_dungeon_recharge);
 	}
 }

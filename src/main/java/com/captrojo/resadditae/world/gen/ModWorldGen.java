@@ -10,7 +10,6 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.compatibility.CommonBlocks;
 import com.captrojo.resadditae.config.common.CommonStuffConfig;
 import com.captrojo.resadditae.config.common.WorldGenConfig;
-import com.captrojo.resadditae.world.SpacedThingCheck;
 import com.captrojo.resadditae.world.gen.feature.WorldGenChasm;
 import com.captrojo.resadditae.world.gen.feature.WorldGenMinableDynamic;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;

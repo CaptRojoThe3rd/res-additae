@@ -2,13 +2,13 @@ package com.captrojo.resadditae.item.generic;
 
 import java.util.List;
 
-import com.captrojo.resadditae.achievement.ModAchievements;
 import com.captrojo.resadditae.config.common.PlayerConfig;
 import com.captrojo.resadditae.extprop.ManaUpgrades;
 import com.captrojo.resadditae.extprop.PlayerAttributes;
 import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.stats.ModAchievements;
 import com.captrojo.resadditae.util.ItemHlpr;
 
 import cpw.mods.fml.relauncher.Side;

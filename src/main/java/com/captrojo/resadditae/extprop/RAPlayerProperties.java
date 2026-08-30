@@ -12,6 +12,7 @@ import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toclient.PacketPlayerExtProps;
+import com.captrojo.resadditae.stats.ModStats;
 import com.captrojo.resadditae.util.SerialHlpr;
 
 import cpw.mods.fml.relauncher.Side;
@@ -102,7 +103,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 	public RAPlayerProperties(EntityPlayer player)
 	{
 		this.player = player;
-		this.periodic_update_counter = 0;
+		this.periodic_update_counter = player.worldObj.rand.nextInt(20);
 		
 		this.learned_spells = new ArrayList<LearnedSpell>();
 		this.spell_slots = new LearnedSpell[6];
@@ -138,7 +139,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.load();
 	}
 	
-	/* Do initialization after deserialization or loading from NBT */
+	/**
+	 * Do initialization after deserialization or loading from NBT
+	 */
 	public void load()
 	{
 		this.mana_max = this.mana_level * 100;
@@ -226,7 +229,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		}
 	}
 	
-	/* Increase the amount of mana the player has.
+	/**
+	 * Increase the amount of mana the player has.
 	 * Returns the actual amount added.
 	 */
 	public int replenishMana(int amount)
@@ -238,7 +242,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		return dif;
 	}
 	
-	/* Decrease the amount of mana the player has, optionally triggering a delay before
+	/**
+	 * Decrease the amount of mana the player has, optionally triggering a delay before
 	 * the player's mana begins recharging.
 	 * Returns the actual amount subtracted.
 	 */
@@ -249,6 +254,7 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 //		}
 		int dif = (this.mana < amount) ? this.mana : amount;
 		this.mana -= dif;
+		this.player.addStat(ModStats.mana_used, dif);
 		if (recharge_delay) {
 			this.mana_recharge_counter = 60;
 		}
@@ -256,7 +262,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		return dif;
 	}
 	
-	/* Get the power of the equipped wand */
+	/**
+	 * Get the power of the equipped wand
+	 */
 	public MagicComplexity getWandPower()
 	{
 		if (this.wand_item == null) {
@@ -302,7 +310,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.scheduleUpdate();
 	}
 	
-	/* Get a learned spell from a provided spell */
+	/**
+	 * Get a learned spell from a provided spell
+	 */
 	public LearnedSpell getLearnedFromSpell(Spell spell)
 	{
 		for (LearnedSpell ls : this.learned_spells) {
@@ -341,7 +351,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.scheduleUpdate();
 	}
 	
-	/* Activate a spell. Called upon receiving a packet from the client requesting this.
+	/**
+	 * Activate a spell. Called upon receiving a packet from the client requesting this.
 	 * Calls triggerSpell if the requested spell is instant-use.
 	 */
 	public void activateSpell(int idx)
@@ -368,7 +379,9 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		this.scheduleUpdate();
 	}
 	
-	/* Called to trigger the current active spell, or to activate an instant-use spell. */
+	/**
+	 * Called to trigger the current active spell, or to activate an instant-use spell.
+	 */
 	public void triggerSpell(int idx)
 	{
 		if (this.isSpellOnCooldown(idx)) {
@@ -378,7 +391,8 @@ public class RAPlayerProperties implements IExtendedEntityProperties
 		ls.spell.onTriggered(this.player.worldObj, this.player, this, ls, idx);
 	}
 
-	/* Deactivate the spell. Index is primarily for deactivating continuous spells, but it
+	/**
+	 * Deactivate the spell. Index is primarily for deactivating continuous spells, but it
 	 * should still be provided for deactivating an active spell.
 	 */
 	public void deactivateSpell(int idx)

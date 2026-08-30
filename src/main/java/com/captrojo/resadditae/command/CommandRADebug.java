@@ -177,6 +177,10 @@ public class CommandRADebug extends CommandBase
 			sender.addChatMessage(I18nHlpr.chat("end"));
 			return;
 		}
+		
+		if (args[0].equals("test1")) {
+			
+		}
 	}
 	
 	@Override

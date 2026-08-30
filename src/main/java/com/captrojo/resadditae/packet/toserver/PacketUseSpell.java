@@ -4,6 +4,7 @@ import com.captrojo.resadditae.extprop.RAPlayerProperties;
 import com.captrojo.resadditae.magic.LearnedSpell;
 import com.captrojo.resadditae.magic.SpellTargetData;
 import com.captrojo.resadditae.main.ResAdditae;
+import com.captrojo.resadditae.stats.ModStats;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

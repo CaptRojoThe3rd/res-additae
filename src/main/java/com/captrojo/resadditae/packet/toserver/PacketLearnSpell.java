@@ -5,6 +5,7 @@ import com.captrojo.resadditae.magic.spell.Spell;
 import com.captrojo.resadditae.magic.spell.Spells;
 import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
+import com.captrojo.resadditae.stats.ModStats;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -50,6 +51,7 @@ public class PacketLearnSpell implements IMessage
 			EntityPlayer player = ctx.getServerHandler().playerEntity;
 			RAPlayerProperties rpp = RAPlayerProperties.get(player);
 			rpp.learnNewSpell(spell);
+			player.addStat(ModStats.spells_learned, 1);
 			
 			return new PacketDisplayAlert(Alerts.SPELL_LEARNED, packet.spell_id);
 		}

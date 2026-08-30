@@ -8,6 +8,7 @@ import com.captrojo.resadditae.main.Alerts;
 import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.packet.toclient.PacketDisplayAlert;
 import com.captrojo.resadditae.packet.toclient.PacketSpellFeedback;
+import com.captrojo.resadditae.stats.ModStats;
 import com.captrojo.resadditae.util.I18nHlpr;
 
 import cpw.mods.fml.relauncher.Side;
@@ -119,7 +120,9 @@ public abstract class Spell
 		return complexity_limit.ordinal() >= this.complexity.ordinal();
 	}
 	
-	/* Tell the client to do something after a spell is triggered on the server. */
+	/**
+	 * Tell the client to do something after a spell is triggered on the server.
+	 */
 	public void sendFeedback(EntityPlayer player, int idx, PacketSpellFeedback.Feedback...actions)
 	{
 		ResAdditae.network.sendTo(new PacketSpellFeedback(idx, actions), (EntityPlayerMP) player);

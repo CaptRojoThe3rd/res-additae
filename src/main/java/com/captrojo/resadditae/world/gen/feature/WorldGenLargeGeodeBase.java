@@ -12,7 +12,7 @@ import com.captrojo.resadditae.main.ResAdditae;
 import com.captrojo.resadditae.util.BlockHlpr;
 import com.captrojo.resadditae.world.SimpleCoords;
 import com.captrojo.resadditae.world.SimpleNode;
-import com.captrojo.resadditae.world.SpacedThingCheck;
+import com.captrojo.resadditae.world.gen.SpacedThingCheck;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

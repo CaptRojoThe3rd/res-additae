@@ -7,7 +7,7 @@ import com.captrojo.resadditae.block.ModBlocks;
 import com.captrojo.resadditae.config.common.DebugConfig;
 import com.captrojo.resadditae.config.common.WorldGenConfig;
 import com.captrojo.resadditae.main.ResAdditae;
-import com.captrojo.resadditae.world.SpacedThingCheck;
+import com.captrojo.resadditae.world.gen.SpacedThingCheck;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

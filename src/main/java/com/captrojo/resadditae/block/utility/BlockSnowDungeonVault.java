@@ -1,7 +1,7 @@
 package com.captrojo.resadditae.block.utility;
 
-import com.captrojo.resadditae.block.IMultiBlockData;
 import com.captrojo.resadditae.item.MultiItems;
+import com.captrojo.resadditae.stats.ModAchievements;
 import com.captrojo.resadditae.world.loot.LootGroup;
 import com.captrojo.resadditae.world.loot.ModLoot;
 
@@ -59,5 +59,12 @@ public class BlockSnowDungeonVault extends BlockVaultBase
 			return false;
 		}
 		return (key & 0x7) == world.getBlockMetadata(x, y, z);
+	}
+	
+	@Override
+	public void unlockBlock(World world, EntityPlayer player, int x, int y, int z, int key)
+	{
+		super.unlockBlock(world, player, x, y, z, key);
+		player.triggerAchievement(ModAchievements.snow_dungeon_vault);
 	}
 }

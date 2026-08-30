@@ -2,8 +2,8 @@ package com.captrojo.resadditae.world.gen.structure;
 
 import com.captrojo.resadditae.config.common.DebugConfig;
 import com.captrojo.resadditae.main.ResAdditae;
-import com.captrojo.resadditae.world.SpacedThingCheck;
 import com.captrojo.resadditae.world.gen.ModWorldGen;
+import com.captrojo.resadditae.world.gen.SpacedThingCheck;
 import com.captrojo.resadditae.world.gen.structure.nbt.StructurePieceNBT;
 
 import net.minecraft.util.ResourceLocation;
