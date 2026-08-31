@@ -23,7 +23,7 @@ Not all builds will be uploaded to Modrinth, due to any of the following reasons
 * The new build is a demo/feedback is wanted
 * It has been too soon since a previous release/the build doesn't add much
 
-A changelog for every version of the mod can be found [here](../blob/master/src/main/resources/changelog.txt).
+A changelog for every version of the mod can be found [here](../master/src/main/resources/changelog.txt).
 
 ## Supported versions
 
