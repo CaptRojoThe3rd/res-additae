@@ -638,7 +638,7 @@ tile.ore_magnesium.name=Magnesium Ore
 tile.ore_boron.name=Boron Ore
 
 tile.ore_sulfur.name=Sulfur Ore
-tile.ore_nite.namer=Niter Ore
+tile.ore_niter.name=Niter Ore
 tile.ore_fluorite.name=Fluorite Ore
 tile.ore_beryllium.name=Beryllium Ore
 tile.ore_rare_earth.name=Rare Earth Ore
