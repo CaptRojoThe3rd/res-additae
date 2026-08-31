@@ -115,7 +115,9 @@ commands.radev.toggle-fill-wand-behavior.false=Filling with structure voids repl
 death.attack.thrown_halberd=%s was impaled by %s
 death.attack.magic_lifesteal=%s's life was drained by %s
 
+entity.resadditae.ThrownHalberd.name=Thrown Halberd
 entity.resadditae.SnowEye.name=Snow Eye
+entity.resadditae.SheepMoreColors.name=Sheep (More Colors)
 
 gui.charm_settings.title=Charm Settings
 gui.charm_settings.help_players=Charms help players
@@ -635,14 +637,14 @@ tile.ore_zinc.name=Zinc Ore
 tile.ore_magnesium.name=Magnesium Ore
 tile.ore_boron.name=Boron Ore
 
-tile.ore_sulfur=Sulfur Ore
-tile.ore_niter=Niter Ore
-tile.ore_fluorite=Fluorite Ore
-tile.ore_beryllium=Beryllium Ore
-tile.ore_rare_earth=Rare Earth Ore
-tile.ore_cobalt=Cobalt Ore
-tile.ore_cinnebar=Cinnebar Ore
-tile.ore_coltan=Coltan Ore
+tile.ore_sulfur.name=Sulfur Ore
+tile.ore_nite.namer=Niter Ore
+tile.ore_fluorite.name=Fluorite Ore
+tile.ore_beryllium.name=Beryllium Ore
+tile.ore_rare_earth.name=Rare Earth Ore
+tile.ore_cobalt.name=Cobalt Ore
+tile.ore_cinnebar.name=Cinnebar Ore
+tile.ore_coltan.name=Coltan Ore
 
 tile.flowers_a.aster.name=Aster
 tile.flowers_a.black_eyed_susan.name=Black-Eyed Susan

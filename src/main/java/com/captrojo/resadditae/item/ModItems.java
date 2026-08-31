@@ -11,6 +11,7 @@ import com.captrojo.resadditae.item.equipment.ItemPickaxe;
 import com.captrojo.resadditae.item.equipment.ItemScythe;
 import com.captrojo.resadditae.item.equipment.ItemShovel;
 import com.captrojo.resadditae.item.equipment.ItemSword;
+import com.captrojo.resadditae.item.generic.ItemModDye;
 import com.captrojo.resadditae.item.generic.ItemKey;
 import com.captrojo.resadditae.item.generic.ItemMulti;
 import com.captrojo.resadditae.item.generic.ItemVessel;
@@ -129,7 +130,7 @@ public class ModItems
 		raws = new ItemMulti("raws", MultiItems.RAWS);
 		gems = new ItemMulti("gems", MultiItems.GEMS);
 		
-		dye = new ItemMulti("dye", new DyeItemData());
+		dye = new ItemModDye("dye", new DyeItemData());
 		shiny_rocks = new ItemMulti("shiny_rocks", MultiItems.SHINY_ROCKS);
 		
 		wood_scythe = new ItemScythe("wood_scythe", "wood_scythe", ToolMaterial.WOOD, ExtendedToolMaterial.WOOD);

@@ -2,6 +2,8 @@
 ▓▓▓ #0009 ▓▓▓
 
 Additions:
+* Ore generation config options (#24)
+* Extended color sheep. Same as regular sheep, but it uses the mod's dyes.
 * Snow Eye mob. One spawns in every snow dungeon
 * Another snow dungeon challenge room (just a modified version of an old design)
 * Snow dungeon achievements
@@ -9,6 +11,9 @@ Additions:
 * Error checking and logging for ore drops to help figure out the cause of #22
 
 Changes:
+* World gen code refactor. Structures and chasms generate before biome decorations now
+	* Maybe this fixes #12?
+* Chasms check for biomes to spawn covered in differently
 * Shiny rocks can now only be obtained from gravel in the overworld (by default)
 * Made recipe for compacted snow more expensive
 
@@ -20,6 +25,7 @@ Fixes:
 * Outdated /flightspeed tab completion suggestions
 * Minor coloring bug in spell selection menu
 * Mana and magic skill levels can be pushed beyond maximum if the game is lagging
+* Ore name errors
 
 
 ▓▓▓ #0008 ▓▓▓

@@ -1,9 +1,11 @@
 package com.captrojo.resadditae.world.gen.feature;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
+import com.captrojo.resadditae.block.ModBlocks;
+import com.captrojo.resadditae.main.ResAdditae;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
@@ -13,9 +15,9 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 public class WorldGenMinableDynamic extends WorldGenMinable
 {
 	private final int number_of_blocks;
-	private final HashMap<BlockMeta, BlockMeta> tgt_ore_map;
+	private final Map<BlockMeta, BlockMeta> tgt_ore_map;
 	
-	public WorldGenMinableDynamic(int number, HashMap<BlockMeta, BlockMeta> tgt_ore_map)
+	public WorldGenMinableDynamic(int number, Map<BlockMeta, BlockMeta> tgt_ore_map)
 	{
 		super(Blocks.stone, 0);
 		this.number_of_blocks = number;

@@ -31,16 +31,6 @@ public class WorldGenChasm extends WorldGenerator
 //		8
 	);
 	
-	public static final BiomeGenBase[] COVER_BIOMES = {
-		BiomeGenBase.beach,
-		BiomeGenBase.coldBeach,
-		BiomeGenBase.stoneBeach,
-		BiomeGenBase.ocean,
-		BiomeGenBase.deepOcean,
-		BiomeGenBase.frozenOcean,
-		BiomeGenBase.river
-	};
-	
 	private static final int MIN_EXIT_SPACE = 10;
 	
 	public static World getOverworld()
@@ -81,10 +71,8 @@ public class WorldGenChasm extends WorldGenerator
 	public boolean shouldBeCovered(World worldsurf, int x0, int z0)
 	{
 		BiomeGenBase biome = worldsurf.getBiomeGenForCoords(x0, z0);
-		for (BiomeGenBase chk : COVER_BIOMES) {
-			if (chk.isEqualTo(biome)) {
-				return true;
-			}
+		if (biome.rootHeight <= 0.0f) {
+			return true;
 		}
 		return false;
 	}
@@ -205,11 +193,7 @@ public class WorldGenChasm extends WorldGenerator
 					if (circle[xc][zc] == 0) {
 						continue;
 					} else if (circle[xc][zc] == 1 && !existing.isOpaqueCube()) {
-						if (y < 63) {
-							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, surf_side.block, surf_side.meta);
-						} else if (y < (y_limit - 3)) {
-							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
-						}
+						this.setBlockAndNotifyAdequately(worldsurf, x, y, z, air.block, air.meta);
 					} else if (circle[xc][zc] == 2) {
 						if (y < 4) {
 							this.setBlockAndNotifyAdequately(worldsurf, x, y, z, ModBlocks.depths_portal, 0);

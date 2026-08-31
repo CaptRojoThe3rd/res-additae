@@ -3,7 +3,7 @@ package com.captrojo.resadditae.main;
 import com.captrojo.resadditae.config.CommonConfig;
 import com.captrojo.resadditae.config.JsonConfig;
 import com.captrojo.resadditae.world.WorldEvents;
-import com.captrojo.resadditae.world.gen.WorldGenEventHandler;
+import com.captrojo.resadditae.world.gen.ModWorldGen;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,16 +21,16 @@ public class CommonProxy
 		FMLCommonHandler.instance().bus().register(common);
 		MinecraftForge.EVENT_BUS.register(common);
 		
-		PlayerEvents player_event_handler = new PlayerEvents();
-		FMLCommonHandler.instance().bus().register(player_event_handler);
-		MinecraftForge.EVENT_BUS.register(player_event_handler);
+		PlayerEvents.instance = new PlayerEvents();
+		FMLCommonHandler.instance().bus().register(PlayerEvents.instance);
+		MinecraftForge.EVENT_BUS.register(PlayerEvents.instance);
 		
-		WorldGenEventHandler worldgen_event_handler = new WorldGenEventHandler();
-		MinecraftForge.TERRAIN_GEN_BUS.register(worldgen_event_handler);
+		WorldEvents.instance = new WorldEvents();
+		FMLCommonHandler.instance().bus().register(WorldEvents.instance);
+		MinecraftForge.EVENT_BUS.register(WorldEvents.instance);
 		
-		WorldEvents world_event_handler = new WorldEvents();
-		FMLCommonHandler.instance().bus().register(world_event_handler);
-		MinecraftForge.EVENT_BUS.register(world_event_handler);
+		MinecraftForge.EVENT_BUS.register(ModWorldGen.instance);
+		MinecraftForge.TERRAIN_GEN_BUS.register(ModWorldGen.instance);
 	}
 	
 	public void registerEventHandlers()

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.captrojo.resadditae.entity.monster.EntitySnowEye;
+import com.captrojo.resadditae.entity.passive.EntitySheepMoreColors;
 import com.captrojo.resadditae.main.ResAdditae;
 
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -38,7 +39,9 @@ public class ModEntities
 	{
 		EntityRegistry.registerModEntity(EntityThrownHalberd.class, "ThrownHalberd", 0, ResAdditae.instance, 128, 1, true);
 		EntityRegistry.registerModEntity(EntitySnowEye.class, "SnowEye", 1, ResAdditae.instance, 128, -1, true);
+		EntityRegistry.registerModEntity(EntitySheepMoreColors.class, "SheepMoreColors", 2, ResAdditae.instance, 128, -1, true);
 		
 		ModEntities.registerSpawnEgg(EntitySnowEye.class, 0xbbede7, 0x79e5d7);
+		ModEntities.registerSpawnEgg(EntitySheepMoreColors.class, 0xc0c0e5, 0xffb5b5);
 	}
 }

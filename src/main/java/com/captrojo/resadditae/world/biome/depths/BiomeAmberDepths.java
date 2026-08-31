@@ -3,7 +3,7 @@ package com.captrojo.resadditae.world.biome.depths;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.ModBlocks;
-import com.captrojo.resadditae.world.gen.ModWorldGen;
+import com.captrojo.resadditae.world.gen.WorldGenHlpr;
 import com.captrojo.resadditae.world.gen.feature.Geodes;
 import com.captrojo.resadditae.world.gen.feature.WorldGenLargeGeodeBase;
 
@@ -47,7 +47,7 @@ public class BiomeAmberDepths extends BiomeDepthsBase
 			int gx = rand.nextInt(16) + block_x;
 			int gz = rand.nextInt(16) + block_z;
 			
-			ModWorldGen.generateFlowers(world, rand, gx, this.getNearestOpenY(world, gx, y, gz), gz, this.flower_blocks, this.flower_metas);
+			WorldGenHlpr.generateFlowers(world, rand, gx, this.getNearestOpenY(world, gx, y, gz), gz, this.flower_blocks, this.flower_metas);
 		}
 	}
 

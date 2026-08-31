@@ -3,7 +3,7 @@ package com.captrojo.resadditae.world.biome;
 import java.util.Random;
 
 import com.captrojo.resadditae.block.MultiBlockStacks;
-import com.captrojo.resadditae.world.gen.ModWorldGen;
+import com.captrojo.resadditae.world.gen.WorldGenHlpr;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
 
 import net.minecraft.block.Block;
@@ -67,11 +67,11 @@ public class BiomeChestnutForest extends BiomeGenBase
 		int z = rand.nextInt(15) + z1;
 		int y = world.getHeightValue(x, z);
 		if (rand.nextInt(3) < 1) {
-			if (ModWorldGen.is5x5Clearing(world, x, y, z)) {
+			if (WorldGenHlpr.is5x5Clearing(world, x, y, z)) {
 				(new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, x, y, z);
 			}
 		}
 
-		ModWorldGen.generateFlowers(world, rand, x1, z1, FLOWER_BLOCKS, FLOWER_METAS, 2);
+		WorldGenHlpr.generateFlowers(world, rand, x1, z1, FLOWER_BLOCKS, FLOWER_METAS, 2);
 	}
 }

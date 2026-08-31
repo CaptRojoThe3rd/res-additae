@@ -20,6 +20,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class PlayerEvents
 {
+	public static PlayerEvents instance;
+	
 	@SubscribeEvent
 	public void onItemPickup(ItemPickupEvent event)
 	{

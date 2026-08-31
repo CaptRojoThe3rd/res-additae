@@ -48,4 +48,10 @@ public class BlockMeta
 		}
 		return other.meta == this.meta;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return Block.getIdFromBlock(this.block) | (this.meta << 16); 
+	}
 }

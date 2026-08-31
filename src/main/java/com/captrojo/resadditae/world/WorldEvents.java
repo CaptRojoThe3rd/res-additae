@@ -8,6 +8,8 @@ import net.minecraftforge.event.world.WorldEvent;
 
 public class WorldEvents
 {
+	public static WorldEvents instance;
+	
 	@SubscribeEvent
 	public void loadWorld(WorldEvent.Load event)
 	{

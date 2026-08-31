@@ -13,6 +13,7 @@ import com.captrojo.resadditae.creativetab.TabNature;
 import com.captrojo.resadditae.creativetab.TabUtility;
 import com.captrojo.resadditae.entity.EntityThrownHalberd;
 import com.captrojo.resadditae.entity.monster.EntitySnowEye;
+import com.captrojo.resadditae.entity.passive.EntitySheepMoreColors;
 import com.captrojo.resadditae.gui.hud.HUDElements;
 import com.captrojo.resadditae.item.ModItems;
 import com.captrojo.resadditae.render.RenderHlpr;
@@ -21,6 +22,7 @@ import com.captrojo.resadditae.render.block.RenderDirectionalBlock;
 import com.captrojo.resadditae.render.block.RenderMossLayer;
 import com.captrojo.resadditae.render.block.RenderMultiFence;
 import com.captrojo.resadditae.render.block.RenderMultiStair;
+import com.captrojo.resadditae.render.entity.RenderSheepMoreColors;
 import com.captrojo.resadditae.render.entity.RenderSnowEye;
 import com.captrojo.resadditae.render.entity.RenderThrownHalberd;
 import com.captrojo.resadditae.render.item.RenderItemHalberd;
@@ -95,6 +97,7 @@ public class ClientProxy extends CommonProxy
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownHalberd.class, new RenderThrownHalberd());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowEye.class, new RenderSnowEye());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySheepMoreColors.class, new RenderSheepMoreColors());
 	}
 	
 	@Override

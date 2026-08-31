@@ -156,8 +156,6 @@ public class ResAdditae
 	{
 		LOG.info(String.format("%s %s for Minecraft 1.7.10", NAME, VERSION_NAME));
 		
-		proxy.registerEventHandlers();
-		
 		/* This shouldn't break (hopefully) */
 		dir_minecraft = event.getModConfigurationDirectory().getParent();
 		dir_config = event.getModConfigurationDirectory().toString() + File.separator + "resadditae";
@@ -231,13 +229,16 @@ public class ResAdditae
 		ModStructures.load();
 		DimensionManager.registerProviderType(WorldGenConfig.depths_dimension_id, WorldProviderDepths.class, true);
 		DimensionManager.registerDimension(WorldGenConfig.depths_dimension_id, WorldGenConfig.depths_dimension_id);
-		GameRegistry.registerWorldGenerator(new ModWorldGen(), 1);
+		ModWorldGen.instance = new ModWorldGen();
+		GameRegistry.registerWorldGenerator(ModWorldGen.instance, 1);
 		ModBiomes.initBiomes();
 		ModBiomes.registerBiomes();
 		
 		if (!ModList.VILLAGE_NAMES.isLoaded() && !MapGenVillage.villageSpawnBiomes.contains(BiomeGenBase.taiga)) {
 			MapGenVillage.villageSpawnBiomes.add(BiomeGenBase.taiga);
 		}
+		
+		proxy.registerEventHandlers();
 		
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID);
 		

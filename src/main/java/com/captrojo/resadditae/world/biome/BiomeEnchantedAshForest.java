@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.captrojo.resadditae.block.BlockMeta;
 import com.captrojo.resadditae.block.MultiBlockStacks;
-import com.captrojo.resadditae.world.gen.ModWorldGen;
+import com.captrojo.resadditae.world.gen.WorldGenHlpr;
 import com.captrojo.resadditae.world.gen.feature.WorldGenShallowPond;
 import com.captrojo.resadditae.world.gen.feature.tree.ModTrees;
 
@@ -91,7 +91,7 @@ public class BiomeEnchantedAshForest extends BiomeGenBase
 			(new WorldGenShallowPond(7)).generate(world, rand, x, y, z);
 		}
 
-		ModWorldGen.generateFlowers(world, rand, x1, z1, FLOWER_BLOCKS, FLOWER_METAS, 6);
+		WorldGenHlpr.generateFlowers(world, rand, x1, z1, FLOWER_BLOCKS, FLOWER_METAS, 6);
 	}
 	
 	@Override

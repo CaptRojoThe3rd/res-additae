@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.captrojo.resadditae.config.StructureConfigOptns;
+
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -35,10 +37,24 @@ public class SpacedThingCheck
 		this.max_dist = max_distance;
 	}
 	
+	public SpacedThingCheck(StructureConfigOptns options)
+	{
+		this.seed = options.name.hashCode();
+		this.valid_biomes = null;
+		
+		this.excl_rad = options.excl_rad;
+		this.min_dist = options.min_dist;
+		this.max_dist = options.max_dist;
+	}
+	
 	public boolean posCheck(World world, int chunk_x, int chunk_z)
 	{
 		if (Math.sqrt((chunk_x * chunk_x) + (chunk_z * chunk_z)) < this.excl_rad) {
 			return false;
+		}
+		
+		if (this.max_dist == 0) {
+			return true;
 		}
 		
 		int cx = chunk_x;
@@ -58,8 +74,12 @@ public class SpacedThingCheck
 		
 		cxm *= this.max_dist;
 		czm *= this.max_dist;
-		cxm += rand.nextInt(this.max_dist - this.min_dist);
-		czm += rand.nextInt(this.max_dist - this.min_dist);
+		
+		int rand_add = this.max_dist - this.min_dist;
+		if (rand_add > 0) {
+			cxm += rand.nextInt(rand_add);
+			czm += rand.nextInt(rand_add);
+		}
 		
 		if (cx != cxm || cz != czm) {
 			return false;
