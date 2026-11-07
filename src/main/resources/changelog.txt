@@ -1,4 +1,9 @@
 
+▓▓▓ #0010 ▓▓▓
+
+Fixes:
+* World generation crash (#25)
+
 ▓▓▓ #0009 ▓▓▓
 
 Additions:

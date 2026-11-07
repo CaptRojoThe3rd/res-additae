@@ -39,6 +39,9 @@ public class WorldGenMinableDynamic extends WorldGenMinable
 	{
 		BlockMeta tgt = new BlockMeta(world, x, y, z);
 		BlockMeta ore = this.getOreForGen(tgt);
+		if (ore == null) {
+			return;
+		}
 		this.setBlockAndNotifyAdequately(world, x, y, z, ore.block, ore.meta);
 	}
 

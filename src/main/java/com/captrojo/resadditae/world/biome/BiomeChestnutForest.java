@@ -52,8 +52,8 @@ public class BiomeChestnutForest extends BiomeGenBase
 	@Override
 	public WorldGenAbstractTree func_150567_a(Random random)
 	{
-		if (random.nextInt(10) == 1) {
-			return new WorldGenTrees(false, 5, 0, 0, false);
+		if (random.nextInt(5) == 1) {
+//			return new WorldGenTrees(false, 5, 0, 0, false);
 		}
 		return ModTrees.chestnutGen(false);
 	}
