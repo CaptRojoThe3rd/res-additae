@@ -1,6 +1,13 @@
 
 # Res Additae for Minecraft 1.7.10
 
+## NOTICE
+
+This mod is currently not being actively developed. This mod was really just my random ideas, and I
+don't think it really is a good mod considering the messiness of it. However, many of the world gen
+features of it will be continued and expanded upon in a new mod I am developing, "CaptRojo's World
+Gen" [https://github.com/CaptRojoThe3rd/crwg].
+
 ## Features
 
 * New tools, such as scythes and halberds.
@@ -23,7 +30,7 @@ Not all builds will be uploaded to Modrinth, due to any of the following reasons
 * The new build is a demo/feedback is wanted
 * It has been too soon since a previous release/the build doesn't add much
 
-A changelog for every version of the mod can be found [here](../blob/master/src/main/resources/changelog.txt).
+A changelog for every version of the mod can be found [here](../main/src/main/resources/changelog.txt).
 
 ## Supported versions
 
